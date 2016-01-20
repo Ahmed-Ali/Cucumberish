@@ -232,7 +232,7 @@ CCIStepsUsingKIF * instance = nil;
             NSString * value = [args[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];//[NSString stringWithCString:[args[0] UTF8String] encoding:NSUTF8StringEncoding];
             
             if (![content isEqualToString:value]) {
-                self.failureReason = [NSString stringWithFormat:@"The value \"%@\" found in the element at row %@ section %@ in %@ table is different than \"%@\"", cell.textLabel.text, args[1], args[2], args[3], args[0]];
+                self.failureReason = [NSString stringWithFormat:@"The expected value is: %@ but found: %@", args[0], cell.textLabel.text];
             }
         }
         return [self result];
@@ -243,7 +243,7 @@ CCIStepsUsingKIF * instance = nil;
         if(self.failureReason.length > 0){
             return [self result];
         }else if(![tableView isKindOfClass:[UITableView class]]){
-            self.failureReason = [NSString stringWithFormat:@"Found view with label %@, but it is not a table", args[3]];
+            self.failureReason = [NSString stringWithFormat:@"Found element with label %@, but it is not a table", args[3]];
             return [self result];
         }
         NSUInteger section = [args[1] integerValue];
@@ -256,11 +256,14 @@ CCIStepsUsingKIF * instance = nil;
         return [self result];
     });
     
-    MatchAll(@"^I swipe (right|left) the cell (\\d*) in section (\\d*) in the \"([^\\\"]*)\" table$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
+    MatchAll(@"^I swipe (right|left) (?:the )?row (\\d*) in section (\\d*) in (?:the )?\"([^\\\"]*)\" table$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
         UITableView * tableView = (UITableView *)[actor waitForViewWithAccessibilityLabel:args[3]];
         if(self.failureReason.length > 0){
             return [self result];
-        }else if(![tableView isKindOfClass:[UITableView class]]){
+        }else if(tableView == nil){
+            self.failureReason = [NSString stringWithFormat:@"Could not find any element with the label %@", args[3]];
+            return [self result];
+        } else if(![tableView isKindOfClass:[UITableView class]]){
             self.failureReason = [NSString stringWithFormat:@"Found view with label %@, but it is not a table", args[3]];
             return [self result];
         }

@@ -48,6 +48,9 @@ static CCIFeaturesManager * instance = nil;
     GHParser * featureParser = [[GHParser alloc] init];
     for (NSURL * filePath in featureFiles) {
         NSString * content = [NSString stringWithContentsOfURL:filePath encoding:NSUTF8StringEncoding error:nil];
+        if([content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0){
+            continue;
+        }
         id result = [featureParser parseContent:content];
         
         if(result){

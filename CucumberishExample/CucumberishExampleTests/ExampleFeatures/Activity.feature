@@ -1,4 +1,4 @@
-Feature: Activity Feature
+Feature: Activity
 As I a user I should be able to add some activites, and delete them
 
 Scenario: Add an activity
@@ -11,7 +11,8 @@ Scenario: Add an activity
     Then I switch off the "Currently Happening" switch
     Then I tap "Activity Add" button
     When I tap "Activities" button
-    Then I should see "First Ended Activity (6)" at row 0 section 1 in "Activities List" table
+# Done like that intentionally to be a failure example
+    Then I should see "First Ended Activity (5)" at row 0 section 1 in "Activities List" table
 
 Scenario: Preparing for multible adding
     Given it is home screen
@@ -70,3 +71,7 @@ Scenario: Deleting activities
     And I tap "Activities" button
     Then I should see 2 rows at section 0 in "Activities List" table
     But I should see 1 rows at section 1 in "Activities List" table
+
+    Then I swipe left the row 0 in section 0 in "Activities List" table
+    And I tap "Delete" button
+    Then I should see 1 row at section 0 in "Activities List" table

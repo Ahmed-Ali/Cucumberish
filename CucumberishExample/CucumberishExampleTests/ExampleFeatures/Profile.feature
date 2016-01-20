@@ -1,4 +1,4 @@
-Feature: Profile Feature
+Feature: Profile
 As I a user I should be able to create profile and update my details
 
 Scenario: Create profile
