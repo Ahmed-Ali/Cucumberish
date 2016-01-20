@@ -175,7 +175,7 @@
                                                             <!--1998-01-01 11:00:00 AM +0000-->
                                                         </date>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Birthdate Picker"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Birthdate"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </datePicker>
                                                 </subviews>
