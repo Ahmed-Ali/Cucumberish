@@ -383,6 +383,9 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="History"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="HIY-zm-2PK" id="1es-Y2-8V4"/>
                             <outlet property="delegate" destination="HIY-zm-2PK" id="9d1-u3-yvC"/>

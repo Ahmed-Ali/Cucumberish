@@ -251,7 +251,7 @@ extern NSString * stepDefinitionLineForStep(CCIStep * step);
 
 + (Class)featureTestCaseClass:(CCIFeature *)feature
 {
-    NSString * className = [feature.name camleCaseStringWithFirstUppercaseCharacter:YES];
+    NSString * className = [@"CCI_" stringByAppendingString:[feature.name camleCaseStringWithFirstUppercaseCharacter:YES]];
     Class featureClass = objc_allocateClassPair([XCTestCase class], [className UTF8String], 0);
     if(featureClass == nil){
         featureClass = NSClassFromString(className);
