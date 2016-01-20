@@ -179,9 +179,8 @@ void addDefinition(NSString * definitionString, CCIStepBody body, NSString * typ
 {
     CCIStepDefinition * definition = [CCIStepDefinition definitionWithType:type regexString:definitionString implementationBody:body];
     NSMutableArray * cluster = [[CCIStepsManager instance] definitionsCluster:type];
-    [cluster addObject:definition];
+    [cluster insertObject:definition atIndex:0];
 }
-
 
 CCIExecutionResult * step(NSString * stepLine)
 {
