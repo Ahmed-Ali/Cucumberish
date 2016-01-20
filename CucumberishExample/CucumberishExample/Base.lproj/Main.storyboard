@@ -316,7 +316,7 @@
                     <navigationItem key="navigationItem" title="Create Activity" id="JMH-6d-nae">
                         <barButtonItem key="rightBarButtonItem" title="Add" id="QYW-qT-Dg9">
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Add Activity"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Activity Add"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="addActivity:" destination="EK9-mg-BxS" id="GKj-pj-UEu"/>
@@ -350,6 +350,10 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isAccessibilityElement" value="YES"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Activities List"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="Z7X-Hn-Fny" id="AV9-uv-Ojs"/>
                             <outlet property="delegate" destination="Z7X-Hn-Fny" id="T19-Kb-na3"/>

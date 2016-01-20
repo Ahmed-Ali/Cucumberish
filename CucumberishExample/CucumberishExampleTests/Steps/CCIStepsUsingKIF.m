@@ -79,16 +79,26 @@ CCIStepsUsingKIF * instance = nil;
         [actor tapViewWithAccessibilityLabel:args[0]];
         return [self result];
     });
+    //And I tap "Increment" button 5 times
+    MatchAll(@"^I tap (?:the )?\"([^\\\"]*)\" (?:button|view) ([1-9]{1}) time(?:s)?$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
+        NSUInteger times = [args[1] integerValue];
+        NSUInteger n = 0;
+        while (self.failureReason.length == 0 && n < times) {
+            [actor tapViewWithAccessibilityLabel:args[0]];
+            ++n;
+        }
+        return [self result];
+    });
     //And I write "eng.ahmed.ali.awad@gmail.com" into the "Email" field
     MatchAll(@"^I write \"([^\\\"]*)\" (?:into|in) (?:the )?\"([^\\\"]*)\" field$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
         [actor enterText:args[0] intoViewWithAccessibilityLabel:args[1]];
         return [self result];
     });
-    MatchAll(@"^I clear the \"([^\\\"]*)\" field$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
+    MatchAll(@"^I clear (?:the )?\"([^\\\"]*)\" field$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
         [actor clearTextFromViewWithAccessibilityLabel:args[0]];
         return [self result];
     });
-    MatchAll(@"^I clear the text and write \"([^\\\"]*)\" (?:into|in) (?:the )?\"([^\\\"]*)\" field$"  ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
+    MatchAll(@"^I clear (?:the )?text and write \"([^\\\"]*)\" (?:into|in) (?:the )?\"([^\\\"]*)\" field$"  ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
         return steps(@[
                        [NSString stringWithFormat:@"I clear the \"%@\" field", args[1]],
                        [NSString stringWithFormat:@"I write \"%@\" into the \"%@\" field", args[0], args[1]],
@@ -99,7 +109,7 @@ CCIStepsUsingKIF * instance = nil;
         [actor enterTextIntoCurrentFirstResponder:args[0]];
         return [self result];
     });
-    MatchAll(@"^I cleare the text and write \"([^\\\"]*)\" (?:into|in) (?:the )?active text field$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
+    MatchAll(@"^I cleare (?:the )?text and write \"([^\\\"]*)\" (?:into|in) (?:the )?active text field$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
         [actor clearTextFromAndThenEnterTextIntoCurrentFirstResponder:args[0]];
         return [self result];
     });
@@ -124,7 +134,7 @@ CCIStepsUsingKIF * instance = nil;
         }
         return [self result];
     });
-//    And I set the "Birthdate" picker date to "25-12-2000"
+
     MatchAll(@"^I set the \"(.*)\" picker date to \"(.*)\"$", ^CCIExecutionResult *(NSArray *args, id userInfo) {
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
         [df setDateFormat:@"dd-MM-yyyy"];
@@ -152,20 +162,20 @@ CCIStepsUsingKIF * instance = nil;
         return [self result];
     });
     
-    MatchAll(@"^I tap the cell (\\d*) in section (\\d*) in the \"([^\\\"]*)\" table$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
+    MatchAll(@"^I tap (?:the )?cell (\\d*) in section (\\d*) in the \"([^\\\"]*)\" table$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
         NSIndexPath * indexPath = [NSIndexPath indexPathForRow:[args[0] intValue] inSection:[args[1] intValue]];
         [actor tapRowAtIndexPath:indexPath inTableViewWithAccessibilityIdentifier:args[2]];
         return [self result];
  
     });
-    MatchAll(@"^I tap the item (\\d*) in section (\\d*) in the \"([^\\\"]*)\" collection$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
+    MatchAll(@"^I tap (?:the )?item (\\d*) in section (\\d*) in the \"([^\\\"]*)\" collection$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
         NSIndexPath * indexPath = [NSIndexPath indexPathForItem:[args[0] intValue] inSection:[args[1] intValue]];
         [actor tapItemAtIndexPath:indexPath inCollectionViewWithAccessibilityIdentifier:args[2]];
         return [self result];
  
     });
     
-    MatchAll(@"^I want to switch (on|off) the \"([^\\\"]*)\" switch$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
+    MatchAll(@"^I switch (on|off) the \"([^\\\"]*)\" switch$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
         NSString * state = args[0];
         
         BOOL on = [state isEqualToString:@"on"] ? YES : NO;
@@ -173,23 +183,23 @@ CCIStepsUsingKIF * instance = nil;
         return [self result];
     });
     
-    MatchAll(@"^I should see the \"([^\\\"]*)\" view$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
-        [actor waitForViewWithAccessibilityLabel:args[0]];
+    MatchAll(@"^I should see (?:the )?\"([^\\\"]*)\" (?:view|field|label|button)$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
+        [actor waitForViewWithAccessibilityLabel:args[0] traits:UIAccessibilityTraitNone];
         return [self result];
     });
-    MatchAll(@"^I should not see the \"([^\\\"]*)\" view$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
+    MatchAll(@"^I should not see (?:the )?\"([^\\\"]*)\" (?:view|field|label|button)$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
         [actor waitForAbsenceOfViewWithAccessibilityLabel:args[0]];
         return [self result];
 
     });
     
-    MatchAll(@"^I press the \"([^\\\"]*)\" view for (\\d*) seconds$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
+    MatchAll(@"^I press (?:the )?\"([^\\\"]*)\" (?:view|field|label|button) for (\\d*) seconds$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
         [actor longPressViewWithAccessibilityLabel:args[0] duration:[args[1] doubleValue]];
         return [self result];
 
     });
     
-    MatchAll(@"^I press the \"([^\\\"]*)\" view for (\\d*) seconds$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
+    MatchAll(@"^I press (?:the )?\"([^\\\"]*)\" (?:view|field|label|button) for (\\d*) seconds$" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
         [actor longPressViewWithAccessibilityLabel:args[0] duration:[args[1] doubleValue]];
         return [self result];
         
@@ -200,6 +210,49 @@ CCIStepsUsingKIF * instance = nil;
     });
     MatchAll(@"I wait for keybaord to be appear" ,  ^CCIExecutionResult *(NSArray *args, id userInfo) {
         [actor waitForKeyInputReady];
+        return [self result];
+    });
+    
+    MatchAll(@"I should see \"(.*)\" at row (\\d*) section (\\d*) in \"([^\\\"]*)\" table", ^CCIExecutionResult *(NSArray *args, id userInfo) {
+        UITableView * tableView = (UITableView *)[actor waitForViewWithAccessibilityLabel:args[3]];
+        if(self.failureReason.length > 0){
+            return [self result];
+        }else if(![tableView isKindOfClass:[UITableView class]]){
+            self.failureReason = [NSString stringWithFormat:@"Found view with label %@, but it is not a table", args[3]];
+            return [self result];
+        }
+        NSUInteger section = [args[2] integerValue];
+        NSUInteger row = [args[1] integerValue];
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+        UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
+        if(cell == nil){
+            self.failureReason = [NSString stringWithFormat:@"Could not find any element at row %@ section %@ in table %@", args[1], args[2], args[3]];
+        }else{
+            NSString * content = [cell.textLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            NSString * value = [args[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];//[NSString stringWithCString:[args[0] UTF8String] encoding:NSUTF8StringEncoding];
+            
+            if (![content isEqualToString:value]) {
+                self.failureReason = [NSString stringWithFormat:@"The value \"%@\" found in the element at row %@ section %@ in %@ table is different than \"%@\"", cell.textLabel.text, args[1], args[2], args[3], args[0]];
+            }
+        }
+        return [self result];
+    });
+    
+    MatchAll(@"I should see (\\d*) row(?:s)? at section (\\d*) in \"([^\\\"]*)\" table", ^CCIExecutionResult *(NSArray *args, id userInfo) {
+        UITableView * tableView = (UITableView *)[actor waitForViewWithAccessibilityLabel:args[2]];
+        if(self.failureReason.length > 0){
+            return [self result];
+        }else if(![tableView isKindOfClass:[UITableView class]]){
+            self.failureReason = [NSString stringWithFormat:@"Found view with label %@, but it is not a table", args[3]];
+            return [self result];
+        }
+        NSUInteger section = [args[1] integerValue];
+        NSUInteger expectedNumberOfRows = [args[0] integerValue];
+        NSUInteger actualNumberOfRows = [tableView numberOfRowsInSection:section];
+        if(actualNumberOfRows != expectedNumberOfRows){
+            self.failureReason = [NSString stringWithFormat:@"The number of rows found at section %@ is: %i, while the expected number of rows is: %i", args[1], (int)actualNumberOfRows, (int)expectedNumberOfRows];
+        }
+        
         return [self result];
     });
     
