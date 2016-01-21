@@ -12,7 +12,6 @@
 #import "CCIScenarioDefinition.h"
 #import "CCIHock.h"
 #import "CCIAroundHock.h"
-#import "CCIExecution.h"
 
 OBJC_EXTERN void beforeStart(void(^beforeStartBlock)(void));
 OBJC_EXTERN void afterFinish(void(^afterFinishBlock)(void));
@@ -33,8 +32,6 @@ OBJC_EXTERN void throwCucumberishException(NSString *reason);;
 
 
 @property (nonatomic) BOOL fixMissingLastScenario;
-
-@property (nonatomic, strong) CCIExecution * currentlyExecuting;
 
 + (instancetype)instance;
 
