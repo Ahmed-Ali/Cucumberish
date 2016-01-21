@@ -23,6 +23,7 @@
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    
     if(dictionary[@"examples"] != nil && [dictionary[@"examples"] isKindOfClass:[NSArray class]]){
         NSArray * examplesDictionaries = dictionary[@"examples"];
         NSMutableArray * examplesItems = [NSMutableArray array];
@@ -79,7 +80,16 @@
     if (![dictionary[@"filePath"] isKindOfClass:[NSNull class]]) {
         self.filePath = dictionary[@"filePath"];
     }
-
+    
+    if(dictionary[@"success"] != nil && ![dictionary[@"success"] isKindOfClass:[NSNull class]]){
+        self.success = [dictionary[@"success"] boolValue];
+    }else{
+        //By default scenario considered as success
+        self.success = YES;
+    }
+    if(dictionary[@"failureReason"] != nil && ![dictionary[@"failureReason"] isKindOfClass:[NSNull class]]){
+        self.failureReason = dictionary[@"failureReason"];
+    }
 	return self;
 }
 
@@ -126,6 +136,15 @@
     if(self.filePath != nil){
         dictionary[@"filePath"] = self.filePath;
     }
+    
+    
+    
+    dictionary[@"success"] = @(self.success);
+    if(self.failureReason.length > 0){
+        dictionary[@"failureReason"] = self.failureReason;
+    }
+    
+    
     return dictionary;
     
 }
@@ -162,6 +181,10 @@
     if(self.filePath != nil){
         [aCoder encodeObject:self.filePath forKey:@"filePath"];
     }
+    [aCoder encodeObject:@(self.success) forKey:@"success"];
+    if(self.failureReason.length > 0){
+        [aCoder encodeObject:self.failureReason forKey:@"failureReason"];
+    }
     
 }
 
@@ -179,6 +202,9 @@
     self.tags = [aDecoder decodeObjectForKey:@"tags"];
     self.type = [aDecoder decodeObjectForKey:@"type"];
     self.filePath = [aDecoder decodeObjectForKey:@"filePath"];
+    self.success = [aDecoder decodeObjectForKey:@"success"];
+    self.failureReason = [aDecoder decodeObjectForKey:@"failureReason"];
+    
     return self;
 }
 
