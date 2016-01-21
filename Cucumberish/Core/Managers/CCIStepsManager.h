@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CCIExecutionResult.h"
 #import "CCIStepDefinition.h"
 
 @class CCIStep;
@@ -21,12 +20,12 @@ OBJC_EXTERN void And(NSString * definitionString, CCIStepBody body);
 OBJC_EXTERN void But(NSString * definitionString, CCIStepBody body);
 OBJC_EXTERN void MatchAll(NSString * definitionString, CCIStepBody body);
 
-OBJC_EXPORT CCIExecutionResult * step(NSString * stepLine);
-OBJC_EXPORT CCIExecutionResult * steps(NSArray * steps);
+OBJC_EXPORT void step(NSString * stepLine);
+OBJC_EXPORT void steps(NSArray * steps);
 @interface CCIStepsManager : NSObject
 
 
 + (instancetype)instance;
 
-- (CCIExecutionResult *)executeStep:(CCIStep *)step;
+- (void)executeStep:(CCIStep *)step;
 @end

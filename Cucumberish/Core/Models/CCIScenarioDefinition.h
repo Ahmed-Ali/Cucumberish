@@ -11,7 +11,7 @@
 #import "CCIExample.h"
 #import "CCILocation.h"
 #import "CCIStep.h"
-#import "CCIExecutionResult.h"
+
 #import "CCITag.h"
 @interface CCIScenarioDefinition : NSObject <NSCopying>
 @property (nonatomic, strong) NSArray<CCIExample *> * examples;
@@ -22,7 +22,8 @@
 @property (nonatomic, strong) NSArray <CCITag *> * tags;
 @property (nonatomic, copy) NSString * type;
 @property (nonatomic, copy) NSString * filePath;
-@property (nonatomic, strong) CCIExecutionResult * executionResult;
+@property (nonatomic, strong) NSString * failureReason;
+@property (nonatomic, assign) BOOL success;
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 -(NSDictionary *)toDictionary;

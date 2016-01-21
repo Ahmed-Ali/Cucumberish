@@ -9,7 +9,7 @@
 #import "CCIStepsManager.h"
 
 #import "CCIStep.h"
-
+#import "Cucumberish.h"
 
 static CCIStepsManager * instance = nil;
 
@@ -125,15 +125,11 @@ static CCIStepsManager * instance = nil;
     return nil;
 }
 
-- (CCIExecutionResult *)executeStep:(CCIStep *)step
+- (void)executeStep:(CCIStep *)step
 {
     CCIStepDefinition * implementation = [self findMatchDefinitionForStep:step];
-    if(implementation == nil){
-        NSString * reason = [[NSString stringWithFormat:@"The step \"%@ %@\" is not implemented", step.keyword, step.text] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        return [CCIExecutionResult status:CCIExecutionStatusFail reason:reason];
-    }
-    
-    return implementation.body(implementation.matchedValues, nil);
+    CCIAssert(implementation != nil, @"The step \"%@ %@\" is not implemented", step.keyword, [step.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]);
+    implementation.body(implementation.matchedValues, nil);
 }
 
 
@@ -182,22 +178,18 @@ void addDefinition(NSString * definitionString, CCIStepBody body, NSString * typ
     [cluster insertObject:definition atIndex:0];
 }
 
-CCIExecutionResult * step(NSString * stepLine)
+void step(NSString * stepLine)
 {
-    return steps(@[stepLine]);
+    steps(@[stepLine]);
 }
-CCIExecutionResult * steps(NSArray * steps)
+void steps(NSArray * steps)
 {
     for (NSString *stepLine in steps) {
         CCIStep * step = [CCIStep new];
         step.text = stepLine;
-        CCIExecutionResult * result = [[CCIStepsManager instance] executeStep:step];
-        if(result.status == CCIExecutionStatusFail){
-            return result;
-        }
+        [[CCIStepsManager instance] executeStep:step];
     }
-    
-    return [CCIExecutionResult status:CCIExecutionStatusPass reason:nil];
+   
 }
 
 

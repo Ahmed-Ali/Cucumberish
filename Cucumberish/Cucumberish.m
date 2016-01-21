@@ -24,9 +24,12 @@
 #define STRINGFY2(StringConst) STRINGFY(StringConst)
 #define SRCROOT @ STRINGFY2(SRC_ROOT)
 
-extern void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenario, CCIFeature * feature);
-extern void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario);
-extern NSString * stepDefinitionLineForStep(CCIStep * step);
+@interface CCIExeption : NSException @end
+@implementation CCIExeption @end
+
+OBJC_EXTERN void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenario, CCIFeature * feature);
+OBJC_EXTERN void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario);
+OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 @interface Cucumberish()
 @property (nonatomic, copy) void(^beforeStartHock)(void);
@@ -77,6 +80,7 @@ extern NSString * stepDefinitionLineForStep(CCIStep * step);
         Class featureClass = [Cucumberish featureTestCaseClass:feature];
         [[CCIFeaturesManager instance] setClass:featureClass forFeature:feature];
         [Cucumberish swizzleDefaultSuiteImplementationForClass:featureClass];
+        [Cucumberish swizzleFailureRecordingImplementationForClass:featureClass];
     }
 }
 
@@ -170,13 +174,12 @@ extern NSString * stepDefinitionLineForStep(CCIStep * step);
 }
 
 #pragma mark - Runtime hacks
-+ (void)swizzleDefaultSuiteImplementationForClass:(Class)class
+
++ (void)swizzleOrignalSelect:(SEL)originalSelector swizzledSelect:(SEL)swizzledSelector originalClass:(Class)originalClass targetClass:(Class)targetClass
 {
-    SEL originalSelector = @selector(defaultTestSuite);
-    SEL swizzledSelector = @selector(cucumberish_defaultTestSuite);
-    class = object_getClass((id)class);
+    Class class = object_getClass((id)originalClass);
     Method originalMethod = class_getClassMethod(class, originalSelector);
-    Method swizzledMethod = class_getClassMethod(self, swizzledSelector);
+    Method swizzledMethod = class_getClassMethod(targetClass, swizzledSelector);
     BOOL didAddMethod =
     class_addMethod(class,
                     originalSelector,
@@ -191,6 +194,31 @@ extern NSString * stepDefinitionLineForStep(CCIStep * step);
     } else {
         method_exchangeImplementations(originalMethod, swizzledMethod);
     }
+}
++ (void)swizzleFailureRecordingImplementationForClass:(Class)class
+{
+    SEL originalSelector = @selector(recordFailureWithDescription:inFile:atLine:expected:);
+    SEL swizzledSelector = @selector(cucumberish_recordFailureWithDescription:inFile:atLine:expected:);
+    [Cucumberish swizzleOrignalSelect:originalSelector swizzledSelect:swizzledSelector originalClass:class targetClass:self];
+}
+
++ (void)cucumberish_recordFailureWithDescription:(NSString *)description inFile:(NSString *)filePath atLine:(NSUInteger)lineNumber expected:(BOOL)expected
+{
+    CCIExecution * execution = [Cucumberish instance].currentlyExecuting;
+    if(execution.scenario.success){
+        execution.scenario.success = NO;
+        execution.scenario.failureReason = description;
+    }else{
+        [self cucumberish_recordFailureWithDescription:description inFile:filePath atLine:lineNumber expected:expected];
+    }
+}
+
++ (void)swizzleDefaultSuiteImplementationForClass:(Class)class
+{
+    SEL originalSelector = @selector(defaultTestSuite);
+    SEL swizzledSelector = @selector(cucumberish_defaultTestSuite);
+    [Cucumberish swizzleOrignalSelect:originalSelector swizzledSelect:swizzledSelector originalClass:class targetClass:self];
+   
 }
 
 + (XCTestSuite *)cucumberish_defaultTestSuite
@@ -292,6 +320,9 @@ extern NSString * stepDefinitionLineForStep(CCIStep * step);
 
 void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenario, CCIFeature * feature)
 {
+    [Cucumberish instance].currentlyExecuting = [CCIExecution testCase:self feature:feature scenario:scenario step:nil];
+    
+    
     self.continueAfterFailure = YES;
     if(feature == [CCIFeaturesManager instance].features.firstObject && scenario == feature.scenarioDefinitions.firstObject && [Cucumberish instance].beforeStartHock){
         [Cucumberish instance].beforeStartHock();
@@ -313,23 +344,54 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
 
 void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
 {
+    CCIExecution * execution = [[Cucumberish instance] currentlyExecuting];
     NSString * targetName = [[NSBundle bundleForClass:[Cucumberish class]] infoDictionary][@"CFBundleName"];
     NSString * srcRoot = SRCROOT;
     //Clean up unwanted /Pods path caused by cocoa pods
     if([srcRoot hasSuffix:@"/Pods"]){
         srcRoot = [srcRoot stringByReplacingCharactersInRange:NSMakeRange(srcRoot.length - 5, 5) withString:@""];
     }
+    
     for (CCIStep * step in steps) {
-        NSString * stepPath = [NSString stringWithFormat:@"%@/%@%@", srcRoot, targetName, step.filePath];
-        CCIExecutionResult * result = [[CCIStepsManager instance] executeStep:step];
-        if(result.status == CCIExecutionStatusFail){
-            [testCase recordFailureWithDescription:result.reason inFile:stepPath atLine:step.location.line expected:YES];
+        if(!execution.scenario.success){
+            NSString * filePath = [NSString stringWithFormat:@"%@/%@%@", srcRoot, targetName, execution.step.filePath];
+            [testCase recordFailureWithDescription:execution.scenario.failureReason inFile:filePath atLine:execution.step.location.line expected:YES];
             break;
+        }
+        execution.step = step;
+        @try {
+            [[CCIStepsManager instance] executeStep:step];
+        }
+        @catch (CCIExeption *exception) {
+            
         }
         
     }
+    if(!execution.scenario.success){
+        NSString * filePath = [NSString stringWithFormat:@"%@/%@%@", srcRoot, targetName, execution.step.filePath];
+        [testCase recordFailureWithDescription:execution.scenario.failureReason inFile:filePath atLine:execution.step.location.line expected:YES];
+    }
 }
 
+
+void CCIAssert(BOOL expression, NSString * failureMessage, ...)
+{
+    if(!expression){
+        va_list args;
+        va_start(args, failureMessage);
+        NSString *description = [[NSString alloc] initWithFormat:failureMessage arguments:args];
+        va_end(args);
+        throwCucumberishException(description);
+    }
+}
+
+void throwCucumberishException(NSString *reason)
+{
+    CCIScenarioDefinition * scenario = [Cucumberish instance].currentlyExecuting.scenario;
+    scenario.success = NO;
+    scenario.failureReason = reason;
+    [[CCIExeption exceptionWithName:@"CCIException" reason:reason userInfo:nil] raise];
+}
 
 #pragma mark - Hooks
 void beforeStart(void(^beforeStartBlock)(void))

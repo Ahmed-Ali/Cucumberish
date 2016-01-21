@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <KIF/KIF.h>
-#import "CCIExecutionResult.h"
+
 @class CCIStep;
 
 @interface CCIStepsUsingKIF : NSObject
@@ -19,5 +19,5 @@
 + (void)setup;
 
 
--(CCIExecutionResult *)result;
+
 @end

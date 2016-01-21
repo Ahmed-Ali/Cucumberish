@@ -12,7 +12,7 @@
 #import "CCIScenarioDefinition.h"
 #import "CCIHock.h"
 #import "CCIAroundHock.h"
-
+#import "CCIExecution.h"
 
 OBJC_EXTERN void beforeStart(void(^beforeStartBlock)(void));
 OBJC_EXTERN void afterFinish(void(^afterFinishBlock)(void));
@@ -25,12 +25,16 @@ OBJC_EXTERN void afterTagged(NSArray * tags, CCIScenarioHockBlock afterTaggedBlo
 
 OBJC_EXTERN void around(NSArray * tags, CCIScenarioExecutionHockBlock aroundScenarioBlock);
 
+OBJC_EXTERN void CCIAssert(BOOL expression, NSString * failureMessage, ...);
 
+OBJC_EXTERN void throwCucumberishException(NSString *reason);;
 
 @interface Cucumberish : NSObject
 
 
 @property (nonatomic) BOOL fixMissingLastScenario;
+
+@property (nonatomic, strong) CCIExecution * currentlyExecuting;
 
 + (instancetype)instance;
 

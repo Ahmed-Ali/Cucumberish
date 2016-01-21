@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-@class CCIExecutionResult;
+
 @class CCIStep;
 
-typedef CCIExecutionResult * (^CCIStepBody)(NSArray * args, id userInfo);
+typedef void(^CCIStepBody)(NSArray * args, id userInfo);
 
 @interface CCIStepDefinition : NSObject<NSCopying>
 
