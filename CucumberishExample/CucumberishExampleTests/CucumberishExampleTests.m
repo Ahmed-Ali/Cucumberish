@@ -20,14 +20,13 @@
 {
     [CCIStepsUsingKIF setup];
     KIFUITestActor * actor = [CCIStepsUsingKIF instance].actor;
-    Given(@"it is home screen", ^CCIExecutionResult *(NSArray *args, id userInfo) {
+    Given(@"it is home screen", ^void(NSArray *args, id userInfo) {
         while ([actor isViewExistForAccessibilityLabel:@"Nav Back"]) {
             [actor tapViewWithAccessibilityLabel:@"Nav Back"];
         }
-        return [[CCIStepsUsingKIF instance] result];
     });
     
-    And(@"all data cleared", ^CCIExecutionResult *(NSArray *args, id userInfo) {
+    And(@"all data cleared", ^void(NSArray *args, id userInfo) {
         return step(@"I tap the \"Clear All Data\" button");
     });
     

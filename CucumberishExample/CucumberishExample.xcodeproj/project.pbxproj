@@ -80,7 +80,6 @@
 		60853A8C1C4ED7BD00806CD9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60853A8A1C4ED7BD00806CD9 /* LaunchScreen.storyboard */; };
 		60853AB11C4EE8BF00806CD9 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 60853AB01C4EE8BF00806CD9 /* Profile.m */; };
 		60853AC11C4EF58D00806CD9 /* Activity.m in Sources */ = {isa = PBXBuildFile; fileRef = 60853AC01C4EF58D00806CD9 /* Activity.m */; };
-		609607711C51644D007C74C2 /* CCIExecution.m in Sources */ = {isa = PBXBuildFile; fileRef = 609607701C51644D007C74C2 /* CCIExecution.m */; };
 		CE8C0DCF38DAA6851B86EA19 /* libPods-CucumberishExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F96FF80F09F076CF8F3D23A0 /* libPods-CucumberishExampleTests.a */; };
 /* End PBXBuildFile section */
 
@@ -737,7 +736,6 @@
 				6075A5D81C4FB34400FE2B1B /* GHParserException.m in Sources */,
 				6075A5CC1C4FB34400FE2B1B /* GHExamples.m in Sources */,
 				6075A5C81C4FB34400FE2B1B /* GHComment.m in Sources */,
-				609607711C51644D007C74C2 /* CCIExecution.m in Sources */,
 				6075A5D01C4FB34400FE2B1B /* GHGherkinLanguageConstants.m in Sources */,
 				6075A5DD1C4FB34400FE2B1B /* GHStepArgument.m in Sources */,
 				6075A5DB1C4FB34400FE2B1B /* GHScenarioOutline.m in Sources */,
