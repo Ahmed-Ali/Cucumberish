@@ -175,10 +175,15 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 #pragma mark - Runtime hacks
 
-+ (void)swizzleOrignalSelect:(SEL)originalSelector swizzledSelect:(SEL)swizzledSelector originalClass:(Class)originalClass targetClass:(Class)targetClass
++ (void)swizzleOrignalSelect:(SEL)originalSelector swizzledSelect:(SEL)swizzledSelector originalClass:(Class)originalClass targetClass:(Class)targetClass classMethod:(BOOL)classMethod
 {
-    Class class = object_getClass((id)originalClass);
-    Method originalMethod = class_getClassMethod(class, originalSelector);
+    Class class = classMethod ? object_getClass((id)originalClass) : originalClass;
+    Method originalMethod = nil;
+    if(classMethod){
+        originalMethod = class_getClassMethod(class, originalSelector);
+    }else{
+        originalMethod = class_getInstanceMethod(class, originalSelector);
+    }
     Method swizzledMethod = class_getClassMethod(targetClass, swizzledSelector);
     BOOL didAddMethod =
     class_addMethod(class,
@@ -199,25 +204,24 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 {
     SEL originalSelector = @selector(recordFailureWithDescription:inFile:atLine:expected:);
     SEL swizzledSelector = @selector(cucumberish_recordFailureWithDescription:inFile:atLine:expected:);
-    [Cucumberish swizzleOrignalSelect:originalSelector swizzledSelect:swizzledSelector originalClass:class targetClass:self];
+    [Cucumberish swizzleOrignalSelect:originalSelector swizzledSelect:swizzledSelector originalClass:class targetClass:self classMethod:NO];
 }
 
 + (void)cucumberish_recordFailureWithDescription:(NSString *)description inFile:(NSString *)filePath atLine:(NSUInteger)lineNumber expected:(BOOL)expected
 {
-    CCIExecution * execution = [Cucumberish instance].currentlyExecuting;
-    if(execution.scenario.success){
-        execution.scenario.success = NO;
-        execution.scenario.failureReason = description;
-    }else{
+    if([filePath hasSuffix:@".feature"]){
         [self cucumberish_recordFailureWithDescription:description inFile:filePath atLine:lineNumber expected:expected];
+    }else{
+        throwCucumberishException(description);
     }
+    
 }
 
 + (void)swizzleDefaultSuiteImplementationForClass:(Class)class
 {
     SEL originalSelector = @selector(defaultTestSuite);
     SEL swizzledSelector = @selector(cucumberish_defaultTestSuite);
-    [Cucumberish swizzleOrignalSelect:originalSelector swizzledSelect:swizzledSelector originalClass:class targetClass:self];
+    [Cucumberish swizzleOrignalSelect:originalSelector swizzledSelect:swizzledSelector originalClass:class targetClass:self classMethod:YES];
    
 }
 
@@ -320,8 +324,6 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenario, CCIFeature * feature)
 {
-    [Cucumberish instance].currentlyExecuting = [CCIExecution testCase:self feature:feature scenario:scenario step:nil];
-    
     
     self.continueAfterFailure = YES;
     if(feature == [CCIFeaturesManager instance].features.firstObject && scenario == feature.scenarioDefinitions.firstObject && [Cucumberish instance].beforeStartHock){
@@ -344,7 +346,7 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
 
 void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
 {
-    CCIExecution * execution = [[Cucumberish instance] currentlyExecuting];
+    
     NSString * targetName = [[NSBundle bundleForClass:[Cucumberish class]] infoDictionary][@"CFBundleName"];
     NSString * srcRoot = SRCROOT;
     //Clean up unwanted /Pods path caused by cocoa pods
@@ -353,23 +355,15 @@ void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
     }
     
     for (CCIStep * step in steps) {
-        if(!execution.scenario.success){
-            NSString * filePath = [NSString stringWithFormat:@"%@/%@%@", srcRoot, targetName, execution.step.filePath];
-            [testCase recordFailureWithDescription:execution.scenario.failureReason inFile:filePath atLine:execution.step.location.line expected:YES];
-            break;
-        }
-        execution.step = step;
+        
         @try {
             [[CCIStepsManager instance] executeStep:step];
         }
         @catch (CCIExeption *exception) {
-            
+            NSString * filePath = [NSString stringWithFormat:@"%@/%@%@", srcRoot, targetName, step.filePath];
+            [testCase recordFailureWithDescription:exception.reason inFile:filePath atLine:step.location.line expected:YES];
+            break;
         }
-        
-    }
-    if(!execution.scenario.success){
-        NSString * filePath = [NSString stringWithFormat:@"%@/%@%@", srcRoot, targetName, execution.step.filePath];
-        [testCase recordFailureWithDescription:execution.scenario.failureReason inFile:filePath atLine:execution.step.location.line expected:YES];
     }
 }
 
@@ -387,9 +381,6 @@ void CCIAssert(BOOL expression, NSString * failureMessage, ...)
 
 void throwCucumberishException(NSString *reason)
 {
-    CCIScenarioDefinition * scenario = [Cucumberish instance].currentlyExecuting.scenario;
-    scenario.success = NO;
-    scenario.failureReason = reason;
     [[CCIExeption exceptionWithName:@"CCIException" reason:reason userInfo:nil] raise];
 }
 
