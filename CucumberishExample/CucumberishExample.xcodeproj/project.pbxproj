@@ -245,8 +245,6 @@
 		60853AB01C4EE8BF00806CD9 /* Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Profile.m; sourceTree = "<group>"; };
 		60853ABF1C4EF58D00806CD9 /* Activity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Activity.h; sourceTree = "<group>"; };
 		60853AC01C4EF58D00806CD9 /* Activity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Activity.m; sourceTree = "<group>"; };
-		6096076F1C51644D007C74C2 /* CCIExecution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCIExecution.h; sourceTree = "<group>"; };
-		609607701C51644D007C74C2 /* CCIExecution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCIExecution.m; sourceTree = "<group>"; };
 		9A5110C535126164FC3E72D5 /* Pods-CucumberishExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CucumberishExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CucumberishExampleTests/Pods-CucumberishExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D6D6B0487C601B9E02D616AC /* Pods-CucumberishExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CucumberishExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CucumberishExampleTests/Pods-CucumberishExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		F96FF80F09F076CF8F3D23A0 /* libPods-CucumberishExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CucumberishExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -358,8 +356,6 @@
 				6075A55C1C4FB34400FE2B1B /* CCITableBody.m */,
 				6075A55D1C4FB34400FE2B1B /* CCITag.h */,
 				6075A55E1C4FB34400FE2B1B /* CCITag.m */,
-				6096076F1C51644D007C74C2 /* CCIExecution.h */,
-				609607701C51644D007C74C2 /* CCIExecution.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
