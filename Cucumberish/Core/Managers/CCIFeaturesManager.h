@@ -26,17 +26,44 @@
 
 #import <Foundation/Foundation.h>
 @class CCIFeature;
+
+/**
+ CCIFeaturesManager is a singleton class and its main purpose is to parse feature files and map them to their associated Classes.
+ This class is utilized by Cucumberish main class. Useually you do not need to deal with it manually.
+ */
 @interface CCIFeaturesManager : NSObject
 
-@property NSArray * features;
+/**
+ After calling parseFeatureFiles:withTags: this array will contain all the parsed features.
+ */
+@property (nonatomic, readonly) NSArray<CCIFeature *> * features;
 
-
+/**
+ Returns the singleton class of CCIFeaturesManager
+ */
 + (instancetype)instance;
 
-
+/**
+ Parses the feature files that matches one or more of the passed tags if any.
+ 
+ @Note tags should not be prefixed with @@ symbole
+ 
+ @param featureFiles array of NSURL that presents the feature file paths
+ @param tags array of strings to filter which the features that will be parsed to be executed, if nil then all feature files will be parsed.
+ */
 - (void)parseFeatureFiles:(NSArray *)featureFiles withTags:(NSArray *)tags;
 
-
+/**
+ Associates the passed class with the passed feature instance for later usage.
+ It is mainly used to eliminate the need create a class for a feature multiple times.
+ @param class
+ @param feature
+ */
 - (void)setClass:(Class)klass forFeature:(CCIFeature *)feature;
+
+/**
+ Returns the passed class that is associated with the passed feature.
+ @param class
+ */
 - (CCIFeature *)getFeatureForClass:(Class)klass;
 @end
