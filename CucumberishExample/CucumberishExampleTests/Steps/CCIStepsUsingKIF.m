@@ -33,7 +33,7 @@
 #import "Cucumberish.h"
 
 
-CCIStepsUsingKIF * instance = nil;
+
 @interface CCIStepsUsingKIF()<KIFTestActorDelegate>
 
 @property (nonatomic, strong) NSDictionary * directions;
@@ -43,6 +43,7 @@ CCIStepsUsingKIF * instance = nil;
 @implementation CCIStepsUsingKIF
 @synthesize actor;
 + (instancetype)instance {
+    static CCIStepsUsingKIF * instance = nil;
     @synchronized(self) {
         if(instance == nil){
             instance = [[CCIStepsUsingKIF alloc] init];
@@ -74,17 +75,6 @@ CCIStepsUsingKIF * instance = nil;
     [[self instance] setup];
 }
 
-
-//-(CCIExecutionResult *)result
-//{
-//    if(self.failureReason.length > 0){
-//        NSString * reason = self.failureReason;
-//        self.failureReason = nil;
-//        return [CCIExecutionResult status:CCIExecutionStatusFail reason:reason];
-//    }
-//    
-//   return [CCIExecutionResult status:CCIExecutionStatusPass reason:nil];
-//}
 
 
 - (void)setup
