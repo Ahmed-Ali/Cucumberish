@@ -119,7 +119,7 @@ OBJC_EXTERN void afterTagged(NSArray * tags, CCIScenarioHockBlock afterTaggedBlo
 
 /**
  C function that registers a code block to be used to call the scenario execution block.
- Code blocks registerd with this function will receive to parameter: scenario instance and scenario execution block as a parameter.
+ Code blocks registerd with this function will receive two parameters: scenario instance and scenario execution block as a parameter.
  
  If more than one code block matches the scenario, you are still required to call the scenario execution from each registered code block. However, your scenario will be executed once as it is supposed to be.
 
@@ -165,13 +165,42 @@ OBJC_EXTERN void around(NSArray * tags, CCIScenarioExecutionHockBlock aroundScen
 OBJC_EXTERN void CCIAssert(BOOL expression, NSString * failureMessage, ...);
 
 
+/**
+ Throws an exception with the specified reason.
+ Cucumberish will handle this exception and show it as an issue with executing the current step
+ 
+ @param reason the failure reason
+ */
 OBJC_EXTERN void throwCucumberishException(NSString *reason);;
 
+
+/**
+ Cucumberish is the main class you will need to parse your feature files and execute them.
+ You should not create instances of this class directly, instead you need to use the instance method.
+ 
+ @see +[Cucumberish instance]
+*/
 @interface Cucumberish : NSObject
 
-
+/**
+ As this being written, there is an issue with Xcode that causes the last scenario to disappear once it is done.
+ If this causes an issue for your test report, change the value of this property to YES before calling beginExecution.
+ 
+ @Note
+ Thoguh the default value of this property is NO, ut is highly recommended to set the value of this proeprty to YES.
+ 
+ @Note
+ This will cause Cucumberish to execute an additional scenario called cucumberishCleanupScenario which will immediately disappear instead of your real last scenario.
+ Which will also increase the number of executed scenarios by 1. If you only have 6 scenarios, you will see 7 scenarios in the console message, and in your report navigator.
+ 
+ */
 @property (nonatomic) BOOL fixMissingLastScenario;
 
+/**
+ Retuans a singleton instance of Cucumberish
+ 
+ @return singleton instance of Cucumberish
+ */
 + (instancetype)instance;
 
 
@@ -180,11 +209,32 @@ OBJC_EXTERN void throwCucumberishException(NSString *reason);;
 //param: tag only features annotated with this tag will be executed
 
 /**
+ Parses any .feature file that is located inside the passed folder name and map it to a test case if the feature inside the file has one or more tags of the passed tags (if any)
  
+ @Note The feature directory has to be a real physical folder. Also When adding this folder to your test target, and get the prompt on how you would like to add it from Xcode, choose "Create Folder Reference" and @b NOT to Create Groups.
+ 
+ @param featuresDirectory a path to your featuresDirectory relative to your test target main folder.
+ @param tags array of strings to filter which the features that will be parsed to be executed.
+ 
+ @return the singleton instance of Cucumberish so you can call beginExecution immediately if you want.
  */
 - (Cucumberish *)parserFeaturesInDirectory:(NSString *)featuresDirectory featureTags:(NSArray *)tags;
 
+/**
+ Start executing all the previously parsed features in an alphabetic ascending order.
+ */
 - (void)beginExecution;
+
+/**
+ Conventient method that calls parserFeaturesInDirectory:featureTags: followed by an immediate call to beginExecution
+ 
+ @Note The feature directory has to be a real physical folder. Also When adding this folder to your test target, and get the prompt on how you would like to add it from Xcode, choose "Create Folder Reference" and @b NOT to Create Groups.
+ 
+ @param featuresDirectory a path to your featuresDirectory relative to your test target main folder.
+ @param tags array of strings to filter which the features that will be parsed to be executed.
+ 
+ */
++ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory featureTags:(NSArray *)tags;
 @end
 
 

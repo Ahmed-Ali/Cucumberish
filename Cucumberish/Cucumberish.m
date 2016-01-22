@@ -93,31 +93,57 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 - (void)beginExecution
 {
+    
     for(CCIFeature * feature in [[CCIFeaturesManager instance] features]){
         Class featureClass = [Cucumberish featureTestCaseClass:feature];
         [[CCIFeaturesManager instance] setClass:featureClass forFeature:feature];
+        //This swizzling has to happen for each feature class...
+        //If it is created on XCTestCase level, it will not work properly.
         [Cucumberish swizzleDefaultSuiteImplementationForClass:featureClass];
         [Cucumberish swizzleFailureRecordingImplementationForClass:featureClass];
     }
 }
 
-#pragma mark - Manage hocks
++ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory featureTags:(NSArray *)tags
+{
+    [[[Cucumberish instance] parserFeaturesInDirectory:featuresDirectory featureTags:tags] beginExecution];
+}
 
+#pragma mark - Manage hocks
+/**
+ Adds an after hock to the after hocks chain in LIFO order.
+ @param hock the after hock to be registerd
+ */
 - (void)addAfterHock:(CCIHock *)hock
 {
     [self.afterHocks insertObject:hock atIndex:0];
 }
-
+/**
+ Adds a before hock to the before hocks chain in FIFO order.
+ @param hock the before hock to be registerd
+ */
 - (void)addBeforeHock:(CCIHock *)hock
 {
     [self.beforeHocks addObject:hock];
 }
 
+/**
+ Adds an around hock to the around hocks chain in FIFO order.
+ @param hock the before hock to be registerd
+ */
 - (void)addAroundHock:(CCIAroundHock *)hock
 {
     [self.aroundHocks addObject:hock];
 }
 
+/**
+ Executes all the hocks that matches tags with the passed scenario.
+ Hocks may optionally be tagged, if an hock is tagged, then it will only be executed if the scenario has a matching tag.
+ 
+ @param array of CCIHock to be executed
+ @param scenario the scenario that will be passed to each matching hocks.
+ */
+ 
 - (void)executeMatchingHocksInHocks:(NSArray<CCIHock *> *)hocks forScenario:(CCIScenarioDefinition *)scenario
 {
     for(CCIHock * hock in hocks){
@@ -137,42 +163,50 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 }
 
 
-
+/**
+ Executes all the before hocks that matches tags with the passed scenario.
+ Hocks may optionally be tagged, if an hock is tagged, then it will only be executed if the scenario has a matching tag.
+ 
+ @param scenario the scenario that will be passed to each matching hocks.
+ */
 - (void)executeBeforeHocksWithScenario:(CCIScenarioDefinition *)scenario
 {
     [self executeMatchingHocksInHocks:self.beforeHocks forScenario:scenario];
 }
 
-
+/**
+ Executes all the after hocks that matches tags with the passed scenario.
+ Hocks may optionally be tagged, if an hock is tagged, then it will only be executed if the scenario has a matching tag.
+ 
+ @param scenario the scenario that will be passed to each matching hocks.
+ */
 - (void)executeAfterHocksWithScenario:(CCIScenarioDefinition *)scenario
 {
     [self executeMatchingHocksInHocks:self.afterHocks forScenario:scenario];
 }
 
-- (void)executeAroundHocksWithScenario:(CCIScenarioDefinition *)scenario feature:(CCIFeature *)feature executionBlock:(void(^)(void))executionBlock
+/**
+ Executes all the around hocks that matches tags with the passed scenario.
+ Hocks may optionally be tagged, if an hock is tagged, then it will only be executed if the scenario has a matching tag.
+ 
+ @param scenario the scenario that will be passed to each matching hocks.
+ @param executionBlock a block that when called, will execute the scenario. Around hocks are supposed to determine when this block will be executed.
+ */
+- (void)executeAroundHocksWithScenario:(CCIScenarioDefinition *)scenario executionBlock:(void(^)(void))executionBlock
 {
     
-    void(^executionTree)(void) = NULL;
+    void(^executionChain)(void) = NULL;
     if(scenario.tags.count > 0){
         for(CCIAroundHock * around in self.aroundHocks){
             for (CCITag * tag in scenario.tags) {
                 if([around.tags containsObject:tag.name]){
-                    //Only first match will have the scenario execution block
-                    //Any additional matches, will contain the block that calls tha previous match...
-                    //Example if three matches are found:
-                    //Third Around Match
-                    //  Block = A call to Second Around Match
-                    //      Second Around Match
-                    //          Block = A call to First Aroun Match
-                    //              First Around Match
-                    //                  Block = A call Scenario Exection Block
-                    if(executionTree == NULL){
-                        executionTree = ^{
+                    if(executionChain == NULL){
+                        executionChain = ^{
                             around.block(scenario, executionBlock);
                         };
                     }else{
-                        executionTree = ^{
-                            around.block(scenario, executionTree);
+                        executionChain = ^{
+                            around.block(scenario, executionChain);
                         };
                     }
                     
@@ -182,13 +216,14 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     }
     
     
-    if(executionTree != NULL){
-        executionTree();
+    if(executionChain != NULL){
+        executionChain();
     }else{
         executionBlock();
         
     }
 }
+
 
 #pragma mark - Runtime hacks
 
@@ -217,57 +252,24 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
         method_exchangeImplementations(originalMethod, swizzledMethod);
     }
 }
+
+
 + (void)swizzleFailureRecordingImplementationForClass:(Class)class
 {
     SEL originalSelector = @selector(recordFailureWithDescription:inFile:atLine:expected:);
     SEL swizzledSelector = @selector(cucumberish_recordFailureWithDescription:inFile:atLine:expected:);
-    [Cucumberish swizzleOrignalSelect:originalSelector swizzledSelect:swizzledSelector originalClass:class targetClass:self classMethod:NO];
-}
-
-+ (void)cucumberish_recordFailureWithDescription:(NSString *)description inFile:(NSString *)filePath atLine:(NSUInteger)lineNumber expected:(BOOL)expected
-{
-    //If exception already thrown and handled by executeSteps function, then report it immediately.
-    if([filePath hasSuffix:@".feature"]){
-        [self cucumberish_recordFailureWithDescription:description inFile:filePath atLine:lineNumber expected:expected];
-    }else{
-        //Throw the exception so proper error report takes place.
-        throwCucumberishException(description);
-    }
-    
+    [Cucumberish swizzleOrignalSelect:originalSelector swizzledSelect:swizzledSelector originalClass:class targetClass:[Cucumberish class] classMethod:NO];
 }
 
 + (void)swizzleDefaultSuiteImplementationForClass:(Class)class
 {
     SEL originalSelector = @selector(defaultTestSuite);
     SEL swizzledSelector = @selector(cucumberish_defaultTestSuite);
-    [Cucumberish swizzleOrignalSelect:originalSelector swizzledSelect:swizzledSelector originalClass:class targetClass:self classMethod:YES];
-   
+    [Cucumberish swizzleOrignalSelect:originalSelector swizzledSelect:swizzledSelector originalClass:class targetClass:[Cucumberish class] classMethod:YES];
 }
 
-+ (XCTestSuite *)cucumberish_defaultTestSuite
-{
-    XCTestSuite * suite = [self cucumberish_defaultTestSuite];
-    CCIFeature * feature = [[CCIFeaturesManager instance] getFeatureForClass:self];
-    
-    for (CCIScenarioDefinition * scenario in feature.scenarioDefinitions) {
-        if([scenario.keyword isEqualToString:@"Scenario Outline"]){
-            [Cucumberish createScenariosForScenarioOutline:scenario feature:feature class:self suite:suite];
-        }else{
-            XCTestCase  * testCase = [[self alloc] initWithInvocation:[Cucumberish invocationForScenario:scenario feature:feature class:self]];
-            [suite addTest:testCase];
-        }
-        
-    }
-    CCIFeature * lastFeature = [CCIFeaturesManager instance].features.lastObject;
-    if([Cucumberish instance].fixMissingLastScenario && feature == lastFeature){
-        CCIScenarioDefinition * cleanupScenario = [[CCIScenarioDefinition alloc] init];
-        cleanupScenario.name = @"cucumberishCleanupScenario";
-        XCTestCase * finalCase = [[self alloc] initWithInvocation:[Cucumberish invocationForScenario:cleanupScenario feature:lastFeature class:self]];
-        [suite addTest:finalCase];
-    }
-    
-    return suite;
-}
+
+
 
 + (void)createScenariosForScenarioOutline:(CCIScenarioDefinition *)outline feature:(CCIFeature *)feature class:(Class)klass suite:(XCTestSuite *)suite
 {
@@ -336,6 +338,62 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     return invocation;
 }
 
+
+#pragma mark - Swizzled methods
+/**
+ Swizzled method, inside its implementation @b self does not refer to Cucumberish class.
+ Records a failure in the execution of the test and is used by all test assertions.
+ 
+ @param description The description of the failure being reported.
+ 
+ @param filePath The file path to the source file where the failure being reported was encountered.
+ @param lineNumber The line number in the source file at filePath where the failure being reported was encountered.
+ 
+ @param expected YES if the failure being reported was the result of a failed assertion, NO if it was the result of an uncaught exception.
+ */
+
++ (void)cucumberish_recordFailureWithDescription:(NSString *)description inFile:(NSString *)filePath atLine:(NSUInteger)lineNumber expected:(BOOL)expected
+{
+    //If exception already thrown and handled by executeSteps function, then report it immediately.
+    if([filePath hasSuffix:@".feature"]){
+        [self cucumberish_recordFailureWithDescription:description inFile:filePath atLine:lineNumber expected:expected];
+    }else{
+        //Throw the exception so proper error report takes place.
+        throwCucumberishException(description);
+    }
+    
+}
+
+/**
+ Swizzled method, inside its implementation @b self does not refer to Cucumberish class.
+ @return a test suite containing test cases for all of the tests in the class.
+ */
+
++ (XCTestSuite *)cucumberish_defaultTestSuite
+{
+    XCTestSuite * suite = [self cucumberish_defaultTestSuite];
+    CCIFeature * feature = [[CCIFeaturesManager instance] getFeatureForClass:self];
+    
+    for (CCIScenarioDefinition * scenario in feature.scenarioDefinitions) {
+        if([scenario.keyword isEqualToString:@"Scenario Outline"]){
+            [Cucumberish createScenariosForScenarioOutline:scenario feature:feature class:self suite:suite];
+        }else{
+            XCTestCase  * testCase = [[self alloc] initWithInvocation:[Cucumberish invocationForScenario:scenario feature:feature class:self]];
+            [suite addTest:testCase];
+        }
+        
+    }
+    CCIFeature * lastFeature = [CCIFeaturesManager instance].features.lastObject;
+    if([Cucumberish instance].fixMissingLastScenario && feature == lastFeature){
+        CCIScenarioDefinition * cleanupScenario = [[CCIScenarioDefinition alloc] init];
+        cleanupScenario.name = @"cucumberishCleanupScenario";
+        XCTestCase * finalCase = [[self alloc] initWithInvocation:[Cucumberish invocationForScenario:cleanupScenario feature:lastFeature class:self]];
+        [suite addTest:finalCase];
+    }
+    
+    return suite;
+}
+
 @end
 
 
@@ -353,7 +411,7 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
         executeSteps(self, feature.background.steps, feature.background);
     }
     
-    [[Cucumberish instance] executeAroundHocksWithScenario:scenario feature:feature executionBlock:^{
+    [[Cucumberish instance] executeAroundHocksWithScenario:scenario executionBlock:^{
        executeSteps(self, scenario.steps, scenario);
     }];
     [[Cucumberish instance] executeAfterHocksWithScenario:scenario];
