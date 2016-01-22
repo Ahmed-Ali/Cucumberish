@@ -226,9 +226,11 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 + (void)cucumberish_recordFailureWithDescription:(NSString *)description inFile:(NSString *)filePath atLine:(NSUInteger)lineNumber expected:(BOOL)expected
 {
+    //If exception already thrown and handled by executeSteps function, then report it immediately.
     if([filePath hasSuffix:@".feature"]){
         [self cucumberish_recordFailureWithDescription:description inFile:filePath atLine:lineNumber expected:expected];
     }else{
+        //Throw the exception so proper error report takes place.
         throwCucumberishException(description);
     }
     
@@ -379,6 +381,11 @@ void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
         @catch (CCIExeption *exception) {
             NSString * filePath = [NSString stringWithFormat:@"%@/%@%@", srcRoot, targetName, step.filePath];
             [testCase recordFailureWithDescription:exception.reason inFile:filePath atLine:step.location.line expected:YES];
+            if([parentScenario isKindOfClass:[CCIScenarioDefinition class]]){
+                CCIScenarioDefinition * scenario = (CCIScenarioDefinition *)parentScenario;
+                scenario.success = NO;
+                scenario.failureReason = exception.reason;
+            }
             break;
         }
     }
