@@ -83,7 +83,6 @@
 
     MatchAll(@"^I tap (?:the )?\"([^\\\"]*)\" (?:button|view)$" ,  ^void(NSArray *args, id userInfo) {
         [actor tapViewWithAccessibilityLabel:args[0]];
-        
     });
     //And I tap "Increment" button 5 times
     MatchAll(@"^I tap (?:the )?\"([^\\\"]*)\" (?:button|view) ([1-9]{1}) time(?:s)?$" ,  ^void(NSArray *args, id userInfo) {
@@ -102,11 +101,8 @@
         [actor clearTextFromViewWithAccessibilityLabel:args[0]];
     });
     MatchAll(@"^I clear (?:the )?text and write \"([^\\\"]*)\" (?:into|in) (?:the )?\"([^\\\"]*)\" field$"  ,  ^void(NSArray *args, id userInfo) {
-       steps(@[
-                       [NSString stringWithFormat:@"I clear the \"%@\" field", args[1]],
-                       [NSString stringWithFormat:@"I write \"%@\" into the \"%@\" field", args[0], args[1]],
-                       
-                       ]);
+        step(@"I clear the \"%@\" field", args[1]);
+        step(@"I write \"%@\" into the \"%@\" field", args[0], args[1]);
     });
     MatchAll(@"^I write \"([^\\\"]*)\" (?:into|in) (?:the )?active text field$" ,  ^void(NSArray *args, id userInfo) {
         [actor enterTextIntoCurrentFirstResponder:args[0]];

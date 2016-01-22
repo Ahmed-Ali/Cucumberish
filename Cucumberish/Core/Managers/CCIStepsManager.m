@@ -188,7 +188,12 @@ void MatchAll(NSString * definitionString, CCIStepBody body)
     But(definitionString, body);
 }
 
-
+void Match(NSArray *types, NSString * definitionString, CCIStepBody body)
+{
+    for (NSString * type in types) {
+        addDefinition(definitionString, body, type);
+    }
+}
 void addDefinition(NSString * definitionString, CCIStepBody body, NSString * type)
 {
     CCIStepDefinition * definition = [CCIStepDefinition definitionWithType:type regexString:definitionString implementationBody:body];
@@ -196,19 +201,18 @@ void addDefinition(NSString * definitionString, CCIStepBody body, NSString * typ
     [cluster insertObject:definition atIndex:0];
 }
 
-void step(NSString * stepLine)
+void step(NSString * stepLine, ...)
 {
-    steps(@[stepLine]);
+    va_list args;
+    va_start(args, stepLine);
+    NSString * line = [[NSString alloc] initWithFormat:stepLine arguments:args];
+    va_end(args);
+    
+    CCIStep * step = [CCIStep new];
+    step.text = line;
+    [[CCIStepsManager instance] executeStep:step];
 }
-void steps(NSArray * steps)
-{
-    for (NSString *stepLine in steps) {
-        CCIStep * step = [CCIStep new];
-        step.text = stepLine;
-        [[CCIStepsManager instance] executeStep:step];
-    }
-   
-}
+
 
 
 

@@ -32,7 +32,7 @@
 #import "Cucumberish.h"
 #import "CCIStepDefinition.h"
 
-static CCIFeaturesManager * instance = nil;
+
 
 @interface CCIFeaturesManager()
 
@@ -42,7 +42,7 @@ static CCIFeaturesManager * instance = nil;
 
 @implementation CCIFeaturesManager
 + (instancetype)instance {
-    
+    static CCIFeaturesManager * instance = nil;
     @synchronized(self) {
         if(instance == nil){
             instance = [[CCIFeaturesManager alloc] init];
@@ -94,7 +94,7 @@ static CCIFeaturesManager * instance = nil;
         }
     }
     
-    self.features = parsedFeatures;
+    _features = parsedFeatures;
 }
 
 

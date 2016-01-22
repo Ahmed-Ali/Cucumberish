@@ -213,8 +213,10 @@ OBJC_EXTERN void throwCucumberishException(NSString *reason);;
  
  @Note The feature directory has to be a real physical folder. Also When adding this folder to your test target, and get the prompt on how you would like to add it from Xcode, choose "Create Folder Reference" and @b NOT to Create Groups.
  
+ @Note tags should not be prefixed with @@ symbole
+ 
  @param featuresDirectory a path to your featuresDirectory relative to your test target main folder.
- @param tags array of strings to filter which the features that will be parsed to be executed.
+ @param tags array of strings to filter which the features that will be parsed to be executed, if nil then all feature files will be parsed.
  
  @return the singleton instance of Cucumberish so you can call beginExecution immediately if you want.
  */
@@ -229,9 +231,10 @@ OBJC_EXTERN void throwCucumberishException(NSString *reason);;
  Conventient method that calls parserFeaturesInDirectory:featureTags: followed by an immediate call to beginExecution
  
  @Note The feature directory has to be a real physical folder. Also When adding this folder to your test target, and get the prompt on how you would like to add it from Xcode, choose "Create Folder Reference" and @b NOT to Create Groups.
+ @Note tags should not be prefixed with @@ symbole
  
  @param featuresDirectory a path to your featuresDirectory relative to your test target main folder.
- @param tags array of strings to filter which the features that will be parsed to be executed.
+ @param tags array of strings to filter which the features that will be parsed to be executed, if nil then all feature files will be parsed.
  
  */
 + (void)executeFeaturesInDirectory:(NSString *)featuresDirectory featureTags:(NSArray *)tags;
