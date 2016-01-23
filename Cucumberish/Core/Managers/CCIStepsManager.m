@@ -146,7 +146,14 @@ static CCIStepsManager * instance = nil;
 - (void)executeStep:(CCIStep *)step
 {
     CCIStepDefinition * implementation = [self findMatchDefinitionForStep:step];
-    CCIAssert(implementation != nil, @"The step \"%@ %@\" is not implemented", step.keyword, [step.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]);
+    NSString * errorMessage = nil;
+    if(step.keyword.length > 0){
+        errorMessage = [NSString stringWithFormat:@"The step \"%@ %@\" is not implemented", step.keyword, [step.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+    }else{
+        //It is a step that is called from an step definition
+        errorMessage = [NSString stringWithFormat:@"The implementation of this step, calls another step that is not implemented: %@", [step.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+    }
+    CCIAssert(implementation != nil, errorMessage);
     implementation.body(implementation.matchedValues, nil);
 }
 
@@ -213,6 +220,10 @@ void step(NSString * stepLine, ...)
     [[CCIStepsManager instance] executeStep:step];
 }
 
+void SStep(NSString * stepLine)
+{
+    step(stepLine);
+}
 
 
 

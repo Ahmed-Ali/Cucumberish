@@ -220,6 +220,10 @@ OBJC_EXTERN void Match(NSArray *prepositions, NSString * definitionString, CCISt
  */
 OBJC_EXPORT void step(NSString * stepLine, ...);
 
+/**
+ Swift alias for step(stepLine) function.
+ */
+OBJC_EXTERN void SStep(NSString * stepLine);
 
 /**
  CCIStepsManager is a singleton class and its main purpose is to manage all step definitions and execute steps.

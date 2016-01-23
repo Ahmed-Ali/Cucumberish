@@ -27,7 +27,10 @@
 #import <Foundation/Foundation.h>
 
 @class CCIStep;
-
+/**
+ You pass this block when ever you define an implementation for a step.
+ This code block receives parameters, args which corresponds to your regular express capturing groups, and the other one userInfo is reserved for future use, for now it will be always nil.
+ */
 typedef void(^CCIStepBody)(NSArray * args, id userInfo);
 
 @interface CCIStepDefinition : NSObject<NSCopying>

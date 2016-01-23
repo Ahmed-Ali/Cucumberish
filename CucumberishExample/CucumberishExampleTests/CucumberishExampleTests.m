@@ -42,7 +42,7 @@ void CucumberishInit()
     });
     
     And(@"all data cleared", ^void(NSArray *args, id userInfo) {
-        return step(@"I tap the \"Clear All Data\" button");
+        step(@"I tap the \"Clear All Data\" button");
     });
     
     

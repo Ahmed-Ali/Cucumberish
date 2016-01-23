@@ -26,6 +26,11 @@
 #import <Foundation/Foundation.h>
 
 @class CCIScenarioDefinition;
+/**
+ You pass this block when calling around(,) function. In this block implementation you will receive two paramters: scenario definition and scenario execution block.
+ @Note
+ if you did not call the scenario execution block inside your block, the scenario will never get executed.
+ */
 typedef void (^CCIScenarioExecutionHockBlock)(CCIScenarioDefinition * scenario, void (^)(void) );
 
 
