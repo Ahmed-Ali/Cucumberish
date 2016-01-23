@@ -164,6 +164,13 @@ OBJC_EXTERN void around(NSArray * tags, CCIScenarioExecutionHockBlock aroundScen
  */
 OBJC_EXTERN void CCIAssert(BOOL expression, NSString * failureMessage, ...);
 
+/**
+ Swift alias for CCIAssert
+ @param expression boolean expression
+ @param failureMessage a string describe what went wrong in case expression is evaluated to false
+ */
+OBJC_EXTERN void CCISAssert(BOOL expression, NSString * failureMessage);
+
 
 /**
  Throws an exception with the specified reason.
@@ -171,7 +178,15 @@ OBJC_EXTERN void CCIAssert(BOOL expression, NSString * failureMessage, ...);
  
  @param reason the failure reason
  */
-OBJC_EXTERN void throwCucumberishException(NSString *reason);;
+
+OBJC_EXTERN void throwCucumberishException(NSString *reason, ...);
+
+
+/**
+ Swift alias for throwCucumberishException;
+ @param reason the failure reason
+ */
+OBJC_EXTERN void SThrowCucumberishException(NSString *reason);
 
 
 /**

@@ -461,11 +461,24 @@ void CCIAssert(BOOL expression, NSString * failureMessage, ...)
     }
 }
 
-void throwCucumberishException(NSString *reason)
+void CCISAssert(BOOL expression, NSString * failureMessage)
 {
-    [[CCIExeption exceptionWithName:@"CCIException" reason:reason userInfo:nil] raise];
+    CCIAssert(expression, failureMessage);
 }
 
+void throwCucumberishException(NSString *reason, ...)
+{
+    va_list args;
+    va_start(args, reason);
+    NSString *description = [[NSString alloc] initWithFormat:reason arguments:args];
+    va_end(args);
+    [[CCIExeption exceptionWithName:@"CCIException" reason:description userInfo:nil] raise];
+}
+
+void SThrowCucumberishException(NSString * reason)
+{
+    throwCucumberishException(reason);
+}
 #pragma mark - Hooks
 void beforeStart(void(^beforeStartBlock)(void))
 {
