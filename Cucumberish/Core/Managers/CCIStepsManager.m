@@ -126,13 +126,13 @@ static CCIStepsManager * instance = nil;
                     }
                     [rows addObject:cells];
                 }
-                [values addObject:rows];
+                definition.additionalContent = @{@"DataTable" : rows};
             }else if([step.argument.type isEqualToString:@"DocString"]){
                 NSString * content = step.argument.content;
                 if(content == nil){
                     content = @"";
                 }
-                [values addObject:content];
+                definition.additionalContent = @{@"DocString" : content};
             }
             definition.matchedValues = values;
             return definition;
@@ -154,7 +154,7 @@ static CCIStepsManager * instance = nil;
         errorMessage = [NSString stringWithFormat:@"The implementation of this step, calls another step that is not implemented: %@", [step.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     }
     CCIAssert(implementation != nil, errorMessage);
-    implementation.body(implementation.matchedValues, nil);
+    implementation.body(implementation.matchedValues, implementation.additionalContent);
 }
 
 

@@ -72,9 +72,12 @@
 - (IBAction)rankDidChange:(UIStepper *)sender {
     self.rankLabel.text = [NSString stringWithFormat:@"%i", (int)sender.value];
     self.activity.rank = sender.value;
+    [self.nameField resignFirstResponder];
 }
 - (IBAction)toggleCurrentlyHappening:(UISwitch *)sender {
     self.activity.current = sender.isOn;
+    
+    [self.nameField resignFirstResponder];
 }
 
 @end

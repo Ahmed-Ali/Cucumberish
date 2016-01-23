@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6052E5381C4FCED200CBA7FD /* UIViewController+NavigationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6052E5371C4FCED200CBA7FD /* UIViewController+NavigationHelper.m */; };
+		60589C331C53C3FA00B187C3 /* CCIStepDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60589C321C53C3FA00B187C3 /* CCIStepDefinitions.swift */; };
 		6075A52E1C4FB20900FE2B1B /* CucumberishExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A52D1C4FB20900FE2B1B /* CucumberishExampleTests.m */; };
 		6075A5361C4FB2D000FE2B1B /* ExampleFeatures in Resources */ = {isa = PBXBuildFile; fileRef = 6075A5351C4FB2D000FE2B1B /* ExampleFeatures */; };
 		6075A5B11C4FB34400FE2B1B /* CCIFeaturesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A53B1C4FB34400FE2B1B /* CCIFeaturesManager.m */; };
@@ -159,6 +160,7 @@
 /* Begin PBXFileReference section */
 		6052E5361C4FCED200CBA7FD /* UIViewController+NavigationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NavigationHelper.h"; sourceTree = "<group>"; };
 		6052E5371C4FCED200CBA7FD /* UIViewController+NavigationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NavigationHelper.m"; sourceTree = "<group>"; };
+		60589C321C53C3FA00B187C3 /* CCIStepDefinitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCIStepDefinitions.swift; sourceTree = "<group>"; };
 		6075A52B1C4FB20900FE2B1B /* CucumberishExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CucumberishExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6075A52D1C4FB20900FE2B1B /* CucumberishExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CucumberishExampleTests.m; sourceTree = "<group>"; };
 		6075A52F1C4FB20900FE2B1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -762,6 +764,7 @@
 				60F2637F1C535487005F87C1 /* ExampleFeatures */,
 				60F262D21C53546F005F87C1 /* Cucumberish */,
 				60F262D01C535343005F87C1 /* CucumberishInitializer.swift */,
+				60589C321C53C3FA00B187C3 /* CCIStepDefinitions.swift */,
 				60F262CE1C5351A1005F87C1 /* CucumberishInitilizer.m */,
 				608618A51C53515A00AE8786 /* Info.plist */,
 				60F262CD1C5351A1005F87C1 /* CucumberishExampleUITests-Bridging-Header.h */,
@@ -1256,6 +1259,7 @@
 				60F2635F1C53546F005F87C1 /* GHBackground.m in Sources */,
 				60F2634E1C53546F005F87C1 /* CCIBackground.m in Sources */,
 				60F2635E1C53546F005F87C1 /* GHAstNode.m in Sources */,
+				60589C331C53C3FA00B187C3 /* CCIStepDefinitions.swift in Sources */,
 				60F263791C53546F005F87C1 /* GHToken.m in Sources */,
 				60F263561C53546F005F87C1 /* CCIScenarioDefinition.m in Sources */,
 				60F2635B1C53546F005F87C1 /* Cucumberish.m in Sources */,

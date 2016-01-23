@@ -7,7 +7,7 @@ Scenario: Add an activity
     Then I tap the "Add Activity" button
     And I write "First Ended Activity" into the "Activity Name" field
     When I tap "Increment" button 5 times
-    Then I should see "6" in the "Rank Value" label
+    Then I should see "6" in the "TheRank" label
     Then I switch off the "Currently Happening" switch
     Then I tap "Activity Add" button
     When I tap "Activities" button
@@ -23,12 +23,12 @@ Scenario Outline: Adding activities
     When I tap the "Add Activity" button
     And I write "<name>" into the "Activity Name" field
     When I tap "Increment" button <rankPlusOne> times
-    Then I should see "<RankLabel>" in the "Rank Value" label
+    Then I should see "<TheRank>" in the "TheRank" label
     Then I switch <currentOnOff> the "Currently Happening" switch
     Then I tap "Activity Add" button
 
 Examples:
-    |     name     | rankPlusOne | RankLabel | currentOnOff |
+    |     name     | rankPlusOne | TheRank | currentOnOff |
     |  Activity 1  |      4      |     5     |      on      |
     |  Activity 2  |      5      |     6     |      on      |
     |  Activity 3  |      4      |     5     |      on      |

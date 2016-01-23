@@ -14,6 +14,7 @@ class CucumberishInitializer: NSObject {
         var application : XCUIApplication!
         beforeStart { () -> Void in
             application = XCUIApplication()
+            CCIStepDefinitions.setup(application);
         }
         Given("the app is running") { (args, userInfo) -> Void in
             application.launch()

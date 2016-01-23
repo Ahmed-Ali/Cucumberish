@@ -81,18 +81,18 @@
 {
     actor = tester;
 
-//    MatchAll(@"^I tap (?:the )?\"([^\\\"]*)\" (?:button|view)$" ,  ^void(NSArray *args, id userInfo) {
-//        [actor tapViewWithAccessibilityLabel:args[0]];
-//    });
-//    //And I tap "Increment" button 5 times
-//    MatchAll(@"^I tap (?:the )?\"([^\\\"]*)\" (?:button|view) ([1-9]{1}) time(?:s)?$" ,  ^void(NSArray *args, id userInfo) {
-//        NSUInteger times = [args[1] integerValue];
-//        NSUInteger n = 0;
-//        while (n < times) {
-//            [actor tapViewWithAccessibilityLabel:args[0]];
-//            ++n;
-//        }
-//    });
+    MatchAll(@"^I tap (?:the )?\"([^\\\"]*)\" (?:button|view)$" ,  ^void(NSArray *args, id userInfo) {
+        [actor tapViewWithAccessibilityLabel:args[0]];
+    });
+    //And I tap "Increment" button 5 times
+    MatchAll(@"^I tap (?:the )?\"([^\\\"]*)\" (?:button|view) ([1-9]{1}) time(?:s)?$" ,  ^void(NSArray *args, id userInfo) {
+        NSUInteger times = [args[1] integerValue];
+        NSUInteger n = 0;
+        while (n < times) {
+            [actor tapViewWithAccessibilityLabel:args[0]];
+            ++n;
+        }
+    });
     //And I write "eng.ahmed.ali.awad@gmail.com" into the "Email" field
     MatchAll(@"^I write \"([^\\\"]*)\" (?:into|in) (?:the )?\"([^\\\"]*)\" field$" ,  ^void(NSArray *args, id userInfo) {
         [actor enterText:args[0] intoViewWithAccessibilityLabel:args[1]];
