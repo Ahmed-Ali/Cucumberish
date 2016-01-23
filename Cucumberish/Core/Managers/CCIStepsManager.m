@@ -154,6 +154,7 @@ static CCIStepsManager * instance = nil;
         errorMessage = [NSString stringWithFormat:@"The implementation of this step, calls another step that is not implemented: %@", [step.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     }
     CCIAssert(implementation != nil, errorMessage);
+    NSLog(@"Currently executing: %@ %@", step.keyword, step.text);
     implementation.body(implementation.matchedValues, implementation.additionalContent);
 }
 
