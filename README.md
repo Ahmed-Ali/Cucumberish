@@ -2,12 +2,14 @@
 Cucumberish is a native Objective-C framework for Behaviour Driven Development inspired by the amazing way of writing automated test cases introduced originally by Cucumber.
 For those who do not know what it means: Simply this framework will help developers and non-developers to write test cases in plain English and in a very organized manner.
 # Features
+
 * Full integration with Xcode Test Navigator.
-* When any test case fail, Xcode Test Navigator will point to your .feature file on the line that failed.
+* Can be used with continues integration servers, or cloud services; just like XC unit tests!
+* When any test fail, Xcode Test Navigator will point to your .feature file on the line that failed.
 * Your test reports will appear in your Reports Navigator just like any XC unit tests.
-* No Ruby, "command line-only", or any other non-ios related languages or dependencies needed to install or to use Cucumberish.
+* No Ruby, "command line-only", or any other non-ios related languages or dependencies needed to install or use Cucumberish at all!
 * Few minutes installation!
-* Step implementations are done directly in Objective-C or Swift!
+* Step implementations are done directly in Objective-C or Swift! Which means you can breakpoint and debug your steps implementations easily.
 * Can be used with Unit Test as well as UI Test targets!
 
 # Installation
@@ -22,7 +24,7 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
     SRC_ROOT=$(SRCROOT)
     ```
 
-3. And that's it for including Cucumberish in your project! You can move on directly to the getting started part.
+3. And that's it for including Cucumberish in your project!
 
 
 ### Cocoapods Installation
