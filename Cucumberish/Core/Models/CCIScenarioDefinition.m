@@ -220,7 +220,7 @@
     self.tags = [aDecoder decodeObjectForKey:@"tags"];
     self.type = [aDecoder decodeObjectForKey:@"type"];
     self.filePath = [aDecoder decodeObjectForKey:@"filePath"];
-    self.success = [aDecoder decodeObjectForKey:@"success"];
+    self.success = [[aDecoder decodeObjectForKey:@"success"] boolValue];
     self.failureReason = [aDecoder decodeObjectForKey:@"failureReason"];
     
     return self;
