@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.author             = { "Ahmed Ali" => "eng.ahmed.ali.awad@gmail.com" }
   s.social_media_url   = "https://www.linkedin.com/in/engahmedali"
   s.platform     = :ios, "7.0"
-  s.source       = { :git => "https://github.com/Ahmed-Ali/Cucumberish.git", :tag => "v0.0.1" }
+  s.source       = { :git => "https://github.com/Ahmed-Ali/Cucumberish.git", :branch => master, :tag => "v0.0.1" }
   s.source_files  = 'Cucumberish/*.{h,m}', 'Cucumberish/Core/Managers/*.{h,m}', 'Cucumberish/Core/Models/*.{h,m}', 'Cucumberish/Utils/*.{h,m}', 'Cucumberish/Dependencies/Gherkin'
   s.public_header_files = 'Cucumberish/Cucumberish.h', 'Cucumberish/Core/Managers/CCIStepsManager.h', 'Cucumberish/Utils/CCIBlockDefinitions.h'
   s.resource_bundles = {
