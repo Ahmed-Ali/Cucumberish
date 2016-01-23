@@ -82,6 +82,7 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
             #import "Cucumberish.h"
             ```
         4. Last but not least, replace the content of the default .swift test case file that created with your test target with the following:
+        
             ```Swift
             import Foundation
             class CucumberishInitializer: NSObject {
