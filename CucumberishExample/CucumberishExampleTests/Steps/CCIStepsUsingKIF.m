@@ -27,9 +27,6 @@
 
 #import "KIFUITestActor+Utils.h"
 #import "CCIStepsUsingKIF.h"
-#import "CCIStep.h"
-#import "CCIStepDefinition.h"
-#import "CCIStepsManager.h"
 #import "Cucumberish.h"
 
 
