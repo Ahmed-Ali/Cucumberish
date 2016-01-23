@@ -349,7 +349,6 @@
 		60F262F71C53546F005F87C1 /* CCITag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCITag.m; sourceTree = "<group>"; };
 		60F262F81C53546F005F87C1 /* Cucumberish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cucumberish.h; sourceTree = "<group>"; };
 		60F262F91C53546F005F87C1 /* Cucumberish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cucumberish.m; sourceTree = "<group>"; };
-		60F262FA1C53546F005F87C1 /* Cucumberish.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cucumberish.podspec; sourceTree = "<group>"; };
 		60F262FD1C53546F005F87C1 /* GHAstBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAstBuilder.h; sourceTree = "<group>"; };
 		60F262FE1C53546F005F87C1 /* GHAstBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHAstBuilder.m; sourceTree = "<group>"; };
 		60F262FF1C53546F005F87C1 /* GHAstNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAstNode.h; sourceTree = "<group>"; };
@@ -776,7 +775,6 @@
 				60F262D31C53546F005F87C1 /* Core */,
 				60F262F81C53546F005F87C1 /* Cucumberish.h */,
 				60F262F91C53546F005F87C1 /* Cucumberish.m */,
-				60F262FA1C53546F005F87C1 /* Cucumberish.podspec */,
 				60F262FB1C53546F005F87C1 /* Dependencies */,
 				60F263451C53546F005F87C1 /* Utils */,
 			);
