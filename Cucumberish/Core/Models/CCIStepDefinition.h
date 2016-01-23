@@ -29,15 +29,18 @@
 @class CCIStep;
 /**
  You pass this block when ever you define an implementation for a step.
- This code block receives parameters, args which corresponds to your regular express capturing groups, and the other one userInfo is reserved for future use, for now it will be always nil.
+ 
+ @param args strings array which corresponds to your regular express capturing groups.
+ @param userInfo is a dictionary that currently can only have one of two keys "DataTable" and "DocString". If your step definition is expected to match a data table or a doc string, then you can expect this user info to contain DataTable or DocString key respectively.
  */
-typedef void(^CCIStepBody)(NSArray * args, id userInfo);
+typedef void(^CCIStepBody)(NSArray <NSString *>* args, NSDictionary * userInfo);
 
 @interface CCIStepDefinition : NSObject<NSCopying>
 
 @property NSString * regexString;
 @property NSString * type;
 @property NSArray * matchedValues;
+@property NSDictionary * additionalContent;
 @property (nonatomic, copy) CCIStepBody body;
 
 + (instancetype)definitionWithType:(NSString *)type regexString:(NSString *)regexString implementationBody:(CCIStepBody)body;
