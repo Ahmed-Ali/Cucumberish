@@ -23,8 +23,9 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "CCIBlockDefinitions.h"
 @class CCIScenarioDefinition;
-typedef void (^CCIScenarioHockBlock)(CCIScenarioDefinition * scenario);
+
 
 @interface CCIHock : NSObject
 

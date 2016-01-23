@@ -25,15 +25,10 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-
+#import "CCIStepsManager.h"
 @class CCIStep;
-/**
- You pass this block when ever you define an implementation for a step.
- 
- @param args strings array which corresponds to your regular express capturing groups.
- @param userInfo is a dictionary that currently can only have one of two keys "DataTable" and "DocString". If your step definition is expected to match a data table or a doc string, then you can expect this user info to contain DataTable or DocString key respectively.
- */
-typedef void(^CCIStepBody)(NSArray <NSString *>* args, NSDictionary * userInfo);
+
+
 
 @interface CCIStepDefinition : NSObject<NSCopying>
 

@@ -32,7 +32,9 @@
 #import "CCIStepsManager.h"
 #import "NSString+Formatter.h"
 #import "CCIStepDefinition.h"
-
+#import "CCIScenarioDefinition.h"
+#import "CCIHock.h"
+#import "CCIAroundHock.h"
 
 #ifndef SRC_ROOT
 #define SRC_ROOT ""
