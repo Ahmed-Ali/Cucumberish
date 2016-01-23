@@ -19,6 +19,7 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
 2. This step is super important for proper reporting. Go to your test target build settings, and the following preprocess macro:
     ```
     SRC_ROOT=$(SRCROOT)
+    ```
 3. And that's it for including Cucumberish in your project! You can move on directly to the getting started part.
 
 ### Cocoapods Installation
@@ -27,5 +28,5 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
     target 'YourTestTargetName' do
         pod 'Cucumberish'
     end
-
+    ```
 #To Be Continued ...
