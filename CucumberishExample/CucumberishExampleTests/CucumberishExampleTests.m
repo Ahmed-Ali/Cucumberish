@@ -30,11 +30,8 @@
 #import "CCIStepsUsingKIF.h"
 #import "KIFUITestActor+Utils.h"
 
-@interface NSObject (Cucumberish) @end
-@implementation NSObject (Cucumberish)
-
-
-+ (void)load
+__attribute__((constructor))
+void CucumberishInit()
 {
     [CCIStepsUsingKIF setup];
     KIFUITestActor * actor = [CCIStepsUsingKIF instance].actor;
@@ -48,11 +45,7 @@
         return step(@"I tap the \"Clear All Data\" button");
     });
     
-        
-    
     
     [Cucumberish instance].fixMissingLastScenario = YES;
     [[[Cucumberish instance] parserFeaturesInDirectory:@"ExampleFeatures" featureTags:nil] beginExecution];
 }
-
-@end
