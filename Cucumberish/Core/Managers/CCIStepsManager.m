@@ -156,6 +156,7 @@ static CCIStepsManager * instance = nil;
     CCIAssert(implementation != nil, errorMessage);
     NSLog(@"Currently executing: %@ %@", step.keyword, step.text);
     implementation.body(implementation.matchedValues, implementation.additionalContent);
+    NSLog(@"Step: \"%@ %@\" passed", step.keyword, step.text);
 }
 
 
