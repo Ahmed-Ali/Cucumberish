@@ -86,7 +86,7 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
             ```Swift
             import Foundation
             class CucumberishInitializer: NSObject {
-                class func CucumberishSwift()
+                class func CucumberishSwiftInit()
                 {
                     var application : XCUIApplication!
                     //A closure that will be executed just before executing any of your features
