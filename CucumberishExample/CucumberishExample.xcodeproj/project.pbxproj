@@ -29,7 +29,6 @@
 		6075A5C11C4FB34400FE2B1B /* CCITableBody.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A55C1C4FB34400FE2B1B /* CCITableBody.m */; };
 		6075A5C21C4FB34400FE2B1B /* CCITag.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A55E1C4FB34400FE2B1B /* CCITag.m */; };
 		6075A5C31C4FB34400FE2B1B /* Cucumberish.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5601C4FB34400FE2B1B /* Cucumberish.m */; };
-		6075A5C41C4FB34400FE2B1B /* Cucumberish.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6075A5611C4FB34400FE2B1B /* Cucumberish.podspec */; };
 		6075A5C51C4FB34400FE2B1B /* GHAstBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5651C4FB34400FE2B1B /* GHAstBuilder.m */; };
 		6075A5C61C4FB34400FE2B1B /* GHAstNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5671C4FB34400FE2B1B /* GHAstNode.m */; };
 		6075A5C71C4FB34400FE2B1B /* GHBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5691C4FB34400FE2B1B /* GHBackground.m */; };
@@ -101,7 +100,6 @@
 		60F263591C53546F005F87C1 /* CCITableBody.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262F51C53546F005F87C1 /* CCITableBody.m */; };
 		60F2635A1C53546F005F87C1 /* CCITag.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262F71C53546F005F87C1 /* CCITag.m */; };
 		60F2635B1C53546F005F87C1 /* Cucumberish.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262F91C53546F005F87C1 /* Cucumberish.m */; };
-		60F2635C1C53546F005F87C1 /* Cucumberish.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 60F262FA1C53546F005F87C1 /* Cucumberish.podspec */; };
 		60F2635D1C53546F005F87C1 /* GHAstBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262FE1C53546F005F87C1 /* GHAstBuilder.m */; };
 		60F2635E1C53546F005F87C1 /* GHAstNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F263001C53546F005F87C1 /* GHAstNode.m */; };
 		60F2635F1C53546F005F87C1 /* GHBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F263021C53546F005F87C1 /* GHBackground.m */; };
@@ -201,7 +199,6 @@
 		6075A55E1C4FB34400FE2B1B /* CCITag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCITag.m; sourceTree = "<group>"; };
 		6075A55F1C4FB34400FE2B1B /* Cucumberish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cucumberish.h; sourceTree = "<group>"; };
 		6075A5601C4FB34400FE2B1B /* Cucumberish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cucumberish.m; sourceTree = "<group>"; };
-		6075A5611C4FB34400FE2B1B /* Cucumberish.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cucumberish.podspec; sourceTree = "<group>"; };
 		6075A5641C4FB34400FE2B1B /* GHAstBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAstBuilder.h; sourceTree = "<group>"; };
 		6075A5651C4FB34400FE2B1B /* GHAstBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHAstBuilder.m; sourceTree = "<group>"; };
 		6075A5661C4FB34400FE2B1B /* GHAstNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAstNode.h; sourceTree = "<group>"; };
@@ -312,6 +309,7 @@
 		60853AC01C4EF58D00806CD9 /* Activity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Activity.m; sourceTree = "<group>"; };
 		608618A11C53515A00AE8786 /* CucumberishExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CucumberishExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		608618A51C53515A00AE8786 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		608C8E9A1C54215200BFE708 /* CCIBlockDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCIBlockDefinitions.h; sourceTree = "<group>"; };
 		60F262CD1C5351A1005F87C1 /* CucumberishExampleUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CucumberishExampleUITests-Bridging-Header.h"; sourceTree = "<group>"; };
 		60F262CE1C5351A1005F87C1 /* CucumberishInitilizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CucumberishInitilizer.m; sourceTree = "<group>"; };
 		60F262D01C535343005F87C1 /* CucumberishInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CucumberishInitializer.swift; sourceTree = "<group>"; };
@@ -486,7 +484,6 @@
 				6075A5381C4FB34400FE2B1B /* Core */,
 				6075A55F1C4FB34400FE2B1B /* Cucumberish.h */,
 				6075A5601C4FB34400FE2B1B /* Cucumberish.m */,
-				6075A5611C4FB34400FE2B1B /* Cucumberish.podspec */,
 				6075A5621C4FB34400FE2B1B /* Dependencies */,
 				6075A5AC1C4FB34400FE2B1B /* Utils */,
 			);
@@ -641,6 +638,7 @@
 		6075A5AC1C4FB34400FE2B1B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				608C8E9A1C54215200BFE708 /* CCIBlockDefinitions.h */,
 				6075A5AD1C4FB34400FE2B1B /* NSObject+Dictionary.h */,
 				6075A5AE1C4FB34400FE2B1B /* NSObject+Dictionary.m */,
 				6075A5AF1C4FB34400FE2B1B /* NSString+Formatter.h */,
@@ -1058,7 +1056,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6075A5361C4FB2D000FE2B1B /* ExampleFeatures in Resources */,
-				6075A5C41C4FB34400FE2B1B /* Cucumberish.podspec in Resources */,
 				6075A5CB1C4FB34400FE2B1B /* gherkin-languages.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1079,7 +1076,6 @@
 			files = (
 				60F263801C535487005F87C1 /* ExampleFeatures in Resources */,
 				60F263631C53546F005F87C1 /* gherkin-languages.json in Resources */,
-				60F2635C1C53546F005F87C1 /* Cucumberish.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

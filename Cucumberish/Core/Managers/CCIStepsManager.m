@@ -25,9 +25,9 @@
 // THE SOFTWARE.
 
 #import "CCIStepsManager.h"
-
-#import "CCIStep.h"
 #import "Cucumberish.h"
+#import "CCIStep.h"
+#import "CCIStepDefinition.h"
 
 static CCIStepsManager * instance = nil;
 
@@ -154,9 +154,14 @@ static CCIStepsManager * instance = nil;
         errorMessage = [NSString stringWithFormat:@"The implementation of this step, calls another step that is not implemented: %@", [step.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     }
     CCIAssert(implementation != nil, errorMessage);
-    NSLog(@"Currently executing: %@ %@", step.keyword, step.text);
+    if(step.keyword.length > 0){
+        NSLog(@"Currently executing: \"%@ %@\"", step.keyword, step.text);
+    }
+    
     implementation.body(implementation.matchedValues, implementation.additionalContent);
-    NSLog(@"Step: \"%@ %@\" passed", step.keyword, step.text);
+    if(step.keyword.length > 0){
+        NSLog(@"Step: \"%@ %@\" passed", step.keyword, step.text);
+    }
 }
 
 

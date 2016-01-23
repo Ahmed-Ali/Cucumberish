@@ -25,10 +25,11 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
-    It is my Cucumberish library
+    Cucumberish is a native Objective-C framework for Behaviour Driven Development inspired by the amazing way of writing automated test cases introduced originally by Cucumber.
+    With Cucumberish, you write your test scenarios using the well known Gherkin syntax, and implement the scenario steps using native Objective-C or Swift syntax and enjoy full Xcode integration with Test Navigator shows your test cases and failures exactly like native XCTestCase(s).
                    DESC
 
-  s.homepage     = "https://github.com/Ahmed-Ali"
+  s.homepage     = "https://github.com/Ahmed-Ali/Cucumberish"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -39,8 +40,7 @@ Pod::Spec.new do |s|
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
 
-  s.license      = "MIT"
-  # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
+    s.license      = { :type => "MIT", :file => "LICENSE" }
 
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -53,10 +53,8 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.author             = { "Ahmed Ali" => "" }
-  # Or just: s.author    = "Ahmed Ali"
-  # s.authors            = { "Ahmed Ali" => "" }
-  # s.social_media_url   = "https://github.com/Ahmed-Ali"
+    s.author             = { "Ahmed Ali" => "eng.ahmed.ali.awad@gmail.com" }
+    s.social_media_url   = "https://www.linkedin.com/in/engahmedali"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -64,16 +62,7 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  # s.platform     = :ios
-    s.platform     = :ios, "8.0"
-
-  #  When using multiple platforms
-  # s.ios.deployment_target = "5.0"
-  # s.osx.deployment_target = "10.7"
-  # s.watchos.deployment_target = "2.0"
-  # s.tvos.deployment_target = "9.0"
-
-
+    s.platform     = :ios, "7.0"
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
   #  Specify the location from where the source should be retrieved.
@@ -91,10 +80,10 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-    s.source_files  = '*.{h,m}', 'Core/Managers/*.{h,m}', 'Core/Models/*.{h,m}', 'Utils/*.{h,m}', 'Dependencies/Gherkin'
-  # s.exclude_files = "Classes/Exclude"
+    s.source_files  = 'Cucumberish/*.{h,m}', 'Cucumberish/Core/Managers/*.{h,m}', 'Cucumberish/Core/Models/*.{h,m}', 'Cucumberish/Utils/*.{h,m}', 'Cucumberish/Dependencies/Gherkin'
 
-  # s.public_header_files = "Classes/**/*.h"
+
+    s.public_header_files = 'Cucumberish/Cucumberish.h', 'Cucumberish/Core/Managers/CCIStepsManager.h', 'Cucumberish/Utils/CCIBlockDefinitions.h'
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -105,10 +94,7 @@ Pod::Spec.new do |s|
   #  non-essential files like tests, examples and documentation.
   #
 
-    s.resource  = 'Dependencies/Gherkin/gherkin-languages.json'
-  # s.resources = 'Dependencies/Gherkin/gherkin-languages.json'
-
-  # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
+    s.resource  = './Cucumberish/Dependencies/Gherkin/gherkin-languages.json'
 
 
   # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
