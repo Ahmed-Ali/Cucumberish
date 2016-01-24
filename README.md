@@ -65,7 +65,7 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
                 });
                 //Optional step, see the comment on this property for more information
                 [Cucumberish instance].fixMissingLastScenario = YES;
-                //Tell Cucumber the name of your features folder and let it execute them for you...
+                //Tell Cucumberish the name of your features folder and let it execute them for you...
                 [[[Cucumberish instance] parserFeaturesInDirectory:@"Features" featureTags:nil] beginExecution];
             }
             ```
@@ -109,7 +109,7 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
                         //Assume you defined an "I tap on \"(.*)\" button" step previousely, you can call it from your code as well.
                         SStep("I tap the \"Clear All Data\" button")
                     }
-                    //Tell Cucumber the name of your features folder and let it execute them for you...
+                    //Tell Cucumberish the name of your features folder and let it execute them for you...
                     Cucumberish.executeFeaturesInDirectory("ExampleFeatures", featureTags: nil)
                 }
             }
