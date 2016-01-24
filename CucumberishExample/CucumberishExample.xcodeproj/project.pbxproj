@@ -309,7 +309,6 @@
 		60853AC01C4EF58D00806CD9 /* Activity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Activity.m; sourceTree = "<group>"; };
 		608618A11C53515A00AE8786 /* CucumberishExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CucumberishExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		608618A51C53515A00AE8786 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		608C8E9A1C54215200BFE708 /* CCIBlockDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCIBlockDefinitions.h; sourceTree = "<group>"; };
 		60F262CD1C5351A1005F87C1 /* CucumberishExampleUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CucumberishExampleUITests-Bridging-Header.h"; sourceTree = "<group>"; };
 		60F262CE1C5351A1005F87C1 /* CucumberishInitilizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CucumberishInitilizer.m; sourceTree = "<group>"; };
 		60F262D01C535343005F87C1 /* CucumberishInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CucumberishInitializer.swift; sourceTree = "<group>"; };
@@ -426,6 +425,7 @@
 		60F263481C53546F005F87C1 /* NSString+Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Formatter.h"; sourceTree = "<group>"; };
 		60F263491C53546F005F87C1 /* NSString+Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Formatter.m"; sourceTree = "<group>"; };
 		60F2637F1C535487005F87C1 /* ExampleFeatures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ExampleFeatures; sourceTree = "<group>"; };
+		60F63FDF1C552BE1004B49F9 /* CCIBlockDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCIBlockDefinitions.h; sourceTree = "<group>"; };
 		9A5110C535126164FC3E72D5 /* Pods-CucumberishExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CucumberishExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CucumberishExampleTests/Pods-CucumberishExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D6D6B0487C601B9E02D616AC /* Pods-CucumberishExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CucumberishExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CucumberishExampleTests/Pods-CucumberishExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		F96FF80F09F076CF8F3D23A0 /* libPods-CucumberishExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CucumberishExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -493,6 +493,7 @@
 		6075A5381C4FB34400FE2B1B /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				60F63FDF1C552BE1004B49F9 /* CCIBlockDefinitions.h */,
 				6075A5391C4FB34400FE2B1B /* Managers */,
 				6075A53E1C4FB34400FE2B1B /* Models */,
 			);
@@ -637,7 +638,6 @@
 		6075A5AC1C4FB34400FE2B1B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				608C8E9A1C54215200BFE708 /* CCIBlockDefinitions.h */,
 				6075A5AD1C4FB34400FE2B1B /* NSObject+Dictionary.h */,
 				6075A5AE1C4FB34400FE2B1B /* NSObject+Dictionary.m */,
 				6075A5AF1C4FB34400FE2B1B /* NSString+Formatter.h */,
