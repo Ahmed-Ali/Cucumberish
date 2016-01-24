@@ -46,42 +46,8 @@ void CucumberishInit()
     });
     
     
-    /**
-     Feature: Example
-     # This is a free text description as an inline documentation for your features, you can omit it if you want.
-     # However, it is very adviseble to well describe your features.
-     As someone who plan to automate the iOS projet test cases, I will use Cucumberish.
-     
-     # First scenario is the scenario name, which will also appear in a proper formatting in the test navigator
-     Scenario: First scenario
-     # This is the first step in the scenario
-     # Also noteworthy; a "Given" step, should be treated as the step the defines the app state before going into the rest of the scenario
-     # Or consider it as a precondition for the scenario;
-     # For example to post a comment, the user most be logged in, then you should say something similar to "Given the user is logged in" as your Given step.
-     Given I have a very cool app
-     
-     # The grammar being used, is completely defined by you and your QA team; it is up to you to find the best way to define your functionality.
-     # Only keep in mind that every step must start with "Given", "When", "Then", "And", and "But".
-     When I automate it with "Cucumberish"
-     Then I will be more confident about the quality of the project and its releases
-     */
-    
-    Given(@"I have a very cool app", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
-        //Inside this step implementation, it is expected that you will do whatever necessary to make sure "I have a very cool app" condition is satisfied :)
-        NSLog(@"\"Given I have a very cool app\" step is implemented");
-    });
-    
-    // The step implementation matching text can be any valid regular expression text
-    // Your regex captured groups will be added to the args array in the same order they have been captured by you regex string
-    When(@"^I automate it with \"(.*)\"$", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
-        NSLog(@"I am gonna automate my test cases with \"%@\"", args[0]);
-    });
-    
-    Then(@"Then I will be more confident about the quality of the project and its releases", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
-        NSLog(@"Implemented step for the sake of the example");
-    });
-    
     
     [Cucumberish instance].fixMissingLastScenario = YES;
+    
     [[[Cucumberish instance] parserFeaturesInDirectory:@"ExampleFeatures" featureTags:nil] beginExecution];
 }
