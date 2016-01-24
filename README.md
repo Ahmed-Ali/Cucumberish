@@ -169,7 +169,7 @@ And that's it! You have implemented your first feature scenario steps!
 
 # Examples
 Creating a wiki with as much details as possible is a work in progrees. Meanwhile, clone this repository and open the file CucumberishExample/CucumberishExample.xcworkspace
-This workspace is the default workspace you get when you use cocoapods.
+This workspace is the default workspace you get when you use Cocoapods.
 In the CucumberishExampe project there are three targets:
 
 1. Example app target:
