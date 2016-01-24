@@ -169,7 +169,7 @@ In the body of the CucumberishInit C function and before calling -[Cucumberish b
 ```
 
 And that's it! You have implemented your first feature scenario steps!
-For more information about the steps, the blocks that are passed to it, and the hooks; check the [CCIBlockDefinitions.h](https://github.com/Ahmed-Ali/Cucumberish/blob/master/Cucumberish/Core/CCIBlockDefinitions.h) file and [Cucumber Wiki](https://github.com/Ahmed-Ali/Cucumberish/wiki).
+For more information about the steps, the blocks that are passed to it, and the hooks; check the [CCIBlockDefinitions.h](https://github.com/Ahmed-Ali/Cucumberish/blob/master/Cucumberish/Core/CCIBlockDefinitions.h) file and [Cucumberish Wiki](https://github.com/Ahmed-Ali/Cucumberish/wiki).
 
 # Examples
 Creating a wiki with as much details as possible is a work in progrees. Meanwhile, clone this repository and open the file CucumberishExample/CucumberishExample.xcworkspace
