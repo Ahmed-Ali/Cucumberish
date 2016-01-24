@@ -113,4 +113,22 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
             ```
             
             
+# Examples
+Creating a wiki with as much details as possible is a work in progrees. Meanwhile, clone this repository and open the file CucumberishExample/CucumberishExample.xcworkspace
+This workspace is the default workspace you get when you use cocoapods.
+In the CucumberishExampe project there are three targets:
+
+1. Example app target:
+    - It is very small app with few screens and easy to understand flow and imeplementation; in the storyboards most of its UI components has accessibility label. You can find the accessibility labels from storyboard directly or in the simulator using the accessibility inspector.
+    
+2. Unit test target:
+    - This target uses [KIF](https://github.com/kif-framework/KIF) to interact with the UI in the steps implementation.
+    - It is a very good idea to take a look at the file CucumberishExampleTests/Steps/CCIStepsUsingKIF.m to see many examples for how to define your step implementations in many different ways. This target uses Objective-C
+    - While walking through the step imeplementations, see how this implementation is being used in the CucumberishExampleTests/ExampleFeatures .feature files.
+
+3. UI Test Target:
+    - While I was not impressed enough by Apple UI automation API and its so much limitions, I decided to add the example target to complete the chain. It has smaller set of step implementation examples, and written in Swift.
+
+Feel free to take this step implementation as a starting point and use them as much as you want; just rememberto choose what fits best with your needs because you will build your own implementations in all cases.
+            
 # To Be Continued
