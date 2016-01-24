@@ -22,7 +22,7 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
 
 ### Manual Installation
 1. Copy the content of Cucumberish folder into your project and add it to your test target.
-2. This step is super important for proper reporting. Go to your test target build settings, and the following preprocess macro:
+2. This step is super important for proper reporting. Go to your test target build settings, and add the following preprocess macro:
 
     ```
     SRC_ROOT=$(SRCROOT)
@@ -43,7 +43,7 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
 1. Go to your test target folder and create a subfolder. Let's call it **Features**.
 2. Add this folder to your test target in Xcode as a Folder, **not** a group! This is a very important step.
 ![Features Folder as Folder not a Group](https://cloud.githubusercontent.com/assets/5157350/12533357/f7a94448-c22d-11e5-904a-1c353a76d604.png)
-3. Inside this folder, you will create the .feature files which will contain your test features/scenarios.
+3. Inside this folder, you will create the .feature files which will contain your test's features and scenarios.
     - ##### For Objective-C test targets:
         - When you create a test target, Xcode creates a test case file for you. Open this file and replace its content with the following:
         
