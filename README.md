@@ -204,7 +204,7 @@ So it is believed to be meaningless to point to one of your feature files in suc
    
 2. If you missed one of the first two steps of the [Manual installation](#manual-installation), in case you installed Cucumberish manually, or you missed the second step in the [Post installation steps](#post-installation-steps).
 
-3. If you believe you a different case, please report it as an issue.
+3. If you believe you have a different case, please report it as an issue.
 
 
 # Continuous Integration
