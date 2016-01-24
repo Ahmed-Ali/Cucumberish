@@ -7,18 +7,22 @@ For those who do not know what it means: Simply this framework will help develop
 * Can be used with continues integration servers, or cloud services; just like XC unit tests!
 * When any test fail, Xcode Test Navigator will point to your .feature file on the line that failed.
 * Your test reports will appear in your Reports Navigator just like any XC unit tests.
-* No Ruby, "command line-only", or any other non-ios related languages or dependencies needed to install or use Cucumberish at all!
+* No Ruby, "command line-only", or any other non-ios related languages or chaotic dependency chain needed to install or use Cucumberish at all!
 * Few minutes installation!
 * Step implementations are done directly in Objective-C or Swift! Which means you can breakpoint and debug your steps implementations easily.
 * Can be used with Unit Test as well as UI Test targets!
 
+##### Here is a quick animated GIF that shows you how it ends up in action
+
+![Cucumberish In Action](https://cloud.githubusercontent.com/assets/5157350/12533701/512a8cd8-c239-11e5-9636-1152353aa47f.gif)
+
 # Installation
-You can install Cucumberish manually, in no more than few minutes (or maybe five if you have a really slow internet connection), or using cocoapods.
+You can install Cucumberish manually, in no more than few minutes, or using cocoapods.
 If you will use Cucumberish with UI Test target, you should use the manual installation; for some reasons cocoapods fails to copy the required resources with UI Test targets.
 
 ### Manual Installation
 1. Copy the content of Cucumberish folder into your project and add it to your test target.
-2. This step is super important for proper reporting. Go to your test target build settings, and the following preprocess macro:
+2. This step is super important for proper reporting. Go to your test target build settings, and add the following preprocess macro:
 
     ```
     SRC_ROOT=$(SRCROOT)
@@ -39,7 +43,7 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
 1. Go to your test target folder and create a subfolder. Let's call it **Features**.
 2. Add this folder to your test target in Xcode as a Folder, **not** a group! This is a very important step.
 ![Features Folder as Folder not a Group](https://cloud.githubusercontent.com/assets/5157350/12533357/f7a94448-c22d-11e5-904a-1c353a76d604.png)
-3. Inside this folder, you will create the .feature files which will contain your test features/scenarios.
+3. Inside this folder, you will create the .feature files which will contain your test's features and scenarios.
     - ##### For Objective-C test targets:
         - When you create a test target, Xcode creates a test case file for you. Open this file and replace its content with the following:
         
