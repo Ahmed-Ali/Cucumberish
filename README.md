@@ -20,8 +20,8 @@ For those who do not know what it means: Simply this framework will help develop
 You can install Cucumberish manually, in no more than few minutes, or using cocoapods.
 If you will use Cucumberish with UI Test target, you should use the manual installation; for some reasons cocoapods fails to copy the required resources with UI Test targets.
 
-### Manual Installation
-1. Copy the content of Cucumberish folder into your project and add it to your test target.
+### Manual installation
+1. Copy the content of Cucumberish folder into your test target folder and add it to your test target as a reference not a folder.
 2. This step is super important for proper reporting. Go to your test target build settings, and add the following preprocess macro:
 
     ```
@@ -31,7 +31,7 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
 3. And that's it for including Cucumberish in your project!
 
 
-### Cocoapods Installation
+### Cocoapods installation
 1. Add Cucumberish pod to your podfile to be added to your test target and run pod install.
 
     ```
@@ -185,4 +185,39 @@ In the CucumberishExampe project there are three targets:
 
 Feel free to take this step implementation as a starting point and use them as much as you want; just rememberto choose what fits best with your needs because you will build your own implementations in all cases.
             
-# To Be Continued
+# Troubleshooting
+#### My test case scenario failed because the step is not implemented, but I am sure I implemented it, now what?
+This can happen if your step definition text can not be matched against the step written in the feature file.
+It can happen because of a mistake in your regex string, or maybe an additional unwated space has been added to either the definision of the step or the step it self.
+A good place to put a breakpoint and see what is going on is in Cucumberish/Core/Managers/CCIStepsManagers.m in the method findDefinitionForStep:amongDefinitions:
+
+#### My test case failed, but when I click on the failed case in test navigator it does not open the file where the error occured.
+So far this happens for two reasons:
+
+    
+1. If there is a a runtime crash in your code. E. g. when you try to access the fifth element of an array that has only four elements.
+So it is believed to be meaningless to point to one of your feature files in such case. However, you stil need to find out the issue; you can put an exception breakpoint or open the Report navigator in Xcode, click on the first Test item at the top of your reports. Inside this report the failed case will be expandable and will show you all the available information.
+   
+2. If you missed one of the first two steps of the [Manual installation](#manual-installation), in case you installed Cucumberish manually, or you missed the second step in the [Post installation steps](#post-installation-steps).
+
+3. If you believe you a different case, please report it as an issue.
+
+
+# Continuous Integration
+
+A continuous integration (CI) process is highly recommended and is extremely useful in ensuring that your application stays functional. The easiest way to do this will be either using Bots, or Jenkins or another tool that uses xcodebuild. For tools using xcodebuild, review the manpage for instructions on using test destinations.
+
+# Aknowladgement
+- Cucumberish made a good use of [Gherkin3](https://github.com/cucumber/gherkin) in order to parse .feature files. Without its Objective-C implementation, I would have implemented it from scratch. Gherkin3 saved me a lot of time.
+- In the example app we used [KIF](https://github.com/kif-framework/KIF) as a good example of how you can implement steps that has to do with user interface. The guys behind this framework has done really amazing job!
+
+# Version History
+- v0.0.1 the very first initial release of Cucumberish
+    - See the features list to know what is there.
+    
+# Contributing
+I am so glad that you are interested in contributing to Cucumberish.
+When you have made some improvement or addition that you would like to see in the master repository, please [creat a pull request](https://github.com/Ahmed-Ali/Cucumberish/pulls) and I will merge it as soon as possible.
+
+# License
+Cucumberish is available under **MIT** license. See the [LICENSE](https://github.com/Ahmed-Ali/Cucumberish/blob/master/LICENSE) file for more information.
