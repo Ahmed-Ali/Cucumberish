@@ -39,6 +39,7 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
         pod 'Cucumberish'
     end
     ```
+    
 ### Post installation steps:
 1. Go to your test target folder and create a subfolder. Let's call it **Features**.
 2. Add this folder to your test target in Xcode as a Folder, **not** a group! This is a very important step.
