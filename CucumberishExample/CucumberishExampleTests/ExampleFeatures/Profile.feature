@@ -1,5 +1,5 @@
 Feature: Profile
-As I a user I should be able to create profile and update my details
+As a user I should be able to create profile and update my details
 
 Scenario: Create profile
     Given it is home screen
