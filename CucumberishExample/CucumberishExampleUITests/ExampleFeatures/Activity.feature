@@ -1,5 +1,5 @@
 Feature: Activity
-As I a user I should be able to add some activites, and delete them
+As a user I should be able to add some activites, and delete them
 
 Scenario: Add an activity
     Given the app is running

@@ -1,5 +1,5 @@
 Feature: History
-As I a user I want to see record of history when a profile is created/updated and activity is added/deleted
+As a user I want to see record of history when a profile is created/updated and activity is added/deleted
 
 Scenario: Create profile and see the action in history
     Given it is home screen
