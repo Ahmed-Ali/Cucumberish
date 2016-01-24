@@ -17,7 +17,7 @@ For those who do not know what it means: Simply this framework will help develop
 ![Cucumberish In Action](https://cloud.githubusercontent.com/assets/5157350/12533701/512a8cd8-c239-11e5-9636-1152353aa47f.gif)
 
 # Installation
-You can install Cucumberish manually, in no more than few minutes (or maybe five if you have a really slow internet connection), or using cocoapods.
+You can install Cucumberish manually, in no more than few minutes, or using cocoapods.
 If you will use Cucumberish with UI Test target, you should use the manual installation; for some reasons cocoapods fails to copy the required resources with UI Test targets.
 
 ### Manual Installation
