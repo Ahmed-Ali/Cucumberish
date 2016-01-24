@@ -80,14 +80,14 @@ static CCIStepsManager * instance = nil;
         for(NSArray * definitions in self.definitions.allValues){
             [allDefinitions addObjectsFromArray:definitions];
         }
-        return [self definitionForStep:step definitions:allDefinitions];
+        return [self findDefinitionForStep:step amongDefinitions:allDefinitions];
     }
     NSArray * definitionGroup = self.definitions[step.keyword];
-    return [self definitionForStep:step definitions:definitionGroup];
+    return [self findDefinitionForStep:step amongDefinitions:definitionGroup];
 
 }
 
-- (CCIStepDefinition *)definitionForStep:(CCIStep *)step definitions:(NSArray *)definitions
+- (CCIStepDefinition *)findDefinitionForStep:(CCIStep *)step amongDefinitions:(NSArray *)definitions
 {
     NSError * error;
     
