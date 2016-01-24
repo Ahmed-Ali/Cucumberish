@@ -41,7 +41,7 @@
 + (instancetype)instance;
 
 /**
- Executes the passed steps if it matches any previously defined implementation. Or throw an error if there is no matching definiton.
+ Executes the passed step if it matches any previously defined implementation. Or throw an error if there is no matching definiton.
  
  @param step the to be executed
  */

@@ -43,11 +43,11 @@
  If this causes an issue for your test report, change the value of this property to YES before calling beginExecution.
  
  @Note
- Thoguh the default value of this property is NO, ut is highly recommended to set the value of this proeprty to YES.
+ Thoguh the default value of this property is NO, it is highly recommended to set the value of this proeprty to YES.
  
  @Note
  This will cause Cucumberish to execute an additional scenario called cucumberishCleanupScenario which will immediately disappear instead of your real last scenario.
- Which will also increase the number of executed scenarios by 1. If you only have 6 scenarios, you will see 7 scenarios in the console message, and in your report navigator.
+ Also this will increase the number of executed scenarios by 1. If you only have 6 scenarios, you will see 7 scenarios in the console message, and in your report navigator.
  
  */
 @property (nonatomic) BOOL fixMissingLastScenario;
@@ -60,9 +60,6 @@
 + (instancetype)instance;
 
 
-//param: featuresDirectory path in which to look for .feature files
-//param: customStepsDirectory path in which to look for your .rb files
-//param: tag only features annotated with this tag will be executed
 
 /**
  Parses any .feature file that is located inside the passed folder name and map it to a test case if the feature inside the file has one or more tags of the passed tags (if any)
@@ -79,7 +76,7 @@
 - (Cucumberish *)parserFeaturesInDirectory:(NSString *)featuresDirectory featureTags:(NSArray *)tags;
 
 /**
- Start executing all the previously parsed features in an alphabetic ascending order.
+ Fire the executiion of all the previously parsed features in an alphabetic ascending order.
  */
 - (void)beginExecution;
 
