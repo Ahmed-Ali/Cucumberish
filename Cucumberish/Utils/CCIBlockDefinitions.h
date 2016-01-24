@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 @class CCIScenarioDefinition;
+
+#pragma mark - Block types
 /**
  You pass this block when ever you define an implementation for a step.
  
@@ -15,9 +17,22 @@
  @param userInfo is a dictionary that currently can only have one of two keys "DataTable" and "DocString". If your step definition is expected to match a data table or a doc string, then you can expect this user info to contain DataTable or DocString key respectively.
  */
 typedef void(^CCIStepBody)(NSArray <NSString *>* args, NSDictionary * userInfo);
-typedef void (^CCIScenarioHockBlock)(CCIScenarioDefinition * scenario);
-typedef void (^CCIScenarioExecutionHockBlock)(CCIScenarioDefinition * scenario, void (^)(void) );
 
+/**
+ This block is passed to all the hocks (except around hock).
+ @param scenario the scenario the current scenario
+ */
+typedef void (^CCIScenarioHockBlock)(CCIScenarioDefinition * scenario);
+
+/**
+ This block is passed to around hocks.
+ @param scenario the scenario the current scenario.
+ @param scenarioExectionBlock the block that will execute the scenario. If you did not call it, the scenario will never bee executed.
+ */
+typedef void (^CCIScenarioExecutionHockBlock)(CCIScenarioDefinition * scenario, void (^scenarioExectionBlock)(void) );
+
+
+#pragma mark - Step definitions and prepositions
 
 @class CCIStep;
 @class CCIStepDefinition;
@@ -218,7 +233,7 @@ OBJC_EXPORT void step(NSString * stepLine, ...);
 OBJC_EXTERN void SStep(NSString * stepLine);
 
 
-
+#pragma mark - Hocks
 /**
  C function that registers a code block to be called only once before executing any test case.
  You can call this function as much as you want, but only the last registerd code block will be used.
@@ -341,7 +356,7 @@ OBJC_EXTERN void afterTagged(NSArray * tags, CCIScenarioHockBlock afterTaggedBlo
  */
 OBJC_EXTERN void around(NSArray * tags, CCIScenarioExecutionHockBlock aroundScenarioBlock);
 
-
+#pragma mark - Assertion and Errors
 /**
  Boolean assertion function. Use it where you usually use NSAssert or assert.
  
