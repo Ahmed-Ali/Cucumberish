@@ -112,7 +112,61 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
             }
             ```
             
-            
+# Getting started
+Now you have Cucumberish in place and you followed all the installation and post-installation instructions; it is time to write a very sample feature and scenario with few steps.
+Since the exact step implementations will be very different thing between one project and the other, we will not dig deep into it; we will just see the approach on how to get there. I will assume your test target is an Objective-C one for the sake of demonstration; but the same prenciples can be applied on Swift targets.
+
+Start by creating a new file in your features folder, we will call it example.feature.
+
+_Note:_ You can have only one feature per file, but as many scenarios as you want.
+
+Open this file to edit in Xcode (or any text editor you prefer) and write the followin as your very first feature:
+```Gherkin
+Feature: Example
+# This is a free text description as an inline documentation for your features, you can omit it if you want.
+# However, it is very adviseble to well describe your features.
+As someone who plans to automate the iOS projet test cases, I will use Cucumberish.
+
+# First scenario is the scenario name, which will also appear in a proper format in Xcode test navigator
+Scenario: First scenario
+
+    # This is the first step in the scenario
+    # Also noteworthy; a "Given" step, should be treated as the step that defines the app state before going into the rest of the scenario
+    # Or consider it as a precondition for the scenario;
+    # For example to post a comment, the user most be logged in, then you should say something similar to "Given the user is logged in" as your Given step.
+    Given I have a very cool app
+    
+    
+    # The grammar being used, is completely defined by you and your QA team; it is up to you to find the best way to define your functionality.
+    # Only keep in mind that every step must start with "Given", "When", "Then", "And", and "But".
+    When I automate it with "Cucumberish"
+    Then I will be more confident about the quality of the project and its releases
+```
+
+Now you have one cool feature in place, it is time to implement its stesp. You only need to care about the steps, not the feature or the scenario it self. So your step implementations are done out of any context.
+
+In the body of the CucumberishInit C function and before calling -[Cucumberish beginExecution] method, add the following:
+
+``` Objective-C
+    Given(@"I have a very cool app", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+        //Now it is expected that you will do whatever necessary to make sure "I have a very cool app" condition is satisfied :)
+        NSLog(@"\"Given I have a very cool app\" step is implemented");
+    });
+    
+    // The step implementation matching text can be any valid regular expression text
+    // Your regex capturing groups will be added to the args array in the same order they have been captured by your regex string
+    When(@"^I automate it with \"(.*)\"$", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+        NSLog(@"I am gonna automate my test cases with \"%@\"", args[0]);
+    });
+    
+    Then(@"Then I will be more confident about the quality of the project and its releases", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+        NSLog(@"Implemented step for the sake of the example");
+    });
+
+```
+
+And that's it! You have implemented your first feature scenario steps!
+
 # Examples
 Creating a wiki with as much details as possible is a work in progrees. Meanwhile, clone this repository and open the file CucumberishExample/CucumberishExample.xcworkspace
 This workspace is the default workspace you get when you use cocoapods.
