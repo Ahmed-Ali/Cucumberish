@@ -146,7 +146,7 @@ Scenario: First scenario
     Then I will be more confident about the quality of the project and its releases
 ```
 
-Now you have one cool feature in place, it is time to implement its stesp. You only need to care about the steps, not the feature or the scenario it self. So your step implementations are done out of any context.
+Now you have one cool feature in place, it is time to implement its steps. You only need to care about the steps, not the feature or the scenario it self. So your step implementations are done out of any context.
 
 In the body of the CucumberishInit C function and before calling -[Cucumberish beginExecution] method, add the following:
 
@@ -172,7 +172,7 @@ And that's it! You have implemented your first feature scenario steps!
 For more information about the steps, the blocks that are passed to it, and the hooks; check the [CCIBlockDefinitions.h](https://github.com/Ahmed-Ali/Cucumberish/blob/master/Cucumberish/Core/CCIBlockDefinitions.h) file and [Cucumberish Wiki](https://github.com/Ahmed-Ali/Cucumberish/wiki).
 
 # Examples
-Creating a wiki with as much details as possible is a work in progrees. Meanwhile, clone this repository and open the file CucumberishExample/CucumberishExample.xcworkspace
+Creating a wiki with as much details as possible is in progrees. Meanwhile, clone this repository and open the file CucumberishExample/CucumberishExample.xcworkspace
 This workspace is the default workspace you get when you use Cocoapods.
 In the CucumberishExampe project there are three targets:
 
