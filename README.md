@@ -128,7 +128,7 @@ Open this file to edit in Xcode (or any text editor you prefer) and write the fo
 Feature: Example
 # This is a free text description as an inline documentation for your features, you can omit it if you want.
 # However, it is very adviseble to well describe your features.
-As someone who plans to automate the iOS projet test cases, I will use Cucumberish.
+As someone who plans to automate the iOS project test cases, I will use Cucumberish.
 
 # First scenario is the scenario name, which will also appear in a proper format in Xcode test navigator
 Scenario: First scenario
