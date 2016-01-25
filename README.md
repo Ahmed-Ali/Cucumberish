@@ -1,6 +1,6 @@
 # Cucumberish
 Cucumberish is a native Objective-C framework for test automation that aims to facilitate the process of Behaviour Driven Development.
-It is inspired by the amazing way of writing automated test cases introduced originally by Cucumber using Gherkin syntax.
+It is inspired by the amazing way of writing automated test cases introduced originally by Cucumber using Gherkin language.
 For those who do not know what it means: Simply this framework will help developers and non-developers to write test cases in plain English and in a very organized manner.
 
 # Features
