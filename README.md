@@ -71,24 +71,7 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
             ```
         
     - ##### For Swift test targets:
-        1. Create and add an Objective-C .m file to your test target, when you do this Xcode will prompt you about creating a bridge file, confirm the creation of this file.
-        2. In the .m file you just add replace whatever content it has with the following:
-            
-            ```Objective-C
-            //Replace CucumberishExampleUITests with the name of your swift test target
-            #import "CucumberishExampleUITests-Swift.h"
-            __attribute__((constructor))
-            void CucumberishInit()
-            {
-                [CucumberishInitializer CucumberishSwiftInit];
-            }
-            ```
-
-        3. In the bridge header file that Xcode created for you in the first step above, add the following import
-            ```Objective-C
-            #import "Cucumberish.h"
-            ```
-        4. Last but not least, replace the content of the default .swift test case file that created with your test target with the following:
+        1. Replace the content of the default .swift test case file that was created with your test target by the following:
         
             ```Swift
             import Foundation
@@ -114,7 +97,25 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
                 }
             }
             ```
+        
+        2. Create a new Objective-C .m in the test target, when you do this Xcode will prompt you about creating a bridge file, confirm the creation of this file.
+        3. In the .m file you just add replace whatever content it has with the following:
             
+            ```Objective-C
+            //Replace CucumberishExampleUITests with the name of your swift test target
+            #import "CucumberishExampleUITests-Swift.h"
+            __attribute__((constructor))
+            void CucumberishInit()
+            {
+                [CucumberishInitializer CucumberishSwiftInit];
+            }
+            ```
+
+        4. In the bridge header file that Xcode created for you in the first step above, add the following import
+            ```Objective-C
+            #import "Cucumberish.h"
+            ```
+    
 # Getting started
 Now you have Cucumberish in place and you followed all the installation and post-installation instructions; it is time to write a very sample feature and scenario with few steps.
 Since the exact step implementations will be very different thing between one project and the other, we will not dig deep into it; we will just see the approach on how to get there. I will assume your test target is an Objective-C one for the sake of demonstration; but the same prenciples can be applied on Swift targets.
