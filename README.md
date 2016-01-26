@@ -201,7 +201,7 @@ So far this happens for two reasons:
 
     
 1. If there is a a runtime crash in your code. E. g. when you try to access the fifth element of an array that has only four elements.
-So it is believed to be meaningless to point to one of your feature files in such case. However, you stil need to find out the issue; you can put an exception breakpoint or open the Report navigator in Xcode, click on the first Test item at the top of your reports. Inside this report the failed case will be expandable and will show you all the available information.
+So it is believed to be meaningless to point to one of your feature files in such case. However, you still need to find out the issue; you can put an exception breakpoint or open the Report navigator in Xcode, click on the first Test item at the top of your reports. Inside this report the failed case will be expandable and will show you all the available information.
    
 2. If you missed one of the first two steps of the [Manual installation](#manual-installation), in case you installed Cucumberish manually, or you missed the second step in the [Post installation steps](#post-installation-steps).
 
