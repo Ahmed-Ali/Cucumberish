@@ -190,7 +190,7 @@ In the CucumberishExampe project there are three targets:
 3. UI Test Target:
     - While I was not impressed enough by Apple UI automation API and its so much limitions, I decided to add the example target to complete the chain. It has smaller set of step implementation examples, and written in Swift.
 
-Feel free to take this step implementation as a starting point and use them as much as you want; just rememberto choose what fits best with your needs because you will build your own implementations in all cases.
+Feel free to take this step implementations as a starting point and use them as much as you want; just remember to choose what fits best with your needs because you will build your own implementations in all cases.
             
 # Troubleshooting
 #### My test case scenario failed because the step is not implemented, but I am sure I implemented it, now what?
