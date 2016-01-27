@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.social_media_url   = "https://www.linkedin.com/in/engahmedali"
   s.platform     = :ios, "7.0"
   s.source       = { :git => "/Volumes/MyFiles/Projects/MyProjects/Cucumberish", :tag => "v0.0.1"}
-  s.source_files  = 'Cucumberish/*.{h,m}', 'Cucumberish/Core/Managers/*.{h,m}', 'Cucumberish/Core/Models/*.{h,m}', 'Cucumberish/Utils/*.{h,m}', 'Cucumberish/Dependencies/Gherkin'
+  s.source_files  = 'Cucumberish/*.{h,m}', 'Cucumberish/Core/Managers/*.{h,m}', 'Cucumberish/Core/Models/*.{h,m}', 'Cucumberish/Utils/*.{h,m}', 'Cucumberish/Dependencies/Gherkin', 'Cucumberish/Core/CCIBlockDefinitions.h'
   s.public_header_files = 'Cucumberish/Cucumberish.h', 'Cucumberish/Core/Managers/CCIStepsManager.h', 'Cucumberish/Core/CCIBlockDefinitions.h', 'Cucumberish/Core/Models/CCIScenarioDefinition.h'
   s.resource_bundles = {
     'Gherkin' => ['Cucumberish/Dependencies/Gherkin/gherkin-languages.json'],
