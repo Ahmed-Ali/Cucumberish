@@ -219,7 +219,7 @@ A continuous integration (CI) process is highly recommended and is extremely use
 - In the example app we used [KIF](https://github.com/kif-framework/KIF) as a good example of how you can implement steps that has to do with user interface. The guys behind this framework has done really amazing job!
 
 # Version History
-- v0.0.1
+- v0.0.2
     - Minor changes in podspec file and the example project scheme
 - v0.0.1 is the very first initial release of Cucumberish
     - See the features list to know what is there.
