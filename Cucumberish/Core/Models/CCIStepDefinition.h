@@ -25,7 +25,8 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "CCIStepsManager.h"
+#import "CCIBlockDefinitions.h"
+
 @class CCIStep;
 
 
