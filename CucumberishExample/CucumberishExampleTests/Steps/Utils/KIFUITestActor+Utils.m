@@ -1,9 +1,8 @@
 //
 //  KIFUITestActor+Utils.m
-//  Shift
+//  CucumberishExampleTests
 //
 //  Created by Ahmed Ali on 29/12/15.
-//  Copyright © 2015 MyOrder. All rights reserved.
 //
 
 #import "KIFUITestActor+Utils.h"
