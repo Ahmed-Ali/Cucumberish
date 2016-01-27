@@ -54,10 +54,14 @@
 {
     NSBundle * gherkinLanguagesBundle =  [NSBundle bundleForClass:[self class]];
     NSData * languagesFileContent = [NSData dataWithContentsOfFile: [gherkinLanguagesBundle pathForResource: @"gherkin-languages" ofType: @"json"]];
-    
+    if(languagesFileContent == nil){
+        NSString * bundlePath = [gherkinLanguagesBundle pathForResource:@"Gherkin" ofType:@"bundle"];
+        gherkinLanguagesBundle = [NSBundle bundleWithPath:bundlePath];
+        languagesFileContent = [NSData dataWithContentsOfFile:[gherkinLanguagesBundle pathForResource: @"gherkin-languages" ofType: @"json"]];
+    }
     /*TODO: check for error
-    if (resourceStream == null)
-        throw new InvalidOperationException("Gherkin language resource not found: " + languageFileName);*/
+     if (resourceStream == null)
+     throw new InvalidOperationException("Gherkin language resource not found: " + languageFileName);*/
     
     return [self parseJsonContent: languagesFileContent];
 }
