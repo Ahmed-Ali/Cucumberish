@@ -173,7 +173,7 @@ And that's it! You have implemented your first feature scenario steps!
 For more information about the steps, the blocks that are passed to it, and the hooks; check the [CCIBlockDefinitions.h](https://github.com/Ahmed-Ali/Cucumberish/blob/master/Cucumberish/Core/CCIBlockDefinitions.h) file and [Cucumberish Wiki](https://github.com/Ahmed-Ali/Cucumberish/wiki).
 
 # Examples
-Beside all the information you can find in the [wiki](https://github.com/Ahmed-Ali/Cucumberish/wiki). Seeing examples in action is the best way to demonstrate something. You can clone this repository and open the file CucumberishExample/CucumberishExample.xcworkspace
+Beside all the information you can find in the [wiki](https://github.com/Ahmed-Ali/Cucumberish/wiki) and specifically the [Steps Definition](https://github.com/Ahmed-Ali/Cucumberish/wiki/Step-Definitions) page. Seeing examples in action is the best way to demonstrate something. You can clone this repository and open the file CucumberishExample/CucumberishExample.xcworkspace
 
 *Note:* This workspace is the default workspace you get when you use Cocoapods.
 
