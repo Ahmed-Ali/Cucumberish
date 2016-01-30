@@ -283,7 +283,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
             CCITableBody * body = example.tableBody[i];
             //Scenario for each body
             CCIScenarioDefinition * scenario = [outline copy];
-            scenario.name = [scenario.name stringByAppendingFormat:@"Example%lu", (unsigned long)(i + 1)];
+            scenario.name = [scenario.name stringByAppendingFormat:@" Example%lu", (unsigned long)(i + 1)];
             scenario.examples = nil;
             //Loop on body cells
             for(int j = 0; j < body.cells.count; j++){
@@ -306,7 +306,8 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 + (Class)featureTestCaseClass:(CCIFeature *)feature
 {
-    NSString * className = [@"CCI_" stringByAppendingString:[feature.name camleCaseStringWithFirstUppercaseCharacter:YES]];
+    //Prefix it with CCI to avoit any name collision
+    NSString * className = [@"CCI " stringByAppendingString:feature.name];
     Class featureClass = objc_allocateClassPair([XCTestCase class], [className UTF8String], 0);
     if(featureClass == nil){
         featureClass = NSClassFromString(className);
@@ -322,7 +323,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 + (NSInvocation *)invocationForScenario:(CCIScenarioDefinition *)scenraio feature:(CCIFeature *)feature class:(Class)klass
 {
-    SEL sel = NSSelectorFromString([scenraio.name camleCaseStringWithFirstUppercaseCharacter:NO]);
+    SEL sel = NSSelectorFromString(scenraio.name);
     
     //Prefered to forward the implementation to a C function instead of Objective-C method, to avoid confusion with the type of "self" object that is being to the implementation
     class_addMethod(klass, sel, (IMP)executeScenario, [@"v@:@:@" UTF8String]);
