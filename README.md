@@ -16,7 +16,7 @@ For those who do not know what it means: Simply this framework will help develop
 
 ##### Here is a quick animated GIF that shows you how it ends up in action
 
-![Cucumberish In Action](https://cloud.githubusercontent.com/assets/5157350/12533701/512a8cd8-c239-11e5-9636-1152353aa47f.gif)
+![Cucumberish In Action](https://cloud.githubusercontent.com/assets/5157350/12704873/cf0a6dfe-c864-11e5-8a3b-8a3682d8e880.gif)
 
 # Installation
 You can install Cucumberish manually, in no more than few minutes, or using cocoapods.
