@@ -1,13 +1,11 @@
 Pod::Spec.new do |s|
 
   s.name         = "Cucumberish"
-  s.version      = "0.0.3"
-  s.summary      = "Cucumberish is an automated test tool for iOS that uses the most possible human friendly language to define your automated test scenarios"
+  s.version      = "0.0.4"
+  s.summary      = "Cucumberish is an automated test framework for iOS that uses the most possible human friendly language to define your automated test cases"
   s.description  = <<-DESC
-    Cucumberish is a native Objective-C framework for Behaviour Driven Development inspired by the amazing way of writing automated test cases introduced originally by Cucumber.
-    With Cucumberish, you write your test scenarios using the well known Gherkin syntax, and implement the scenario steps using native Objective-C or Swift syntax and enjoy full Xcode integration with Test Navigator that shows your test cases and failures exactly like native XCTestCase(s).
+    Cucumberish is Objective-C and Swift framework for Behaviour Driven Development inspired by the amazing way of writing automated test cases introduced originally by Cucumber. With Cucumberish, you write your test cases in almost plain English language.
                    DESC
-  s.homepage     = "https://github.com/Ahmed-Ali/Cucumberish"
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author             = { "Ahmed Ali" => "eng.ahmed.ali.awad@gmail.com" }
   s.social_media_url   = "https://www.linkedin.com/in/engahmedali"
