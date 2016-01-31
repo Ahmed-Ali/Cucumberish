@@ -283,7 +283,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
             CCITableBody * body = example.tableBody[i];
             //Scenario for each body
             CCIScenarioDefinition * scenario = [outline copy];
-            scenario.name = [scenario.name stringByAppendingFormat:@" Example%lu", (unsigned long)(i + 1)];
+            scenario.name = [scenario.name stringByAppendingFormat:@" Example %lu", (unsigned long)(i + 1)];
             scenario.examples = nil;
             //Loop on body cells
             for(int j = 0; j < body.cells.count; j++){
