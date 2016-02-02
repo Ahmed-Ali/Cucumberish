@@ -38,7 +38,7 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
 
     ```
     target 'YourTestTargetName' do
-        pod 'Cucumberish'
+        pod 'Cucumberish' -> '0.0.4'
     end
     ```
     
