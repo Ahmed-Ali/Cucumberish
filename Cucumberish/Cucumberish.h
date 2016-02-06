@@ -53,6 +53,12 @@
 @property (nonatomic) BOOL fixMissingLastScenario;
 
 /**
+ If you change this property value to YES, feature names and scenarios will appear in Xcode Test Navigator as is (allowing spaces and special characters).
+ However, allowing pretty names might cause some issues with some tools like XCTool
+ */
+@property (nonatomic) BOOL prettyNamesAllowed;
+
+/**
  Retuans a singleton instance of Cucumberish
  
  @return singleton instance of Cucumberish

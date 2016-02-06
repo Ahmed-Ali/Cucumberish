@@ -21,6 +21,7 @@
 
 + (void)prepare
 {
+    [[Cucumberish instance] setPrettyNamesAllowed:YES];
     CucumberishTester * tester = [self new];
     tester.output = [NSMutableString string];
     [tester defineStepsAndHocks];

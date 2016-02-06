@@ -46,7 +46,7 @@ void CucumberishInit()
     });
     
     
-    
+    [[Cucumberish instance] setPrettyNamesAllowed:YES];
     [Cucumberish instance].fixMissingLastScenario = YES;
     
     [[[Cucumberish instance] parserFeaturesInDirectory:@"ExampleFeatures" featureTags:nil] beginExecution];

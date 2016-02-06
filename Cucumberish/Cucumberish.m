@@ -307,7 +307,11 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 + (Class)featureTestCaseClass:(CCIFeature *)feature
 {
     //Prefix it with CCI to avoit any name collision
+    //Prefix it with CCI to avoit any name collision
     NSString * className = [@"CCI " stringByAppendingString:feature.name];
+    if(![[Cucumberish instance] prettyNamesAllowed]){
+        className = [@"CCI_" stringByAppendingString:[feature.name camleCaseStringWithFirstUppercaseCharacter:YES]];
+    }
     Class featureClass = objc_allocateClassPair([XCTestCase class], [className UTF8String], 0);
     if(featureClass == nil){
         featureClass = NSClassFromString(className);
@@ -323,7 +327,11 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 + (NSInvocation *)invocationForScenario:(CCIScenarioDefinition *)scenraio feature:(CCIFeature *)feature class:(Class)klass
 {
-    SEL sel = NSSelectorFromString(scenraio.name);
+    NSString * methodName = scenraio.name;
+    if(![[Cucumberish instance] prettyNamesAllowed]){
+        methodName = [methodName camleCaseStringWithFirstUppercaseCharacter:NO];
+    }
+    SEL sel = NSSelectorFromString(methodName);
     
     //Prefered to forward the implementation to a C function instead of Objective-C method, to avoid confusion with the type of "self" object that is being to the implementation
     class_addMethod(klass, sel, (IMP)executeScenario, [@"v@:@:@" UTF8String]);
