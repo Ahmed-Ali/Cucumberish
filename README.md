@@ -38,7 +38,7 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
 
     ```
     target 'YourTestTargetName' do
-        pod 'Cucumberish' ~> '0.0.4'
+        pod 'Cucumberish' ~> '0.0.5'
     end
     ```
     
@@ -189,8 +189,10 @@ In the CucumberishExampe project there are three targets:
 
 3. UI Test Target:
     - While I was not impressed enough by Apple UI automation API and its so much limitions, I decided to add the example target to complete the chain. It has smaller set of step implementation examples, and written in Swift.
-
 Feel free to take this step implementations as a starting point and use them as much as you want; just remember to choose what fits best with your needs because you will build your own implementations in all cases.
+
+3. CucumberishTest:
+    - This target contians test cases that tests the behaviour of the Cucumberish framework itself. This is accomplished by comparing the order of feature, scenario and step execution and their associated classes and methods that supposed to appear in Xcode Test Navigation
             
 # Troubleshooting
 #### My test case scenario failed because the step is not implemented, but I am sure I implemented it, now what?

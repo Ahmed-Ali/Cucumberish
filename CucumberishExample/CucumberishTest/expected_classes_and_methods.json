@@ -1,0 +1,21 @@
+{
+    "CCI Activity": [
+                     "Add an activity",
+                     "Preparing for multible adding",
+                     "Adding activities Example 1",
+                     "Adding activities Example 2",
+                     "Adding activities Example 3",
+                     "Adding activities Example 4",
+                     "Adding activities Example 5",
+                     "Adding activities Example 6",
+                     "Validating added activities",
+                     "Deleting activities"
+                     ],
+    "CCI History": [
+                    "Create profile and see the action in history"
+                    ],
+    "CCI Profile": [
+                    "Create profile",
+                    "Update profile"
+                    ]
+}
