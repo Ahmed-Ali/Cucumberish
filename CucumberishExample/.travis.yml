@@ -1,0 +1,9 @@
+language: objective-c
+matrix:
+include:
+- osx_image: xcode7.2
+env: 'SIMULATOR="name=iPhone 6,OS=9.2"'
+
+script:
+- open -b com.apple.iphonesimulator # Workaround https://github.com/travis-ci/travis-ci/issues/3040
+- env NSUnbufferedIO=YES xcodebuild test -workspace CucumberishExample.xcworkspace -scheme CucumberishTest -destination "platform=iOS Simulator,${SIMULATOR}" | xcpretty -c && exit ${PIPESTATUS[0]}
