@@ -1,5 +1,6 @@
 #Change Log
-
+- ###[v0.0.5.1](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v0.0.5.1)
+    - Pretty test case names is now turned off by default to avoid execution issue with xctool
 - ###[v0.0.5](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v0.0.5)
     - Added test cases to test Cucumberish framework behaviour
 - ###[v0.0.4.1](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v0.0.4.1)

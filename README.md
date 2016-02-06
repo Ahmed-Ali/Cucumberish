@@ -193,6 +193,11 @@ Feel free to take this step implementations as a starting point and use them as 
 
 3. CucumberishTest:
     - This target contians test cases that tests the behaviour of the Cucumberish framework itself. This is accomplished by comparing the order of feature, scenario and step execution and their associated classes and methods that supposed to appear in Xcode Test Navigation
+    
+
+# Unit Tests
+Cucumberish has a behavioural test cases that can be executed through the CucumberishTest scheme. To execute these test,  select the scheme and press CMD+U
+
             
 # Troubleshooting
 #### My test case scenario failed because the step is not implemented, but I am sure I implemented it, now what?
@@ -220,8 +225,6 @@ A continuous integration (CI) process is highly recommended and is extremely use
 - Cucumberish made a good use of [Gherkin3](https://github.com/cucumber/gherkin) in order to parse .feature files. Without its Objective-C implementation, I would have implemented it from scratch. Gherkin3 saved me a lot of time.
 - In the example app we used [KIF](https://github.com/kif-framework/KIF) as a good example of how you can implement steps that has to do with user interface. The guys behind this framework has done really amazing job!
 
-# Version History
-To keep the readme file consice, you can find all the changelogs in the [Changelog Wiki Page](https://github.com/Ahmed-Ali/Cucumberish/wiki/Changelog)
     
 # Contributing
 I am so glad that you are interested in contributing to Cucumberish.
