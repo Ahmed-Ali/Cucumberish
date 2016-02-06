@@ -1,0 +1,140 @@
+Scenario : Add an activity
+Given it is home screen
+And all data cleared
+Then I tap the "Add Activity" button
+And I write "First Ended Activity" into the "Activity Name" field
+When I tap "Increment" button 5 times
+Then I should see "6" in the "TheRank" label
+Then I switch off the "Currently Happening" switch
+Then I tap "Activity Add" button
+When I tap "Activities" button
+Then I should see "First Ended Activity (5)" at row 0 section 1 in "Activities List" table
+Scenario : Preparing for multible adding
+Given it is home screen
+And all data cleared
+Scenario : Adding activities Example 1
+Given it is home screen
+When I tap the "Add Activity" button
+And I write "Activity 1" into the "Activity Name" field
+When I tap "Increment" button 4 times
+Then I should see "5" in the "TheRank" label
+Then I switch on the "Currently Happening" switch
+Then I tap "Activity Add" button
+Scenario : Adding activities Example 2
+Given it is home screen
+When I tap the "Add Activity" button
+And I write "Activity 2" into the "Activity Name" field
+When I tap "Increment" button 5 times
+Then I should see "6" in the "TheRank" label
+Then I switch on the "Currently Happening" switch
+Then I tap "Activity Add" button
+Scenario : Adding activities Example 3
+Given it is home screen
+When I tap the "Add Activity" button
+And I write "Activity 3" into the "Activity Name" field
+When I tap "Increment" button 4 times
+Then I should see "5" in the "TheRank" label
+Then I switch on the "Currently Happening" switch
+Then I tap "Activity Add" button
+Scenario : Adding activities Example 4
+Given it is home screen
+When I tap the "Add Activity" button
+And I write "Activity 4" into the "Activity Name" field
+When I tap "Increment" button 3 times
+Then I should see "4" in the "TheRank" label
+Then I switch on the "Currently Happening" switch
+Then I tap "Activity Add" button
+Scenario : Adding activities Example 5
+Given it is home screen
+When I tap the "Add Activity" button
+And I write "Activity 5" into the "Activity Name" field
+When I tap "Increment" button 4 times
+Then I should see "5" in the "TheRank" label
+Then I switch off the "Currently Happening" switch
+Then I tap "Activity Add" button
+Scenario : Adding activities Example 6
+Given it is home screen
+When I tap the "Add Activity" button
+And I write "Activity 6" into the "Activity Name" field
+When I tap "Increment" button 2 times
+Then I should see "3" in the "TheRank" label
+Then I switch off the "Currently Happening" switch
+Then I tap "Activity Add" button
+Scenario : Validating added activities
+Given it is home screen
+When I tap "Activities" button
+Then I should see 4 rows at section 0 in "Activities List" table
+But I should see 2 rows at section 1 in "Activities List" table
+Scenario : Deleting activities
+Given it is home screen
+And all data cleared
+When I tap "Activities" button
+Then I should see 0 rows at section 0 in "Activities List" table
+And I should see 0 rows at section 0 in "Activities List" table
+When I tap "Nav Back" button
+And I tap "Add Activity" button
+Then I write "Activity 1" into the "Activity Name" field
+And I tap "Increment" button 3 times
+Then I switch off the "Currently Happening" switch
+And I tap "Activity Add" button
+Then I tap "Add Activity" button
+And I write "Activity 2" into the "Activity Name" field
+And I tap "Increment" button 1 time
+Then I switch on the "Currently Happening" switch
+Then I tap "Activity Add" button
+Then I tap "Add Activity" button
+And I write "Activity 3" into the "Activity Name" field
+And I tap "Increment" button 5 times
+Then I switch on the "Currently Happening" switch
+And I tap "Activity Add" button
+And I tap "Activities" button
+Then I should see 2 rows at section 0 in "Activities List" table
+But I should see 1 rows at section 1 in "Activities List" table
+Then I swipe left the row 0 in section 0 in "Activities List" table
+And I tap "Delete" button
+Then I should see 1 row at section 0 in "Activities List" table
+Scenario : Create profile and see the action in history
+Given it is home screen
+And all data cleared
+When I tap the "Profile" button
+And I write "example@example.com" into the "Email" field
+Then I write "Ahmed Ali" into the "Name" field
+And I set the "Birthdate" picker date to "25-12-1990"
+Then I tap "Save Profile" button
+When I tap the "Profile" button
+And I clear the text and write "eng.ahmed.ali.awad@gmail.com" into the "Email" field
+Then I tap "Save Profile" button
+Then I tap the "Add Activity" button
+And I write "Current activity" into the "Activity Name" field
+And I tap "Increment" button 2 times
+Then I switch on the "Currently Happening" switch
+And I tap "Activity Add" button
+And I tap "Activities" button
+Then I swipe left the row 0 in section 0 in "Activities List" table
+And I tap "Delete" button
+And I tap "Nav Back" button
+Then I tap "History" button
+Then I should see 4 rows at section 0 in "History" table
+And I should see "Profile Created" at row 0 section 0 in "History" table
+And I should see "Profile Updated" at row 1 section 0 in "History" table
+And I should see "Added a current activity" at row 2 section 0 in "History" table
+And I should see "Deleted a current activity" at row 3 section 0 in "History" table
+Scenario : Create profile
+Given it is home screen
+And all data cleared
+When I tap the "Profile" button
+And I write "example@example.com" into the "Email" field
+Then I write "Ahmed Ali" into the "Name" field
+And I set the "Birthdate" picker date to "25-12-1990"
+Then I tap "Save Profile" button
+And I tap "Profile" button
+Then I should see "Ahmed Ali" in the "Name" field
+And I should see "example@example.com" in the "Email" field
+Scenario : Update profile
+Given it is home screen
+When I tap the "Profile" button
+And I clear the text and write "eng.ahmed.ali.awad@gmail.com" into the "Email" field
+Then I tap "Save Profile" button
+And I tap "Profile" button
+Then I should see "Ahmed Ali" in the "Name" field
+And I should see "eng.ahmed.ali.awad@gmail.com" in the "Email" field
