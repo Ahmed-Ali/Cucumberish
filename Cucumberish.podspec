@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   s.name         = "Cucumberish"
   s.version      = "0.0.5"
-  s.summary      = "Cucumberish is an automated test framework for iOS and Mac OS X that uses the most possible human friendly language to define your automated test cases"
+  s.summary      = "Cucumberish is an automation test framework that uses the most possible human friendly language to define your automated test cases"
   s.description  = <<-DESC
     Cucumberish is Objective-C and Swift framework for Behaviour Driven Development inspired by the amazing way of writing automated test cases introduced originally by Cucumber. With Cucumberish, you write your test cases in almost plain English language.
                    DESC
