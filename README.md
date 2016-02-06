@@ -36,9 +36,9 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
 ### Cocoapods installation
 1. Add Cucumberish pod to your podfile to be added to your test target and run pod install.
 
-    ```
-    target 'YourTestTargetName' do
-        pod 'Cucumberish' ~> '0.0.5'
+	```
+	target 'YourTestTargetName' do
+    	pod 'Cucumberish', '~> 0.0.5'
     end
     ```
     
