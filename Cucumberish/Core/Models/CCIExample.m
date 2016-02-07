@@ -45,21 +45,38 @@
     if(dictionary[@"location"] != nil && ![dictionary[@"location"] isKindOfClass:[NSNull class]]){
         self.location = [[CCILocation alloc] initWithDictionary:dictionary[@"location"]];
     }
-    
-    if(dictionary[@"tableBody"] != nil && [dictionary[@"tableBody"] isKindOfClass:[NSArray class]]){
-        NSArray * tableBodyDictionaries = dictionary[@"tableBody"];
-        NSMutableArray * tableBodyItems = [NSMutableArray array];
-        for(NSDictionary * tableBodyDictionary in tableBodyDictionaries){
-            CCITableBody * tableBodyItem = [[CCITableBody alloc] initWithDictionary:tableBodyDictionary];
-            [tableBodyItems addObject:tableBodyItem];
+    if(dictionary[@"exampleData"] != nil && ![dictionary[@"exampleData"] isKindOfClass:[NSDictionary class]]){
+        self.exampleData = dictionary[@"exampleData"];
+    }else{
+        NSMutableDictionary * exampleData = [NSMutableDictionary dictionary];
+        NSMutableArray * headers = [NSMutableArray array];
+        if(dictionary[@"tableHeader"] != nil && ![dictionary[@"tableHeader"] isKindOfClass:[NSNull class]]){
+            NSArray * cells = dictionary[@"tableHeader"][@"cells"];
+            for(NSDictionary * cell in cells){
+                NSString * cellValue = cell[@"value"];
+                [headers addObject:cellValue];
+                exampleData[cellValue] = [NSMutableArray array];
+            }
+            
         }
-        self.tableBody = tableBodyItems;
-    }
-    if(dictionary[@"tableHeader"] != nil && ![dictionary[@"tableHeader"] isKindOfClass:[NSNull class]]){
-        self.tableHeader = [[CCITableBody alloc] initWithDictionary:dictionary[@"tableHeader"]];
+        if(dictionary[@"tableBody"] != nil && [dictionary[@"tableBody"] isKindOfClass:[NSArray class]]){
+            NSArray * rows = dictionary[@"tableBody"];
+            
+            for(NSDictionary * row in rows){
+                NSArray * columns = row[@"cells"];
+                for(int i = 0; i < columns.count; i++){
+                    NSString * header = headers[i];
+                    NSMutableArray * tableColumn = exampleData[header];
+                    NSDictionary * column = columns[i];
+                    [tableColumn addObject:column[@"value"]];
+                }
+            }
+            
+        }
+        
+        self.exampleData = exampleData;
     }
     
-   
     return self;
 }
 
@@ -75,16 +92,7 @@
         dictionary[@"location"] = [self.location toDictionary];
     }
     
-    if(self.tableBody != nil){
-        NSMutableArray * dictionaryElements = [NSMutableArray array];
-        for(CCITableBody * tableBodyElement in self.tableBody){
-            [dictionaryElements addObject:[tableBodyElement toDictionary]];
-        }
-        dictionary[@"tableBody"] = dictionaryElements;
-    }
-    if(self.tableHeader != nil){
-        dictionary[@"tableHeader"] = [self.tableHeader toDictionary];
-    }
+    dictionary[@"exampleData"] = self.exampleData;
    
     return dictionary;
     
@@ -101,12 +109,7 @@
     if(self.location != nil){
         [aCoder encodeObject:self.location forKey:@"location"];
     }
-       if(self.tableBody != nil){
-        [aCoder encodeObject:self.tableBody forKey:@"tableBody"];
-    }
-    if(self.tableHeader != nil){
-        [aCoder encodeObject:self.tableHeader forKey:@"tableHeader"];
-    }
+    [aCoder encodeObject:self.exampleData forKey:@"exampleData"];
   
     
 }
@@ -118,9 +121,7 @@
 {
     self = [super init];
     self.location = [aDecoder decodeObjectForKey:@"location"];
-   
-    self.tableBody = [aDecoder decodeObjectForKey:@"tableBody"];
-    self.tableHeader = [aDecoder decodeObjectForKey:@"tableHeader"];
+    self.exampleData = [aDecoder decodeObjectForKey:@"exampleData"];
     return self;
     
 }

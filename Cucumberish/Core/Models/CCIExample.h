@@ -40,14 +40,38 @@
 @property (nonatomic, strong) CCILocation * location;
 
 /**
- Rows and cells containg all the values of the example
+ Representaion of the example data where the dictionary keys are the table headers
+ each key will contain array of example column. E. g
+ @code
+ | Field 1 | Field 2 | Field 3 |
+ |  C1Ro1  |  C2Ro1  |  C3Ro1  |
+ |  C1Ro2  |  C2Ro2  |  C3Ro2  |
+ |  C1Ro3  |  C2Ro3  |  C3Ro3  |
+ 
+ @endcode
+ 
+ This will end up with the example data with the following structure
+ @code
+ {
+    Field 1 : [
+        C1Ro1,
+        C1Ro2,
+        C1Ro3
+    ],
+    Field 2 : [
+        C2Ro1,
+        C2Ro2,
+        C2Ro3
+    ],
+    Field 3 : [
+        C3Ro1,
+        C3Ro2,
+        C3Ro3
+    ]
+ }
+ @endcode
  */
-@property (nonatomic, strong) NSArray<CCITableBody *> * tableBody;
-
-/**
- Header names for the example
- */
-@property (nonatomic, strong) CCITableBody * tableHeader;
+@property (nonatomic, strong) NSDictionary * exampleData;
 
 /**
  Creates and instance with properties filled from the passed dictionary

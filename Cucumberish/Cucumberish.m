@@ -278,23 +278,21 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     for(CCIExample * example in outline.examples){
         
         //Loop on the example bod(y|ies)
-        
-        for(int i = 0; i < example.tableBody.count; i++){
-            CCITableBody * body = example.tableBody[i];
+        NSUInteger numberOfRows = [(NSArray *)example.exampleData[example.exampleData.allKeys.firstObject] count];
+        for(int i = 0; i < numberOfRows; i++){
             //Scenario for each body
             CCIScenarioDefinition * scenario = [outline copy];
             scenario.name = [scenario.name stringByAppendingFormat:@" Example %lu", (unsigned long)(i + 1)];
             scenario.examples = nil;
-            //Loop on body cells
-            for(int j = 0; j < body.cells.count; j++){
-                CCICell * valueCell = body.cells[j];
-                CCICell * headerCell = example.tableHeader.cells[j];
+            for(NSString * variable in example.exampleData.allKeys){
+                NSString * replacement = example.exampleData[variable][i];
                 //now loop on each step in the scenario to replace the place holders with their values
                 for(CCIStep * step in scenario.steps){
-                    NSString * placeHolder = [NSString stringWithFormat:@"<%@>", headerCell.value];
-                    step.text = [step.text stringByReplacingOccurrencesOfString:placeHolder withString:valueCell.value];
+                    NSString * placeHolder = [NSString stringWithFormat:@"<%@>", variable];
+                    step.text = [step.text stringByReplacingOccurrencesOfString:placeHolder withString:replacement];
                 }
             }
+            
             XCTestCase  * testCase = [[klass alloc] initWithInvocation:[Cucumberish invocationForScenario:scenario feature:feature class:klass]];
             [suite addTest:testCase];
         }

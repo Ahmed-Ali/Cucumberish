@@ -71,7 +71,6 @@
 		6075A5B41C4FB34400FE2B1B /* CCIAroundHock.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5421C4FB34400FE2B1B /* CCIAroundHock.m */; };
 		6075A5B51C4FB34400FE2B1B /* CCIBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5441C4FB34400FE2B1B /* CCIBackground.m */; };
 		6075A5B61C4FB34400FE2B1B /* CCICell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5461C4FB34400FE2B1B /* CCICell.m */; };
-		6075A5B71C4FB34400FE2B1B /* CCIComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5481C4FB34400FE2B1B /* CCIComment.m */; };
 		6075A5B81C4FB34400FE2B1B /* CCIExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A54A1C4FB34400FE2B1B /* CCIExample.m */; };
 		6075A5BA1C4FB34400FE2B1B /* CCIFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A54E1C4FB34400FE2B1B /* CCIFeature.m */; };
 		6075A5BB1C4FB34400FE2B1B /* CCIHock.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5501C4FB34400FE2B1B /* CCIHock.m */; };
@@ -143,7 +142,6 @@
 		60F2634D1C53546F005F87C1 /* CCIAroundHock.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262DD1C53546F005F87C1 /* CCIAroundHock.m */; };
 		60F2634E1C53546F005F87C1 /* CCIBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262DF1C53546F005F87C1 /* CCIBackground.m */; };
 		60F2634F1C53546F005F87C1 /* CCICell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262E11C53546F005F87C1 /* CCICell.m */; };
-		60F263501C53546F005F87C1 /* CCIComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262E31C53546F005F87C1 /* CCIComment.m */; };
 		60F263511C53546F005F87C1 /* CCIExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262E51C53546F005F87C1 /* CCIExample.m */; };
 		60F263521C53546F005F87C1 /* CCIFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262E71C53546F005F87C1 /* CCIFeature.m */; };
 		60F263531C53546F005F87C1 /* CCIHock.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262E91C53546F005F87C1 /* CCIHock.m */; };
@@ -1608,7 +1606,6 @@
 				6075A6021C4FB52600FE2B1B /* CCIStepsUsingKIF.m in Sources */,
 				6075A5D91C4FB34400FE2B1B /* GHScenario.m in Sources */,
 				6075A5B21C4FB34400FE2B1B /* CCIStepsManager.m in Sources */,
-				6075A5B71C4FB34400FE2B1B /* CCIComment.m in Sources */,
 				6075A5E41C4FB34400FE2B1B /* NSString+Trim.m in Sources */,
 				6075A5E51C4FB34400FE2B1B /* NSObject+Dictionary.m in Sources */,
 				6075A5DC1C4FB34400FE2B1B /* GHStep.m in Sources */,
@@ -1698,7 +1695,6 @@
 				60F2635A1C53546F005F87C1 /* CCITag.m in Sources */,
 				60F2636A1C53546F005F87C1 /* GHGherkinLine.m in Sources */,
 				60F2634A1C53546F005F87C1 /* CCIFeaturesManager.m in Sources */,
-				60F263501C53546F005F87C1 /* CCIComment.m in Sources */,
 				60F263691C53546F005F87C1 /* GHGherkinLanguageSetting.m in Sources */,
 				60F2636D1C53546F005F87C1 /* GHNode.m in Sources */,
 				60F2634F1C53546F005F87C1 /* CCICell.m in Sources */,
