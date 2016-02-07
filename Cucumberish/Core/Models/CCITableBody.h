@@ -33,7 +33,6 @@
 
 @property (nonatomic, strong) NSArray <CCICell *> * cells;
 @property (nonatomic, strong) CCILocation * location;
-@property (nonatomic, strong) NSString * type;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

@@ -27,22 +27,76 @@
 
 #import <Foundation/Foundation.h>
 #import "CCIExample.h"
-#import "CCILocation.h"
 #import "CCIStep.h"
-
 #import "CCITag.h"
+/**
+ Represents one scenario or one outline with its example found in your .feature file
+ */
 @interface CCIScenarioDefinition : NSObject <NSCopying>
+
+/**
+ Array of found examples in case it is an outline
+ */
 @property (nonatomic, strong) NSArray<CCIExample *> * examples;
+
+/**
+ Keyword is usually Scenario or Scenario Outline
+ */
 @property (nonatomic, copy) NSString * keyword;
+
+/**
+ The location of this scenario in its file
+ */
 @property (nonatomic, strong) CCILocation * location;
+
+/**
+ The name of the scenario
+ */
 @property (nonatomic, copy) NSString * name;
+
+/**
+ Array of steps the defines the scenario, in the same order they originally found in the scenario
+ */
 @property (nonatomic, strong) NSArray <CCIStep *> * steps;
+
+/**
+ Array of tags found on top of this scenario
+ */
 @property (nonatomic, strong) NSArray <CCITag *> * tags;
+
+/**
+ Can be Scenario or ScenarioOutline
+ */
 @property (nonatomic, copy) NSString * type;
+
+/**
+ The orinignal fine path where this scenario is located
+ */
 @property (nonatomic, copy) NSString * filePath;
+
+/**
+ In case the execution of this scenario is failed, this property will have the failure message
+ */
 @property (nonatomic, strong) NSString * failureReason;
+
+/**
+ Bool determines the success or failure of the scenario.
+ */
 @property (nonatomic, assign) BOOL success;
+
+/**
+ Creates and instance with properties filled from the passed dictionary
+ 
+ @param dictionary the dictionary that contains all the scenario data
+ 
+ @return scenario instance
+ */
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
+/**
+ Creates a dictionary from the class properties
+ 
+ @return the created dictionary
+ */
 -(NSDictionary *)toDictionary;
 @end

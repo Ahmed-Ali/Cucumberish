@@ -54,9 +54,6 @@
         self.location = [[CCILocation alloc] initWithDictionary:dictionary[@"location"]];
     }
     
-    if(dictionary[@"type"] != nil && ![dictionary[@"type"] isKindOfClass:[NSNull class]]){
-        self.type = dictionary[@"type"];
-    }
     return self;
 }
 
@@ -77,9 +74,7 @@
     if(self.location != nil){
         dictionary[@"location"] = [self.location toDictionary];
     }
-    if(self.type != nil){
-        dictionary[@"type"] = self.type;
-    }
+  
     return dictionary;
     
 }
@@ -98,9 +93,7 @@
     if(self.location != nil){
         [aCoder encodeObject:self.location forKey:@"location"];
     }
-    if(self.type != nil){
-        [aCoder encodeObject:self.type forKey:@"type"];
-    }
+   
     
 }
 
@@ -112,7 +105,6 @@
     self = [super init];
     self.cells = [aDecoder decodeObjectForKey:@"cells"];
     self.location = [aDecoder decodeObjectForKey:@"location"];
-    self.type = [aDecoder decodeObjectForKey:@"type"];
     return self;
     
 }

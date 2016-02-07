@@ -41,16 +41,11 @@
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [super init];
-    if(dictionary[@"keyword"] != nil && ![dictionary[@"keyword"] isKindOfClass:[NSNull class]]){
-        self.keyword = dictionary[@"keyword"];
-    }
+    
     if(dictionary[@"location"] != nil && ![dictionary[@"location"] isKindOfClass:[NSNull class]]){
         self.location = [[CCILocation alloc] initWithDictionary:dictionary[@"location"]];
     }
     
-    if(dictionary[@"name"] != nil && ![dictionary[@"name"] isKindOfClass:[NSNull class]]){
-        self.name = dictionary[@"name"];
-    }
     if(dictionary[@"tableBody"] != nil && [dictionary[@"tableBody"] isKindOfClass:[NSArray class]]){
         NSArray * tableBodyDictionaries = dictionary[@"tableBody"];
         NSMutableArray * tableBodyItems = [NSMutableArray array];
@@ -64,12 +59,7 @@
         self.tableHeader = [[CCITableBody alloc] initWithDictionary:dictionary[@"tableHeader"]];
     }
     
-    if(dictionary[@"tags"] != nil && ![dictionary[@"tags"] isKindOfClass:[NSNull class]]){
-        self.tags = dictionary[@"tags"];
-    }
-    if(dictionary[@"type"] != nil && ![dictionary[@"type"] isKindOfClass:[NSNull class]]){
-        self.type = dictionary[@"type"];
-    }
+   
     return self;
 }
 
@@ -80,15 +70,11 @@
 -(NSDictionary *)toDictionary
 {
     NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
-    if(self.keyword != nil){
-        dictionary[@"keyword"] = self.keyword;
-    }
+   
     if(self.location != nil){
         dictionary[@"location"] = [self.location toDictionary];
     }
-    if(self.name != nil){
-        dictionary[@"name"] = self.name;
-    }
+    
     if(self.tableBody != nil){
         NSMutableArray * dictionaryElements = [NSMutableArray array];
         for(CCITableBody * tableBodyElement in self.tableBody){
@@ -99,12 +85,7 @@
     if(self.tableHeader != nil){
         dictionary[@"tableHeader"] = [self.tableHeader toDictionary];
     }
-    if(self.tags != nil){
-        dictionary[@"tags"] = self.tags;
-    }
-    if(self.type != nil){
-        dictionary[@"type"] = self.type;
-    }
+   
     return dictionary;
     
 }
@@ -117,27 +98,16 @@
  */
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    if(self.keyword != nil){
-        [aCoder encodeObject:self.keyword forKey:@"keyword"];
-    }
     if(self.location != nil){
         [aCoder encodeObject:self.location forKey:@"location"];
     }
-    if(self.name != nil){
-        [aCoder encodeObject:self.name forKey:@"name"];
-    }
-    if(self.tableBody != nil){
+       if(self.tableBody != nil){
         [aCoder encodeObject:self.tableBody forKey:@"tableBody"];
     }
     if(self.tableHeader != nil){
         [aCoder encodeObject:self.tableHeader forKey:@"tableHeader"];
     }
-    if(self.tags != nil){
-        [aCoder encodeObject:self.tags forKey:@"tags"];
-    }
-    if(self.type != nil){
-        [aCoder encodeObject:self.type forKey:@"type"];
-    }
+  
     
 }
 
@@ -147,13 +117,10 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super init];
-    self.keyword = [aDecoder decodeObjectForKey:@"keyword"];
     self.location = [aDecoder decodeObjectForKey:@"location"];
-    self.name = [aDecoder decodeObjectForKey:@"name"];
+   
     self.tableBody = [aDecoder decodeObjectForKey:@"tableBody"];
     self.tableHeader = [aDecoder decodeObjectForKey:@"tableHeader"];
-    self.tags = [aDecoder decodeObjectForKey:@"tags"];
-    self.type = [aDecoder decodeObjectForKey:@"type"];
     return self;
     
 }

@@ -29,17 +29,39 @@
 #import "CCITableBody.h"
 #import "CCITableBody.h"
 
+/**
+ Represents and example of a scanrio outline
+ */
 @interface CCIExample : NSObject
 
-@property (nonatomic, strong) NSString * keyword;
+/**
+ The location of the example in its file
+ */
 @property (nonatomic, strong) CCILocation * location;
-@property (nonatomic, strong) NSString * name;
-@property (nonatomic, strong) NSArray<CCITableBody *> * tableBody;
-@property (nonatomic, strong) CCITableBody * tableHeader;
-@property (nonatomic, strong) NSArray * tags;
-@property (nonatomic, strong) NSString * type;
 
+/**
+ Rows and cells containg all the values of the example
+ */
+@property (nonatomic, strong) NSArray<CCITableBody *> * tableBody;
+
+/**
+ Header names for the example
+ */
+@property (nonatomic, strong) CCITableBody * tableHeader;
+
+/**
+ Creates and instance with properties filled from the passed dictionary
+ 
+ @param dictionary the dictionary that contains all the example data
+ 
+ @return scenario instance
+ */
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
+/**
+ Creates a dictionary from the class properties
+ 
+ @return the created dictionary
+ */
 -(NSDictionary *)toDictionary;
 @end
