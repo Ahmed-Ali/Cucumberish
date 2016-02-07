@@ -41,16 +41,10 @@
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
-	if(dictionary[@"location"] != nil && ![dictionary[@"location"] isKindOfClass:[NSNull class]]){
-		self.location = [[CCILocation alloc] initWithDictionary:dictionary[@"location"]];
-	}
+
 
 	if(dictionary[@"name"] != nil && ![dictionary[@"name"] isKindOfClass:[NSNull class]]){
 		self.name = dictionary[@"name"];
-	}
-
-	if(dictionary[@"type"] != nil && ![dictionary[@"type"] isKindOfClass:[NSNull class]]){
-		self.type = dictionary[@"type"];
 	}
 
 	return self;
@@ -63,15 +57,11 @@
 -(NSDictionary *)toDictionary
 {
 	NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
-	if(self.location != nil){
-		dictionary[@"location"] = [self.location toDictionary];
-	}
+
 	if(self.name != nil){
 		dictionary[@"name"] = self.name;
 	}
-	if(self.type != nil){
-		dictionary[@"type"] = self.type;
-	}
+
 	return dictionary;
 
 }
@@ -92,16 +82,9 @@
  */
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-	if(self.location != nil){
-		[aCoder encodeObject:self.location forKey:@"location"];
-	}
 	if(self.name != nil){
 		[aCoder encodeObject:self.name forKey:@"name"];
 	}
-	if(self.type != nil){
-		[aCoder encodeObject:self.type forKey:@"type"];
-	}
-
 }
 
 /**
@@ -110,9 +93,7 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
 	self = [super init];
-	self.location = [aDecoder decodeObjectForKey:@"location"];
 	self.name = [aDecoder decodeObjectForKey:@"name"];
-	self.type = [aDecoder decodeObjectForKey:@"type"];
 	return self;
 
 }

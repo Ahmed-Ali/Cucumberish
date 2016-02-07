@@ -15,7 +15,6 @@
 		603C5FDC1C65718C0080F73D /* CCIAroundHock.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F6D1C65718C0080F73D /* CCIAroundHock.m */; };
 		603C5FDD1C65718C0080F73D /* CCIBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F6F1C65718C0080F73D /* CCIBackground.m */; };
 		603C5FDE1C65718C0080F73D /* CCICell.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F711C65718C0080F73D /* CCICell.m */; };
-		603C5FDF1C65718C0080F73D /* CCIComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F731C65718C0080F73D /* CCIComment.m */; };
 		603C5FE01C65718C0080F73D /* CCIExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F751C65718C0080F73D /* CCIExample.m */; };
 		603C5FE11C65718C0080F73D /* CCIFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F771C65718C0080F73D /* CCIFeature.m */; };
 		603C5FE21C65718C0080F73D /* CCIHock.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F791C65718C0080F73D /* CCIHock.m */; };
@@ -236,8 +235,6 @@
 		603C5F6F1C65718C0080F73D /* CCIBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCIBackground.m; sourceTree = "<group>"; };
 		603C5F701C65718C0080F73D /* CCICell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCICell.h; sourceTree = "<group>"; };
 		603C5F711C65718C0080F73D /* CCICell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCICell.m; sourceTree = "<group>"; };
-		603C5F721C65718C0080F73D /* CCIComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCIComment.h; sourceTree = "<group>"; };
-		603C5F731C65718C0080F73D /* CCIComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCIComment.m; sourceTree = "<group>"; };
 		603C5F741C65718C0080F73D /* CCIExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCIExample.h; sourceTree = "<group>"; };
 		603C5F751C65718C0080F73D /* CCIExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCIExample.m; sourceTree = "<group>"; };
 		603C5F761C65718C0080F73D /* CCIFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCIFeature.h; sourceTree = "<group>"; };
@@ -712,8 +709,6 @@
 				603C5F6F1C65718C0080F73D /* CCIBackground.m */,
 				603C5F701C65718C0080F73D /* CCICell.h */,
 				603C5F711C65718C0080F73D /* CCICell.m */,
-				603C5F721C65718C0080F73D /* CCIComment.h */,
-				603C5F731C65718C0080F73D /* CCIComment.m */,
 				603C5F741C65718C0080F73D /* CCIExample.h */,
 				603C5F751C65718C0080F73D /* CCIExample.m */,
 				603C5F761C65718C0080F73D /* CCIFeature.h */,
@@ -1547,7 +1542,6 @@
 				603C5FF01C65718C0080F73D /* GHDocString.m in Sources */,
 				603C5FF31C65718C0080F73D /* GHFeature.m in Sources */,
 				603C5FED1C65718C0080F73D /* GHBackground.m in Sources */,
-				603C5FDF1C65718C0080F73D /* CCIComment.m in Sources */,
 				603C60051C65718C0080F73D /* GHTableRow.m in Sources */,
 				603C5FE91C65718C0080F73D /* CCITag.m in Sources */,
 				603C5FFC1C65718C0080F73D /* GHParser+Extensions.m in Sources */,

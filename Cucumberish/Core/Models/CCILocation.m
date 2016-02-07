@@ -41,8 +41,8 @@
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
-	if(dictionary[@"column"] != nil && ![dictionary[@"column"] isKindOfClass:[NSNull class]]){
-		self.column = [dictionary[@"column"] integerValue];
+	if(dictionary[@"filePath"] != nil && ![dictionary[@"filePath"] isKindOfClass:[NSNull class]]){
+        self.filePath = dictionary[@"filePath"];
 	}
 
 	if(dictionary[@"line"] != nil && ![dictionary[@"line"] isKindOfClass:[NSNull class]]){
@@ -59,7 +59,7 @@
 -(NSDictionary *)toDictionary
 {
 	NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
-	dictionary[@"column"] = @(self.column);
+	dictionary[@"filePath"] = self.filePath;
 	dictionary[@"line"] = @(self.line);
 	return dictionary;
 
@@ -73,7 +73,8 @@
  */
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-	[aCoder encodeObject:@(self.column) forKey:@"column"];	[aCoder encodeObject:@(self.line) forKey:@"line"];
+	[aCoder encodeObject:self.filePath forKey:@"filePath"];
+    [aCoder encodeObject:@(self.line) forKey:@"line"];
 }
 
 /**
@@ -82,7 +83,7 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
 	self = [super init];
-	self.column = [[aDecoder decodeObjectForKey:@"column"] integerValue];
+    self.filePath = [aDecoder decodeObjectForKey:@"filePath"];
 	self.line = [[aDecoder decodeObjectForKey:@"line"] integerValue];
 	return self;
 

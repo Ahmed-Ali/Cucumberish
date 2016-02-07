@@ -30,9 +30,7 @@
 
 @interface CCITag : NSObject
 
-@property (nonatomic, strong) CCILocation * location;
 @property (nonatomic, copy) NSString * name;
-@property (nonatomic, copy) NSString * type;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

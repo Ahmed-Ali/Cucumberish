@@ -32,8 +32,6 @@
 @interface CCITableBody : NSObject
 
 @property (nonatomic, strong) NSArray <CCICell *> * cells;
-@property (nonatomic, strong) CCILocation * location;
-
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 -(NSDictionary *)toDictionary;

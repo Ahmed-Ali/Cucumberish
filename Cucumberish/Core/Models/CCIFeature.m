@@ -45,27 +45,6 @@
 		self.background = [[CCIBackground alloc] initWithDictionary:dictionary[@"background"]];
 	}
 
-	if(dictionary[@"comments"] != nil && [dictionary[@"comments"] isKindOfClass:[NSArray class]]){
-		NSArray * commentsDictionaries = dictionary[@"comments"];
-		NSMutableArray * commentsItems = [NSMutableArray array];
-		for(NSDictionary * commentsDictionary in commentsDictionaries){
-			CCIComment * commentsItem = [[CCIComment alloc] initWithDictionary:commentsDictionary];
-			[commentsItems addObject:commentsItem];
-		}
-		self.comments = commentsItems;
-	}
-	if(dictionary[@"description"] != nil && ![dictionary[@"description"] isKindOfClass:[NSNull class]]){
-		self.descriptionField = dictionary[@"description"];
-	}
-
-	if(dictionary[@"keyword"] != nil && ![dictionary[@"keyword"] isKindOfClass:[NSNull class]]){
-		self.keyword = dictionary[@"keyword"];
-	}
-
-	if(dictionary[@"language"] != nil && ![dictionary[@"language"] isKindOfClass:[NSNull class]]){
-		self.language = dictionary[@"language"];
-	}
-
 	if(dictionary[@"location"] != nil && ![dictionary[@"location"] isKindOfClass:[NSNull class]]){
 		self.location = [[CCILocation alloc] initWithDictionary:dictionary[@"location"]];
 	}
@@ -74,17 +53,15 @@
 		self.name = dictionary[@"name"];
 	}
 
-    if(dictionary[@"filePath"] != nil && ![dictionary[@"filePath"] isKindOfClass:[NSNull class]]){
-        self.filePath = dictionary[@"filePath"];
-    }
 	if(dictionary[@"scenarioDefinitions"] != nil && [dictionary[@"scenarioDefinitions"] isKindOfClass:[NSArray class]]){
 		NSArray * scenarioDefinitionsDictionaries = dictionary[@"scenarioDefinitions"];
 		NSMutableArray * scenarioDefinitionsItems = [NSMutableArray array];
 		for(NSDictionary * scenarioDefinitionsDictionary in scenarioDefinitionsDictionaries){
             NSMutableDictionary * scenarioData = [scenarioDefinitionsDictionary mutableCopy];
-            if(self.filePath.length > 0){
-                scenarioData[@"filePath"] = self.filePath;
+            if(self.location.filePath.length > 0){
+                scenarioData[@"location"][@"filePath"] = self.location.filePath;
             }
+            
 			CCIScenarioDefinition * scenarioDefinitionsItem = [[CCIScenarioDefinition alloc] initWithDictionary:scenarioData];
 			[scenarioDefinitionsItems addObject:scenarioDefinitionsItem];
 		}
@@ -99,9 +76,7 @@
 		}
 		self.tags = tagsItems;
 	}
-	if(dictionary[@"type"] != nil && ![dictionary[@"type"] isKindOfClass:[NSNull class]]){
-		self.type = dictionary[@"type"];
-	}
+    
 
 	return self;
 }
@@ -116,22 +91,7 @@
 	if(self.background != nil){
 		dictionary[@"background"] = [self.background toDictionary];
 	}
-	if(self.comments != nil){
-		NSMutableArray * dictionaryElements = [NSMutableArray array];
-		for(CCIComment * commentsElement in self.comments){
-			[dictionaryElements addObject:[commentsElement toDictionary]];
-		}
-		dictionary[@"comments"] = dictionaryElements;
-	}
-	if(self.descriptionField != nil){
-		dictionary[@"description"] = self.descriptionField;
-	}
-	if(self.keyword != nil){
-		dictionary[@"keyword"] = self.keyword;
-	}
-	if(self.language != nil){
-		dictionary[@"language"] = self.language;
-	}
+
 	if(self.location != nil){
 		dictionary[@"location"] = [self.location toDictionary];
 	}
@@ -152,9 +112,7 @@
 		}
 		dictionary[@"tags"] = dictionaryElements;
 	}
-	if(self.type != nil){
-		dictionary[@"type"] = self.type;
-	}
+	
 	return dictionary;
 
 }
@@ -170,18 +128,7 @@
 	if(self.background != nil){
 		[aCoder encodeObject:self.background forKey:@"background"];
 	}
-	if(self.comments != nil){
-		[aCoder encodeObject:self.comments forKey:@"comments"];
-	}
-	if(self.descriptionField != nil){
-		[aCoder encodeObject:self.descriptionField forKey:@"description"];
-	}
-	if(self.keyword != nil){
-		[aCoder encodeObject:self.keyword forKey:@"keyword"];
-	}
-	if(self.language != nil){
-		[aCoder encodeObject:self.language forKey:@"language"];
-	}
+	
 	if(self.location != nil){
 		[aCoder encodeObject:self.location forKey:@"location"];
 	}
@@ -194,9 +141,7 @@
 	if(self.tags != nil){
 		[aCoder encodeObject:self.tags forKey:@"tags"];
 	}
-	if(self.type != nil){
-		[aCoder encodeObject:self.type forKey:@"type"];
-	}
+	
 
 }
 
@@ -207,20 +152,12 @@
 {
 	self = [super init];
 	self.background = [aDecoder decodeObjectForKey:@"background"];
-	self.comments = [aDecoder decodeObjectForKey:@"comments"];
-	self.descriptionField = [aDecoder decodeObjectForKey:@"description"];
-	self.keyword = [aDecoder decodeObjectForKey:@"keyword"];
-	self.language = [aDecoder decodeObjectForKey:@"language"];
 	self.location = [aDecoder decodeObjectForKey:@"location"];
 	self.name = [aDecoder decodeObjectForKey:@"name"];
 	self.scenarioDefinitions = [aDecoder decodeObjectForKey:@"scenarioDefinitions"];
 	self.tags = [aDecoder decodeObjectForKey:@"tags"];
-	self.type = [aDecoder decodeObjectForKey:@"type"];
 	return self;
 
 }
 
-- (void)setBackground:(CCIBackground *)background {
-    _background = background;
-}
 @end

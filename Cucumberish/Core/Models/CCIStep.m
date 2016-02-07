@@ -60,9 +60,6 @@ const NSString * kCCIStepTypeFunction = @"Func";
 		self.type = dictionary[@"type"];
 	}
     
-    if(dictionary[@"filePath"] != nil && ![dictionary[@"filePath"] isKindOfClass:[NSNull class]]){
-        self.filePath = dictionary[@"filePath"];
-    }
     if(dictionary[@"argument"] != nil && ![dictionary[@"argument"] isKindOfClass:[NSNull class]]){
         self.argument = [[CCIArgument alloc] initWithDictionary:dictionary[@"argument"]];
     }
@@ -88,9 +85,7 @@ const NSString * kCCIStepTypeFunction = @"Func";
 	if(self.type != nil){
 		dictionary[@"type"] = self.type;
 	}
-    if(self.filePath != nil){
-        dictionary[@"filePath"] = self.filePath;
-    }
+ 
     if(self.argument != nil){
         dictionary[@"argument"] = [self.argument toDictionary];
     }

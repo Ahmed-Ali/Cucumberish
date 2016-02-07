@@ -29,9 +29,8 @@
 
 @interface CCILocation : NSObject
 
-@property (nonatomic, assign) NSInteger column;
 @property (nonatomic, assign) NSInteger line;
-
+@property (nonatomic, strong) NSString * filePath;
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 -(NSDictionary *)toDictionary;

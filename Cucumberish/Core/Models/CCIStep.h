@@ -37,7 +37,6 @@ extern const NSString * kCCIStepTypeFunction;
 @property (nonatomic, strong) CCILocation * location;
 @property (nonatomic, copy) NSString * text;
 @property (nonatomic, copy) NSString * type;
-@property (nonatomic, copy) NSString * filePath;
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 -(NSDictionary *)toDictionary;

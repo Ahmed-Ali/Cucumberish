@@ -448,7 +448,7 @@ void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
             [[CCIStepsManager instance] executeStep:step];
         }
         @catch (CCIExeption *exception) {
-            NSString * filePath = [NSString stringWithFormat:@"%@/%@%@", srcRoot, targetName, step.filePath];
+            NSString * filePath = [NSString stringWithFormat:@"%@/%@%@", srcRoot, targetName, step.location.filePath];
             [testCase recordFailureWithDescription:exception.reason inFile:filePath atLine:step.location.line expected:YES];
             if([parentScenario isKindOfClass:[CCIScenarioDefinition class]]){
                 CCIScenarioDefinition * scenario = (CCIScenarioDefinition *)parentScenario;

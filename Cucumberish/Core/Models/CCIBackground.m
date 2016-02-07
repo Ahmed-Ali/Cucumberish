@@ -41,9 +41,7 @@
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
-	if(dictionary[@"keyword"] != nil && ![dictionary[@"keyword"] isKindOfClass:[NSNull class]]){
-		self.keyword = dictionary[@"keyword"];
-	}
+
 
 	if(dictionary[@"location"] != nil && ![dictionary[@"location"] isKindOfClass:[NSNull class]]){
 		self.location = [[CCILocation alloc] initWithDictionary:dictionary[@"location"]];
@@ -76,9 +74,7 @@
 -(NSDictionary *)toDictionary
 {
 	NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
-	if(self.keyword != nil){
-		dictionary[@"keyword"] = self.keyword;
-	}
+
 	if(self.location != nil){
 		dictionary[@"location"] = [self.location toDictionary];
 	}
@@ -107,9 +103,7 @@
  */
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-	if(self.keyword != nil){
-		[aCoder encodeObject:self.keyword forKey:@"keyword"];
-	}
+
 	if(self.location != nil){
 		[aCoder encodeObject:self.location forKey:@"location"];
 	}
@@ -131,7 +125,6 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
 	self = [super init];
-	self.keyword = [aDecoder decodeObjectForKey:@"keyword"];
 	self.location = [aDecoder decodeObjectForKey:@"location"];
 	self.name = [aDecoder decodeObjectForKey:@"name"];
 	self.steps = [aDecoder decodeObjectForKey:@"steps"];

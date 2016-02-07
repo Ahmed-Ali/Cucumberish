@@ -30,8 +30,6 @@
 #import "CCIStep.h"
 
 @interface CCIBackground : NSObject
-
-@property (nonatomic, copy) NSString * keyword;
 @property (nonatomic, strong) CCILocation * location;
 @property (nonatomic, copy) NSString * name;
 @property (nonatomic, strong) NSArray * steps;
