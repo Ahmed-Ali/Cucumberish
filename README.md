@@ -1,8 +1,8 @@
 # Cucumberish
-Cucumberish is a native Objective-C framework for test automation that aims to facilitate the process of Behaviour Driven Development.
+Cucumberish is test automation framework for Behaviour Driven Development.
 It is inspired by the amazing way of writing automated test cases introduced originally by Cucumber using Gherkin language.
-For those who do not know what it means: Simply this framework will help developers and non-developers to write test cases in plain English and in a very organized manner.
 
+**If you are not sure whether Cucumberish is for you or not checkout the [FAQ](#FAQ) section**
 # Features
 
 * Full integration with Xcode Test Navigator.
@@ -40,6 +40,7 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
 	target 'MyTestTarget' do
   		pod 'Cucumberish', '~> 0.0.7'
 	end
+
     ```
     
 ### Post installation steps:
@@ -217,6 +218,21 @@ So it is believed to be meaningless to point to one of your feature files in suc
 
 3. If you believe you have a different case, please report it as an issue.
 
+
+
+# FAQ
+1. How does Cucumberish work in brief?
+	- It is very simple. You describe your features in .feature files, and define set of scenarios for each feature and each scenario has a set of steps. Then Cucumberish will create an XC test suite for each feature and an XCTestCase for each scenario. And will map the steps to your code. So it ends up with human-readable features and still implemented in a way we, as developers, prefer.
+2. I want to use Swift in my test target, is it possible?
+	- Yes, please checkout the UI test target in the example application. It is completely Swift! 
+	
+3. I prefer to use Apple UI test framework for long term support, is it still possible to do this with Cucumberish?
+	- YES! You can combine Cucumberish with your prefered frameworks and tools! This also means Cucumberish is not limited to UI.
+
+4. I still can't understand if it is what I am looking for? in that case you have some options
+	- You can read the [wiki](https://github.com/Ahmed-Ali/Cucumberish/wiki), it is short and to the point.
+	- You can read a bit about the original [Cucumber](https://cucumber.io) to get an idea how it has started and what it is all about
+	- Finally you can always open an issue if you have a specific issue, or post your questions on StackOverFlow (and ping me), and I will be happy to help out.
 
 # Continuous Integration
 
