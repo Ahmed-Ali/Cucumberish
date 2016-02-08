@@ -22,7 +22,7 @@ For those who do not know what it means: Simply this framework will help develop
 You can install Cucumberish manually, in no more than few minutes, or using cocoapods.
 If you will use Cucumberish with UI Test target, you should use the manual installation; for some reasons cocoapods fails to copy the required resources with UI Test targets.
 
-### Manual installation
+### Manual
 1. Copy the content of Cucumberish folder into your test target folder and add it to your test target as a reference not a folder.
 2. This step is super important for proper reporting. Go to your test target build settings, and add the following preprocess macro:
 
@@ -33,13 +33,17 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
 3. And that's it for including Cucumberish in your project!
 
 
-### Cocoapods installation
-1. Add Cucumberish pod to your podfile to be added to your test target and run pod install.
+### CocoaPods
+1. Add Cucumberish to your Podfile for your test target and run pod install.
 
-	```Ruby
-	target 'YourTestTargetName' do
-    	pod 'Cucumberish', '~> 0.0.5.1'
-    end
+   ```Ruby
+	target 'MyApp' do 
+		 ...
+	end
+
+	target 'MyAppTests' do
+  		pod 'Cucumberish', '~> 0.0.6'
+	end
     ```
     
 ### Post installation steps:
