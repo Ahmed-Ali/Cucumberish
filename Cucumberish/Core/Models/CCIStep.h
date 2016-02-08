@@ -29,13 +29,46 @@
 #import "CCILocation.h"
 #import "CCIArgument.h"
 
+/**
+ Represents a step in a scenario
+ Step contains information about its argument, location and keyword (When, Then, Given, etc...)
+ */
 @interface CCIStep : NSObject<NSCopying>
+
+/**
+ Step argument in case it is a DocString or DataTable step
+ */
 @property (nonatomic, strong) CCIArgument * argument;
+
+/**
+ Can be  When, Then, Given, etc...
+ */
 @property (nonatomic, copy) NSString * keyword;
+
+/**
+ The location where this step has been written
+ */
 @property (nonatomic, strong) CCILocation * location;
+
+/**
+ The text of the step that comes after the keyword
+ */
 @property (nonatomic, copy) NSString * text;
-@property (nonatomic, copy) NSString * type;
+
+
+/**
+ Creates an instance with properties filled from the passed dictionary
+ 
+ @param dictionary the dictionary that contains all the step data
+ 
+ @return step instance
+ */
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
+/**
+ Creates a dictionary from the class properties
+ 
+ @return the created dictionary
+ */
 -(NSDictionary *)toDictionary;
 @end

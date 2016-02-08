@@ -72,11 +72,11 @@
 @property (nonatomic, strong) NSDictionary * exampleData;
 
 /**
- Creates and instance with properties filled from the passed dictionary
+ Creates an instance with properties filled from the passed dictionary
  
  @param dictionary the dictionary that contains all the example data
  
- @return scenario instance
+ @return example instance
  */
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

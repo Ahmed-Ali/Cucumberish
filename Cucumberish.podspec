@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = "10.9"
   s.source       = { :git => "https://github.com/Ahmed-Ali/Cucumberish.git", :tag => "v#{s.version}"}
   s.source_files  = 'Cucumberish/*.{h,m}', 'Cucumberish/Core/Managers/*.{h,m}', 'Cucumberish/Core/Models/*.{h,m}', 'Cucumberish/Utils/*.{h,m}', 'Cucumberish/Dependencies/Gherkin', 'Cucumberish/Core/CCIBlockDefinitions.h'
-  s.public_header_files = 'Cucumberish/Cucumberish.h', 'Cucumberish/Core/Managers/CCIStepsManager.h', 'Cucumberish/Core/CCIBlockDefinitions.h', 'Cucumberish/Core/Models/CCIScenarioDefinition.h'
+  s.public_header_files = 'Cucumberish/Cucumberish.h', 'Cucumberish/Core/Managers/CCIStepsManager.h', 'Cucumberish/Core/CCIBlockDefinitions.h', 'Cucumberish/Core/Models/CCIScenarioDefinition.h', 'Cucumberish/Core/Models/CCIExample.h', 'Cucumberish/Core/Models/CCIStep.h'
   s.resource_bundles = {
     'Gherkin' => ['Cucumberish/Dependencies/Gherkin/gherkin-languages.json'],
   }

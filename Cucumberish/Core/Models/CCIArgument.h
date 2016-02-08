@@ -40,7 +40,7 @@
 
 
 /**
- The content in case it is a DocString argument
+ The string content in case it is a DocString argument
  */
 @property (nonatomic, copy) NSString * content;
 

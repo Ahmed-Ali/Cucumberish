@@ -80,7 +80,7 @@
 @property (nonatomic, assign) BOOL success;
 
 /**
- Creates and instance with properties filled from the passed dictionary
+ Creates an instance with properties filled from the passed dictionary
  
  @param dictionary the dictionary that contains all the scenario data
  

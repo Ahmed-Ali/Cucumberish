@@ -47,9 +47,6 @@
 		self.location = [[CCILocation alloc] initWithDictionary:dictionary[@"location"]];
 	}
 
-	if(dictionary[@"name"] != nil && ![dictionary[@"name"] isKindOfClass:[NSNull class]]){
-		self.name = dictionary[@"name"];
-	}
 
 	if(dictionary[@"steps"] != nil && [dictionary[@"steps"] isKindOfClass:[NSArray class]]){
 		NSArray * stepsDictionaries = dictionary[@"steps"];
@@ -59,9 +56,6 @@
 			[stepsItems addObject:stepsItem];
 		}
 		self.steps = stepsItems;
-	}
-	if(dictionary[@"type"] != nil && ![dictionary[@"type"] isKindOfClass:[NSNull class]]){
-		self.type = dictionary[@"type"];
 	}
 
 	return self;
@@ -78,18 +72,13 @@
 	if(self.location != nil){
 		dictionary[@"location"] = [self.location toDictionary];
 	}
-	if(self.name != nil){
-		dictionary[@"name"] = self.name;
-	}
+
 	if(self.steps != nil){
 		NSMutableArray * dictionaryElements = [NSMutableArray array];
 		for(CCIStep * stepsElement in self.steps){
 			[dictionaryElements addObject:[stepsElement toDictionary]];
 		}
 		dictionary[@"steps"] = dictionaryElements;
-	}
-	if(self.type != nil){
-		dictionary[@"type"] = self.type;
 	}
 	return dictionary;
 
@@ -107,14 +96,9 @@
 	if(self.location != nil){
 		[aCoder encodeObject:self.location forKey:@"location"];
 	}
-	if(self.name != nil){
-		[aCoder encodeObject:self.name forKey:@"name"];
-	}
+
 	if(self.steps != nil){
 		[aCoder encodeObject:self.steps forKey:@"steps"];
-	}
-	if(self.type != nil){
-		[aCoder encodeObject:self.type forKey:@"type"];
 	}
 
 }
@@ -126,9 +110,7 @@
 {
 	self = [super init];
 	self.location = [aDecoder decodeObjectForKey:@"location"];
-	self.name = [aDecoder decodeObjectForKey:@"name"];
 	self.steps = [aDecoder decodeObjectForKey:@"steps"];
-	self.type = [aDecoder decodeObjectForKey:@"type"];
 	return self;
 
 }

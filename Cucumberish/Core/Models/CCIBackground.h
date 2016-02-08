@@ -29,11 +29,16 @@
 #import "CCILocation.h"
 #import "CCIStep.h"
 
+/**
+ Represents a feature background
+ 
+ Check the Backgroun wiki for detailed information https://github.com/Ahmed-Ali/Cucumberish/wiki/Background
+ */
 @interface CCIBackground : NSObject
+
 @property (nonatomic, strong) CCILocation * location;
-@property (nonatomic, copy) NSString * name;
+
 @property (nonatomic, strong) NSArray * steps;
-@property (nonatomic, copy) NSString * type;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

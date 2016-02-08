@@ -30,6 +30,12 @@
 #import "CCILocation.h"
 #import "CCIScenarioDefinition.h"
 
+/**
+ Reperesents a feautre information
+ 
+ Checkout the Feaure wiki for more information: https://github.com/Ahmed-Ali/Cucumberish/wiki/Feature
+ 
+ */
 @interface CCIFeature : NSObject
 
 @property (nonatomic, strong) CCIBackground * background;

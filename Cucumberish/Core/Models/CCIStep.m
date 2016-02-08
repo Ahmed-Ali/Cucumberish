@@ -54,9 +54,6 @@
 		self.text = dictionary[@"text"];
 	}
 
-	if(dictionary[@"type"] != nil && ![dictionary[@"type"] isKindOfClass:[NSNull class]]){
-		self.type = dictionary[@"type"];
-	}
     
     if(dictionary[@"argument"] != nil && ![dictionary[@"argument"] isKindOfClass:[NSNull class]]){
         self.argument = [[CCIArgument alloc] initWithDictionary:dictionary[@"argument"]];
@@ -80,10 +77,7 @@
 	if(self.text != nil){
 		dictionary[@"text"] = self.text;
 	}
-	if(self.type != nil){
-		dictionary[@"type"] = self.type;
-	}
- 
+    
     if(self.argument != nil){
         dictionary[@"argument"] = [self.argument toDictionary];
     }

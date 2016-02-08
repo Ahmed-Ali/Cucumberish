@@ -27,11 +27,35 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ Represents a location of a step, scenario or a feature
+ */
 @interface CCILocation : NSObject
 
+/**
+ The line where the associate node (step, scenario or a feature) is located
+ */
 @property (nonatomic, assign) NSInteger line;
+
+/**
+ The exact file path where the node exists
+ */
 @property (nonatomic, strong) NSString * filePath;
+
+
+/**
+ Creates an instance with properties filled from the passed dictionary
+ 
+ @param dictionary the dictionary that contains all the location data
+ 
+ @return location instance
+ */
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
+/**
+ Creates a dictionary from the class properties
+ 
+ @return the created dictionary
+ */
 -(NSDictionary *)toDictionary;
 @end
