@@ -2,7 +2,7 @@
 Cucumberish is test automation framework for Behaviour Driven Development.
 It is inspired by the amazing way of writing automated test cases introduced originally by Cucumber using Gherkin language.
 
-**If you are not sure whether Cucumberish is for you or not checkout the [FAQ](#FAQ) section**
+**If you are not sure whether Cucumberish is for you or not checkout the [FAQ](#faq) section**
 # Features
 
 * Full integration with Xcode Test Navigator.
