@@ -38,7 +38,7 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
 
    ```Ruby
 	target 'MyTestTarget' do
-  		pod 'Cucumberish', '~> 0.0.6'
+  		pod 'Cucumberish', '~> 0.0.7'
 	end
 
     ```
