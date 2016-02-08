@@ -28,7 +28,6 @@
 #import <Foundation/Foundation.h>
 #import "CCIExample.h"
 #import "CCIStep.h"
-#import "CCITag.h"
 /**
  Represents one scenario or one outline with its example found in your .feature file
  */
@@ -62,7 +61,7 @@
 /**
  Array of tags found on top of this scenario
  */
-@property (nonatomic, strong) NSArray <CCITag *> * tags;
+@property (nonatomic, strong) NSArray <NSString *> * tags;
 
 /**
  Can be Scenario or ScenarioOutline

@@ -14,17 +14,13 @@
 		603C5FDB1C65718C0080F73D /* CCIArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F6B1C65718C0080F73D /* CCIArgument.m */; };
 		603C5FDC1C65718C0080F73D /* CCIAroundHock.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F6D1C65718C0080F73D /* CCIAroundHock.m */; };
 		603C5FDD1C65718C0080F73D /* CCIBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F6F1C65718C0080F73D /* CCIBackground.m */; };
-		603C5FDE1C65718C0080F73D /* CCICell.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F711C65718C0080F73D /* CCICell.m */; };
 		603C5FE01C65718C0080F73D /* CCIExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F751C65718C0080F73D /* CCIExample.m */; };
 		603C5FE11C65718C0080F73D /* CCIFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F771C65718C0080F73D /* CCIFeature.m */; };
 		603C5FE21C65718C0080F73D /* CCIHock.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F791C65718C0080F73D /* CCIHock.m */; };
 		603C5FE31C65718C0080F73D /* CCILocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F7B1C65718C0080F73D /* CCILocation.m */; };
-		603C5FE41C65718C0080F73D /* CCIRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F7D1C65718C0080F73D /* CCIRow.m */; };
 		603C5FE51C65718C0080F73D /* CCIScenarioDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F7F1C65718C0080F73D /* CCIScenarioDefinition.m */; };
 		603C5FE61C65718C0080F73D /* CCIStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F811C65718C0080F73D /* CCIStep.m */; };
 		603C5FE71C65718C0080F73D /* CCIStepDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F831C65718C0080F73D /* CCIStepDefinition.m */; };
-		603C5FE81C65718C0080F73D /* CCITableBody.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F851C65718C0080F73D /* CCITableBody.m */; };
-		603C5FE91C65718C0080F73D /* CCITag.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F871C65718C0080F73D /* CCITag.m */; };
 		603C5FEA1C65718C0080F73D /* Cucumberish.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F891C65718C0080F73D /* Cucumberish.m */; };
 		603C5FEB1C65718C0080F73D /* GHAstBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F8D1C65718C0080F73D /* GHAstBuilder.m */; };
 		603C5FEC1C65718C0080F73D /* GHAstNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5F8F1C65718C0080F73D /* GHAstNode.m */; };
@@ -70,17 +66,13 @@
 		6075A5B31C4FB34400FE2B1B /* CCIArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5401C4FB34400FE2B1B /* CCIArgument.m */; };
 		6075A5B41C4FB34400FE2B1B /* CCIAroundHock.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5421C4FB34400FE2B1B /* CCIAroundHock.m */; };
 		6075A5B51C4FB34400FE2B1B /* CCIBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5441C4FB34400FE2B1B /* CCIBackground.m */; };
-		6075A5B61C4FB34400FE2B1B /* CCICell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5461C4FB34400FE2B1B /* CCICell.m */; };
 		6075A5B81C4FB34400FE2B1B /* CCIExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A54A1C4FB34400FE2B1B /* CCIExample.m */; };
 		6075A5BA1C4FB34400FE2B1B /* CCIFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A54E1C4FB34400FE2B1B /* CCIFeature.m */; };
 		6075A5BB1C4FB34400FE2B1B /* CCIHock.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5501C4FB34400FE2B1B /* CCIHock.m */; };
 		6075A5BC1C4FB34400FE2B1B /* CCILocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5521C4FB34400FE2B1B /* CCILocation.m */; };
-		6075A5BD1C4FB34400FE2B1B /* CCIRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5541C4FB34400FE2B1B /* CCIRow.m */; };
 		6075A5BE1C4FB34400FE2B1B /* CCIScenarioDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5561C4FB34400FE2B1B /* CCIScenarioDefinition.m */; };
 		6075A5BF1C4FB34400FE2B1B /* CCIStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5581C4FB34400FE2B1B /* CCIStep.m */; };
 		6075A5C01C4FB34400FE2B1B /* CCIStepDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A55A1C4FB34400FE2B1B /* CCIStepDefinition.m */; };
-		6075A5C11C4FB34400FE2B1B /* CCITableBody.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A55C1C4FB34400FE2B1B /* CCITableBody.m */; };
-		6075A5C21C4FB34400FE2B1B /* CCITag.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A55E1C4FB34400FE2B1B /* CCITag.m */; };
 		6075A5C31C4FB34400FE2B1B /* Cucumberish.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5601C4FB34400FE2B1B /* Cucumberish.m */; };
 		6075A5C51C4FB34400FE2B1B /* GHAstBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5651C4FB34400FE2B1B /* GHAstBuilder.m */; };
 		6075A5C61C4FB34400FE2B1B /* GHAstNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A5671C4FB34400FE2B1B /* GHAstNode.m */; };
@@ -141,17 +133,13 @@
 		60F2634C1C53546F005F87C1 /* CCIArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262DB1C53546F005F87C1 /* CCIArgument.m */; };
 		60F2634D1C53546F005F87C1 /* CCIAroundHock.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262DD1C53546F005F87C1 /* CCIAroundHock.m */; };
 		60F2634E1C53546F005F87C1 /* CCIBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262DF1C53546F005F87C1 /* CCIBackground.m */; };
-		60F2634F1C53546F005F87C1 /* CCICell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262E11C53546F005F87C1 /* CCICell.m */; };
 		60F263511C53546F005F87C1 /* CCIExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262E51C53546F005F87C1 /* CCIExample.m */; };
 		60F263521C53546F005F87C1 /* CCIFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262E71C53546F005F87C1 /* CCIFeature.m */; };
 		60F263531C53546F005F87C1 /* CCIHock.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262E91C53546F005F87C1 /* CCIHock.m */; };
 		60F263541C53546F005F87C1 /* CCILocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262EB1C53546F005F87C1 /* CCILocation.m */; };
-		60F263551C53546F005F87C1 /* CCIRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262ED1C53546F005F87C1 /* CCIRow.m */; };
 		60F263561C53546F005F87C1 /* CCIScenarioDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262EF1C53546F005F87C1 /* CCIScenarioDefinition.m */; };
 		60F263571C53546F005F87C1 /* CCIStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262F11C53546F005F87C1 /* CCIStep.m */; };
 		60F263581C53546F005F87C1 /* CCIStepDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262F31C53546F005F87C1 /* CCIStepDefinition.m */; };
-		60F263591C53546F005F87C1 /* CCITableBody.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262F51C53546F005F87C1 /* CCITableBody.m */; };
-		60F2635A1C53546F005F87C1 /* CCITag.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262F71C53546F005F87C1 /* CCITag.m */; };
 		60F2635B1C53546F005F87C1 /* Cucumberish.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262F91C53546F005F87C1 /* Cucumberish.m */; };
 		60F2635D1C53546F005F87C1 /* GHAstBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262FE1C53546F005F87C1 /* GHAstBuilder.m */; };
 		60F2635E1C53546F005F87C1 /* GHAstNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F263001C53546F005F87C1 /* GHAstNode.m */; };
@@ -231,8 +219,6 @@
 		603C5F6D1C65718C0080F73D /* CCIAroundHock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCIAroundHock.m; sourceTree = "<group>"; };
 		603C5F6E1C65718C0080F73D /* CCIBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCIBackground.h; sourceTree = "<group>"; };
 		603C5F6F1C65718C0080F73D /* CCIBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCIBackground.m; sourceTree = "<group>"; };
-		603C5F701C65718C0080F73D /* CCICell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCICell.h; sourceTree = "<group>"; };
-		603C5F711C65718C0080F73D /* CCICell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCICell.m; sourceTree = "<group>"; };
 		603C5F741C65718C0080F73D /* CCIExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCIExample.h; sourceTree = "<group>"; };
 		603C5F751C65718C0080F73D /* CCIExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCIExample.m; sourceTree = "<group>"; };
 		603C5F761C65718C0080F73D /* CCIFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCIFeature.h; sourceTree = "<group>"; };
@@ -241,18 +227,12 @@
 		603C5F791C65718C0080F73D /* CCIHock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCIHock.m; sourceTree = "<group>"; };
 		603C5F7A1C65718C0080F73D /* CCILocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCILocation.h; sourceTree = "<group>"; };
 		603C5F7B1C65718C0080F73D /* CCILocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCILocation.m; sourceTree = "<group>"; };
-		603C5F7C1C65718C0080F73D /* CCIRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCIRow.h; sourceTree = "<group>"; };
-		603C5F7D1C65718C0080F73D /* CCIRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCIRow.m; sourceTree = "<group>"; };
 		603C5F7E1C65718C0080F73D /* CCIScenarioDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCIScenarioDefinition.h; sourceTree = "<group>"; };
 		603C5F7F1C65718C0080F73D /* CCIScenarioDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCIScenarioDefinition.m; sourceTree = "<group>"; };
 		603C5F801C65718C0080F73D /* CCIStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCIStep.h; sourceTree = "<group>"; };
 		603C5F811C65718C0080F73D /* CCIStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCIStep.m; sourceTree = "<group>"; };
 		603C5F821C65718C0080F73D /* CCIStepDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCIStepDefinition.h; sourceTree = "<group>"; };
 		603C5F831C65718C0080F73D /* CCIStepDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCIStepDefinition.m; sourceTree = "<group>"; };
-		603C5F841C65718C0080F73D /* CCITableBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCITableBody.h; sourceTree = "<group>"; };
-		603C5F851C65718C0080F73D /* CCITableBody.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCITableBody.m; sourceTree = "<group>"; };
-		603C5F861C65718C0080F73D /* CCITag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCITag.h; sourceTree = "<group>"; };
-		603C5F871C65718C0080F73D /* CCITag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCITag.m; sourceTree = "<group>"; };
 		603C5F881C65718C0080F73D /* Cucumberish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cucumberish.h; sourceTree = "<group>"; };
 		603C5F891C65718C0080F73D /* Cucumberish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cucumberish.m; sourceTree = "<group>"; };
 		603C5F8C1C65718C0080F73D /* GHAstBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAstBuilder.h; sourceTree = "<group>"; };
@@ -705,8 +685,6 @@
 				603C5F6D1C65718C0080F73D /* CCIAroundHock.m */,
 				603C5F6E1C65718C0080F73D /* CCIBackground.h */,
 				603C5F6F1C65718C0080F73D /* CCIBackground.m */,
-				603C5F701C65718C0080F73D /* CCICell.h */,
-				603C5F711C65718C0080F73D /* CCICell.m */,
 				603C5F741C65718C0080F73D /* CCIExample.h */,
 				603C5F751C65718C0080F73D /* CCIExample.m */,
 				603C5F761C65718C0080F73D /* CCIFeature.h */,
@@ -715,18 +693,12 @@
 				603C5F791C65718C0080F73D /* CCIHock.m */,
 				603C5F7A1C65718C0080F73D /* CCILocation.h */,
 				603C5F7B1C65718C0080F73D /* CCILocation.m */,
-				603C5F7C1C65718C0080F73D /* CCIRow.h */,
-				603C5F7D1C65718C0080F73D /* CCIRow.m */,
 				603C5F7E1C65718C0080F73D /* CCIScenarioDefinition.h */,
 				603C5F7F1C65718C0080F73D /* CCIScenarioDefinition.m */,
 				603C5F801C65718C0080F73D /* CCIStep.h */,
 				603C5F811C65718C0080F73D /* CCIStep.m */,
 				603C5F821C65718C0080F73D /* CCIStepDefinition.h */,
 				603C5F831C65718C0080F73D /* CCIStepDefinition.m */,
-				603C5F841C65718C0080F73D /* CCITableBody.h */,
-				603C5F851C65718C0080F73D /* CCITableBody.m */,
-				603C5F861C65718C0080F73D /* CCITag.h */,
-				603C5F871C65718C0080F73D /* CCITag.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1541,13 +1513,11 @@
 				603C5FF31C65718C0080F73D /* GHFeature.m in Sources */,
 				603C5FED1C65718C0080F73D /* GHBackground.m in Sources */,
 				603C60051C65718C0080F73D /* GHTableRow.m in Sources */,
-				603C5FE91C65718C0080F73D /* CCITag.m in Sources */,
 				603C5FFC1C65718C0080F73D /* GHParser+Extensions.m in Sources */,
 				603C60011C65718C0080F73D /* GHScenarioOutline.m in Sources */,
 				603C60041C65718C0080F73D /* GHTableCell.m in Sources */,
 				603C5FF91C65718C0080F73D /* GHGherkinLineSpan.m in Sources */,
 				603C5FE71C65718C0080F73D /* CCIStepDefinition.m in Sources */,
-				603C5FDE1C65718C0080F73D /* CCICell.m in Sources */,
 				603C5FF81C65718C0080F73D /* GHGherkinLine.m in Sources */,
 				603C60061C65718C0080F73D /* GHTag.m in Sources */,
 				603C600B1C65718C0080F73D /* NSObject+Dictionary.m in Sources */,
@@ -1575,10 +1545,8 @@
 				603C5FDC1C65718C0080F73D /* CCIAroundHock.m in Sources */,
 				603C5FFF1C65718C0080F73D /* GHScenario.m in Sources */,
 				603C5FFE1C65718C0080F73D /* GHParserException.m in Sources */,
-				603C5FE81C65718C0080F73D /* CCITableBody.m in Sources */,
 				603C5FFA1C65718C0080F73D /* GHLocation.m in Sources */,
 				603C60071C65718C0080F73D /* GHToken.m in Sources */,
-				603C5FE41C65718C0080F73D /* CCIRow.m in Sources */,
 				603C60091C65718C0080F73D /* GHTokenScanner.m in Sources */,
 				603C600A1C65718C0080F73D /* NSString+Trim.m in Sources */,
 				603C5FF21C65718C0080F73D /* GHExamples.m in Sources */,
@@ -1598,7 +1566,6 @@
 				6075A5DD1C4FB34400FE2B1B /* GHStepArgument.m in Sources */,
 				6075A5DB1C4FB34400FE2B1B /* GHScenarioOutline.m in Sources */,
 				6075A5E31C4FB34400FE2B1B /* GHTokenScanner.m in Sources */,
-				6075A5C11C4FB34400FE2B1B /* CCITableBody.m in Sources */,
 				6075A5BC1C4FB34400FE2B1B /* CCILocation.m in Sources */,
 				6075A5CF1C4FB34400FE2B1B /* GHGherkinDialectProvider.m in Sources */,
 				6075A5CD1C4FB34400FE2B1B /* GHFeature.m in Sources */,
@@ -1612,9 +1579,7 @@
 				6075A5E01C4FB34400FE2B1B /* GHTag.m in Sources */,
 				6075A5DA1C4FB34400FE2B1B /* GHScenarioDefinition.m in Sources */,
 				6075A5D71C4FB34400FE2B1B /* GHParser.m in Sources */,
-				6075A5C21C4FB34400FE2B1B /* CCITag.m in Sources */,
 				6075A5D21C4FB34400FE2B1B /* GHGherkinLine.m in Sources */,
-				6075A5B61C4FB34400FE2B1B /* CCICell.m in Sources */,
 				6075A5B51C4FB34400FE2B1B /* CCIBackground.m in Sources */,
 				6075A5D11C4FB34400FE2B1B /* GHGherkinLanguageSetting.m in Sources */,
 				6075A5D51C4FB34400FE2B1B /* GHNode.m in Sources */,
@@ -1634,7 +1599,6 @@
 				6075A5C31C4FB34400FE2B1B /* Cucumberish.m in Sources */,
 				6075A5E61C4FB34400FE2B1B /* NSString+Formatter.m in Sources */,
 				6075A52E1C4FB20900FE2B1B /* CucumberishExampleTests.m in Sources */,
-				6075A5BD1C4FB34400FE2B1B /* CCIRow.m in Sources */,
 				6075A6091C4FB6D400FE2B1B /* KIFUITestActor+Utils.m in Sources */,
 				6075A5CE1C4FB34400FE2B1B /* GHGherkinDialect.m in Sources */,
 				6075A5C51C4FB34400FE2B1B /* GHAstBuilder.m in Sources */,
@@ -1678,7 +1642,6 @@
 				60F263751C53546F005F87C1 /* GHStepArgument.m in Sources */,
 				60F263731C53546F005F87C1 /* GHScenarioOutline.m in Sources */,
 				60F2637B1C53546F005F87C1 /* GHTokenScanner.m in Sources */,
-				60F263591C53546F005F87C1 /* CCITableBody.m in Sources */,
 				60F263541C53546F005F87C1 /* CCILocation.m in Sources */,
 				60F263671C53546F005F87C1 /* GHGherkinDialectProvider.m in Sources */,
 				60F263651C53546F005F87C1 /* GHFeature.m in Sources */,
@@ -1692,12 +1655,10 @@
 				60F263781C53546F005F87C1 /* GHTag.m in Sources */,
 				60F263721C53546F005F87C1 /* GHScenarioDefinition.m in Sources */,
 				60F2636F1C53546F005F87C1 /* GHParser.m in Sources */,
-				60F2635A1C53546F005F87C1 /* CCITag.m in Sources */,
 				60F2636A1C53546F005F87C1 /* GHGherkinLine.m in Sources */,
 				60F2634A1C53546F005F87C1 /* CCIFeaturesManager.m in Sources */,
 				60F263691C53546F005F87C1 /* GHGherkinLanguageSetting.m in Sources */,
 				60F2636D1C53546F005F87C1 /* GHNode.m in Sources */,
-				60F2634F1C53546F005F87C1 /* CCICell.m in Sources */,
 				60F263611C53546F005F87C1 /* GHDataTable.m in Sources */,
 				60F2634D1C53546F005F87C1 /* CCIAroundHock.m in Sources */,
 				60F263761C53546F005F87C1 /* GHTableCell.m in Sources */,
@@ -1715,7 +1676,6 @@
 				60F2635B1C53546F005F87C1 /* Cucumberish.m in Sources */,
 				60F2637E1C53546F005F87C1 /* NSString+Formatter.m in Sources */,
 				60F263511C53546F005F87C1 /* CCIExample.m in Sources */,
-				60F263551C53546F005F87C1 /* CCIRow.m in Sources */,
 				60F263661C53546F005F87C1 /* GHGherkinDialect.m in Sources */,
 				60F2635D1C53546F005F87C1 /* GHAstBuilder.m in Sources */,
 				60F262CF1C5351A1005F87C1 /* CucumberishInitilizer.m in Sources */,

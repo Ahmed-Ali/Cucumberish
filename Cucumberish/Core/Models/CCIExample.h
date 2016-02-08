@@ -26,8 +26,6 @@
 //	Model file Generated using JSONExport: https://github.com/Ahmed-Ali/JSONExport
 
 #import "CCILocation.h"
-#import "CCITableBody.h"
-#import "CCITableBody.h"
 
 /**
  Represents and example of a scanrio outline

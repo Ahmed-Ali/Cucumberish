@@ -28,8 +28,6 @@
 #import <Foundation/Foundation.h>
 #import "CCILocation.h"
 #import "CCIArgument.h"
-extern const NSString * kCCIStepTypeStep;
-extern const NSString * kCCIStepTypeFunction;
 
 @interface CCIStep : NSObject<NSCopying>
 @property (nonatomic, strong) CCIArgument * argument;

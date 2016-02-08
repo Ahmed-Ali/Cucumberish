@@ -27,8 +27,6 @@
 
 #import "CCIStep.h"
 
-const NSString * kCCIStepTypeStep = @"Step";
-const NSString * kCCIStepTypeFunction = @"Func";
 
 @interface CCIStep ()
 @end

@@ -83,8 +83,8 @@
             if(tags == nil || tags.count == 0){
                 [parsedFeatures addObject:feature];
             }else{
-                for (CCITag * featureTag in feature.tags) {
-                    if ([tags containsObject:featureTag.name]) {
+                for (NSString * featureTag in feature.tags) {
+                    if ([tags containsObject:featureTag]) {
                         [parsedFeatures addObject:feature];
                         break;
                     }

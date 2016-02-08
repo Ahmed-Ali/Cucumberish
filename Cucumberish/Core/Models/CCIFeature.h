@@ -29,7 +29,6 @@
 #import "CCIBackground.h"
 #import "CCILocation.h"
 #import "CCIScenarioDefinition.h"
-#import "CCITag.h"
 
 @interface CCIFeature : NSObject
 
@@ -37,7 +36,7 @@
 @property (nonatomic, strong) CCILocation * location;
 @property (nonatomic, copy) NSString * name;
 @property (nonatomic, strong) NSArray<CCIScenarioDefinition *> * scenarioDefinitions;
-@property (nonatomic, strong) NSArray <CCITag *> * tags;
+@property (nonatomic, strong) NSArray <NSString *> * tags;
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 -(NSDictionary *)toDictionary;

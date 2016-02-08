@@ -79,17 +79,21 @@
 		}
 		self.steps = stepsItems;
 	}
-	if(dictionary[@"tags"] != nil && ![dictionary[@"tags"] isKindOfClass:[NSNull class]]){
-        NSArray * tagDictionaries = dictionary[@"tags"];
+    if(dictionary[@"parsedTags"] != nil){
+        self.tags = dictionary[@"parsedTags"];
+    }else if(dictionary[@"tags"] != nil && [dictionary[@"tags"] isKindOfClass:[NSArray class]]){
+        NSArray * tagsDictionaries = dictionary[@"tags"];
         NSMutableArray * tagsItems = [NSMutableArray array];
-        for(NSDictionary * tagDictionary in tagDictionaries){
-            NSMutableDictionary * tagData = [tagDictionary mutableCopy];
+        for(NSDictionary * tagDictionary in tagsDictionaries){
+            NSString * tagName = tagDictionary[@"name"];
+            if([tagName hasPrefix:@"@"]){
+                tagName = [tagName stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@""];
+            }
+            [tagsItems addObject:tagName];
             
-            CCITag * tagsItem = [[CCITag alloc] initWithDictionary:tagData];
-            [tagsItems addObject:tagsItem];
         }
         self.tags = tagsItems;
-	}
+    }
 
 	if(dictionary[@"type"] != nil && ![dictionary[@"type"] isKindOfClass:[NSNull class]]){
 		self.type = dictionary[@"type"];
@@ -141,12 +145,9 @@
         }
         dictionary[@"steps"] = dictionaryElements;
     }
-    if(self.tags != nil){
-        NSMutableArray * dictionaryElements = [NSMutableArray array];
-        for(CCITag * tagsElement in self.tags){
-            [dictionaryElements addObject:[tagsElement toDictionary]];
-        }
-        dictionary[@"tags"] = dictionaryElements;
+    if(self.tags.count > 0 ){
+        
+        dictionary[@"parsedTags"] = self.tags;
     }
     if(self.type != nil){
         dictionary[@"type"] = self.type;

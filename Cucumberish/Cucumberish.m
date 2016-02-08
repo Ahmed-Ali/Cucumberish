@@ -151,8 +151,8 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     for(CCIHock * hock in hocks){
         if(hock.tags.count > 0){
             if(scenario.tags.count > 0){
-                for (CCITag * tag in scenario.tags) {
-                    if([hock.tags containsObject:tag.name]){
+                for (NSString * tag in scenario.tags) {
+                    if([hock.tags containsObject:tag]){
                         hock.block(scenario);
                         break;
                     }
@@ -200,8 +200,8 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     void(^executionChain)(void) = NULL;
     if(scenario.tags.count > 0){
         for(CCIAroundHock * around in self.aroundHocks){
-            for (CCITag * tag in scenario.tags) {
-                if([around.tags containsObject:tag.name]){
+            for (NSString * tag in scenario.tags) {
+                if([around.tags containsObject:tag]){
                     if(executionChain == NULL){
                         executionChain = ^{
                             around.block(scenario, executionBlock);

@@ -45,7 +45,7 @@
     if(dictionary[@"location"] != nil && ![dictionary[@"location"] isKindOfClass:[NSNull class]]){
         self.location = [[CCILocation alloc] initWithDictionary:dictionary[@"location"]];
     }
-    if(dictionary[@"exampleData"] != nil && ![dictionary[@"exampleData"] isKindOfClass:[NSDictionary class]]){
+    if(dictionary[@"exampleData"] != nil){
         self.exampleData = dictionary[@"exampleData"];
     }else{
         NSMutableDictionary * exampleData = [NSMutableDictionary dictionary];

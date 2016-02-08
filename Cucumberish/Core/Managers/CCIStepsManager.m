@@ -115,25 +115,12 @@ static CCIStepsManager * instance = nil;
                 NSString * value = [step.text substringWithRange:range];
                 [values addObject:value];
             }
-            if([step.argument.type isEqualToString:@"DataTable"]){
-                NSMutableArray * rows = [NSMutableArray array];
-                for(CCIRow * row in step.argument.rows){
-                    NSMutableArray * cells = [NSMutableArray array];
-                    for(CCICell * cell in row.cells){
-                        if(cell.value.length > 0){
-                            [cells addObject:cell.value];
-                        }
-                    }
-                    [rows addObject:cells];
-                }
-                definition.additionalContent = @{@"DataTable" : rows};
-            }else if([step.argument.type isEqualToString:@"DocString"]){
-                NSString * content = step.argument.content;
-                if(content == nil){
-                    content = @"";
-                }
-                definition.additionalContent = @{@"DocString" : content};
+            if(step.argument.rows.count > 0){
+                definition.additionalContent = @{@"DataTable" : step.argument.rows};
+            }else if(step.argument.content.length > 0){
+                definition.additionalContent = @{@"DocString" : step.argument.content};
             }
+            
             definition.matchedValues = values;
             return definition;
         }

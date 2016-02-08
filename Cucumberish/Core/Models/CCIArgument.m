@@ -42,26 +42,27 @@
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
-	if(dictionary[@"location"] != nil && ![dictionary[@"location"] isKindOfClass:[NSNull class]]){
-		self.location = [[CCILocation alloc] initWithDictionary:dictionary[@"location"]];
-	}
 
-	if(dictionary[@"rows"] != nil && [dictionary[@"rows"] isKindOfClass:[NSArray class]]){
-		NSArray * rowsDictionaries = dictionary[@"rows"];
-		NSMutableArray * rowsItems = [NSMutableArray array];
-		for(NSDictionary * rowsDictionary in rowsDictionaries){
-			CCIRow * rowsItem = [[CCIRow alloc] initWithDictionary:rowsDictionary];
-			[rowsItems addObject:rowsItem];
-		}
-		self.rows = rowsItems;
-	}
-	if(dictionary[@"type"] != nil && ![dictionary[@"type"] isKindOfClass:[NSNull class]]){
-		self.type = dictionary[@"type"];
-	}
+	
     if(dictionary[@"content"] != nil && ![dictionary[@"content"] isKindOfClass:[NSNull class]]){
         self.content = dictionary[@"content"];
     }
-
+    if(dictionary[@"parsedRows"] != nil){
+        self.rows = dictionary[@"parsedRows"];
+    }else if(dictionary[@"rows"] != nil && [dictionary[@"rows"] isKindOfClass:[NSArray class]]){
+        NSArray * rowsDictionaries = dictionary[@"rows"];
+        NSMutableArray * rows = [NSMutableArray array];
+        for(NSDictionary * rowsDictionary in rowsDictionaries){
+            NSMutableArray * row = [NSMutableArray array];
+            for(NSDictionary * cell in rowsDictionary[@"cells"]){
+                [row addObject:cell[@"value"]];
+            }
+            [rows addObject:row];
+        }
+        if(rows.count > 0){
+            self.rows = rows;
+        }
+    }
 	return self;
 }
 
@@ -72,19 +73,11 @@
 -(NSDictionary *)toDictionary
 {
 	NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
-	if(self.location != nil){
-		dictionary[@"location"] = [self.location toDictionary];
-	}
+
 	if(self.rows != nil){
-		NSMutableArray * dictionaryElements = [NSMutableArray array];
-		for(CCIRow * rowsElement in self.rows){
-			[dictionaryElements addObject:[rowsElement toDictionary]];
-		}
-		dictionary[@"rows"] = dictionaryElements;
+		dictionary[@"parsedRows"] = self.rows;
 	}
-	if(self.type != nil){
-		dictionary[@"type"] = self.type;
-	}
+	
     if(self.content != nil){
         dictionary[@"content"] = self.content;
     }
@@ -100,15 +93,10 @@
  */
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-	if(self.location != nil){
-		[aCoder encodeObject:self.location forKey:@"location"];
-	}
 	if(self.rows != nil){
 		[aCoder encodeObject:self.rows forKey:@"rows"];
 	}
-	if(self.type != nil){
-		[aCoder encodeObject:self.type forKey:@"type"];
-	}
+
     if(self.content != nil){
         [aCoder encodeObject:self.content forKey:@"content"];
     }
@@ -121,9 +109,7 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
 	self = [super init];
-	self.location = [aDecoder decodeObjectForKey:@"location"];
 	self.rows = [aDecoder decodeObjectForKey:@"rows"];
-	self.type = [aDecoder decodeObjectForKey:@"type"];
     self.content = [aDecoder decodeObjectForKey:@"content"];
 	return self;
 
