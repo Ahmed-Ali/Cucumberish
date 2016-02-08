@@ -62,17 +62,15 @@
 	if(dictionary[@"name"] != nil && ![dictionary[@"name"] isKindOfClass:[NSNull class]]){
 		self.name = dictionary[@"name"];
 	}
-    if(dictionary[@"filePath"] != nil && ![dictionary[@"filePath"] isKindOfClass:[NSNull class]]){
-        self.filePath = dictionary[@"filePath"];
-    }
+  
 
 	if(dictionary[@"steps"] != nil && [dictionary[@"steps"] isKindOfClass:[NSArray class]]){
 		NSArray * stepDictionaries = dictionary[@"steps"];
 		NSMutableArray * stepsItems = [NSMutableArray array];
 		for(NSDictionary * stepDictionary in stepDictionaries){
             NSMutableDictionary * stepData = [stepDictionary mutableCopy];
-            if(self.filePath.length > 0){
-                stepData[@"filePath"] = self.filePath;
+            if(self.location.filePath.length > 0){
+                stepData[@"location"][@"filePath"] = self.location.filePath;
             }
 			CCIStep * stepsItem = [[CCIStep alloc] initWithDictionary:stepData];
 			[stepsItems addObject:stepsItem];
@@ -99,9 +97,6 @@
 		self.type = dictionary[@"type"];
 	}
     
-    if (![dictionary[@"filePath"] isKindOfClass:[NSNull class]]) {
-        self.filePath = dictionary[@"filePath"];
-    }
     
     if(dictionary[@"success"] != nil && ![dictionary[@"success"] isKindOfClass:[NSNull class]]){
         self.success = [dictionary[@"success"] boolValue];
@@ -152,9 +147,6 @@
     if(self.type != nil){
         dictionary[@"type"] = self.type;
     }
-    if(self.filePath != nil){
-        dictionary[@"filePath"] = self.filePath;
-    }
     
     
     
@@ -197,9 +189,6 @@
     if(self.type != nil){
         [aCoder encodeObject:self.type forKey:@"type"];
     }
-    if(self.filePath != nil){
-        [aCoder encodeObject:self.filePath forKey:@"filePath"];
-    }
     [aCoder encodeObject:@(self.success) forKey:@"success"];
     if(self.failureReason.length > 0){
         [aCoder encodeObject:self.failureReason forKey:@"failureReason"];
@@ -220,7 +209,6 @@
     self.steps = [aDecoder decodeObjectForKey:@"steps"];
     self.tags = [aDecoder decodeObjectForKey:@"tags"];
     self.type = [aDecoder decodeObjectForKey:@"type"];
-    self.filePath = [aDecoder decodeObjectForKey:@"filePath"];
     self.success = [[aDecoder decodeObjectForKey:@"success"] boolValue];
     self.failureReason = [aDecoder decodeObjectForKey:@"failureReason"];
     

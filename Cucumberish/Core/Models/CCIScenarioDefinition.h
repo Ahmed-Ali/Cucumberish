@@ -68,10 +68,6 @@
  */
 @property (nonatomic, copy) NSString * type;
 
-/**
- The orinignal fine path where this scenario is located
- */
-@property (nonatomic, copy) NSString * filePath;
 
 /**
  In case the execution of this scenario is failed, this property will have the failure message

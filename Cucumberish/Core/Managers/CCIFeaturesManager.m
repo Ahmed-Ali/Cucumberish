@@ -76,7 +76,7 @@
             
             NSString * localPath = [[filePath.absoluteString stringByReplacingOccurrencesOfString:[[NSBundle bundleForClass:[self class]] bundlePath] withString:@""] stringByReplacingOccurrencesOfString:@"file://" withString:@""];
             
-            featureData[@"filePath"] = localPath;
+            featureData[@"location"][@"filePath"] = localPath;
             CCIFeature * feature = [[CCIFeature alloc] initWithDictionary:featureData];
   
             
