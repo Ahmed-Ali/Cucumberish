@@ -56,9 +56,10 @@
 		603C600A1C65718C0080F73D /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5FD31C65718C0080F73D /* NSString+Trim.m */; };
 		603C600B1C65718C0080F73D /* NSObject+Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5FD61C65718C0080F73D /* NSObject+Dictionary.m */; };
 		603C600C1C65718C0080F73D /* NSString+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 603C5FD81C65718C0080F73D /* NSString+Formatter.m */; };
-		603C600E1C6577D80080F73D /* expected.output in Resources */ = {isa = PBXBuildFile; fileRef = 603C600D1C6577D80080F73D /* expected.output */; };
+		603C600E1C6577D80080F73D /* expected_execution.output in Resources */ = {isa = PBXBuildFile; fileRef = 603C600D1C6577D80080F73D /* expected_execution.output */; };
 		6052E5381C4FCED200CBA7FD /* UIViewController+NavigationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6052E5371C4FCED200CBA7FD /* UIViewController+NavigationHelper.m */; };
 		60589C331C53C3FA00B187C3 /* CCIStepDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60589C321C53C3FA00B187C3 /* CCIStepDefinitions.swift */; };
+		6074281E1C681A5E00BAB3BA /* expected_json_output.json in Resources */ = {isa = PBXBuildFile; fileRef = 6074281D1C681A5E00BAB3BA /* expected_json_output.json */; };
 		6075A52E1C4FB20900FE2B1B /* CucumberishExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A52D1C4FB20900FE2B1B /* CucumberishExampleTests.m */; };
 		6075A5361C4FB2D000FE2B1B /* ExampleFeatures in Resources */ = {isa = PBXBuildFile; fileRef = 6075A5351C4FB2D000FE2B1B /* ExampleFeatures */; };
 		6075A5B11C4FB34400FE2B1B /* CCIFeaturesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A53B1C4FB34400FE2B1B /* CCIFeaturesManager.m */; };
@@ -311,10 +312,11 @@
 		603C5FD61C65718C0080F73D /* NSObject+Dictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Dictionary.m"; sourceTree = "<group>"; };
 		603C5FD71C65718C0080F73D /* NSString+Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Formatter.h"; sourceTree = "<group>"; };
 		603C5FD81C65718C0080F73D /* NSString+Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Formatter.m"; sourceTree = "<group>"; };
-		603C600D1C6577D80080F73D /* expected.output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = expected.output; sourceTree = "<group>"; };
+		603C600D1C6577D80080F73D /* expected_execution.output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = expected_execution.output; sourceTree = "<group>"; };
 		6052E5361C4FCED200CBA7FD /* UIViewController+NavigationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NavigationHelper.h"; sourceTree = "<group>"; };
 		6052E5371C4FCED200CBA7FD /* UIViewController+NavigationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NavigationHelper.m"; sourceTree = "<group>"; };
 		60589C321C53C3FA00B187C3 /* CCIStepDefinitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCIStepDefinitions.swift; sourceTree = "<group>"; };
+		6074281D1C681A5E00BAB3BA /* expected_json_output.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = expected_json_output.json; sourceTree = "<group>"; };
 		6075A52B1C4FB20900FE2B1B /* CucumberishExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CucumberishExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6075A52D1C4FB20900FE2B1B /* CucumberishExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CucumberishExampleTests.m; sourceTree = "<group>"; };
 		6075A52F1C4FB20900FE2B1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -636,7 +638,8 @@
 				603C5F5F1C6570BF0080F73D /* Features */,
 				603C5F571C656FAB0080F73D /* CucumberishTest.m */,
 				6091FC0E1C6613A100F100D0 /* expected_classes_and_methods.json */,
-				603C600D1C6577D80080F73D /* expected.output */,
+				603C600D1C6577D80080F73D /* expected_execution.output */,
+				6074281D1C681A5E00BAB3BA /* expected_json_output.json */,
 				603C5F591C656FAB0080F73D /* Info.plist */,
 			);
 			path = CucumberishTest;
@@ -1414,9 +1417,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6074281E1C681A5E00BAB3BA /* expected_json_output.json in Resources */,
 				603C5FF11C65718C0080F73D /* gherkin-languages.json in Resources */,
 				603C5F601C6570BF0080F73D /* Features in Resources */,
-				603C600E1C6577D80080F73D /* expected.output in Resources */,
+				603C600E1C6577D80080F73D /* expected_execution.output in Resources */,
 				6091FC0F1C6613A100F100D0 /* expected_classes_and_methods.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,6 +11,8 @@
 
 #import "Cucumberish.h"
 #import "CCIScenarioDefinition.h"
+#import "CCIFeaturesManager.h"
+#import "CCIFeature.h"
 
 @interface CucumberishTester : NSObject
 @property NSMutableString * output;
@@ -30,6 +32,7 @@
 - (void)defineStepsAndHocks
 {
     afterFinish(^{
+        [self validateParsedContent];
         [self validateExecutionOutput];
         [self validateRegisteredClassesAndMethods];
     });
@@ -61,11 +64,31 @@
     
 }
 
+- (void)validateParsedContent
+{
+    NSArray * features = [[CCIFeaturesManager instance] features];
+    NSMutableArray * featureDictionaries = [NSMutableArray array];
+    for(CCIFeature * feature in features){
+        [featureDictionaries addObject:[feature toDictionary]];
+    }
+    NSError * parsingError;
+    NSData * data = [NSJSONSerialization dataWithJSONObject:featureDictionaries options:0 error:&parsingError];
+    
+    NSString * actualJsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSAssert(actualJsonString.length > 0, @"Could not convert parsed features into JSON string");
+    NSBundle * bundle = [NSBundle bundleForClass:[CucumberishTester class]];
+    NSString * expectedOutputFile = [bundle pathForResource:@"expected_json_output" ofType:@"json"];
+    NSError * error;
+    NSString * expectedOutput = [[NSString stringWithContentsOfFile:expectedOutputFile encoding:NSUTF8StringEncoding error:&error] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSAssert(error == nil, @"Could not load the expected output file");
+    NSAssert([expectedOutput isEqualToString:actualJsonString], @"Acutal parsed JSON is different than expected JSON:\nActual:\n%@\n=======\nExpected:\n%@", actualJsonString, expectedOutput);
+}
+
 - (void)validateExecutionOutput
 {
     //Compare the whole output and see if it is as expected
     NSBundle * bundle = [NSBundle bundleForClass:[CucumberishTester class]];
-    NSString * expectedOutputFile = [bundle pathForResource:@"expected" ofType:@"output"];
+    NSString * expectedOutputFile = [bundle pathForResource:@"expected_execution" ofType:@"output"];
     NSError * error;
     NSString * expectedOutput = [[NSString stringWithContentsOfFile:expectedOutputFile encoding:NSUTF8StringEncoding error:&error] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString * finalOutput = [output stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -94,6 +117,8 @@
         }
     }
 }
+
+
 
 @end
 
