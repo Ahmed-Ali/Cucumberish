@@ -1,4 +1,8 @@
 #Change Log
+
+- ###[v0.0.6](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v0.0.6)
+    - Refactored and documented most of CCI model classes
+    - Added test case to validate the .feature parsed content (known as Pickles in Cucumber)
 - ###[v0.0.5.1](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v0.0.5.1)
     - Pretty test case names is now turned off by default to avoid execution issue with xctool
 - ###[v0.0.5](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v0.0.5)

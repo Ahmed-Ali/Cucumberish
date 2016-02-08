@@ -190,6 +190,7 @@ In the CucumberishExampe project there are three targets:
 3. UI Test Target:
     - While I was not impressed enough by Apple UI automation API and its so much limitions, I decided to add the example target to complete the chain. It has smaller set of step implementation examples, and written in Swift.
 Feel free to take this step implementations as a starting point and use them as much as you want; just remember to choose what fits best with your needs because you will build your own implementations in all cases.
+	- **Note:** When running this test target, make sure to disable the simulator auto correction feature; otherwise the XCUI tends to use the auto correction which results in unintended values being written in the text fields.
 
 3. CucumberishTest:
     - This target contians test cases that tests the behaviour of the Cucumberish framework itself. This is accomplished by comparing the order of feature, scenario and step execution and their associated classes and methods that supposed to appear in Xcode Test Navigation
@@ -205,7 +206,7 @@ This can happen if your step definition text can not be matched against the step
 It can happen because of a mistake in your regex string, or maybe an additional unwated space has been added to either the definision of the step or the step it self.
 A good place to put a breakpoint and see what is going on is in Cucumberish/Core/Managers/CCIStepsManagers.m in the method findDefinitionForStep:amongDefinitions:
 
-#### My test case failed, but when I click on the failed case in test navigator it does not open the file where the error occured.
+#### My test case failed, but when I click on the failed case in Xcode test navigator it does not open the file where the failure occured.
 So far this happens for two reasons:
 
     
