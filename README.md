@@ -37,12 +37,8 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
 1. Add Cucumberish to your Podfile for your test target and run pod install.
 
    ```Ruby
-	target 'MyApp' do 
-		 ...
-	end
-
-	target 'MyAppTests' do
-  		pod 'Cucumberish', '~> 0.0.6'
+	target 'MyTestTarget' do
+  		pod 'Cucumberish', '~> 0.0.7'
 	end
     ```
     
