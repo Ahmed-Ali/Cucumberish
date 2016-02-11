@@ -19,8 +19,8 @@ It is inspired by the amazing way of writing automated test cases introduced ori
 ![Cucumberish In Action](https://cloud.githubusercontent.com/assets/5157350/12704873/cf0a6dfe-c864-11e5-8a3b-8a3682d8e880.gif)
 
 # Installation
-You can install Cucumberish manually, in no more than few minutes, or using cocoapods.
-If you will use Cucumberish with UI Test target, you should use the manual installation; for some reasons cocoapods fails to copy the required resources with UI Test targets.
+You can install Cucumberish manually, in no more than few minutes, or using CocoaPods.
+If you will use Cucumberish with UI Test target, you should use the manual installation; for some reasons CocoaPods fails to copy the required resources with UI Test targets.
 
 ### Manual
 1. Copy the content of Cucumberish folder into your test target folder and add it to your test target as a reference not a folder.
@@ -53,7 +53,7 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
         
             ```Objective-C
             #import "Cucumberish.h"
-            //#import <Cucumberish/Cucumberish.h> if installed using cocoapods
+            //#import <Cucumberish/Cucumberish.h> if installed using CocoaPods
             __attribute__((constructor))
             void CucumberishInit()
             {
