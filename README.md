@@ -243,7 +243,7 @@ A continuous integration (CI) process is highly recommended and is extremely use
 - In the example app we used [KIF](https://github.com/kif-framework/KIF) as a good example of how you can implement steps that has to do with user interface. The guys behind this framework has done really amazing job!
 
 # To do (Wish to have)
-The following is a list of cool things we would like to be able to deliver as soon as possible
+The following is a list of cool complimentary (free and open source) tools we would like to be able to deliver as soon as possible (as separate projects)
 - An Xcode plugin that can:
 	1. Warn you about unimplemented steps and suggest definition regex.
 	2. Jump from step to it's implementation
