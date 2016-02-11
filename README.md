@@ -242,6 +242,15 @@ A continuous integration (CI) process is highly recommended and is extremely use
 - Cucumberish made a good use of [Gherkin3](https://github.com/cucumber/gherkin) in order to parse .feature files. Without its Objective-C implementation, I would have implemented it from scratch. Gherkin3 saved me a lot of time.
 - In the example app we used [KIF](https://github.com/kif-framework/KIF) as a good example of how you can implement steps that has to do with user interface. The guys behind this framework has done really amazing job!
 
+# To do (Wish to have)
+The following is a list of cool things we would like to be able to deliver as soon as possible
+- An Xcode plugin that can:
+	1. Warn you about unimplemented steps and suggest definition regex.
+	2. Jump from step to it's implementation
+	3. Auto complete your steps in .feature files
+	4. Format and highlight your .feature files
+
+- An Xcode template for test target so you can get started in no time.
     
 # Contributing
 I am so glad that you are interested in contributing to Cucumberish.
