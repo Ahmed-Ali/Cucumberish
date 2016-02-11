@@ -176,7 +176,7 @@ For more information about the steps, the blocks that are passed to it, and the 
 # Examples
 Beside all the information you can find in the [wiki](https://github.com/Ahmed-Ali/Cucumberish/wiki) and specifically the [Steps Definition](https://github.com/Ahmed-Ali/Cucumberish/wiki/Step-Definitions) page. Seeing examples in action is the best way to demonstrate something. You can clone this repository and open the file CucumberishExample/CucumberishExample.xcworkspace
 
-*Note:* This workspace is the default workspace you get when you use Cocoapods.
+*Note:* This workspace is the default workspace you get when you use CocoaPods.
 
 In the CucumberishExampe project there are three targets:
 
