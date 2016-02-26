@@ -229,7 +229,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 #pragma mark - Runtime hacks
 
-+ (void)swizzleOrignalSelect:(SEL)originalSelector swizzledSelect:(SEL)swizzledSelector originalClass:(Class)originalClass targetClass:(Class)targetClass classMethod:(BOOL)classMethod
++ (void)swizzleOrignalSelector:(SEL)originalSelector swizzledSelector:(SEL)swizzledSelector originalClass:(Class)originalClass targetClass:(Class)targetClass classMethod:(BOOL)classMethod
 {
     Class class = classMethod ? object_getClass((id)originalClass) : originalClass;
     Method originalMethod = nil;
@@ -260,14 +260,14 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 {
     SEL originalSelector = @selector(recordFailureWithDescription:inFile:atLine:expected:);
     SEL swizzledSelector = @selector(cucumberish_recordFailureWithDescription:inFile:atLine:expected:);
-    [Cucumberish swizzleOrignalSelect:originalSelector swizzledSelect:swizzledSelector originalClass:class targetClass:[Cucumberish class] classMethod:NO];
+    [Cucumberish swizzleOrignalSelector:originalSelector swizzledSelector:swizzledSelector originalClass:class targetClass:[Cucumberish class] classMethod:NO];
 }
 
 + (void)swizzleDefaultSuiteImplementationForClass:(Class)class
 {
     SEL originalSelector = @selector(defaultTestSuite);
     SEL swizzledSelector = @selector(cucumberish_defaultTestSuite);
-    [Cucumberish swizzleOrignalSelect:originalSelector swizzledSelect:swizzledSelector originalClass:class targetClass:[Cucumberish class] classMethod:YES];
+    [Cucumberish swizzleOrignalSelector:originalSelector swizzledSelector:swizzledSelector originalClass:class targetClass:[Cucumberish class] classMethod:YES];
 }
 
 
