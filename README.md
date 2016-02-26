@@ -36,12 +36,11 @@ If you will use Cucumberish with UI Test target, you should use the manual insta
 ### CocoaPods
 1. Add Cucumberish to your Podfile for your test target and run pod install.
 
-   ```Ruby
-	target 'MyTestTarget' do
-  		pod 'Cucumberish', '~> 0.0.7'
-	end
-
-    ```
+```Ruby
+target 'MyTestTarget', :exclusive => true do
+  pod 'Cucumberish', '~> 0.0.7', :configurations => ['Debug']
+end
+```
     
 ### Post installation steps:
 1. Go to your test target folder and create a subfolder. Let's call it **Features**.
