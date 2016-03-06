@@ -433,7 +433,7 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
 void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
 {
     
-    NSString * targetName = [[NSBundle bundleForClass:[Cucumberish class]] infoDictionary][@"CFBundleName"];
+    NSString * targetName = [[Cucumberish instance] testTargetFolderName] ? : [[NSBundle bundleForClass:[Cucumberish class]] infoDictionary][@"CFBundleName"];
     NSString * srcRoot = SRCROOT;
     //Clean up unwanted /Pods path caused by cocoa pods
     if([srcRoot hasSuffix:@"/Pods"]){

@@ -59,6 +59,12 @@
 @property (nonatomic) BOOL prettyNamesAllowed;
 
 /**
+ If the name of folder that contains your test target files is different than the test target it self, then tell Cucumber the name of the folder through this property.
+ This is important for proper error reporting.
+ */
+@property (nonatomic) NSString * testTargetFolderName;
+
+/**
  Retuans a singleton instance of Cucumberish
  
  @return singleton instance of Cucumberish
