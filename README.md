@@ -21,6 +21,14 @@ It is inspired by the amazing way of writing automated test cases introduced ori
 # Installation
 You can install Cucumberish manually, in no more than few minutes, or using CocoaPods.
 If you're using Cucumberish with a UI Test target, you should use the manual installation; for some reason CocoaPods fails to copy the required resources for UI Test targets.
+### CocoaPods
+1. Add Cucumberish to your Podfile for your test target and run `pod install`.
+
+```Ruby
+target 'MyTestTarget', :exclusive => true do
+  pod 'Cucumberish', '~> 0.0.7', :configurations => ['Debug']
+end
+```
 
 ### Manual
 1. Copy the contents of the Cucumberish folder into your test target folder and add it to your test target as a reference, not a folder.
@@ -33,14 +41,7 @@ If you're using Cucumberish with a UI Test target, you should use the manual ins
 And that's it for including Cucumberish in your project!
 
 
-### CocoaPods
-1. Add Cucumberish to your Podfile for your test target and run `pod install`.
 
-```Ruby
-target 'MyTestTarget', :exclusive => true do
-  pod 'Cucumberish', '~> 0.0.7', :configurations => ['Debug']
-end
-```
     
 ### Post installation steps:
 1. Go to your test target folder and create a subfolder. Let's call it **Features**.
@@ -115,7 +116,8 @@ end
             ```Objective-C
             #import "Cucumberish.h"
             ```
-    
+4. Only in case the name of folder that contains your test target files is different than the test target name, set the value of the Cucumberish property testTargetFolderName to the correct folder name.
+
 # Getting started
 Now you have Cucumberish in place and you followed all the installation and post-installation instructions; it is time to write your first simple feature and scenario in just a few more steps!
 Since the exact step implementations will differ between one project and another, we will not dig to deeply into it; we will just outline the general approach on how to get there. I will assume your test target is an Objective-C one for the sake of demonstration; but the same principles can be applied on Swift targets.
