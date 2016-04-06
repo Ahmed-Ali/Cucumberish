@@ -23,7 +23,7 @@ You can install Cucumberish manually, in no more than few minutes, or using Coco
 If you're using Cucumberish with a UI Test target, you should use the manual installation; for some reason CocoaPods fails to copy the required resources for UI Test targets.
 
 ### Manual
-1. Copy the contents of the Cucumberish folder into your test target folder and add it to your test target as a reference, not a folder.
+1. Copy the contents of the Cucumberish folder into your test target folder and add it to your test target. When prompted check the "Copy items if needed" and chose "Create groups".
 2. This step is super important for proper reporting. Go to your test target build settings, and add the following preprocessor macro:
 
     ```
