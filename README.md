@@ -19,10 +19,8 @@ It is inspired by the amazing way of writing automated test cases introduced ori
 ![Cucumberish In Action](https://cloud.githubusercontent.com/assets/5157350/12704873/cf0a6dfe-c864-11e5-8a3b-8a3682d8e880.gif)
 
 # Installation
-You can install Cucumberish manually, in no more than few minutes, or using CocoaPods.
-If you're using Cucumberish with a UI Test target, you should use the manual installation; for some reason CocoaPods fails to copy the required resources for UI Test targets.
+You can install Cucumberish with the following steps in no more than few minutes.
 
-### Manual
 1. Copy the contents of the Cucumberish folder into your test target folder and add it to your test target. When prompted check the "Copy items if needed" and chose "Create groups".
 2. This step is super important for proper reporting. Go to your test target build settings, and add the following preprocessor macro:
 
@@ -30,24 +28,10 @@ If you're using Cucumberish with a UI Test target, you should use the manual ins
     SRC_ROOT=$(SRCROOT)
     ```
 
-And that's it for including Cucumberish in your project!
-
-
-### CocoaPods
-1. Add Cucumberish to your Podfile for your test target and run `pod install`.
-
-   ```Ruby
-	target 'MyTestTarget' do
-  		pod 'Cucumberish', '~> 0.0.6'
-	end
-
-    ```
-    
-### Post installation steps:
-1. Go to your test target folder and create a subfolder. Let's call it **Features**.
-2. Add this folder to your test target in Xcode as a Folder, **not** a group! This is a very important step.
+3. Go to your test target folder and create a subfolder. Let's call it **Features**.
+4. Add this folder to your test target in Xcode as a Folder, **not** a group! This is a very important step.
 ![Features Folder as Folder not a Group](https://cloud.githubusercontent.com/assets/5157350/12533357/f7a94448-c22d-11e5-904a-1c353a76d604.png)
-3. Inside this folder, you will create the .feature files which will contain your test's features and scenarios.
+5. Inside this folder, you will create the .feature files which will contain your test's features and scenarios.
     - ##### For Objective-C test targets:
         - When you create a test target, Xcode creates a test case file for you. Open this file and replace its content with the following:
         
@@ -116,7 +100,9 @@ And that's it for including Cucumberish in your project!
             ```Objective-C
             #import "Cucumberish.h"
             ```
-    
+
+And that's! You are ready to get started!
+
 # Getting started
 Now you have Cucumberish in place and you followed all the installation and post-installation instructions; it is time to write your first simple feature and scenario in just a few more steps!
 Since the exact step implementations will differ between one project and another, we will not dig to deeply into it; we will just outline the general approach on how to get there. I will assume your test target is an Objective-C one for the sake of demonstration; but the same principles can be applied on Swift targets.
