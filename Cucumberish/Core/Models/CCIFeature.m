@@ -41,9 +41,7 @@
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
-	if(dictionary[@"background"] != nil && ![dictionary[@"background"] isKindOfClass:[NSNull class]]){
-		self.background = [[CCIBackground alloc] initWithDictionary:dictionary[@"background"]];
-	}
+	
 
 	if(dictionary[@"location"] != nil && ![dictionary[@"location"] isKindOfClass:[NSNull class]]){
 		self.location = [[CCILocation alloc] initWithDictionary:dictionary[@"location"]];
@@ -53,16 +51,19 @@
 		self.name = dictionary[@"name"];
 	}
 
-	if(dictionary[@"scenarioDefinitions"] != nil && [dictionary[@"scenarioDefinitions"] isKindOfClass:[NSArray class]]){
-		NSArray * scenarioDefinitionsDictionaries = dictionary[@"scenarioDefinitions"];
+	if(dictionary[@"children"] != nil && [dictionary[@"children"] isKindOfClass:[NSArray class]]){
+		NSArray * scenarioDefinitionsDictionaries = dictionary[@"children"];
 		NSMutableArray * scenarioDefinitionsItems = [NSMutableArray array];
 		for(NSDictionary * scenarioDefinitionsDictionary in scenarioDefinitionsDictionaries){
             NSMutableDictionary * scenarioData = [scenarioDefinitionsDictionary mutableCopy];
             if(self.location.filePath.length > 0){
                 scenarioData[@"location"][@"filePath"] = self.location.filePath;
             }
-            
+            if([[scenarioData[@"keyword"] lowercaseString] isEqualToString:@"background"]){
+                self.background = [[CCIBackground alloc] initWithDictionary:scenarioData];
+            }
 			CCIScenarioDefinition * scenarioDefinitionsItem = [[CCIScenarioDefinition alloc] initWithDictionary:scenarioData];
+            
 			[scenarioDefinitionsItems addObject:scenarioDefinitionsItem];
 		}
 		self.scenarioDefinitions = scenarioDefinitionsItems;

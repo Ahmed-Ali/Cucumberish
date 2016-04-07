@@ -18,18 +18,16 @@
 
 @implementation GHScenarioDefinition
 
-@synthesize tags;
 @synthesize location;
 @synthesize keyword;
 @synthesize name;
 @synthesize desc;
 @synthesize steps;
 
-- (id)initWithTags:(NSArray<GHTag *> *)theTags location:(GHLocation *)theLocation keyword:(NSString *)theKeyword name:(NSString *)theName description:(NSString *)theDescription steps:(NSArray<GHStep *> *)theSteps
+- (id)initWithLocation:(GHLocation *)theLocation keyword:(NSString *)theKeyword name:(NSString *)theName description:(NSString *)theDescription steps:(NSArray<GHStep *> *)theSteps
 {
     if (self = [super init])
     {
-        tags = theTags;
         location = theLocation;
         keyword = theKeyword;
         name = theName;

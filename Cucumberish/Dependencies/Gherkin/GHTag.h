@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
-#import "GHHasLocationProtocol.h"
-
 @class GHLocation;
+
+#import "GHHasLocationProtocol.h"
 
 @interface GHTag : NSObject <GHHasLocationProtocol>
 

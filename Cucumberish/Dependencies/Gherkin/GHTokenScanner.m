@@ -1,4 +1,5 @@
-﻿#import "GHTokenScanner.h"
+﻿#import <Foundation/Foundation.h>
+#import "GHTokenScanner.h"
 
 #import "GHToken.h"
 #import "GHLocation.h"
