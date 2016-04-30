@@ -35,7 +35,7 @@ end
 2. This step is super important for proper reporting. Go to your test target build settings, and add the following preprocessor macro:
 
     ```
-    SRC_ROOT=$(SRCROOT)
+    SRC_ROOT=@\"$(SRCROOT)\"
     ```
 
 And that's it for including Cucumberish in your project!
