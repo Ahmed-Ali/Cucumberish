@@ -1717,7 +1717,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
-					"SRC_ROOT=$(SRCROOT)",
+					"SRC_ROOT=@\\\"$(SRCROOT)\\\"",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = CucumberishExampleTests/Info.plist;
@@ -1770,7 +1770,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"SRC_ROOT=$(SRCROOT)",
+					"SRC_ROOT=@\\\"$(SRCROOT)\\\"",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1853,7 +1853,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"SRC_ROOT=$(SRCROOT)",
+					"SRC_ROOT=@\\\"$(SRCROOT)\\\"",
 				);
 				INFOPLIST_FILE = CucumberishExampleUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

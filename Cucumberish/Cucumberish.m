@@ -36,12 +36,7 @@
 #import "CCIHock.h"
 #import "CCIAroundHock.h"
 
-#ifndef SRC_ROOT
-#define SRC_ROOT ""
-#endif
-#define STRINGFY(StringConst) #StringConst
-#define STRINGFY2(StringConst) STRINGFY(StringConst)
-#define SRCROOT @ STRINGFY2(SRC_ROOT)
+
 
 @interface CCIExeption : NSException @end
 @implementation CCIExeption @end
@@ -434,7 +429,7 @@ void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
 {
     
     NSString * targetName = [[Cucumberish instance] testTargetFolderName] ? : [[NSBundle bundleForClass:[Cucumberish class]] infoDictionary][@"CFBundleName"];
-    NSString * srcRoot = SRCROOT;
+    NSString * srcRoot = SRC_ROOT;
     //Clean up unwanted /Pods path caused by cocoa pods
     if([srcRoot hasSuffix:@"/Pods"]){
         srcRoot = [srcRoot stringByReplacingCharactersInRange:NSMakeRange(srcRoot.length - 5, 5) withString:@""];
