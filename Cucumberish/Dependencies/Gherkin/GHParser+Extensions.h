@@ -6,5 +6,5 @@
 @interface GHParser (Extensions)
 
 - (GHFeature *)parse:(NSString *)theSourceFile;
-- (GHFeature *)parseContent:(NSString *)content;
+
 @end

@@ -1,3 +1,4 @@
+#import <Foundation/Foundation.h>
 #import "GHStepArgument.h"
 
 #import "GHHasLocationProtocol.h"

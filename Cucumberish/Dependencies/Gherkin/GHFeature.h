@@ -1,5 +1,4 @@
-﻿#import <Foundation/Foundation.h>
-#import "GHHasLocationProtocol.h"
+﻿#import "GHHasLocationProtocol.h"
 #import "GHHasDescriptionProtocol.h"
 #import "GHHasTagsProtocol.h"
 
@@ -17,10 +16,9 @@
 @property (nonatomic, readonly) NSString                        * keyword;
 @property (nonatomic, readonly) NSString                        * name;
 @property (nonatomic, readonly) NSString                        * desc;
-@property (nonatomic, readonly) GHBackground                    * background;
-@property (nonatomic, readonly) NSArray<GHScenarioDefinition *> * scenarioDefinitions;
+@property (nonatomic, readonly) NSArray<GHScenarioDefinition *> * children;
 @property (nonatomic, readonly) NSArray<GHComment *>            * comments;
 
-- (id)initWithTags:(NSArray<GHTag *> *)theTags location:(GHLocation *)theLocation language:(NSString *)theLanguage keyword:(NSString *)theKeyword name:(NSString *)theName description:(NSString *)theDescription background:(GHBackground *)theBackground scenarioDefinitions:(NSArray<GHScenarioDefinition *> *)theScenarioDefinitions comments:(NSArray<GHComment *> *)theComments;
+- (id)initWithTags:(NSArray<GHTag *> *)theTags location:(GHLocation *)theLocation language:(NSString *)theLanguage keyword:(NSString *)theKeyword name:(NSString *)theName description:(NSString *)theDescription children:(NSArray<GHScenarioDefinition *> *)theChildren comments:(NSArray<GHComment *> *)theComments;
 
 @end

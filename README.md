@@ -25,7 +25,7 @@ You can install Cucumberish with the following steps in no more than few minutes
 2. This step is super important for proper reporting. Go to your test target build settings, and add the following preprocessor macro:
 
     ```
-    SRC_ROOT=$(SRCROOT)
+    SRC_ROOT=@\"$(SRCROOT)\"
     ```
 
 3. Go to your test target folder and create a subfolder. Let's call it **Features**.
@@ -100,6 +100,7 @@ You can install Cucumberish with the following steps in no more than few minutes
             ```Objective-C
             #import "Cucumberish.h"
             ```
+6. Only in case the name of folder that contains your test target files is different than the test target name, set the value of the Cucumberish property testTargetFolderName to the correct folder name.
 
 And that's! You are ready to get started!
 

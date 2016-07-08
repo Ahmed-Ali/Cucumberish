@@ -1,5 +1,4 @@
 ﻿#import <Foundation/Foundation.h>
-
 @class GHToken;
 
 typedef enum GHRuleType GHRuleType;

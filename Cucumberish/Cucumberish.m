@@ -36,12 +36,7 @@
 #import "CCIHock.h"
 #import "CCIAroundHock.h"
 
-#ifndef SRC_ROOT
-#define SRC_ROOT ""
-#endif
-#define STRINGFY(StringConst) #StringConst
-#define STRINGFY2(StringConst) STRINGFY(StringConst)
-#define SRCROOT @ STRINGFY2(SRC_ROOT)
+
 
 @interface CCIExeption : NSException @end
 @implementation CCIExeption @end
@@ -229,7 +224,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 #pragma mark - Runtime hacks
 
-+ (void)swizzleOrignalSelect:(SEL)originalSelector swizzledSelect:(SEL)swizzledSelector originalClass:(Class)originalClass targetClass:(Class)targetClass classMethod:(BOOL)classMethod
++ (void)swizzleOrignalSelector:(SEL)originalSelector swizzledSelector:(SEL)swizzledSelector originalClass:(Class)originalClass targetClass:(Class)targetClass classMethod:(BOOL)classMethod
 {
     Class class = classMethod ? object_getClass((id)originalClass) : originalClass;
     Method originalMethod = nil;
@@ -260,14 +255,14 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 {
     SEL originalSelector = @selector(recordFailureWithDescription:inFile:atLine:expected:);
     SEL swizzledSelector = @selector(cucumberish_recordFailureWithDescription:inFile:atLine:expected:);
-    [Cucumberish swizzleOrignalSelect:originalSelector swizzledSelect:swizzledSelector originalClass:class targetClass:[Cucumberish class] classMethod:NO];
+    [Cucumberish swizzleOrignalSelector:originalSelector swizzledSelector:swizzledSelector originalClass:class targetClass:[Cucumberish class] classMethod:NO];
 }
 
 + (void)swizzleDefaultSuiteImplementationForClass:(Class)class
 {
     SEL originalSelector = @selector(defaultTestSuite);
     SEL swizzledSelector = @selector(cucumberish_defaultTestSuite);
-    [Cucumberish swizzleOrignalSelect:originalSelector swizzledSelect:swizzledSelector originalClass:class targetClass:[Cucumberish class] classMethod:YES];
+    [Cucumberish swizzleOrignalSelector:originalSelector swizzledSelector:swizzledSelector originalClass:class targetClass:[Cucumberish class] classMethod:YES];
 }
 
 
@@ -323,9 +318,10 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     return featureClass;
 }
 
-+ (NSInvocation *)invocationForScenario:(CCIScenarioDefinition *)scenraio feature:(CCIFeature *)feature class:(Class)klass
++ (NSInvocation *)invocationForScenario:(CCIScenarioDefinition *)scenario feature:(CCIFeature *)feature class:(Class)klass
 {
-    NSString * methodName = scenraio.name;
+    NSString * methodName = scenario.name;
+    
     if(![[Cucumberish instance] prettyNamesAllowed]){
         methodName = [methodName camleCaseStringWithFirstUppercaseCharacter:NO];
     }
@@ -341,7 +337,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     [invocation setSelector:sel];
     
     
-    [invocation setArgument:&scenraio atIndex:2];
+    [invocation setArgument:&scenario atIndex:2];
     [invocation setArgument:&feature atIndex:3];
     [invocation retainArguments];
     return invocation;
@@ -387,6 +383,11 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
         if([scenario.keyword isEqualToString:@"Scenario Outline"]){
             [Cucumberish createScenariosForScenarioOutline:scenario feature:feature class:self suite:suite];
         }else{
+            if([scenario.keyword isEqualToString:@"Background"]){
+                //Do not add a scenario for a background steps
+                feature.background = (CCIBackground *)scenario;
+                continue;
+            }
             XCTestCase  * testCase = [[self alloc] initWithInvocation:[Cucumberish invocationForScenario:scenario feature:feature class:self]];
             [suite addTest:testCase];
         }
@@ -416,7 +417,7 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
         [Cucumberish instance].beforeStartHock();
     }
     [[Cucumberish instance] executeBeforeHocksWithScenario:scenario];
-    if(feature.background){
+    if(feature.background != nil && scenario.steps.count > 0){
         executeSteps(self, feature.background.steps, feature.background);
     }
     
@@ -433,8 +434,8 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
 void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
 {
     
-    NSString * targetName = [[NSBundle bundleForClass:[Cucumberish class]] infoDictionary][@"CFBundleName"];
-    NSString * srcRoot = SRCROOT;
+    NSString * targetName = [[Cucumberish instance] testTargetFolderName] ? : [[NSBundle bundleForClass:[Cucumberish class]] infoDictionary][@"CFBundleName"];
+    NSString * srcRoot = SRC_ROOT;
     //Clean up unwanted /Pods path caused by cocoa pods
     if([srcRoot hasSuffix:@"/Pods"]){
         srcRoot = [srcRoot stringByReplacingCharactersInRange:NSMakeRange(srcRoot.length - 5, 5) withString:@""];

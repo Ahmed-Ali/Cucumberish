@@ -8,11 +8,11 @@
 
 - (GHFeature *)parse:(NSString *)theSourceFile
 {
-    return [self parseWithTokenScanner: [[GHTokenScanner alloc] initWithContentsOfFile: theSourceFile]];
+    GHFeature * feature = [self parseWithTokenScanner: [[GHTokenScanner alloc] initWithContentsOfFile: theSourceFile]];
+    if(![feature isKindOfClass:[GHFeature class]] || (![feature.name isKindOfClass:[NSString class]] || feature.name.length == 0)){
+        return nil;
+    }
+    return feature;
 }
 
-- (GHFeature *)parseContent:(NSString *)content
-{
-    return [self parseWithTokenScanner:[[GHTokenScanner alloc] initWithText:content]];
-}
 @end

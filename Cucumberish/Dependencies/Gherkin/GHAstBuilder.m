@@ -44,7 +44,7 @@
     {
         [self reset];
     }
-    
+
     return self;
 }
 
@@ -77,7 +77,7 @@
     GHAstNode * node = [stack lastObject];
     [stack removeLastObject];
     id transformedNode = [self transformNode: node];
-    
+
     [[stack lastObject] addObject: transformedNode withRuleType: [node ruleType]];
 }
 
@@ -99,7 +99,7 @@
                 stepArg = dataTableStepArgument;
             else
                 stepArg = [theNode singleWithRuleType: GHRuleTypeDocString];
-            
+
             return [[GHStep alloc] initWithLocation: [stepLine location] keyword: [stepLine matchedKeyword] text: [stepLine matchedText] stepArgument:stepArg];
         }
         case GHRuleTypeDocString:
@@ -107,15 +107,15 @@
             GHToken * separatorToken = [[theNode tokensWithType: GHTokenTypeDocStringSeparator] firstObject];
             NSString * contentType = [[separatorToken matchedText] length] == 0 ? nil : [separatorToken matchedText];
             NSArray<GHToken *> * lineTokens = [theNode tokensWithType: GHTokenTypeOther];
-            
+
             NSString * content = [[lineTokens valueForKey: @"matchedText"] componentsJoinedByString: @"\n"];
-            
+
             return [[GHDocString alloc] initWithLocation: [separatorToken location] contentType: contentType content: content];
         }
         case GHRuleTypeDataTable:
         {
             NSArray<GHTableRow *> * rows = [self tableRowsForNode: theNode];
-            
+
             return [[GHDataTable alloc] initWithTableRows: rows];
         }
         case GHRuleTypeBackground:
@@ -123,7 +123,7 @@
             GHToken * backgroundLine = [theNode tokenWithType: GHTokenTypeBackgroundLine];
             NSString * description = [GHAstBuilder descriptionForScenarioDefinitionNode: theNode];
             NSArray<GHStep *> * steps = [GHAstBuilder stepsWithScenarioDefinitionNode: theNode];
-            
+
             return [[GHBackground alloc] initWithLocation: [backgroundLine location] keyword: [backgroundLine matchedKeyword] name: [backgroundLine matchedText] description: description steps: steps];
         }
         case GHRuleTypeScenario_Definition:
@@ -137,7 +137,7 @@
 
                 NSString * description = [GHAstBuilder descriptionForScenarioDefinitionNode: scenarioNode];
                 NSArray<GHStep *> * steps = [GHAstBuilder stepsWithScenarioDefinitionNode: scenarioNode];
-                
+
                 return [[GHScenario alloc] initWithTags: tags location: [scenarioLine location] keyword: [scenarioLine matchedKeyword] name: [scenarioLine matchedText] description: description steps: steps];
             }
             else
@@ -145,7 +145,7 @@
                 id scenarioOutlineNode = [theNode singleWithRuleType: GHRuleTypeScenarioOutline];
                 if (scenarioOutlineNode == nil)
                     @throw [NSException exceptionWithName: NSParseErrorException reason: @"Internal gramar error" userInfo: nil];
-                
+
                 GHToken * scenarioOutlineLine = [scenarioOutlineNode tokenWithType: GHTokenTypeScenarioOutlineLine];
 
                 NSString * description = [GHAstBuilder descriptionForScenarioDefinitionNode: scenarioOutlineNode];
@@ -159,22 +159,29 @@
         {
             NSArray<GHTag *> * tags = [self tagsForNode: theNode];
             id examplesNode = [theNode singleWithRuleType: GHRuleTypeExamples];
-            
+
             GHToken * examplesLine = [examplesNode tokenWithType: GHTokenTypeExamplesLine];
             NSString * description = [GHAstBuilder descriptionForScenarioDefinitionNode: examplesNode];
 
-            NSArray<GHTableRow *> * allRows = [self tableRowsForNode: examplesNode];
-            
-            GHTableRow * header = [allRows firstObject];
-            NSArray<GHTableRow *> * rows = allRows;
-            if (header)
+            NSArray<GHTableRow *> * allRows = [examplesNode singleWithRuleType: GHRuleTypeExamples_Table];
+
+            GHTableRow * header = nil;
+            NSArray<GHTableRow *> * rows = nil;
+            if (allRows)
             {
+                header = [allRows firstObject];
                 NSMutableArray<GHTableRow *> * allRowsBuffer = [allRows mutableCopy];
                 [allRowsBuffer removeObject: header];
                 rows = [[NSArray<GHTableRow *> alloc] initWithArray: allRowsBuffer];
             }
-            
+
             return [[GHExamples alloc] initWithTags: tags location: [examplesLine location] keyword: [examplesLine matchedKeyword] name: [examplesLine matchedText] description: description header: header body: rows];
+        }
+        case GHRuleTypeExamples_Table:
+        {
+            NSArray<GHTableRow *> * allRows = [self tableRowsForNode: theNode];
+
+            return allRows;
         }
         case GHRuleTypeDescription:
         {
@@ -196,25 +203,26 @@
             id header = [theNode singleWithRuleType: GHRuleTypeFeature_Header];
             if (!header)
                 return nil;
-            
+
             NSArray<GHTag *> * tags = [self tagsForNode: header];
             GHToken * featureLine = [header tokenWithType: GHTokenTypeFeatureLine];
             if (featureLine == nil)
                 return nil;
-            
+
             GHBackground * background = [theNode singleWithRuleType: GHRuleTypeBackground];
-            NSArray<GHScenarioDefinition *> * scenariodefinitions = (NSArray<GHScenarioDefinition *> *)[theNode itemsWithRuleType: GHRuleTypeScenario_Definition];
+            NSMutableArray<GHScenarioDefinition *> * children = [(NSArray<GHScenarioDefinition *> *)[theNode itemsWithRuleType: GHRuleTypeScenario_Definition] mutableCopy];
+            if(background != nil){
+                [children insertObject:background atIndex:0];
+            }
             NSString * description = [GHAstBuilder descriptionForScenarioDefinitionNode: header];
-            
+
             if ([featureLine matchedGherkinDialect] == nil)
                 return nil;
-            
+
             NSString * language = [[featureLine matchedGherkinDialect] language];
 
-            return [[GHFeature alloc] initWithTags: tags location: [featureLine location] language: language keyword: [featureLine matchedKeyword] name: [featureLine matchedText] description: description background: background scenarioDefinitions: scenariodefinitions comments: comments];
+            return [[GHFeature alloc] initWithTags: tags location: [featureLine location] language: language keyword: [featureLine matchedKeyword] name: [featureLine matchedText] description: description children: children comments: comments];
         }
-            default: ;
-            
     }
 
     return theNode;
@@ -236,9 +244,9 @@
     if (tagsNode == nil)
         return [[NSArray<GHTag *> alloc] init];
 
-    
+
     NSArray<GHToken *> * tokens = [tagsNode tokensWithType: GHTokenTypeTagLine];
-    
+
     NSMutableArray<GHTag *> * tagsBuffer = [[NSMutableArray<GHTag *> alloc] init];
     for (GHToken * token in tokens)
     {
@@ -259,9 +267,9 @@
         [tableRowsBuffer addObject: [[GHTableRow alloc] initWithLocation: [self locationForToken: token] cells: [self cellsWithToken: token]]];
     }
     NSArray<GHTableRow *> * tableRows = [[NSArray<GHTableRow *> alloc] initWithArray: tableRowsBuffer];
-    
+
     [self ensureCellCountForRows: tableRows];
-    
+
     return tableRows;
 }
 
