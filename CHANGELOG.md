@@ -1,5 +1,5 @@
 #Change Log
-### [v0.0.7](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v0.0.6)
+### [v0.0.7](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v0.0.7)
    - Included the latest update for Gherkin 4.
    - Fixed some minor bugs related to the execution of Background scenarios.
    - Fixed some minor bugs related to setting up the SRC_ROOT micro (please review the installation steps one more time if you are upgrading from older version).
