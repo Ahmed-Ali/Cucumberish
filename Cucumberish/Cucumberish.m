@@ -318,9 +318,10 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     return featureClass;
 }
 
-+ (NSInvocation *)invocationForScenario:(CCIScenarioDefinition *)scenraio feature:(CCIFeature *)feature class:(Class)klass
++ (NSInvocation *)invocationForScenario:(CCIScenarioDefinition *)scenario feature:(CCIFeature *)feature class:(Class)klass
 {
-    NSString * methodName = scenraio.name;
+    NSString * methodName = scenario.name;
+    
     if(![[Cucumberish instance] prettyNamesAllowed]){
         methodName = [methodName camleCaseStringWithFirstUppercaseCharacter:NO];
     }
@@ -336,7 +337,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     [invocation setSelector:sel];
     
     
-    [invocation setArgument:&scenraio atIndex:2];
+    [invocation setArgument:&scenario atIndex:2];
     [invocation setArgument:&feature atIndex:3];
     [invocation retainArguments];
     return invocation;
@@ -382,6 +383,11 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
         if([scenario.keyword isEqualToString:@"Scenario Outline"]){
             [Cucumberish createScenariosForScenarioOutline:scenario feature:feature class:self suite:suite];
         }else{
+            if([scenario.keyword isEqualToString:@"Background"]){
+                //Do not add a scenario for a background steps
+                feature.background = (CCIBackground *)scenario;
+                continue;
+            }
             XCTestCase  * testCase = [[self alloc] initWithInvocation:[Cucumberish invocationForScenario:scenario feature:feature class:self]];
             [suite addTest:testCase];
         }
@@ -411,7 +417,7 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
         [Cucumberish instance].beforeStartHock();
     }
     [[Cucumberish instance] executeBeforeHocksWithScenario:scenario];
-    if(feature.background){
+    if(feature.background != nil && scenario.steps.count > 0){
         executeSteps(self, feature.background.steps, feature.background);
     }
     
