@@ -223,8 +223,9 @@ If you believe you've identified another type of failure, please report it as an
 A continuous integration (CI) process is highly recommended and is extremely useful in ensuring that your application stays functional. The easiest way to do this will be either using Bots, or Jenkins or another tool that uses xcodebuild. For tools using xcodebuild, review the manpage for instructions on using test destinations.
 
 # Acknowledgements
-- Cucumberish makes good use of [Gherkin3](https://github.com/cucumber/gherkin) in order to parse .feature files. Without its Objective-C implementation, I would have had to implement it from scratch. Gherkin3 saved me a lot of time!
-- In the example app we used [KIF](https://github.com/kif-framework/KIF) as a good example of how you can implement steps related to the user interface. The guys behind this framework have done a really amazing job!
+- Cucumberish makes good use of [Gherkin4](https://github.com/cucumber/gherkin) in order to parse .feature files. Without its Objective-C implementation, I would have had to implement it from scratch. Gherkin4 saved me a lot of time!
+
+- One of our friends have created another cool project that provides a full stack BDD. You can find it on [XCFit](https://github.com/Shashikant86/XCFit) repository.
 
     
 # Contributing

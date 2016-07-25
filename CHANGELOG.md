@@ -1,4 +1,7 @@
 #Change Log
+### [v0.0.7.1](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v0.0.7.1)
+   - Fixed minor bug that causes issue when the test target folder path contain spaces. See PR #14
+      
 ### [v0.0.7](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v0.0.7)
    - Included the latest update for Gherkin 4.
    - Fixed some minor bugs related to the execution of Background scenarios.

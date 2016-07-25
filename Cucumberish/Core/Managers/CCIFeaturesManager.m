@@ -71,7 +71,10 @@
         if(result){
             NSMutableDictionary * featureData = [[result dictionary] mutableCopy];
             
-            NSString * localPath = [[filePath.absoluteString stringByReplacingOccurrencesOfString:[[NSBundle bundleForClass:[self class]] bundlePath] withString:@""] stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+            NSString * testBundlePath = [[NSBundle bundleForClass:[self class]] bundlePath];
+            NSString * localPath = [[[filePath.absoluteString stringByRemovingPercentEncoding]
+                                     stringByReplacingOccurrencesOfString:testBundlePath withString:@""]
+                                    stringByReplacingOccurrencesOfString:@"file://" withString:@""];
             
             featureData[@"location"][@"filePath"] = localPath;
             CCIFeature * feature = [[CCIFeature alloc] initWithDictionary:featureData];
