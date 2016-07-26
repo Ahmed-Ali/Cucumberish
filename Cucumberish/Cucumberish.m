@@ -451,6 +451,7 @@ void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
             [testCase recordFailureWithDescription:exception.reason inFile:filePath atLine:step.location.line expected:YES];
             if([parentScenario isKindOfClass:[CCIScenarioDefinition class]]){
                 CCIScenarioDefinition * scenario = (CCIScenarioDefinition *)parentScenario;
+                step.status = CCIStepStatusFailed;
                 scenario.success = NO;
                 scenario.failureReason = exception.reason;
             }
