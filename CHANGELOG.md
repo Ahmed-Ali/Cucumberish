@@ -1,4 +1,9 @@
 #Change Log
+### [v0.9.0](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v0.9.0)
+   - Some code quality improvements. See PR #15
+   - The jump in the version number is intentional as the project seems to be stable enough to reach version 1.0.
+   
+
 ### [v0.0.7.1](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v0.0.7.1)
    - Fixed minor bug that causes issue when the test target folder path contain spaces. See PR #14
       
