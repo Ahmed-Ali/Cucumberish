@@ -90,18 +90,20 @@ static CCIStepsManager * instance = nil;
 - (CCIStepDefinition *)findDefinitionForStep:(CCIStep *)step amongDefinitions:(NSArray *)definitions
 {
     NSError * error;
+    CCIStepDefinition *ret = nil;
     
     for(CCIStepDefinition * d in definitions){
         NSString * pattern = d.regexString;
         
         if ([d.regexString isEqualToString:step.text]) {
             //It has no params, it is just plain perfect match
-            return [d copy];
+            ret = [d copy];
+            break;
         }
         NSRegularExpression * regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionAnchorsMatchLines error:&error];
         if(error && d == definitions.lastObject){
             //Only return nil if we reached the last definition without finding a match
-            return nil;
+            break;
         }
         NSRange searchRange = NSMakeRange(0, [step.text lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
         NSTextCheckingResult * match = [[regex matchesInString:step.text options:NSMatchingReportCompletion range:searchRange] firstObject];
@@ -115,19 +117,22 @@ static CCIStepsManager * instance = nil;
                 NSString * value = [step.text substringWithRange:range];
                 [values addObject:value];
             }
-            if(step.argument.rows.count > 0){
-                definition.additionalContent = @{@"DataTable" : step.argument.rows};
-            }else if(step.argument.content.length > 0){
-                definition.additionalContent = @{@"DocString" : step.argument.content};
-            }
             
             definition.matchedValues = values;
-            return definition;
+            ret = definition;
+            break;
         }
     }
     
+    if (ret) {
+        if(step.argument.rows.count > 0){
+            ret.additionalContent = @{@"DataTable" : step.argument.rows};
+        }else if(step.argument.content.length > 0){
+            ret.additionalContent = @{@"DocString" : step.argument.content};
+        }
+    }
     
-    return nil;
+    return ret;
 }
 
 - (void)executeStep:(CCIStep *)step
@@ -149,6 +154,7 @@ static CCIStepsManager * instance = nil;
     if(step.keyword.length > 0){
         NSLog(@"Step: \"%@ %@\" passed", step.keyword, step.text);
     }
+    step.status = CCIStepStatusPassed;
 }
 
 

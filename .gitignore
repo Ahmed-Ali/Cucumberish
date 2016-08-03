@@ -1,2 +1,5 @@
-CucumberishExample/CucumberishExample.xcodeproj/xcuserdata/ahmedali.xcuserdatad/xcschemes/CucumberishExample.xcscheme
-CucumberishExample/CucumberishExample.xcodeproj/xcuserdata/ahmedali.xcuserdatad/xcschemes/xcschememanagement.plist
+CucumberishExample/CucumberishExample.xcodeproj/xcuserdata/*
+CucumberishExample/CucumberishExample.xcworkspace/xcuserdata/*
+CucumberishExample/Pods/Pods.xcodeproj/xcuserdata/*
+CucumberishExample/DerivedData
+CucumberishExample/Build
