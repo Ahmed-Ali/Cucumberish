@@ -58,10 +58,9 @@
     self.featureClassMap = [@{} mutableCopy];
     return self;
 }
-- (void)parseFeatureFiles:(NSArray *)featureFiles withTags:(NSArray *)tags
+- (void)parseFeatureFiles:(NSArray *)featureFiles withTags:(NSArray *)tags execludeFeaturesWithTags:(NSArray *)execludedFeatures
 {
     NSMutableArray * parsedFeatures = [NSMutableArray array];
-    
     
     GHParser * featureParser = [[GHParser alloc] init];
     for (NSURL * filePath in featureFiles) {
@@ -80,14 +79,28 @@
             CCIFeature * feature = [[CCIFeature alloc] initWithDictionary:featureData];
   
             
-            if(tags == nil || tags.count == 0){
-                [parsedFeatures addObject:feature];
-            }else{
-                for (NSString * featureTag in feature.tags) {
-                    if ([tags containsObject:featureTag]) {
+            if(tags.count == 0){
+                //If we don't have specific tags, make sure we are not in the execluded tags
+                if(execludedFeatures.count > 0 && feature.tags.count > 0){
+                    if(![self featureTags:feature.tags intersectWithTags:execludedFeatures]){
                         [parsedFeatures addObject:feature];
-                        break;
                     }
+                }else{
+                    [parsedFeatures addObject:feature];
+                }
+                
+            }else{
+                //If one of the feature tag is in the allowed tags
+                if([self featureTags:feature.tags intersectWithTags:tags]){
+                    if(execludedFeatures.count > 0){
+                        //Make sure that the feature doesn't contain execluded tags, and if so, execlude it...
+                        if(![self featureTags:feature.tags intersectWithTags:execludedFeatures]){
+                            [parsedFeatures addObject:feature];
+                        }
+                    }else{
+                        [parsedFeatures addObject:feature];
+                    }
+                    
                 }
             }
             
@@ -97,6 +110,19 @@
     _features = parsedFeatures;
 }
 
+
+- (BOOL)featureTags:(NSArray *)featureTags intersectWithTags:(NSArray *)tags
+{
+    BOOL intersect = NO;
+    for(NSString * tag in featureTags){
+        if([tags containsObject:tag]){
+            intersect = YES;
+            break;
+        }
+    }
+    
+    return intersect;
+}
 
 
 - (void)setClass:(Class)klass forFeature:(CCIFeature *)feature

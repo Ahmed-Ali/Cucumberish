@@ -50,8 +50,11 @@
  
  @param featureFiles array of NSURL that presents the feature file paths
  @param tags array of strings to filter which the features that will be parsed to be executed, if nil then all feature files will be parsed.
+ @param tags array of string to filter which features should not be executed.
+ 
+ @Note tags in featureTags parameter should not exist in the execludedTags parameter as it doesn't make any sense.
  */
-- (void)parseFeatureFiles:(NSArray *)featureFiles withTags:(NSArray *)tags;
+- (void)parseFeatureFiles:(NSArray *)featureFiles withTags:(NSArray *)tags execludeFeaturesWithTags:(NSArray *)execludedFeatures;
 
 /**
  Associates the passed class with the passed feature instance for later usage.

@@ -51,23 +51,6 @@
 		self.name = dictionary[@"name"];
 	}
 
-	if(dictionary[@"children"] != nil && [dictionary[@"children"] isKindOfClass:[NSArray class]]){
-		NSArray * scenarioDefinitionsDictionaries = dictionary[@"children"];
-		NSMutableArray * scenarioDefinitionsItems = [NSMutableArray array];
-		for(NSDictionary * scenarioDefinitionsDictionary in scenarioDefinitionsDictionaries){
-            NSMutableDictionary * scenarioData = [scenarioDefinitionsDictionary mutableCopy];
-            if(self.location.filePath.length > 0){
-                scenarioData[@"location"][@"filePath"] = self.location.filePath;
-            }
-            if([[scenarioData[@"keyword"] lowercaseString] isEqualToString:@"background"]){
-                self.background = [[CCIBackground alloc] initWithDictionary:scenarioData];
-            }
-			CCIScenarioDefinition * scenarioDefinitionsItem = [[CCIScenarioDefinition alloc] initWithDictionary:scenarioData];
-            
-			[scenarioDefinitionsItems addObject:scenarioDefinitionsItem];
-		}
-		self.scenarioDefinitions = scenarioDefinitionsItems;
-	}
     if(dictionary[@"parsedTags"] != nil){
         self.tags = dictionary[@"parsedTags"];
     }else if(dictionary[@"tags"] != nil && [dictionary[@"tags"] isKindOfClass:[NSArray class]]){
@@ -83,6 +66,30 @@
         }
         self.tags = tagsItems;
     }
+	if(dictionary[@"children"] != nil && [dictionary[@"children"] isKindOfClass:[NSArray class]]){
+		NSArray * scenarioDefinitionsDictionaries = dictionary[@"children"];
+		NSMutableArray * scenarioDefinitionsItems = [NSMutableArray array];
+		for(NSDictionary * scenarioDefinitionsDictionary in scenarioDefinitionsDictionaries){
+            NSMutableDictionary * scenarioData = [scenarioDefinitionsDictionary mutableCopy];
+            if(self.location.filePath.length > 0){
+                scenarioData[@"location"][@"filePath"] = self.location.filePath;
+            }
+            if([[scenarioData[@"keyword"] lowercaseString] isEqualToString:@"background"]){
+                self.background = [[CCIBackground alloc] initWithDictionary:scenarioData];
+            }
+			CCIScenarioDefinition * scenarioDefinitionsItem = [[CCIScenarioDefinition alloc] initWithDictionary:scenarioData];
+            if(scenarioDefinitionsItem.tags.count > 0 && self.tags.count > 0){
+                NSMutableArray * allTags = [scenarioDefinitionsItem.tags mutableCopy];
+                [allTags addObjectsFromArray:self.tags];
+                scenarioDefinitionsItem.tags = allTags;
+            }else if(self.tags.count > 0){
+                scenarioDefinitionsItem.tags = self.tags;
+            }
+			[scenarioDefinitionsItems addObject:scenarioDefinitionsItem];
+		}
+		self.scenarioDefinitions = scenarioDefinitionsItems;
+	}
+    
     
 
 	return self;
