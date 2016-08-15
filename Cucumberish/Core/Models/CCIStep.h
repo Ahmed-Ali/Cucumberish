@@ -29,6 +29,12 @@
 #import "CCILocation.h"
 #import "CCIArgument.h"
 
+typedef NS_ENUM(NSInteger,CCIStepStatus) {
+    CCIStepStatusNotExecuted = 0,
+    CCIStepStatusPassed,
+    CCIStepStatusFailed
+};
+
 /**
  Represents a step in a scenario
  Step contains information about its argument, location and keyword (When, Then, Given, etc...)
@@ -54,6 +60,11 @@
  The text of the step that comes after the keyword
  */
 @property (nonatomic, copy) NSString * text;
+
+/**
+ The step status
+ */
+@property (nonatomic,assign) CCIStepStatus status;
 
 
 /**

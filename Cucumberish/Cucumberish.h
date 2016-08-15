@@ -73,36 +73,40 @@
 
 
 
+
+
 /**
- Parses any .feature file that is located inside the passed folder name and map it to a test case if the feature inside the file has one or more tags of the passed tags (if any)
+ Parses any .feature file that is located inside the passed folder name and map it to a test case if the feature inside the file has one or more tags of the passed tags (if any) and it doesn't have a tag from the execluded tags parameter
  
  @Note The feature directory has to be a real physical folder. Also When adding this folder to your test target, and get the prompt on how you would like to add it from Xcode, choose "Create Folder Reference" and @b NOT to Create Groups.
  
  @Note tags should not be prefixed with @@ symbole
  
  @param featuresDirectory a path to your featuresDirectory relative to your test target main folder.
- @param tags array of strings to filter which the features that will be parsed to be executed, if nil then all feature files will be parsed.
+ @param tags array of strings to filter which features that will be parsed to be executed, if nil then all feature files will be parsed.
+ 
+ @param tags array of string to filter which features should not be executed.
+ 
+ @Note tags in includeTags parameter should not exist in the execludedTags parameter as it doesn't make any sense.
+ @Note the tags will be also on the scenario level. That's it, if the feature passes the tag check, then we will check each of its scenarios against the tags as well. But if a feature is execluded (because it has a tag from the execludedTags array), none of its scenarios will be executed.
  
  @return the singleton instance of Cucumberish so you can call beginExecution immediately if you want.
+
  */
-- (Cucumberish *)parserFeaturesInDirectory:(NSString *)featuresDirectory featureTags:(NSArray *)tags;
+- (Cucumberish *)parserFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray<NSString *> *)tags excludeTags:(NSArray<NSString *> *)execludedTags;
 
 /**
  Fire the executiion of all the previously parsed features in an alphabetic ascending order.
  */
 - (void)beginExecution;
 
+
+
 /**
- Conventient method that calls parserFeaturesInDirectory:featureTags: followed by an immediate call to beginExecution
- 
- @Note The feature directory has to be a real physical folder. Also When adding this folder to your test target, and get the prompt on how you would like to add it from Xcode, choose "Create Folder Reference" and @b NOT to Create Groups.
- @Note tags should not be prefixed with @@ symbole
- 
- @param featuresDirectory a path to your featuresDirectory relative to your test target main folder.
- @param tags array of strings to filter which the features that will be parsed to be executed, if nil then all feature files will be parsed.
+ Conventient method that calls parserFeaturesInDirectory:includeTags:excludeTags: followed by an immediate call to beginExecution
  
  */
-+ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory featureTags:(NSArray *)tags;
++ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray<NSString *> *)tags excludeTags:(NSArray<NSString *> *)execludedTags;
 @end
 
 

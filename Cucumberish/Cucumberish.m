@@ -53,6 +53,10 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 @property (nonatomic, strong) NSMutableArray<CCIHock *> * afterHocks;
 @property (nonatomic, strong) NSMutableArray<CCIAroundHock *> * aroundHocks;
 
+@property (nonatomic, strong) NSArray<NSString *> * tags;
+@property (nonatomic, strong) NSArray<NSString *> * excludedTags;
+
+
 @end
 @implementation Cucumberish
 
@@ -78,15 +82,17 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 
 
-- (Cucumberish *)parserFeaturesInDirectory:(NSString *)featuresDirectory featureTags:(NSArray *)tags
+
+- (Cucumberish *)parserFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray *)tags excludeTags:(NSArray *)execludedTags
 {
     NSString * featuresPath = [[[NSBundle bundleForClass:[Cucumberish class]] resourcePath] stringByAppendingPathComponent:featuresDirectory];
     
     NSArray * featureFiles = [[NSBundle bundleWithPath:featuresPath] URLsForResourcesWithExtension:@".feature" subdirectory:nil];
-    [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles withTags:tags];
+    [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles withTags:tags execludeFeaturesWithTags:execludedTags];
+    self.tags = tags;
+    self.excludedTags = execludedTags;
     return self;
 }
-
 
 - (void)beginExecution
 {
@@ -101,9 +107,11 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     }
 }
 
-+ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory featureTags:(NSArray *)tags
+
+
++ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray *)tags excludeTags:(NSArray *)execludedTags
 {
-    [[[Cucumberish instance] parserFeaturesInDirectory:featuresDirectory featureTags:tags] beginExecution];
+    [[[Cucumberish instance] parserFeaturesInDirectory:featuresDirectory includeTags:tags excludeTags:execludedTags] beginExecution];
 }
 
 #pragma mark - Manage hocks
@@ -380,6 +388,9 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     CCIFeature * feature = [[CCIFeaturesManager instance] getFeatureForClass:self];
     
     for (CCIScenarioDefinition * scenario in feature.scenarioDefinitions) {
+        if(![[Cucumberish instance] shouldIncludeScenario:scenario]){
+            continue;
+        }
         if([scenario.keyword isEqualToString:@"Scenario Outline"]){
             [Cucumberish createScenariosForScenarioOutline:scenario feature:feature class:self suite:suite];
         }else{
@@ -404,6 +415,34 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     return suite;
 }
 
+- (BOOL)shouldIncludeScenario:(CCIScenarioDefinition *)scenario
+{
+    BOOL shouldIncludeScenario = YES;
+    if(![scenario.keyword isEqualToString:@"Background"]){
+        if(self.tags.count > 0){
+            shouldIncludeScenario = [self tags:scenario.tags intersectWithTags:self.tags]&& ![self tags:scenario.tags intersectWithTags:self.excludedTags];
+        }else if(self.excludedTags.count > 0){
+            shouldIncludeScenario = ![self tags:scenario.tags intersectWithTags:self.excludedTags];
+        }
+    }
+    return shouldIncludeScenario;
+}
+
+
+- (BOOL)tags:(NSArray *)tags intersectWithTags:(NSArray *)intersectionTags
+{
+    BOOL intersect = NO;
+    if(tags.count == 0 || intersectionTags.count == 0){
+        return intersect;
+    }
+    for(NSString * tag in tags){
+        if([intersectionTags containsObject:tag]){
+            intersect = YES;
+            break;
+        }
+    }
+    return intersect;
+}
 @end
 
 
@@ -451,6 +490,7 @@ void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
             [testCase recordFailureWithDescription:exception.reason inFile:filePath atLine:step.location.line expected:YES];
             if([parentScenario isKindOfClass:[CCIScenarioDefinition class]]){
                 CCIScenarioDefinition * scenario = (CCIScenarioDefinition *)parentScenario;
+                step.status = CCIStepStatusFailed;
                 scenario.success = NO;
                 scenario.failureReason = exception.reason;
             }
