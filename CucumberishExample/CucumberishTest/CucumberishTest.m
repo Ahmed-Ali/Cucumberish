@@ -135,6 +135,6 @@ void CucumberishInit()
     //Optional step, see the comment on this property for more information
     [Cucumberish instance].fixMissingLastScenario = YES;
     //Tell Cucumberish the name of your features folder and let it execute them for you...
-    [[[Cucumberish instance] parserFeaturesInDirectory:@"Features" featureTags:nil] beginExecution];
+    [[[Cucumberish instance] parserFeaturesInDirectory:@"Features" includeTags:nil excludeTags:nil] beginExecution];
 }
 
