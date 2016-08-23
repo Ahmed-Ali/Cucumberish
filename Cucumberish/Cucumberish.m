@@ -85,7 +85,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 {
     NSArray * featureFiles = [bundle URLsForResourcesWithExtension:@".feature" subdirectory:directory];
 
-    [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles withTags:includeTags execludeFeaturesWithTags:excludeTags];
+    [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles bundle:bundle withTags:includeTags execludeFeaturesWithTags:excludeTags];
     self.tags = includeTags;
     self.excludedTags = excludeTags;
 }
