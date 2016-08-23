@@ -81,17 +81,31 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 }
 
 
-
-
-- (Cucumberish *)parserFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray *)tags excludeTags:(NSArray *)execludedTags
+- (void)parserFeaturesInDirectory:(NSString *)directory fromBundle:(NSBundle *)bundle includeTags:(NSArray<NSString *> *)includeTags excludeTags:(NSArray<NSString *> *)excludeTags
 {
-    NSString * featuresPath = [[[NSBundle bundleForClass:[Cucumberish class]] resourcePath] stringByAppendingPathComponent:featuresDirectory];
-    
+    NSString * featuresPath = [[bundle resourcePath] stringByAppendingPathComponent:directory];
     NSArray * featureFiles = [[NSBundle bundleWithPath:featuresPath] URLsForResourcesWithExtension:@".feature" subdirectory:nil];
-    [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles withTags:tags execludeFeaturesWithTags:execludedTags];
-    self.tags = tags;
-    self.excludedTags = execludedTags;
+
+    [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles withTags:includeTags execludeFeaturesWithTags:excludeTags];
+    self.tags = includeTags;
+    self.excludedTags = excludeTags;
+}
+
+- (Cucumberish *)parserFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray<NSString *> *)tags excludeTags:(NSArray<NSString *> *)excludedTags
+{
+    [self parserFeaturesInDirectory:featuresDirectory
+                         fromBundle:[NSBundle bundleForClass:[Cucumberish class]]
+                        includeTags:tags
+                        excludeTags:excludedTags];
     return self;
+}
+
++ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray *)tags excludeTags:(NSArray *)excludedTags
+{
+    [[Cucumberish instance] parserFeaturesInDirectory:featuresDirectory
+                                           fromBundle:[NSBundle bundleForClass:[Cucumberish class]]
+                                          includeTags:tags
+                                          excludeTags:excludedTags];
 }
 
 - (void)beginExecution
@@ -105,13 +119,6 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
         [Cucumberish swizzleDefaultSuiteImplementationForClass:featureClass];
         [Cucumberish swizzleFailureRecordingImplementationForClass:featureClass];
     }
-}
-
-
-
-+ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray *)tags excludeTags:(NSArray *)execludedTags
-{
-    [[[Cucumberish instance] parserFeaturesInDirectory:featuresDirectory includeTags:tags excludeTags:execludedTags] beginExecution];
 }
 
 #pragma mark - Manage hocks
