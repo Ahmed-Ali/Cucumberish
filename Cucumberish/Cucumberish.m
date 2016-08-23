@@ -83,8 +83,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 - (void)parserFeaturesInDirectory:(NSString *)directory fromBundle:(NSBundle *)bundle includeTags:(NSArray<NSString *> *)includeTags excludeTags:(NSArray<NSString *> *)excludeTags
 {
-    NSString * featuresPath = [[bundle resourcePath] stringByAppendingPathComponent:directory];
-    NSArray * featureFiles = [[NSBundle bundleWithPath:featuresPath] URLsForResourcesWithExtension:@".feature" subdirectory:nil];
+    NSArray * featureFiles = [bundle URLsForResourcesWithExtension:@".feature" subdirectory:directory];
 
     [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles withTags:includeTags execludeFeaturesWithTags:excludeTags];
     self.tags = includeTags;
