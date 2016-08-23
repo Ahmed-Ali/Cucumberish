@@ -25,8 +25,9 @@ Pod::Spec.new do |s|
     'Cucumberish/Core/Models/CCILocation.h',
     'Cucumberish/Core/Models/CCIArgument.h'
   s.resource_bundles = {
-    'Gherkin' => ['Cucumberish/Dependencies/Gherkin/gherkin-languages.json'],
+    'GherkinLanguages' => ['Cucumberish/Dependencies/Gherkin/gherkin-languages.json'],
   }
+  
   s.framework  = "XCTest"
   s.requires_arc = true
   s.xcconfig = { "GCC_PREPROCESSOR_DEFINITIONS" => "SRC_ROOT=$(SRCROOT)" }
