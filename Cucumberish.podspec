@@ -27,8 +27,8 @@ Pod::Spec.new do |s|
   s.resource_bundles = {
     'GherkinLanguages' => ['Cucumberish/Dependencies/Gherkin/gherkin-languages.json'],
   }
-  
+
   s.framework  = "XCTest"
   s.requires_arc = true
-  s.xcconfig = { "GCC_PREPROCESSOR_DEFINITIONS" => "SRC_ROOT=$(SRCROOT)" }
+  s.xcconfig = { "GCC_PREPROCESSOR_DEFINITIONS" => "SRC_ROOT=@\\\"$(SRCROOT)\\\"" }
 end
