@@ -52,7 +52,7 @@
 
 - (NSDictionary<NSString *, GHGherkinLanguageSetting *> *)languagesSetting
 {
-    NSBundle * gherkinLanguagesBundle = [NSBundle bundleWithPath: [[NSBundle mainBundle] pathForResource: @"GherkinLanguages" ofType: @"bundle"]];
+    NSBundle * gherkinLanguagesBundle = [NSBundle bundleWithPath: [[NSBundle bundleForClass:[self class]] pathForResource: @"GherkinLanguages" ofType: @"bundle"]];
     if(gherkinLanguagesBundle == nil){
         gherkinLanguagesBundle = [NSBundle bundleForClass:[self class]];
     }
