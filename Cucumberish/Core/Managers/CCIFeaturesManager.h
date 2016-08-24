@@ -54,7 +54,7 @@
  
  @Note tags in featureTags parameter should not exist in the execludedTags parameter as it doesn't make any sense.
  */
-- (void)parseFeatureFiles:(NSArray *)featureFiles withTags:(NSArray *)tags execludeFeaturesWithTags:(NSArray *)execludedFeatures;
+- (void)parseFeatureFiles:(NSArray *)featureFiles bundle:(NSBundle *)bundle withTags:(NSArray *)tags execludeFeaturesWithTags:(NSArray *)execludedFeatures;
 
 /**
  Associates the passed class with the passed feature instance for later usage.
