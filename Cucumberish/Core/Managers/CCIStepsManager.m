@@ -108,7 +108,7 @@ static CCIStepsManager * instance = nil;
         NSRange searchRange = NSMakeRange(0, [step.text lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
         NSTextCheckingResult * match = [[regex matchesInString:step.text options:NSMatchingReportCompletion range:searchRange] firstObject];
         
-        if (match != nil) {
+        if (match != nil && match.numberOfRanges > 1) {
             //Looks like a perfect match!
             CCIStepDefinition * definition = [d copy];
             NSMutableArray * values = [NSMutableArray arrayWithCapacity:match.numberOfRanges - 1];

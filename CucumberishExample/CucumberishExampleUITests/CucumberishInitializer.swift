@@ -25,8 +25,8 @@ class CucumberishInitializer: NSObject {
         }
 
         
+        Cucumberish.executeFeaturesInDirectory("ExampleFeatures", includeTags: nil, excludeTags: nil)
         
-        Cucumberish.executeFeaturesInDirectory("ExampleFeatures", featureTags: nil)
     }
 }
 

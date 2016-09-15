@@ -15,10 +15,9 @@
 __attribute__((constructor))
 void CucumberishInit()
 {
-    CucumberFeatureSteps *steps = [[CucumberFeatureSteps alloc] init];
-    
+    [CucumberFeatureSteps new];
     //Optional step, see the comment on this property for more information
     [Cucumberish instance].fixMissingLastScenario = NO;
     //Tell Cucumberish the name of your features folder and let it execute them for you...
-    [[[Cucumberish instance] parserFeaturesInDirectory:@"Features" featureTags:nil] beginExecution];    
+    [[[Cucumberish instance] parserFeaturesInDirectory:@"Features" includeTags:nil excludeTags:nil] beginExecution];
 }

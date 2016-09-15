@@ -53,6 +53,10 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 @property (nonatomic, strong) NSMutableArray<CCIHock *> * afterHocks;
 @property (nonatomic, strong) NSMutableArray<CCIAroundHock *> * aroundHocks;
 
+@property (nonatomic, strong) NSArray<NSString *> * tags;
+@property (nonatomic, strong) NSArray<NSString *> * excludedTags;
+
+
 @end
 @implementation Cucumberish
 
@@ -77,16 +81,31 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 }
 
 
-
-- (Cucumberish *)parserFeaturesInDirectory:(NSString *)featuresDirectory featureTags:(NSArray *)tags
+- (void)parserFeaturesInDirectory:(NSString *)directory fromBundle:(NSBundle *)bundle includeTags:(NSArray<NSString *> *)includeTags excludeTags:(NSArray<NSString *> *)excludeTags
 {
-    NSString * featuresPath = [[[NSBundle bundleForClass:[Cucumberish class]] resourcePath] stringByAppendingPathComponent:featuresDirectory];
-    
-    NSArray * featureFiles = [[NSBundle bundleWithPath:featuresPath] URLsForResourcesWithExtension:@".feature" subdirectory:nil];
-    [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles withTags:tags];
+    NSArray * featureFiles = [bundle URLsForResourcesWithExtension:@".feature" subdirectory:directory];
+
+    [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles bundle:bundle withTags:includeTags execludeFeaturesWithTags:excludeTags];
+    self.tags = includeTags;
+    self.excludedTags = excludeTags;
+}
+
+- (Cucumberish *)parserFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray<NSString *> *)tags excludeTags:(NSArray<NSString *> *)excludedTags
+{
+    [self parserFeaturesInDirectory:featuresDirectory
+                         fromBundle:[NSBundle bundleForClass:[Cucumberish class]]
+                        includeTags:tags
+                        excludeTags:excludedTags];
     return self;
 }
 
++ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray *)tags excludeTags:(NSArray *)excludedTags
+{
+    [[Cucumberish instance] parserFeaturesInDirectory:featuresDirectory
+                                           fromBundle:[NSBundle bundleForClass:[Cucumberish class]]
+                                          includeTags:tags
+                                          excludeTags:excludedTags];
+}
 
 - (void)beginExecution
 {
@@ -99,11 +118,6 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
         [Cucumberish swizzleDefaultSuiteImplementationForClass:featureClass];
         [Cucumberish swizzleFailureRecordingImplementationForClass:featureClass];
     }
-}
-
-+ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory featureTags:(NSArray *)tags
-{
-    [[[Cucumberish instance] parserFeaturesInDirectory:featuresDirectory featureTags:tags] beginExecution];
 }
 
 #pragma mark - Manage hocks
@@ -380,6 +394,9 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     CCIFeature * feature = [[CCIFeaturesManager instance] getFeatureForClass:self];
     
     for (CCIScenarioDefinition * scenario in feature.scenarioDefinitions) {
+        if(![[Cucumberish instance] shouldIncludeScenario:scenario]){
+            continue;
+        }
         if([scenario.keyword isEqualToString:@"Scenario Outline"]){
             [Cucumberish createScenariosForScenarioOutline:scenario feature:feature class:self suite:suite];
         }else{
@@ -404,6 +421,34 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     return suite;
 }
 
+- (BOOL)shouldIncludeScenario:(CCIScenarioDefinition *)scenario
+{
+    BOOL shouldIncludeScenario = YES;
+    if(![scenario.keyword isEqualToString:@"Background"]){
+        if(self.tags.count > 0){
+            shouldIncludeScenario = [self tags:scenario.tags intersectWithTags:self.tags]&& ![self tags:scenario.tags intersectWithTags:self.excludedTags];
+        }else if(self.excludedTags.count > 0){
+            shouldIncludeScenario = ![self tags:scenario.tags intersectWithTags:self.excludedTags];
+        }
+    }
+    return shouldIncludeScenario;
+}
+
+
+- (BOOL)tags:(NSArray *)tags intersectWithTags:(NSArray *)intersectionTags
+{
+    BOOL intersect = NO;
+    if(tags.count == 0 || intersectionTags.count == 0){
+        return intersect;
+    }
+    for(NSString * tag in tags){
+        if([intersectionTags containsObject:tag]){
+            intersect = YES;
+            break;
+        }
+    }
+    return intersect;
+}
 @end
 
 
