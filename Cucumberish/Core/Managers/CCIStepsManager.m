@@ -32,6 +32,10 @@
 static CCIStepsManager * instance = nil;
 
 
+const NSString * kDataTableKey = @"DataTable";
+const NSString * kDocStringKey = @"DocString";
+const NSString * kXCTestCaseKey = @"XCTestCase";
+
 @interface CCIStepsManager()
 @property NSMutableDictionary * definitions;
 @end
@@ -72,7 +76,7 @@ static CCIStepsManager * instance = nil;
 }
 
 
-- (CCIStepDefinition *)findMatchDefinitionForStep:(CCIStep *)step
+- (CCIStepDefinition *)findMatchDefinitionForStep:(CCIStep *)step inTestCase:(id)testCase
 {
     if(step.keyword == nil){
         //We should try to match it using all available definitions
@@ -80,24 +84,24 @@ static CCIStepsManager * instance = nil;
         for(NSArray * definitions in self.definitions.allValues){
             [allDefinitions addObjectsFromArray:definitions];
         }
-        return [self findDefinitionForStep:step amongDefinitions:allDefinitions];
+        return [self findDefinitionForStep:step amongDefinitions:allDefinitions inTestCase:testCase];
     }
     NSArray * definitionGroup = self.definitions[step.keyword];
-    return [self findDefinitionForStep:step amongDefinitions:definitionGroup];
+    return [self findDefinitionForStep:step amongDefinitions:definitionGroup inTestCase:testCase];
 
 }
 
-- (CCIStepDefinition *)findDefinitionForStep:(CCIStep *)step amongDefinitions:(NSArray *)definitions
+- (CCIStepDefinition *)findDefinitionForStep:(CCIStep *)step amongDefinitions:(NSArray *)definitions inTestCase:(id)testCase
 {
     NSError * error;
-    CCIStepDefinition *ret = nil;
+    CCIStepDefinition * retDefinition = nil;
     
     for(CCIStepDefinition * d in definitions){
         NSString * pattern = d.regexString;
         
         if ([d.regexString isEqualToString:step.text]) {
             //It has no params, it is just plain perfect match
-            ret = [d copy];
+            retDefinition = [d copy];
             break;
         }
         NSRegularExpression * regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionAnchorsMatchLines error:&error];
@@ -108,7 +112,7 @@ static CCIStepsManager * instance = nil;
         NSRange searchRange = NSMakeRange(0, [step.text lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
         NSTextCheckingResult * match = [[regex matchesInString:step.text options:NSMatchingReportCompletion range:searchRange] firstObject];
         
-        if (match != nil && match.numberOfRanges > 1) {
+        if (match.numberOfRanges > 1) {
             //Looks like a perfect match!
             CCIStepDefinition * definition = [d copy];
             NSMutableArray * values = [NSMutableArray arrayWithCapacity:match.numberOfRanges - 1];
@@ -119,25 +123,31 @@ static CCIStepsManager * instance = nil;
             }
             
             definition.matchedValues = values;
-            ret = definition;
+            retDefinition = definition;
             break;
         }
     }
     
-    if (ret) {
+    if (retDefinition) {
         if(step.argument.rows.count > 0){
-            ret.additionalContent = @{@"DataTable" : step.argument.rows};
+            retDefinition.additionalContent = @{kDataTableKey : step.argument.rows};
         }else if(step.argument.content.length > 0){
-            ret.additionalContent = @{@"DocString" : step.argument.content};
+            retDefinition.additionalContent = @{kDocStringKey : step.argument.content};
         }
     }
+    if(testCase != nil){
+        NSMutableDictionary * additionalContent = [retDefinition.additionalContent mutableCopy] ? :[NSMutableDictionary new];
+        additionalContent[kXCTestCaseKey] = testCase;
+        retDefinition.additionalContent = additionalContent;
+    }
     
-    return ret;
+    
+    return retDefinition;
 }
 
-- (void)executeStep:(CCIStep *)step
+- (void)executeStep:(CCIStep *)step inTestCase:(id)testCase
 {
-    CCIStepDefinition * implementation = [self findMatchDefinitionForStep:step];
+    CCIStepDefinition * implementation = [self findMatchDefinitionForStep:step inTestCase:testCase];
     NSString * errorMessage = nil;
     if(step.keyword.length > 0){
         errorMessage = [NSString stringWithFormat:@"The step \"%@ %@\" is not implemented", step.keyword, [step.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
@@ -151,6 +161,8 @@ static CCIStepsManager * instance = nil;
     }
     
     implementation.body(implementation.matchedValues, implementation.additionalContent);
+    //Clean up the step additional content to avoid keeping unwanted objects in memory
+    implementation.additionalContent = nil;
     if(step.keyword.length > 0){
         NSLog(@"Step: \"%@ %@\" passed", step.keyword, step.text);
     }
@@ -208,7 +220,7 @@ void addDefinition(NSString * definitionString, CCIStepBody body, NSString * typ
     [cluster insertObject:definition atIndex:0];
 }
 
-void step(NSString * stepLine, ...)
+void step(id testCase, NSString * stepLine, ...)
 {
     va_list args;
     va_start(args, stepLine);
@@ -217,12 +229,12 @@ void step(NSString * stepLine, ...)
     
     CCIStep * step = [CCIStep new];
     step.text = line;
-    [[CCIStepsManager instance] executeStep:step];
+    [[CCIStepsManager instance] executeStep:step inTestCase:testCase];
 }
 
-void SStep(NSString * stepLine)
+void SStep(id testCase, NSString * stepLine)
 {
-    step(stepLine);
+    step(testCase, stepLine);
 }
 
 

@@ -11,7 +11,6 @@
 		603C5F601C6570BF0080F73D /* Features in Resources */ = {isa = PBXBuildFile; fileRef = 603C5F5F1C6570BF0080F73D /* Features */; };
 		603C600E1C6577D80080F73D /* expected_execution.output in Resources */ = {isa = PBXBuildFile; fileRef = 603C600D1C6577D80080F73D /* expected_execution.output */; };
 		6052E5381C4FCED200CBA7FD /* UIViewController+NavigationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6052E5371C4FCED200CBA7FD /* UIViewController+NavigationHelper.m */; };
-		60589C331C53C3FA00B187C3 /* CCIStepDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60589C321C53C3FA00B187C3 /* CCIStepDefinitions.swift */; };
 		6074281E1C681A5E00BAB3BA /* expected_json_output.json in Resources */ = {isa = PBXBuildFile; fileRef = 6074281D1C681A5E00BAB3BA /* expected_json_output.json */; };
 		6075A52E1C4FB20900FE2B1B /* CucumberishExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6075A52D1C4FB20900FE2B1B /* CucumberishExampleTests.m */; };
 		6075A5361C4FB2D000FE2B1B /* ExampleFeatures in Resources */ = {isa = PBXBuildFile; fileRef = 6075A5351C4FB2D000FE2B1B /* ExampleFeatures */; };
@@ -80,53 +79,6 @@
 		60CB12351CB6FB5100896D56 /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12031CB6FB5100896D56 /* NSString+Trim.m */; };
 		60CB12361CB6FB5100896D56 /* NSObject+Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12061CB6FB5100896D56 /* NSObject+Dictionary.m */; };
 		60CB12371CB6FB5100896D56 /* NSString+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12081CB6FB5100896D56 /* NSString+Formatter.m */; };
-		60CB12A51CB6FB5A00896D56 /* CCIFeaturesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB123D1CB6FB5A00896D56 /* CCIFeaturesManager.m */; };
-		60CB12A61CB6FB5A00896D56 /* CCIStepsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB123F1CB6FB5A00896D56 /* CCIStepsManager.m */; };
-		60CB12A71CB6FB5A00896D56 /* CCIArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12421CB6FB5A00896D56 /* CCIArgument.m */; };
-		60CB12A81CB6FB5A00896D56 /* CCIAroundHock.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12441CB6FB5A00896D56 /* CCIAroundHock.m */; };
-		60CB12A91CB6FB5A00896D56 /* CCIBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12461CB6FB5A00896D56 /* CCIBackground.m */; };
-		60CB12AA1CB6FB5A00896D56 /* CCIExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12481CB6FB5A00896D56 /* CCIExample.m */; };
-		60CB12AB1CB6FB5A00896D56 /* CCIFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB124A1CB6FB5A00896D56 /* CCIFeature.m */; };
-		60CB12AC1CB6FB5A00896D56 /* CCIHock.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB124C1CB6FB5A00896D56 /* CCIHock.m */; };
-		60CB12AD1CB6FB5A00896D56 /* CCILocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB124E1CB6FB5A00896D56 /* CCILocation.m */; };
-		60CB12AE1CB6FB5A00896D56 /* CCIScenarioDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12501CB6FB5A00896D56 /* CCIScenarioDefinition.m */; };
-		60CB12AF1CB6FB5A00896D56 /* CCIStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12521CB6FB5A00896D56 /* CCIStep.m */; };
-		60CB12B01CB6FB5A00896D56 /* CCIStepDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12541CB6FB5A00896D56 /* CCIStepDefinition.m */; };
-		60CB12B11CB6FB5A00896D56 /* Cucumberish.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12561CB6FB5A00896D56 /* Cucumberish.m */; };
-		60CB12B21CB6FB5A00896D56 /* GHAstBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB125A1CB6FB5A00896D56 /* GHAstBuilder.m */; };
-		60CB12B31CB6FB5A00896D56 /* GHAstNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB125C1CB6FB5A00896D56 /* GHAstNode.m */; };
-		60CB12B41CB6FB5A00896D56 /* GHBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB125E1CB6FB5A00896D56 /* GHBackground.m */; };
-		60CB12B51CB6FB5A00896D56 /* GHComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12601CB6FB5A00896D56 /* GHComment.m */; };
-		60CB12B61CB6FB5A00896D56 /* GHDataTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12621CB6FB5A00896D56 /* GHDataTable.m */; };
-		60CB12B71CB6FB5A00896D56 /* GHDocString.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12641CB6FB5A00896D56 /* GHDocString.m */; };
-		60CB12B81CB6FB5A00896D56 /* gherkin-languages.json in Resources */ = {isa = PBXBuildFile; fileRef = 60CB12651CB6FB5A00896D56 /* gherkin-languages.json */; };
-		60CB12B91CB6FB5A00896D56 /* GHExamples.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12671CB6FB5A00896D56 /* GHExamples.m */; };
-		60CB12BA1CB6FB5A00896D56 /* GHFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12691CB6FB5A00896D56 /* GHFeature.m */; };
-		60CB12BB1CB6FB5A00896D56 /* GHGherkinDialect.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB126B1CB6FB5A00896D56 /* GHGherkinDialect.m */; };
-		60CB12BC1CB6FB5A00896D56 /* GHGherkinDialectProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB126D1CB6FB5A00896D56 /* GHGherkinDialectProvider.m */; };
-		60CB12BD1CB6FB5A00896D56 /* GHGherkinLanguageConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12701CB6FB5A00896D56 /* GHGherkinLanguageConstants.m */; };
-		60CB12BE1CB6FB5A00896D56 /* GHGherkinLanguageSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12721CB6FB5A00896D56 /* GHGherkinLanguageSetting.m */; };
-		60CB12BF1CB6FB5A00896D56 /* GHGherkinLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12741CB6FB5A00896D56 /* GHGherkinLine.m */; };
-		60CB12C01CB6FB5A00896D56 /* GHGherkinLineSpan.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12771CB6FB5A00896D56 /* GHGherkinLineSpan.m */; };
-		60CB12C11CB6FB5A00896D56 /* GHLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB127E1CB6FB5A00896D56 /* GHLocation.m */; };
-		60CB12C21CB6FB5A00896D56 /* GHNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12801CB6FB5A00896D56 /* GHNode.m */; };
-		60CB12C31CB6FB5A00896D56 /* GHParser+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12821CB6FB5A00896D56 /* GHParser+Extensions.m */; };
-		60CB12C41CB6FB5A00896D56 /* GHParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12841CB6FB5A00896D56 /* GHParser.m */; };
-		60CB12C51CB6FB5A00896D56 /* GHParserException.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12861CB6FB5A00896D56 /* GHParserException.m */; };
-		60CB12C61CB6FB5A00896D56 /* GHScenario.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12881CB6FB5A00896D56 /* GHScenario.m */; };
-		60CB12C71CB6FB5A00896D56 /* GHScenarioDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB128A1CB6FB5A00896D56 /* GHScenarioDefinition.m */; };
-		60CB12C81CB6FB5A00896D56 /* GHScenarioOutline.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB128D1CB6FB5A00896D56 /* GHScenarioOutline.m */; };
-		60CB12C91CB6FB5A00896D56 /* GHStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB128F1CB6FB5A00896D56 /* GHStep.m */; };
-		60CB12CA1CB6FB5A00896D56 /* GHStepArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12911CB6FB5A00896D56 /* GHStepArgument.m */; };
-		60CB12CB1CB6FB5A00896D56 /* GHTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12931CB6FB5A00896D56 /* GHTableCell.m */; };
-		60CB12CC1CB6FB5A00896D56 /* GHTableRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12951CB6FB5A00896D56 /* GHTableRow.m */; };
-		60CB12CD1CB6FB5A00896D56 /* GHTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12971CB6FB5A00896D56 /* GHTag.m */; };
-		60CB12CE1CB6FB5A00896D56 /* GHToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12991CB6FB5A00896D56 /* GHToken.m */; };
-		60CB12CF1CB6FB5A00896D56 /* GHTokenMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB129B1CB6FB5A00896D56 /* GHTokenMatcher.m */; };
-		60CB12D01CB6FB5A00896D56 /* GHTokenScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB129D1CB6FB5A00896D56 /* GHTokenScanner.m */; };
-		60CB12D11CB6FB5A00896D56 /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB129F1CB6FB5A00896D56 /* NSString+Trim.m */; };
-		60CB12D21CB6FB5A00896D56 /* NSObject+Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12A21CB6FB5A00896D56 /* NSObject+Dictionary.m */; };
-		60CB12D31CB6FB5A00896D56 /* NSString+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12A41CB6FB5A00896D56 /* NSString+Formatter.m */; };
 		60CB13411CB6FB7E00896D56 /* CCIFeaturesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12D91CB6FB7D00896D56 /* CCIFeaturesManager.m */; };
 		60CB13421CB6FB7E00896D56 /* CCIStepsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12DB1CB6FB7D00896D56 /* CCIStepsManager.m */; };
 		60CB13431CB6FB7E00896D56 /* CCIArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB12DE1CB6FB7D00896D56 /* CCIArgument.m */; };
@@ -174,9 +126,6 @@
 		60CB136D1CB6FB7E00896D56 /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB133B1CB6FB7E00896D56 /* NSString+Trim.m */; };
 		60CB136E1CB6FB7E00896D56 /* NSObject+Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB133E1CB6FB7E00896D56 /* NSObject+Dictionary.m */; };
 		60CB136F1CB6FB7E00896D56 /* NSString+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB13401CB6FB7E00896D56 /* NSString+Formatter.m */; };
-		60F262CF1C5351A1005F87C1 /* CucumberishInitilizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F262CE1C5351A1005F87C1 /* CucumberishInitilizer.m */; };
-		60F262D11C535343005F87C1 /* CucumberishInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F262D01C535343005F87C1 /* CucumberishInitializer.swift */; };
-		60F263801C535487005F87C1 /* ExampleFeatures in Resources */ = {isa = PBXBuildFile; fileRef = 60F2637F1C535487005F87C1 /* ExampleFeatures */; };
 		8D1EDF611D47EE050049D60C /* NSArray+Hashes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D1EDF601D47EE050049D60C /* NSArray+Hashes.m */; };
 		8DAD56CD1D47AC140028FB76 /* CucumberishFeatureDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD56CC1D47AC140028FB76 /* CucumberishFeatureDefinition.m */; };
 		8DAD56D51D47AD020028FB76 /* Features in Resources */ = {isa = PBXBuildFile; fileRef = 8DAD56D41D47AD020028FB76 /* Features */; };
@@ -246,13 +195,6 @@
 			remoteGlobalIDString = 60853A781C4ED7BD00806CD9;
 			remoteInfo = CucumberishExample;
 		};
-		608618A61C53515A00AE8786 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60853A711C4ED7BD00806CD9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 60853A781C4ED7BD00806CD9;
-			remoteInfo = CucumberishExample;
-		};
 		8DAD56CF1D47AC140028FB76 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 60853A711C4ED7BD00806CD9 /* Project object */;
@@ -308,7 +250,6 @@
 		60853AB01C4EE8BF00806CD9 /* Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Profile.m; sourceTree = "<group>"; };
 		60853ABF1C4EF58D00806CD9 /* Activity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Activity.h; sourceTree = "<group>"; };
 		60853AC01C4EF58D00806CD9 /* Activity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Activity.m; sourceTree = "<group>"; };
-		608618A11C53515A00AE8786 /* CucumberishExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CucumberishExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		608618A51C53515A00AE8786 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6091FC0E1C6613A100F100D0 /* expected_classes_and_methods.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = expected_classes_and_methods.json; sourceTree = "<group>"; };
 		60CB119E1CB6FB5000896D56 /* CCIBlockDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCIBlockDefinitions.h; sourceTree = "<group>"; };
@@ -759,13 +700,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6086189E1C53515A00AE8786 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8DAD56C71D47AC140028FB76 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -848,7 +782,6 @@
 			children = (
 				60853A791C4ED7BD00806CD9 /* CucumberishExample.app */,
 				6075A52B1C4FB20900FE2B1B /* CucumberishExampleTests.xctest */,
-				608618A11C53515A00AE8786 /* CucumberishExampleUITests.xctest */,
 				603C5F551C656FAB0080F73D /* CucumberishTest.xctest */,
 				8DAD56CA1D47AC140028FB76 /* CucumberishFeatureDefinition.xctest */,
 			);
@@ -1652,24 +1585,6 @@
 			productReference = 60853A791C4ED7BD00806CD9 /* CucumberishExample.app */;
 			productType = "com.apple.product-type.application";
 		};
-		608618A01C53515A00AE8786 /* CucumberishExampleUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 608618A81C53515A00AE8786 /* Build configuration list for PBXNativeTarget "CucumberishExampleUITests" */;
-			buildPhases = (
-				6086189D1C53515A00AE8786 /* Sources */,
-				6086189E1C53515A00AE8786 /* Frameworks */,
-				6086189F1C53515A00AE8786 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				608618A71C53515A00AE8786 /* PBXTargetDependency */,
-			);
-			name = CucumberishExampleUITests;
-			productName = CucumberishExampleUITests;
-			productReference = 608618A11C53515A00AE8786 /* CucumberishExampleUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		8DAD56C91D47AC140028FB76 /* CucumberishFeatureDefinition */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8DAD56D31D47AC140028FB76 /* Build configuration list for PBXNativeTarget "CucumberishFeatureDefinition" */;
@@ -1709,10 +1624,6 @@
 					60853A781C4ED7BD00806CD9 = {
 						CreatedOnToolsVersion = 7.2;
 					};
-					608618A01C53515A00AE8786 = {
-						CreatedOnToolsVersion = 7.2;
-						TestTargetID = 60853A781C4ED7BD00806CD9;
-					};
 					8DAD56C91D47AC140028FB76 = {
 						CreatedOnToolsVersion = 7.2;
 						TestTargetID = 60853A781C4ED7BD00806CD9;
@@ -1734,7 +1645,6 @@
 			targets = (
 				60853A781C4ED7BD00806CD9 /* CucumberishExample */,
 				6075A52A1C4FB20900FE2B1B /* CucumberishExampleTests */,
-				608618A01C53515A00AE8786 /* CucumberishExampleUITests */,
 				603C5F541C656FAB0080F73D /* CucumberishTest */,
 				8DAD56C91D47AC140028FB76 /* CucumberishFeatureDefinition */,
 			);
@@ -1770,15 +1680,6 @@
 				60853A8C1C4ED7BD00806CD9 /* LaunchScreen.storyboard in Resources */,
 				60853A891C4ED7BD00806CD9 /* Assets.xcassets in Resources */,
 				60853A871C4ED7BD00806CD9 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6086189F1C53515A00AE8786 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				60CB12B81CB6FB5A00896D56 /* gherkin-languages.json in Resources */,
-				60F263801C535487005F87C1 /* ExampleFeatures in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1972,62 +1873,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6086189D1C53515A00AE8786 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				60CB12CD1CB6FB5A00896D56 /* GHTag.m in Sources */,
-				60CB12C11CB6FB5A00896D56 /* GHLocation.m in Sources */,
-				60CB12B51CB6FB5A00896D56 /* GHComment.m in Sources */,
-				60CB12B01CB6FB5A00896D56 /* CCIStepDefinition.m in Sources */,
-				60CB12B61CB6FB5A00896D56 /* GHDataTable.m in Sources */,
-				60CB12BB1CB6FB5A00896D56 /* GHGherkinDialect.m in Sources */,
-				60CB12A51CB6FB5A00896D56 /* CCIFeaturesManager.m in Sources */,
-				60CB12C91CB6FB5A00896D56 /* GHStep.m in Sources */,
-				60CB12C61CB6FB5A00896D56 /* GHScenario.m in Sources */,
-				60CB12D21CB6FB5A00896D56 /* NSObject+Dictionary.m in Sources */,
-				60CB12D11CB6FB5A00896D56 /* NSString+Trim.m in Sources */,
-				60CB12C81CB6FB5A00896D56 /* GHScenarioOutline.m in Sources */,
-				60CB12B11CB6FB5A00896D56 /* Cucumberish.m in Sources */,
-				60CB12A91CB6FB5A00896D56 /* CCIBackground.m in Sources */,
-				60CB12BC1CB6FB5A00896D56 /* GHGherkinDialectProvider.m in Sources */,
-				60CB12BD1CB6FB5A00896D56 /* GHGherkinLanguageConstants.m in Sources */,
-				60CB12B71CB6FB5A00896D56 /* GHDocString.m in Sources */,
-				60CB12B21CB6FB5A00896D56 /* GHAstBuilder.m in Sources */,
-				60CB12CB1CB6FB5A00896D56 /* GHTableCell.m in Sources */,
-				60CB12C71CB6FB5A00896D56 /* GHScenarioDefinition.m in Sources */,
-				60F262D11C535343005F87C1 /* CucumberishInitializer.swift in Sources */,
-				60CB12BA1CB6FB5A00896D56 /* GHFeature.m in Sources */,
-				60CB12C51CB6FB5A00896D56 /* GHParserException.m in Sources */,
-				60CB12C01CB6FB5A00896D56 /* GHGherkinLineSpan.m in Sources */,
-				60CB12A61CB6FB5A00896D56 /* CCIStepsManager.m in Sources */,
-				60CB12AC1CB6FB5A00896D56 /* CCIHock.m in Sources */,
-				60CB12CE1CB6FB5A00896D56 /* GHToken.m in Sources */,
-				60CB12A81CB6FB5A00896D56 /* CCIAroundHock.m in Sources */,
-				60CB12AA1CB6FB5A00896D56 /* CCIExample.m in Sources */,
-				60CB12BF1CB6FB5A00896D56 /* GHGherkinLine.m in Sources */,
-				60589C331C53C3FA00B187C3 /* CCIStepDefinitions.swift in Sources */,
-				60CB12AE1CB6FB5A00896D56 /* CCIScenarioDefinition.m in Sources */,
-				60CB12C31CB6FB5A00896D56 /* GHParser+Extensions.m in Sources */,
-				60CB12D31CB6FB5A00896D56 /* NSString+Formatter.m in Sources */,
-				60CB12C41CB6FB5A00896D56 /* GHParser.m in Sources */,
-				60CB12CF1CB6FB5A00896D56 /* GHTokenMatcher.m in Sources */,
-				60CB12D01CB6FB5A00896D56 /* GHTokenScanner.m in Sources */,
-				60CB12AD1CB6FB5A00896D56 /* CCILocation.m in Sources */,
-				60CB12A71CB6FB5A00896D56 /* CCIArgument.m in Sources */,
-				60CB12CC1CB6FB5A00896D56 /* GHTableRow.m in Sources */,
-				60CB12C21CB6FB5A00896D56 /* GHNode.m in Sources */,
-				60CB12AF1CB6FB5A00896D56 /* CCIStep.m in Sources */,
-				60CB12CA1CB6FB5A00896D56 /* GHStepArgument.m in Sources */,
-				60CB12BE1CB6FB5A00896D56 /* GHGherkinLanguageSetting.m in Sources */,
-				60CB12AB1CB6FB5A00896D56 /* CCIFeature.m in Sources */,
-				60CB12B41CB6FB5A00896D56 /* GHBackground.m in Sources */,
-				60F262CF1C5351A1005F87C1 /* CucumberishInitilizer.m in Sources */,
-				60CB12B91CB6FB5A00896D56 /* GHExamples.m in Sources */,
-				60CB12B31CB6FB5A00896D56 /* GHAstNode.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8DAD56C61D47AC140028FB76 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2096,11 +1941,6 @@
 			isa = PBXTargetDependency;
 			target = 60853A781C4ED7BD00806CD9 /* CucumberishExample */;
 			targetProxy = 6075A5301C4FB20900FE2B1B /* PBXContainerItemProxy */;
-		};
-		608618A71C53515A00AE8786 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 60853A781C4ED7BD00806CD9 /* CucumberishExample */;
-			targetProxy = 608618A61C53515A00AE8786 /* PBXContainerItemProxy */;
 		};
 		8DAD56D01D47AC140028FB76 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2289,40 +2129,6 @@
 			};
 			name = Release;
 		};
-		608618A91C53515A00AE8786 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-					"SRC_ROOT=@\\\"$(SRCROOT)\\\"",
-				);
-				INFOPLIST_FILE = CucumberishExampleUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ahmed.ali.CucumberishExampleUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "CucumberishExampleUITests/CucumberishExampleUITests-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TEST_TARGET_NAME = CucumberishExample;
-				USES_XCTRUNNER = YES;
-			};
-			name = Debug;
-		};
-		608618AA1C53515A00AE8786 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				INFOPLIST_FILE = CucumberishExampleUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ahmed.ali.CucumberishExampleUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "CucumberishExampleUITests/CucumberishExampleUITests-Bridging-Header.h";
-				TEST_TARGET_NAME = CucumberishExample;
-				USES_XCTRUNNER = YES;
-			};
-			name = Release;
-		};
 		8DAD56D11D47AC140028FB76 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2386,15 +2192,6 @@
 			buildConfigurations = (
 				60853A9C1C4ED7BD00806CD9 /* Debug */,
 				60853A9D1C4ED7BD00806CD9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		608618A81C53515A00AE8786 /* Build configuration list for PBXNativeTarget "CucumberishExampleUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				608618A91C53515A00AE8786 /* Debug */,
-				608618AA1C53515A00AE8786 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
