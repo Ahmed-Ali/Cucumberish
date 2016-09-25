@@ -58,7 +58,8 @@
     self.featureClassMap = [@{} mutableCopy];
     return self;
 }
-- (void)parseFeatureFiles:(NSArray *)featureFiles withTags:(NSArray *)tags execludeFeaturesWithTags:(NSArray *)execludedFeatures
+
+- (void)parseFeatureFiles:(NSArray *)featureFiles bundle:(NSBundle *)bundle withTags:(NSArray *)tags execludeFeaturesWithTags:(NSArray *)execludedFeatures
 {
     NSMutableArray * parsedFeatures = [NSMutableArray array];
     
@@ -70,7 +71,7 @@
         if(result){
             NSMutableDictionary * featureData = [[result dictionary] mutableCopy];
             
-            NSString * testBundlePath = [[NSBundle bundleForClass:[self class]] bundlePath];
+            NSString * testBundlePath = [bundle bundlePath];
             NSString * localPath = [[[filePath.absoluteString stringByRemovingPercentEncoding]
                                      stringByReplacingOccurrencesOfString:testBundlePath withString:@""]
                                     stringByReplacingOccurrencesOfString:@"file://" withString:@""];

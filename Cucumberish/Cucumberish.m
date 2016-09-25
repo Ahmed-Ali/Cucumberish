@@ -81,17 +81,38 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 }
 
 
-
-
-- (Cucumberish *)parserFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray *)tags excludeTags:(NSArray *)execludedTags
+- (Cucumberish *)parserFeaturesInDirectory:(NSString *)directory fromBundle:(NSBundle *)bundle includeTags:(NSArray<NSString *> *)includeTags excludeTags:(NSArray<NSString *> *)excludeTags
 {
-    NSString * featuresPath = [[[NSBundle bundleForClass:[Cucumberish class]] resourcePath] stringByAppendingPathComponent:featuresDirectory];
-    
-    NSArray * featureFiles = [[NSBundle bundleWithPath:featuresPath] URLsForResourcesWithExtension:@".feature" subdirectory:nil];
-    [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles withTags:tags execludeFeaturesWithTags:execludedTags];
-    self.tags = tags;
-    self.excludedTags = execludedTags;
+    NSArray * featureFiles = [bundle URLsForResourcesWithExtension:@".feature" subdirectory:directory];
+
+    [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles bundle:bundle withTags:includeTags execludeFeaturesWithTags:excludeTags];
+    self.tags = includeTags;
+    self.excludedTags = excludeTags;
     return self;
+}
+
+- (Cucumberish *)parserFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray<NSString *> *)tags excludeTags:(NSArray<NSString *> *)excludedTags
+{
+    [self parserFeaturesInDirectory:featuresDirectory
+                         fromBundle:[NSBundle bundleForClass:[Cucumberish class]]
+                        includeTags:tags
+                        excludeTags:excludedTags];
+    return self;
+}
+
++ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray *)tags excludeTags:(NSArray *)excludedTags
+{
+    [[[Cucumberish instance] parserFeaturesInDirectory:featuresDirectory
+                                          includeTags:tags
+                                          excludeTags:excludedTags] beginExecution];
+}
+
++ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory fromBundle:(NSBundle *)bundle includeTags:(NSArray *)tags excludeTags:(NSArray *)excludedTags
+{
+    [[[Cucumberish instance] parserFeaturesInDirectory:featuresDirectory
+                                            fromBundle:bundle
+                                           includeTags:tags
+                                           excludeTags:excludedTags] beginExecution];
 }
 
 - (void)beginExecution
@@ -105,13 +126,6 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
         [Cucumberish swizzleDefaultSuiteImplementationForClass:featureClass];
         [Cucumberish swizzleFailureRecordingImplementationForClass:featureClass];
     }
-}
-
-
-
-+ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray *)tags excludeTags:(NSArray *)execludedTags
-{
-    [[[Cucumberish instance] parserFeaturesInDirectory:featuresDirectory includeTags:tags excludeTags:execludedTags] beginExecution];
 }
 
 #pragma mark - Manage hocks
@@ -293,6 +307,19 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
                 for(CCIStep * step in scenario.steps){
                     NSString * placeHolder = [NSString stringWithFormat:@"<%@>", variable];
                     step.text = [step.text stringByReplacingOccurrencesOfString:placeHolder withString:replacement];
+                    if (step.argument.rows) {
+                        NSMutableArray *modifiedRows = [NSMutableArray arrayWithCapacity:step.argument.rows.count];
+                        for (NSArray *row in step.argument.rows) {
+                            NSMutableArray *array = [row mutableCopy];
+                            [row enumerateObjectsUsingBlock:^(NSString *value, NSUInteger idx, BOOL * _Nonnull stop) {
+                                if ([value isEqualToString:placeHolder]){
+                                    array[idx] = replacement;
+                                }
+                            }];
+                            [modifiedRows addObject:array];
+                        }
+                        step.argument.rows = modifiedRows;
+                    }
                 }
             }
             
@@ -483,7 +510,7 @@ void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
     for (CCIStep * step in steps) {
         
         @try {
-            [[CCIStepsManager instance] executeStep:step];
+            [[CCIStepsManager instance] executeStep:step inTestCase:testCase];
         }
         @catch (CCIExeption *exception) {
             NSString * filePath = [NSString stringWithFormat:@"%@/%@%@", srcRoot, targetName, step.location.filePath];

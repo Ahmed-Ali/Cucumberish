@@ -13,6 +13,12 @@
 #import "CCIFeature.h"
 #import "NSArray+Hashes.h"
 
+@interface CucumberFeatureSteps()
+
+@property (nonatomic,strong) NSMutableDictionary* savedValues;
+
+@end
+
 @implementation CucumberFeatureSteps
 
 
@@ -21,6 +27,7 @@
     self = [super init];
     if (self) {
         [self setup];
+        _savedValues = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -52,13 +59,13 @@
     });
 
     Then(@"I see the following statements have been executed", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
-        CCIAssert([CCIFeaturesManager instance].features.count == 1, @"Expected only one feature file");
+        CCIAssert([CCIFeaturesManager instance].features.count == 2, @"Expected only one feature file");
         CCIFeature *feature = [CCIFeaturesManager instance].features[0];
         CCIAssert(feature.scenarioDefinitions.count == 2, @"Expected two scenarios, one for background one for the actual scenario");
         
         CCIScenarioDefinition *mainScenario = feature.scenarioDefinitions[1];
         
-        NSArray *hashes = [userInfo[@"DataTable"] rowHashes];
+        NSArray *hashes = [userInfo[kDataTableKey] rowHashes];
         
         for (NSDictionary *dict in hashes) {
             if ([dict[@"statement"] isEqualToString:@"Background"]) {
@@ -78,7 +85,28 @@
 
         }        
     });
-}
+    
+    Given(@"a table with examples", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+        NSArray *hashes = [userInfo[@"DataTable"] rowHashes];
+        for (NSDictionary *dict in hashes) {
+            self.savedValues[@"option1"] = dict[@"option1"];
+            self.savedValues[@"option2"] = dict[@"option2"];
+        }
+    });
+    
+    Then(@"([A-Za-z0-9]+) value ([A-Za-z0-9]+) has been passed through", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+        CCIAssert(self.savedValues[args[0]] != nil, @"Expected to have a saved key of @",args[0]);
+        if (self.savedValues[args[0]]) {
+            CCIAssert([self.savedValues[args[0]] isEqualToString:args[1]] != NO, @"Expected %@ to equal %@, got %@",args[0],args[1],self.savedValues[args[0]]);
+        }
+    });
+
+    And(@"([A-Za-z0-9]+) value ([A-Za-z0-9]+) has been passed through", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+        CCIAssert(self.savedValues[args[0]] != nil, @"Expected to have a saved key of @",args[0]);
+        if (self.savedValues[args[0]]) {
+            CCIAssert([self.savedValues[args[0]] isEqualToString:args[1]] != NO, @"Expected %@ to equal %@, got %@",args[0],args[1],self.savedValues[args[0]]);
+        }
+    });}
 
 -(BOOL)checkStep:(CCIStep*)step forKeyword:(NSString*)keyword
 {
