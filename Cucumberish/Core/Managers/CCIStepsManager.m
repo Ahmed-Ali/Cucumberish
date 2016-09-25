@@ -135,7 +135,7 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
             retDefinition.additionalContent = @{kDocStringKey : step.argument.content};
         }
     }
-    if(testCase != nil){
+    if([testCase isKindOfClass:[XCTestCase class]]){
         NSMutableDictionary * additionalContent = [retDefinition.additionalContent mutableCopy] ? :[NSMutableDictionary new];
         additionalContent[kXCTestCaseKey] = testCase;
         retDefinition.additionalContent = additionalContent;
