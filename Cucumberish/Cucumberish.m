@@ -497,7 +497,7 @@ void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
     for (CCIStep * step in steps) {
         
         @try {
-            [[CCIStepsManager instance] executeStep:step];
+            [[CCIStepsManager instance] executeStep:step inTestCase:testCase];
         }
         @catch (CCIExeption *exception) {
             NSString * filePath = [NSString stringWithFormat:@"%@/%@%@", srcRoot, targetName, step.location.filePath];

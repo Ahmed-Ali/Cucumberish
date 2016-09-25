@@ -44,7 +44,8 @@
  Executes the passed step if it matches any previously defined implementation. Or throw an error if there is no matching definiton.
  
  @param step the to be executed
+ @param testCase the test case that is being executed when this step implementation is being called
  */
-- (void)executeStep:(CCIStep *)step;
+- (void)executeStep:(CCIStep *)step inTestCase:(id)testCase;
 
 @end

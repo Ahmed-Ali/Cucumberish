@@ -58,7 +58,7 @@
         
         CCIScenarioDefinition *mainScenario = feature.scenarioDefinitions[1];
         
-        NSArray *hashes = [userInfo[@"DataTable"] rowHashes];
+        NSArray *hashes = [userInfo[kDataTableKey] rowHashes];
         
         for (NSDictionary *dict in hashes) {
             if ([dict[@"statement"] isEqualToString:@"Background"]) {
