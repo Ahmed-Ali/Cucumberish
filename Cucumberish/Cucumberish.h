@@ -79,25 +79,37 @@
  @param includeTags array of strings to filter which features that will be parsed to be executed, if nil then all feature files will be parsed.
  @param excludeTags array of string to filter which features should not be executed.
  
- @note The feature directory has to be a real physical folder. Also When adding this folder to your test target, and get the prompt on how you would like to add it from Xcode, choose "Create Folder Reference" and @b NOT to Create Groups.
+ @note The feature directory has to be a real physical folder. Also when adding this folder to your test target, and get the prompt on how you would like to add it from Xcode, choose "Create Folder Reference" and @b NOT to Create Groups.
  @note tags should not be prefixed with @@ symbole
  @note tags in includeTags parameter should not exist in the excludedTags parameter as it doesn't make any sense.
  @note the tags will be also on the scenario level. That's it, if the feature passes the tag check, then we will check each of its scenarios against the tags as well. But if a feature is excluded (because it has a tag from the excludedTags array), none of its scenarios will be executed.
+ 
+  @return the singleton instance of Cucumberish so you can call beginExecution immediately if you want.
  */
-- (void)parserFeaturesInDirectory:(NSString *)directory
+- (Cucumberish *)parserFeaturesInDirectory:(NSString *)directory
                        fromBundle:(NSBundle *)bundle
                       includeTags:(NSArray<NSString *> *)includeTags
                       excludeTags:(NSArray<NSString *> *)excludeTags;
 
 /**
- @deprecated This method is deprecated starting in version 0.9.1
- @note Please use @code parserFeaturesInDirectory:fromBundle:includeTags:excludeTags @endcode instead.
+ Parses any .feature file that is located inside the passed folder name and map it to a test case if the feature inside the file has one or more tags of the passed tags (if any) and it doesn't have a tag from the excluded tags parameter
+ 
+ @param directory a path to your featuresDirectory relative to your test target main folder.
+ @param includeTags array of strings to filter which features that will be parsed to be executed, if nil then all feature files will be parsed.
+ @param excludeTags array of string to filter which features should not be executed.
+ 
+ @note The feature directory has to be a real physical folder. Also when adding this folder to your test target, and get the prompt on how you would like to add it from Xcode, choose "Create Folder Reference" and @b NOT to Create Groups.
+ @note If you followed the manual installation steps of Cucumberish, then make sure the features folder is the root folder of your project. Otherwise, it is better to use the parserFeaturesInDirectory:fromBundle:includeTags:excludeTags: method to specify the runtime bundle that will include the features folder.
 
+ @note tags should not be prefixed with @@ symbole
+ @note tags in includeTags parameter should not exist in the excludedTags parameter as it doesn't make any sense.
+ @note the tags will be also on the scenario level. That's it, if the feature passes the tag check, then we will check each of its scenarios against the tags as well. But if a feature is excluded (because it has a tag from the excludedTags array), none of its scenarios will be executed.
+ 
  @return the singleton instance of Cucumberish so you can call beginExecution immediately if you want.
  */
 - (Cucumberish *)parserFeaturesInDirectory:(NSString *)featuresDirectory
                                includeTags:(NSArray<NSString *> *)tags
-                               excludeTags:(NSArray<NSString *> *)excludedTags DEPRECATED_ATTRIBUTE;
+                               excludeTags:(NSArray<NSString *> *)excludedTags;
 
 /**
  Fire the execution of all the previously parsed features in an alphabetic ascending order.
@@ -109,6 +121,13 @@
  
  */
 + (void)executeFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray<NSString *> *)tags excludeTags:(NSArray<NSString *> *)excludedTags;
+
+/**
+ Conventient method that calls parserFeaturesInDirectory:fromBundle:includeTags:excludeTags: followed by an immediate call to beginExecution
+ 
+ */
++ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory fromBundle:(NSBundle *)bundle includeTags:(NSArray *)tags excludeTags:(NSArray *)excludedTags;
+
 @end
 
 

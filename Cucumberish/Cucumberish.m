@@ -81,13 +81,14 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 }
 
 
-- (void)parserFeaturesInDirectory:(NSString *)directory fromBundle:(NSBundle *)bundle includeTags:(NSArray<NSString *> *)includeTags excludeTags:(NSArray<NSString *> *)excludeTags
+- (Cucumberish *)parserFeaturesInDirectory:(NSString *)directory fromBundle:(NSBundle *)bundle includeTags:(NSArray<NSString *> *)includeTags excludeTags:(NSArray<NSString *> *)excludeTags
 {
     NSArray * featureFiles = [bundle URLsForResourcesWithExtension:@".feature" subdirectory:directory];
 
     [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles bundle:bundle withTags:includeTags execludeFeaturesWithTags:excludeTags];
     self.tags = includeTags;
     self.excludedTags = excludeTags;
+    return self;
 }
 
 - (Cucumberish *)parserFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray<NSString *> *)tags excludeTags:(NSArray<NSString *> *)excludedTags
@@ -101,10 +102,17 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 + (void)executeFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray *)tags excludeTags:(NSArray *)excludedTags
 {
-    [[Cucumberish instance] parserFeaturesInDirectory:featuresDirectory
-                                           fromBundle:[NSBundle bundleForClass:[Cucumberish class]]
+    [[[Cucumberish instance] parserFeaturesInDirectory:featuresDirectory
                                           includeTags:tags
-                                          excludeTags:excludedTags];
+                                          excludeTags:excludedTags] beginExecution];
+}
+
++ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory fromBundle:(NSBundle *)bundle includeTags:(NSArray *)tags excludeTags:(NSArray *)excludedTags
+{
+    [[[Cucumberish instance] parserFeaturesInDirectory:featuresDirectory
+                                            fromBundle:bundle
+                                           includeTags:tags
+                                           excludeTags:excludedTags] beginExecution];
 }
 
 - (void)beginExecution
