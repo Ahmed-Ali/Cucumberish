@@ -307,6 +307,19 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
                 for(CCIStep * step in scenario.steps){
                     NSString * placeHolder = [NSString stringWithFormat:@"<%@>", variable];
                     step.text = [step.text stringByReplacingOccurrencesOfString:placeHolder withString:replacement];
+                    if (step.argument.rows) {
+                        NSMutableArray *modifiedRows = [NSMutableArray arrayWithCapacity:step.argument.rows.count];
+                        for (NSArray *row in step.argument.rows) {
+                            NSMutableArray *array = [row mutableCopy];
+                            [row enumerateObjectsUsingBlock:^(NSString *value, NSUInteger idx, BOOL * _Nonnull stop) {
+                                if ([value isEqualToString:placeHolder]){
+                                    array[idx] = replacement;
+                                }
+                            }];
+                            [modifiedRows addObject:array];
+                        }
+                        step.argument.rows = modifiedRows;
+                    }
                 }
             }
             
