@@ -56,6 +56,9 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 @property (nonatomic, strong) NSArray<NSString *> * tags;
 @property (nonatomic, strong) NSArray<NSString *> * excludedTags;
 
+@property (nonatomic, assign) NSInteger scenariosRun;
+@property (nonatomic, assign) NSInteger scenarioCount;
+
 
 @end
 @implementation Cucumberish
@@ -325,6 +328,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
             
             XCTestCase  * testCase = [[klass alloc] initWithInvocation:[Cucumberish invocationForScenario:scenario feature:feature class:klass]];
             [suite addTest:testCase];
+            [Cucumberish instance].scenarioCount++;
         }
         
         
@@ -428,6 +432,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
             }
             XCTestCase  * testCase = [[self alloc] initWithInvocation:[Cucumberish invocationForScenario:scenario feature:feature class:self]];
             [suite addTest:testCase];
+            [Cucumberish instance].scenarioCount++;
         }
         
     }
@@ -437,6 +442,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
         cleanupScenario.name = @"cucumberishCleanupScenario";
         XCTestCase * finalCase = [[self alloc] initWithInvocation:[Cucumberish invocationForScenario:cleanupScenario feature:lastFeature class:self]];
         [suite addTest:finalCase];
+        [Cucumberish instance].scenarioCount++;
     }
     
     return suite;
@@ -479,7 +485,7 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
 {
     
     self.continueAfterFailure = YES;
-    if(feature == [CCIFeaturesManager instance].features.firstObject && scenario == feature.scenarioDefinitions.firstObject && [Cucumberish instance].beforeStartHock){
+    if([Cucumberish instance].scenariosRun == 0 && [Cucumberish instance].beforeStartHock){
         [Cucumberish instance].beforeStartHock();
     }
     [[Cucumberish instance] executeBeforeHocksWithScenario:scenario];
@@ -490,9 +496,10 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
     [[Cucumberish instance] executeAroundHocksWithScenario:scenario executionBlock:^{
        executeSteps(self, scenario.steps, scenario);
     }];
+    [Cucumberish instance].scenariosRun++;
     [[Cucumberish instance] executeAfterHocksWithScenario:scenario];
     
-    if(feature == [CCIFeaturesManager instance].features.lastObject && scenario == feature.scenarioDefinitions.lastObject && [Cucumberish instance].afterFinishHock){
+    if([Cucumberish instance].scenariosRun == [Cucumberish instance].scenarioCount && [Cucumberish instance].afterFinishHock){
         [Cucumberish instance].afterFinishHock();
     }
 }
