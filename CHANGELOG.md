@@ -1,4 +1,10 @@
 #Change Log
+
+### [v1.0.1](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.0.1)
+
+   - Merged PR #22 to fix a bug with the afterAll block execution.
+   - Minor update to the Cucumberish unit test
+
 ### [v1.0.0](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.0.0)
 Given the fact that we have faced only minor issues for a while and the current implementation seems stable and reach enough,  we are happy to release version 1.0 of Cucumberish. Happy testing :)
 
