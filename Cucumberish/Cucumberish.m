@@ -56,6 +56,9 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 @property (nonatomic, strong) NSArray<NSString *> * tags;
 @property (nonatomic, strong) NSArray<NSString *> * excludedTags;
 
+@property (nonatomic, assign) NSInteger scenariosRun;
+@property (nonatomic, assign) NSInteger scenarioCount;
+
 
 @end
 @implementation Cucumberish
@@ -81,13 +84,14 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 }
 
 
-- (void)parserFeaturesInDirectory:(NSString *)directory fromBundle:(NSBundle *)bundle includeTags:(NSArray<NSString *> *)includeTags excludeTags:(NSArray<NSString *> *)excludeTags
+- (Cucumberish *)parserFeaturesInDirectory:(NSString *)directory fromBundle:(NSBundle *)bundle includeTags:(NSArray<NSString *> *)includeTags excludeTags:(NSArray<NSString *> *)excludeTags
 {
     NSArray * featureFiles = [bundle URLsForResourcesWithExtension:@".feature" subdirectory:directory];
 
     [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles bundle:bundle withTags:includeTags execludeFeaturesWithTags:excludeTags];
     self.tags = includeTags;
     self.excludedTags = excludeTags;
+    return self;
 }
 
 - (Cucumberish *)parserFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray<NSString *> *)tags excludeTags:(NSArray<NSString *> *)excludedTags
@@ -101,10 +105,17 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 + (void)executeFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray *)tags excludeTags:(NSArray *)excludedTags
 {
-    [[Cucumberish instance] parserFeaturesInDirectory:featuresDirectory
-                                           fromBundle:[NSBundle bundleForClass:[Cucumberish class]]
+    [[[Cucumberish instance] parserFeaturesInDirectory:featuresDirectory
                                           includeTags:tags
-                                          excludeTags:excludedTags];
+                                          excludeTags:excludedTags] beginExecution];
+}
+
++ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory fromBundle:(NSBundle *)bundle includeTags:(NSArray *)tags excludeTags:(NSArray *)excludedTags
+{
+    [[[Cucumberish instance] parserFeaturesInDirectory:featuresDirectory
+                                            fromBundle:bundle
+                                           includeTags:tags
+                                           excludeTags:excludedTags] beginExecution];
 }
 
 - (void)beginExecution
@@ -317,6 +328,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
             
             XCTestCase  * testCase = [[klass alloc] initWithInvocation:[Cucumberish invocationForScenario:scenario feature:feature class:klass]];
             [suite addTest:testCase];
+            [Cucumberish instance].scenarioCount++;
         }
         
         
@@ -420,6 +432,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
             }
             XCTestCase  * testCase = [[self alloc] initWithInvocation:[Cucumberish invocationForScenario:scenario feature:feature class:self]];
             [suite addTest:testCase];
+            [Cucumberish instance].scenarioCount++;
         }
         
     }
@@ -429,6 +442,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
         cleanupScenario.name = @"cucumberishCleanupScenario";
         XCTestCase * finalCase = [[self alloc] initWithInvocation:[Cucumberish invocationForScenario:cleanupScenario feature:lastFeature class:self]];
         [suite addTest:finalCase];
+        [Cucumberish instance].scenarioCount++;
     }
     
     return suite;
@@ -471,7 +485,7 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
 {
     
     self.continueAfterFailure = YES;
-    if(feature == [CCIFeaturesManager instance].features.firstObject && scenario == feature.scenarioDefinitions.firstObject && [Cucumberish instance].beforeStartHock){
+    if([Cucumberish instance].scenariosRun == 0 && [Cucumberish instance].beforeStartHock){
         [Cucumberish instance].beforeStartHock();
     }
     [[Cucumberish instance] executeBeforeHocksWithScenario:scenario];
@@ -482,9 +496,10 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
     [[Cucumberish instance] executeAroundHocksWithScenario:scenario executionBlock:^{
        executeSteps(self, scenario.steps, scenario);
     }];
+    [Cucumberish instance].scenariosRun++;
     [[Cucumberish instance] executeAfterHocksWithScenario:scenario];
     
-    if(feature == [CCIFeaturesManager instance].features.lastObject && scenario == feature.scenarioDefinitions.lastObject && [Cucumberish instance].afterFinishHock){
+    if([Cucumberish instance].scenariosRun == [Cucumberish instance].scenarioCount && [Cucumberish instance].afterFinishHock){
         [Cucumberish instance].afterFinishHock();
     }
 }
@@ -502,7 +517,7 @@ void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
     for (CCIStep * step in steps) {
         
         @try {
-            [[CCIStepsManager instance] executeStep:step];
+            [[CCIStepsManager instance] executeStep:step inTestCase:testCase];
         }
         @catch (CCIExeption *exception) {
             NSString * filePath = [NSString stringWithFormat:@"%@/%@%@", srcRoot, targetName, step.location.filePath];

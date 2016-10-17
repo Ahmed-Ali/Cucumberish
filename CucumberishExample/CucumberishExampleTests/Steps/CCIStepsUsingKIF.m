@@ -98,8 +98,9 @@
         [actor clearTextFromViewWithAccessibilityLabel:args[0]];
     });
     MatchAll(@"^I clear (?:the )?text and write \"([^\\\"]*)\" (?:into|in) (?:the )?\"([^\\\"]*)\" field$"  ,  ^void(NSArray *args, id userInfo) {
-        step(@"I clear the \"%@\" field", args[1]);
-        step(@"I write \"%@\" into the \"%@\" field", args[0], args[1]);
+        
+        step(userInfo[kXCTestCaseKey], @"I clear the \"%@\" field", args[1]);
+        step(userInfo[kXCTestCaseKey], @"I write \"%@\" into the \"%@\" field", args[0], args[1]);
     });
     MatchAll(@"^I write \"([^\\\"]*)\" (?:into|in) (?:the )?active text field$" ,  ^void(NSArray *args, id userInfo) {
         [actor enterTextIntoCurrentFirstResponder:args[0]];

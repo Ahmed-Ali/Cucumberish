@@ -9,12 +9,16 @@
 #import <Foundation/Foundation.h>
 @class CCIScenarioDefinition;
 
+extern const NSString * kDataTableKey;
+extern const NSString * kDocStringKey;
+extern const NSString * kXCTestCaseKey;
+
 #pragma mark - Block types
 /**
  You pass this block when ever you define an implementation for a step.
  
  @param args strings array which corresponds to your regular express capturing groups.
- @param userInfo is a dictionary that currently can only have one of two keys "DataTable" and "DocString". If your step definition is expected to match a data table or a doc string, then you can expect this user info to contain DataTable or DocString key respectively.
+ @param userInfo is a dictionary that currently can have one of two keys kDataTableKey or kDocStringKey. If your step definition is expected to match a data table or a doc string, then you can expect this user info dictionary to contain kDataTableKey or kDocStringKey key respectively. Moreover, it will contain the key kXCTestCaseKey which will hold reference to the XCTestCase that currently executing this step. The value of kXCTestCaseKey will be nil if the step is being executed by a call of "step" or "SStep" C functions and you did not pass a reference to the XCTestCase.
  */
 typedef void(^CCIStepBody)(NSArray <NSString *>* args, NSDictionary * userInfo);
 
@@ -222,15 +226,18 @@ OBJC_EXTERN void Match(NSArray *prepositions, NSString * definitionString, CCISt
  step(@"I should see \"%@\" in the \"%@\" label", args[0], args[1]);
  });
  @endcode
- 
+
+ @param testCase the test case that will execute this step. Can be nil.
  @param stepLine the step line string to be executed
  */
-OBJC_EXPORT void step(NSString * stepLine, ...);
+OBJC_EXPORT void step(id testCase, NSString * stepLine, ...);
 
 /**
  Swift alias for step(stepLine) function.
+ @param testCase the test case that will execute this step. Can be nil.
+ @param stepLine the step line string to be executed
  */
-OBJC_EXTERN void SStep(NSString * stepLine);
+OBJC_EXTERN void SStep(id testCase, NSString * stepLine);
 
 
 #pragma mark - Hocks
