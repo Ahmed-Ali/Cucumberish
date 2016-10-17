@@ -118,8 +118,10 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
             NSMutableArray * values = [NSMutableArray arrayWithCapacity:match.numberOfRanges - 1];
             for(int i = 1; i < match.numberOfRanges; i++){
                 NSRange range = [match rangeAtIndex:i];
-                NSString * value = [step.text substringWithRange:range];
-                [values addObject:value];
+                if (range.location != NSNotFound) {
+                    NSString * value = [step.text substringWithRange:range];
+                    [values addObject:value];
+                }
             }
             
             definition.matchedValues = values;
