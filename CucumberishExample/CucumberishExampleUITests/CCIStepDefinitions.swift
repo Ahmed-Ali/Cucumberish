@@ -67,15 +67,17 @@ class CCIStepDefinitions: NSObject {
         MatchAll("^I clear (?:the )?\"([^\\\"]*)\" (field|text view)$") { (args, userInfo) -> Void in
             let type = args?[1]
             let label = args?[0]
-            SStep("I write \"\" into the \"\(label)\" \(type)$");
+            let testCase = userInfo?[kXCTestCaseKey] as? XCTestCase
+            SStep(testCase, "I write \"\" into the \"\(label)\" \(type)$");
             
         }
         MatchAll("^I clear (?:the )?text and write \"([^\\\"]*)\" (?:into|in) (?:the )?\"([^\\\"]*)\" (field|text view)$") { (args, userInfo) -> Void in
             let type = args?[2]
             let label = args?[1]
             let string = args?[0]
-            SStep("I clear the \"\(label)\" \(type)")
-            SStep("I write \"\(string)\" into the \"\(label)\" \(type)");
+            let testCase = userInfo?[kXCTestCaseKey] as? XCTestCase
+            SStep(testCase, "I clear the \"\(label)\" \(type)")
+            SStep(testCase, "I write \"\(string)\" into the \"\(label)\" \(type)");
         }
        
         MatchAll("^I should see \"(.*)\" in (?:the )?\"(.*)\" (view|field|label|button|text view)$") { (args, userInfo) -> Void in

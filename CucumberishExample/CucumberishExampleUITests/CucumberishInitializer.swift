@@ -21,7 +21,8 @@ class CucumberishInitializer: NSObject {
         }
         
         And("all data cleared") { (args, userInfo) -> Void in
-            SStep("I tap the \"Clear All Data\" button")
+            let testCase = userInfo?[kXCTestCaseKey] as? XCTestCase
+            SStep(testCase, "I tap the \"Clear All Data\" button")
         }
 
     

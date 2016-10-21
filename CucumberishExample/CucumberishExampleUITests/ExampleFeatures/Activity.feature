@@ -15,7 +15,7 @@ Scenario: Add an activity
     Then I should see "First Ended Activity (5)" at row 0 section 1 in "Activities List" table
 
 Scenario: Preparing for multible adding
-    Given the app is runningn
+    Given the app is running
     And all data cleared
 
 Scenario Outline: Adding activities

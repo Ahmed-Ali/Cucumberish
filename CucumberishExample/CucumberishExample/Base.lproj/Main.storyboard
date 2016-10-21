@@ -96,7 +96,7 @@
                     <navigationItem key="navigationItem" id="ZLi-dB-Ubw">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="UCt-xR-ZYt">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9dR-61-dyN">
-                                <rect key="frame" x="211" y="7" width="93" height="30"/>
+                                <rect key="frame" x="266" y="7" width="93" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Clear All Data"/>
                                 <connections>
@@ -136,7 +136,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="0sp-pb-6Fs"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your full name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xQ6-6o-djq">
                                                 <accessibility key="accessibilityConfiguration" label="Name"/>
@@ -144,7 +144,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="oBG-b7-stS"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0gM-cn-yOW">
                                                 <subviews>
@@ -241,7 +241,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Activity Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mdw-W4-Sm8">
                                         <accessibility key="accessibilityConfiguration" label="Activity Name"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                         <connections>
                                             <action selector="nameDidChange:" destination="EK9-mg-BxS" eventType="editingDidEnd" id="mni-Rl-CXS"/>
                                         </connections>
@@ -406,7 +406,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q2v-Nk-Gkv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="755" y="462"/>
+            <point key="canvasLocation" x="391" y="476"/>
         </scene>
     </scenes>
 </document>
