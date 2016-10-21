@@ -98,7 +98,7 @@ You can install Cucumberish with the following steps in no more than few minutes
             }
             ```
 		4. Create a bridge file name it (just an example) bridging-header.h and save it in the folder of that test target.
-        5. Open the target Build Settings and set the of "Objective-C Bridging Header" to be ${SRCROOT}/${TARGET_NAME}/bridging-header.h
+        5. Open the target Build Settings and set the value of "Objective-C Bridging Header" to be ${SRCROOT}/${TARGET_NAME}/bridging-header.h
         6. In the bridge header file that Xcode created for you in the first step above, add the following import:
             ```Objective-C
             #import "Cucumberish.h"
