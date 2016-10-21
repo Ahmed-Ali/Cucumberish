@@ -75,7 +75,8 @@ You can install Cucumberish with the following steps in no more than few minutes
                     //Another step definition
                     And("all data cleared") { (args, userInfo) -> Void in
                         //Assume you defined an "I tap on \"(.*)\" button" step previousely, you can call it from your code as well.
-                        SStep("I tap the \"Clear All Data\" button")
+                        let testCase = userInfo?[kXCTestCaseKey] as? XCTestCase
+                        SStep(testCase, "I tap the \"Clear All Data\" button")
                     }
                     //Tell Cucumberish the name of your features folder and let it execute them for you...
                     Cucumberish.executeFeaturesInDirectory("ExampleFeatures", includeTags: nil, excludeTags: nil)
@@ -83,7 +84,8 @@ You can install Cucumberish with the following steps in no more than few minutes
             }
             ```
         
-        2. Create a new Objective-C .m in the test target, when you do this Xcode will prompt you about creating a bridge file: confirm the creation of this file.
+        2. Create a new Objective-C .m file
+        
         3. Replace the contents of this file with the following:
             
             ```Objective-C
@@ -95,8 +97,9 @@ You can install Cucumberish with the following steps in no more than few minutes
                 [CucumberishInitializer CucumberishSwiftInit];
             }
             ```
-
-        4. In the bridge header file that Xcode created for you in the first step above, add the following import:
+		4. Create a bridge file name it (just an example) bridging-header.h and save it in the folder of that test target.
+        5. Open the target Build Settings and set the of "Objective-C Bridging Header" to be ${SRCROOT}/${TARGET_NAME}/bridging-header.h
+        6. In the bridge header file that Xcode created for you in the first step above, add the following import:
             ```Objective-C
             #import "Cucumberish.h"
             ```
