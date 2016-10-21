@@ -10,6 +10,14 @@
 #import "CCIFeaturesManager.h"
 #import "CCIFeature.h"
 #import "CucumberFeatureSteps.h"
+@interface ClassThatLocatedInTheRootTestTargetFolder : NSObject
+
+@end
+
+@implementation ClassThatLocatedInTheRootTestTargetFolder
+
+
+@end
 
 //#import <Cucumberish/Cucumberish.h> if installed using cocoapods
 __attribute__((constructor))
@@ -19,5 +27,6 @@ void CucumberishInit()
     //Optional step, see the comment on this property for more information
     [Cucumberish instance].fixMissingLastScenario = NO;
     //Tell Cucumberish the name of your features folder and let it execute them for you...
-    [[[Cucumberish instance] parserFeaturesInDirectory:@"Features" includeTags:nil excludeTags:nil] beginExecution];
+    NSBundle * bundle = [NSBundle bundleForClass:[ClassThatLocatedInTheRootTestTargetFolder class]];
+    [Cucumberish executeFeaturesInDirectory:@"Features" fromBundle:bundle includeTags:nil excludeTags:nil];
 }

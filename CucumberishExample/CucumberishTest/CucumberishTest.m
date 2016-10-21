@@ -127,15 +127,12 @@
 __attribute__((constructor))
 void CucumberishInit()
 {
-    
-    
-    
     [CucumberishTester prepare];
     
     //Optional step, see the comment on this property for more information
     [Cucumberish instance].fixMissingLastScenario = YES;
     //Tell Cucumberish the name of your features folder and let it execute them for you...
-    [[Cucumberish instance] parserFeaturesInDirectory:@"Features" includeTags:nil excludeTags:nil];
-    [[Cucumberish instance] beginExecution];
+    NSBundle * bundle = [NSBundle bundleForClass:[Cucumberish class]];
+    [Cucumberish executeFeaturesInDirectory:@"Features" fromBundle:bundle includeTags:nil excludeTags:nil];
 }
 

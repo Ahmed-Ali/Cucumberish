@@ -25,8 +25,8 @@ class CucumberishInitializer: NSObject {
             SStep(testCase, "I tap the \"Clear All Data\" button")
         }
 
-    
-        Cucumberish.executeFeatures(inDirectory: "ExampleFeatures", includeTags: nil, excludeTags: nil)
+        let bundle = Bundle(for: CucumberishInitializer.self)
+        Cucumberish.executeFeatures(inDirectory: "ExampleFeatures", from: bundle, includeTags: nil, excludeTags: nil)
         
     }
 }
