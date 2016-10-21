@@ -18,7 +18,7 @@ It is inspired by the amazing way of writing automated test cases introduced ori
 
 ![Cucumberish In Action](https://cloud.githubusercontent.com/assets/5157350/12704873/cf0a6dfe-c864-11e5-8a3b-8a3682d8e880.gif)
 
-# Installation
+# Installation (Manual)
 You can install Cucumberish with the following steps in no more than few minutes.
 
 1. Copy the contents of the Cucumberish folder into your test target folder and add it to your test target. When prompted check the "Copy items if needed" and chose "Create groups".
@@ -27,11 +27,29 @@ You can install Cucumberish with the following steps in no more than few minutes
     ```
     SRC_ROOT=@\"$(SRCROOT)\"
     ```
+    
+    
+# Installation (with CocoaPods)
 
-3. Go to your test target folder and create a subfolder. Let's call it **Features**.
-4. Add this folder to your test target in Xcode as a Folder, **not** a group! This is a very important step.
+[CocoaPods](http://cocoapods.org) makes it super easy to install Cucumberish.
+
+Add the following to your Podfile
+
+```Ruby
+
+
+target 'YourAppTestTarget' do
+  pod 'Cucumberish'
+end
+```
+
+
+# Post Installation Steps
+
+1. Go to your test target folder and create a subfolder. Let's call it **Features**.
+2. Add this folder to your test target in Xcode as a Folder, **not** a group! This is a very important step.
 ![Features Folder as Folder not a Group](https://cloud.githubusercontent.com/assets/5157350/12533357/f7a94448-c22d-11e5-904a-1c353a76d604.png)
-5. Inside this folder, you will create the .feature files which will contain your test's features and scenarios.
+3. Inside this folder, you will create the .feature files which will contain your test's features and scenarios.
     - ##### For Objective-C test targets:
         - When you create a test target, Xcode creates a test case file for you. Open this file and replace its content with the following:
         
@@ -51,7 +69,10 @@ You can install Cucumberish with the following steps in no more than few minutes
                 //Optional step, see the comment on this property for more information
                 [Cucumberish instance].fixMissingLastScenario = YES;
                 //Tell Cucumberish the name of your features folder and let it execute them for you...
-                [[[Cucumberish instance] parserFeaturesInDirectory:@"Features" includeTags:nil excludeTags:nil] beginExecution];
+                //The ClassThatLocatedInTheRootTestTargetFolder could be any class that exist side by side with your Features folder.
+                NSBundle * bundle = [NSBundle bundleForClass:[ClassThatLocatedInTheRootTestTargetFolder class]];
+		
+                [Cucumberish executeFeaturesInDirectory:@"Features" fromBundle:bundle includeTags:nil excludeTags:nil];
             }
             ```
         
@@ -79,7 +100,8 @@ You can install Cucumberish with the following steps in no more than few minutes
                         SStep(testCase, "I tap the \"Clear All Data\" button")
                     }
                     //Tell Cucumberish the name of your features folder and let it execute them for you...
-                    Cucumberish.executeFeaturesInDirectory("ExampleFeatures", includeTags: nil, excludeTags: nil)
+                    let bundle = Bundle(for: CucumberishInitializer.self)
+                    Cucumberish.executeFeatures(inDirectory: "Features", from: bundle, includeTags: nil, excludeTags: nil)
                 }
             }
             ```
