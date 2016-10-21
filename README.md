@@ -27,6 +27,8 @@ You can install Cucumberish with the following steps in no more than few minutes
     ```
     SRC_ROOT=@\"$(SRCROOT)\"
     ```
+    
+    
 # Installation (with CocoaPods)
 
 [CocoaPods](http://cocoapods.org) makes it super easy to install Cucumberish.
@@ -40,6 +42,7 @@ target 'YourAppTestTarget' do
   pod 'Cucumberish'
 end
 ```
+
 
 # Post Installation Steps
 
@@ -68,7 +71,8 @@ end
                 //Tell Cucumberish the name of your features folder and let it execute them for you...
                 //The ClassThatLocatedInTheRootTestTargetFolder could be any class that exist side by side with your Features folder.
                 NSBundle * bundle = [NSBundle bundleForClass:[ClassThatLocatedInTheRootTestTargetFolder class]];
-    [Cucumberish executeFeaturesInDirectory:@"Features" fromBundle:bundle includeTags:nil excludeTags:nil];
+		
+                [Cucumberish executeFeaturesInDirectory:@"Features" fromBundle:bundle includeTags:nil excludeTags:nil];
             }
             ```
         
@@ -97,7 +101,7 @@ end
                     }
                     //Tell Cucumberish the name of your features folder and let it execute them for you...
                     let bundle = Bundle(for: CucumberishInitializer.self)
-        Cucumberish.executeFeatures(inDirectory: "Features", from: bundle, includeTags: nil, excludeTags: nil)
+                    Cucumberish.executeFeatures(inDirectory: "Features", from: bundle, includeTags: nil, excludeTags: nil)
                 }
             }
             ```
