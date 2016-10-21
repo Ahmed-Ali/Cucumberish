@@ -1551,12 +1551,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6075A5341C4FB20900FE2B1B /* Build configuration list for PBXNativeTarget "CucumberishExampleTests" */;
 			buildPhases = (
-				DC1811A5B9ECCB01238F7A9E /* Check Pods Manifest.lock */,
+				DC1811A5B9ECCB01238F7A9E /* [CP] Check Pods Manifest.lock */,
 				6075A5271C4FB20900FE2B1B /* Sources */,
 				6075A5281C4FB20900FE2B1B /* Frameworks */,
 				6075A5291C4FB20900FE2B1B /* Resources */,
-				C68B702C9845387B810C99EE /* Embed Pods Frameworks */,
-				31AE9B6165C41A9CE65C2B39 /* Copy Pods Resources */,
+				C68B702C9845387B810C99EE /* [CP] Embed Pods Frameworks */,
+				31AE9B6165C41A9CE65C2B39 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1623,11 +1623,6 @@
 					};
 					60853A781C4ED7BD00806CD9 = {
 						CreatedOnToolsVersion = 7.2;
-					};
-					608618A01C53515A00AE8786 = {
-						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0800;
-						TestTargetID = 60853A781C4ED7BD00806CD9;
 					};
 					8DAD56C91D47AC140028FB76 = {
 						CreatedOnToolsVersion = 7.2;
@@ -1700,14 +1695,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		31AE9B6165C41A9CE65C2B39 /* Copy Pods Resources */ = {
+		31AE9B6165C41A9CE65C2B39 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1715,14 +1710,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CucumberishExampleTests/Pods-CucumberishExampleTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C68B702C9845387B810C99EE /* Embed Pods Frameworks */ = {
+		C68B702C9845387B810C99EE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1730,14 +1725,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CucumberishExampleTests/Pods-CucumberishExampleTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DC1811A5B9ECCB01238F7A9E /* Check Pods Manifest.lock */ = {
+		DC1811A5B9ECCB01238F7A9E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2136,42 +2131,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ahmed.ali.CucumberishExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		608618A91C53515A00AE8786 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-					"SRC_ROOT=@\\\"$(SRCROOT)\\\"",
-				);
-				INFOPLIST_FILE = CucumberishExampleUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ahmed.ali.CucumberishExampleUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "CucumberishExampleUITests/CucumberishExampleUITests-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = CucumberishExample;
-				USES_XCTRUNNER = YES;
-			};
-			name = Debug;
-		};
-		608618AA1C53515A00AE8786 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				INFOPLIST_FILE = CucumberishExampleUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ahmed.ali.CucumberishExampleUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "CucumberishExampleUITests/CucumberishExampleUITests-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = CucumberishExample;
-				USES_XCTRUNNER = YES;
 			};
 			name = Release;
 		};
