@@ -8,15 +8,11 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>0</integer>
 		</dict>
 		<key>Pods-CucumberishExampleTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -26,7 +22,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E6A35C1FB654B016172F596D03D80C64</key>
+		<key>F152B2C24C15B7EA2F1A79189489FDEF</key>
 		<dict>
 			<key>primary</key>
 			<true/>

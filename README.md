@@ -18,7 +18,7 @@ It is inspired by the amazing way of writing automated test cases introduced ori
 
 ![Cucumberish In Action](https://cloud.githubusercontent.com/assets/5157350/12704873/cf0a6dfe-c864-11e5-8a3b-8a3682d8e880.gif)
 
-# Installation
+# Installation (Manual)
 You can install Cucumberish with the following steps in no more than few minutes.
 
 1. Copy the contents of the Cucumberish folder into your test target folder and add it to your test target. When prompted check the "Copy items if needed" and chose "Create groups".
@@ -27,11 +27,29 @@ You can install Cucumberish with the following steps in no more than few minutes
     ```
     SRC_ROOT=@\"$(SRCROOT)\"
     ```
+    
+    
+# Installation (with CocoaPods)
 
-3. Go to your test target folder and create a subfolder. Let's call it **Features**.
-4. Add this folder to your test target in Xcode as a Folder, **not** a group! This is a very important step.
+[CocoaPods](http://cocoapods.org) makes it super easy to install Cucumberish.
+
+Add the following to your Podfile
+
+```Ruby
+
+
+target 'YourAppTestTarget' do
+  pod 'Cucumberish'
+end
+```
+
+
+# Post Installation Steps
+
+1. Go to your test target folder and create a subfolder. Let's call it **Features**.
+2. Add this folder to your test target in Xcode as a Folder, **not** a group! This is a very important step.
 ![Features Folder as Folder not a Group](https://cloud.githubusercontent.com/assets/5157350/12533357/f7a94448-c22d-11e5-904a-1c353a76d604.png)
-5. Inside this folder, you will create the .feature files which will contain your test's features and scenarios.
+3. Inside this folder, you will create the .feature files which will contain your test's features and scenarios.
     - ##### For Objective-C test targets:
         - When you create a test target, Xcode creates a test case file for you. Open this file and replace its content with the following:
         
@@ -51,7 +69,10 @@ You can install Cucumberish with the following steps in no more than few minutes
                 //Optional step, see the comment on this property for more information
                 [Cucumberish instance].fixMissingLastScenario = YES;
                 //Tell Cucumberish the name of your features folder and let it execute them for you...
-                [[[Cucumberish instance] parserFeaturesInDirectory:@"Features" includeTags:nil excludeTags:nil] beginExecution];
+                //The ClassThatLocatedInTheRootTestTargetFolder could be any class that exist side by side with your Features folder.
+                NSBundle * bundle = [NSBundle bundleForClass:[ClassThatLocatedInTheRootTestTargetFolder class]];
+		
+                [Cucumberish executeFeaturesInDirectory:@"Features" fromBundle:bundle includeTags:nil excludeTags:nil];
             }
             ```
         
@@ -75,15 +96,18 @@ You can install Cucumberish with the following steps in no more than few minutes
                     //Another step definition
                     And("all data cleared") { (args, userInfo) -> Void in
                         //Assume you defined an "I tap on \"(.*)\" button" step previousely, you can call it from your code as well.
-                        SStep("I tap the \"Clear All Data\" button")
+                        let testCase = userInfo?[kXCTestCaseKey] as? XCTestCase
+                        SStep(testCase, "I tap the \"Clear All Data\" button")
                     }
                     //Tell Cucumberish the name of your features folder and let it execute them for you...
-                    Cucumberish.executeFeaturesInDirectory("ExampleFeatures", includeTags: nil, excludeTags: nil)
+                    let bundle = Bundle(for: CucumberishInitializer.self)
+                    Cucumberish.executeFeatures(inDirectory: "Features", from: bundle, includeTags: nil, excludeTags: nil)
                 }
             }
             ```
         
-        2. Create a new Objective-C .m in the test target, when you do this Xcode will prompt you about creating a bridge file: confirm the creation of this file.
+        2. Create a new Objective-C .m file
+        
         3. Replace the contents of this file with the following:
             
             ```Objective-C
@@ -95,14 +119,16 @@ You can install Cucumberish with the following steps in no more than few minutes
                 [CucumberishInitializer CucumberishSwiftInit];
             }
             ```
-
-        4. In the bridge header file that Xcode created for you in the first step above, add the following import:
+		4. Create a bridge file name it (just an example) bridging-header.h and save it in the folder of that test target.
+        5. Open the target Build Settings and set the value of "Objective-C Bridging Header" to be ${SRCROOT}/${TARGET_NAME}/bridging-header.h
+        6. In the bridge header file that Xcode created for you in the first step above, add the following import:
             ```Objective-C
+	    
             #import "Cucumberish.h"
             ```
 6. Only in case the name of folder that contains your test target files is different than the test target name, set the value of the Cucumberish property testTargetFolderName to the correct folder name.
 
-And that's! You are ready to get started!
+And that's it! You are ready to get started!
 
 # Getting started
 Now you have Cucumberish in place and you followed all the installation and post-installation instructions; it is time to write your first simple feature and scenario in just a few more steps!
@@ -168,7 +194,8 @@ Beside all the information you can find on the [wiki](https://github.com/Ahmed-A
 In the `CucumberishExample` project there are three targets:
 
 1. Example app target:
-    - It's a very small app with a few screens and an easy to understand flow and implementation. On the Storyboards most of the UI components have accessibility labels. You can view the accessibility labels inside the Storyboard directly or in the iOS Simulator using the Accessibility Inspector (click the Home button, open Settings and go to General > Accessibility).
+    - It's a very small app with a few screens and an easy to understand flow and implementation. It requires Xcode 8 to run. On the Storyboards most of the UI components have accessibility labels.
+    - In case the test target that uses KIF failes to find the UI elements, you need to open the accessibility inspector from Xcode menu > Developer Tools
     
 2. Unit test target:
     - This target uses [KIF](https://github.com/kif-framework/KIF) to interact with the UI in the steps implementation.

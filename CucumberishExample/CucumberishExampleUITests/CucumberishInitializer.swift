@@ -21,11 +21,12 @@ class CucumberishInitializer: NSObject {
         }
         
         And("all data cleared") { (args, userInfo) -> Void in
-            SStep("I tap the \"Clear All Data\" button")
+            let testCase = userInfo?[kXCTestCaseKey] as? XCTestCase
+            SStep(testCase, "I tap the \"Clear All Data\" button")
         }
 
-    
-        Cucumberish.executeFeatures(inDirectory: "ExampleFeatures", includeTags: nil, excludeTags: nil)
+        let bundle = Bundle(for: CucumberishInitializer.self)
+        Cucumberish.executeFeatures(inDirectory: "ExampleFeatures", from: bundle, includeTags: nil, excludeTags: nil)
         
     }
 }

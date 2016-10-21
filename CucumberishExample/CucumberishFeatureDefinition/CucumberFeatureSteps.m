@@ -16,6 +16,7 @@
 @interface CucumberFeatureSteps()
 
 @property (nonatomic,strong) NSMutableDictionary* savedValues;
+@property (nonatomic,strong) NSMutableArray* savedAStepValues;
 
 @end
 
@@ -28,6 +29,7 @@
     if (self) {
         [self setup];
         _savedValues = [NSMutableDictionary dictionary];
+        _savedAStepValues = [NSMutableArray array];
     }
     return self;
 }
@@ -59,7 +61,7 @@
     });
 
     Then(@"I see the following statements have been executed", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
-        CCIAssert([CCIFeaturesManager instance].features.count == 2, @"Expected only one feature file");
+        CCIAssert([CCIFeaturesManager instance].features.count > 0, @"Expected at least one feature file");
         CCIFeature *feature = [CCIFeaturesManager instance].features[0];
         CCIAssert(feature.scenarioDefinitions.count == 2, @"Expected two scenarios, one for background one for the actual scenario");
         
@@ -106,7 +108,37 @@
         if (self.savedValues[args[0]]) {
             CCIAssert([self.savedValues[args[0]] isEqualToString:args[1]] != NO, @"Expected %@ to equal %@, got %@",args[0],args[1],self.savedValues[args[0]]);
         }
-    });}
+    });
+    
+    Match(@[@"Given",@"And"],@"a step(?: has an optional match \"([a-z]+)\")?", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+        if (args.count == 0) {
+            [self.savedAStepValues addObject:[NSNull null]];
+        } else {
+            [self.savedAStepValues addObject:args[0]];
+        }
+    });
+
+    Match(@[@"Then",@"And"],@"the step \"a step\" had no match for the optional parameter", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+        __block BOOL found = NO;
+        for (id obj in self.savedAStepValues) {
+            if ([obj isKindOfClass:[NSNull class]]) {
+                found = YES;
+            }
+        }
+        CCIAssert(found, @"Expected to find a NSNull, found @%",self.savedAStepValues);
+    });
+
+    Match(@[@"Then",@"And"],@"the step \"a step\" had \"([a-z]+) matched for the optional parameter", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+        __block BOOL found = NO;
+        for (id obj in self.savedAStepValues) {
+            if ([obj isKindOfClass:[NSString class]] && [obj isEqualToString:args[0]]) {
+                found = YES;
+            }
+        }
+        CCIAssert(found, @"Expected to find a %@, found @%",args[0],self.savedAStepValues);
+    });
+
+}
 
 -(BOOL)checkStep:(CCIStep*)step forKeyword:(NSString*)keyword
 {

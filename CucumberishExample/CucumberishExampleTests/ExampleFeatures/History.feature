@@ -32,9 +32,9 @@ Scenario: Create profile and see the action in history
     Then I tap "History" button
 
 #Confirm the four history item exist and has the right value
-    Then I should see 4 rows at section 0 in "History" table
-    And I should see "Profile Created" at row 0 section 0 in "History" table
-    And I should see "Profile Updated" at row 1 section 0 in "History" table
-    And I should see "Added a current activity" at row 2 section 0 in "History" table
-    And I should see "Deleted a current activity" at row 3 section 0 in "History" table
+    Then I should see 4 rows at section 0 in "History List" table
+    And I should see "Profile Created" at row 0 section 0 in "History List" table
+    And I should see "Profile Updated" at row 1 section 0 in "History List" table
+    And I should see "Added a current activity" at row 2 section 0 in "History List" table
+    And I should see "Deleted a current activity" at row 3 section 0 in "History List" table
     

@@ -30,6 +30,15 @@
 #import "CCIStepsUsingKIF.h"
 #import "KIFUITestActor+Utils.h"
 
+@interface ClassThatLocatedInTheRootTestTargetFolder : NSObject
+
+@end
+
+@implementation ClassThatLocatedInTheRootTestTargetFolder
+
+
+@end
+
 __attribute__((constructor))
 void CucumberishInit()
 {
@@ -48,6 +57,6 @@ void CucumberishInit()
     
     [[Cucumberish instance] setPrettyNamesAllowed:YES];
     [Cucumberish instance].fixMissingLastScenario = YES;
-    
-    [[[Cucumberish instance] parserFeaturesInDirectory:@"ExampleFeatures" includeTags:nil excludeTags:nil] beginExecution];
+    NSBundle * bundle = [NSBundle bundleForClass:[ClassThatLocatedInTheRootTestTargetFolder class]];
+    [Cucumberish executeFeaturesInDirectory:@"ExampleFeatures" fromBundle:bundle includeTags:nil excludeTags:nil];
 }
