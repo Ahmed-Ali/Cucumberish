@@ -49,8 +49,9 @@
  @Note tags should not be prefixed with @@ symbole
  
  @param featureFiles array of NSURL that presents the feature file paths
- @param tags array of strings to filter which the features that will be parsed to be executed, if nil then all feature files will be parsed.
- @param tags array of string to filter which features should not be executed.
+ @param bundle array of strings to filter which the features that will be parsed to be executed, if nil then all feature files will be parsed.
+ @param tags specifity the tags that will be used to select which features to execute
+ @param execludedFeatures array of string to filter which features should not be executed.
  
  @Note tags in featureTags parameter should not exist in the execludedTags parameter as it doesn't make any sense.
  */
@@ -59,14 +60,14 @@
 /**
  Associates the passed class with the passed feature instance for later usage.
  It is mainly used to eliminate the need create a class for a feature multiple times.
- @param class
- @param feature
+ @param klass used to specify the class for the passed feature.
+ @param feature the feature to associate with the passed class
  */
 - (void)setClass:(Class)klass forFeature:(CCIFeature *)feature;
 
 /**
  Returns the passed class that is associated with the passed feature.
- @param class
+ @param klass to fetch its features
  */
 - (CCIFeature *)getFeatureForClass:(Class)klass;
 @end

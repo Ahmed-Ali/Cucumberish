@@ -162,7 +162,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
  Executes all the hocks that matches tags with the passed scenario.
  Hocks may optionally be tagged, if an hock is tagged, then it will only be executed if the scenario has a matching tag.
  
- @param array of CCIHock to be executed
+ @param hocks array of CCIHock to be executed
  @param scenario the scenario that will be passed to each matching hocks.
  */
  

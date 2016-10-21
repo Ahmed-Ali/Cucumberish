@@ -95,8 +95,8 @@
  Parses any .feature file that is located inside the passed folder name and map it to a test case if the feature inside the file has one or more tags of the passed tags (if any) and it doesn't have a tag from the excluded tags parameter
  
  @param directory a path to your featuresDirectory relative to your test target main folder.
- @param includeTags array of strings to filter which features that will be parsed to be executed, if nil then all feature files will be parsed.
- @param excludeTags array of string to filter which features should not be executed.
+ @param tags array of strings to filter which features that will be parsed to be executed, if nil then all feature files will be parsed.
+ @param excludedTags array of string to filter which features should not be executed.
  
  @note The feature directory has to be a real physical folder. Also when adding this folder to your test target, and get the prompt on how you would like to add it from Xcode, choose "Create Folder Reference" and @b NOT to Create Groups.
  @note If you followed the manual installation steps of Cucumberish, then make sure the features folder is the root folder of your project. Otherwise, it is better to use the parserFeaturesInDirectory:fromBundle:includeTags:excludeTags: method to specify the runtime bundle that will include the features folder.
@@ -107,9 +107,12 @@
  
  @return the singleton instance of Cucumberish so you can call beginExecution immediately if you want.
  */
-- (Cucumberish *)parserFeaturesInDirectory:(NSString *)featuresDirectory
+
+- (Cucumberish *)parserFeaturesInDirectory:(NSString *)directory
                                includeTags:(NSArray<NSString *> *)tags
-                               excludeTags:(NSArray<NSString *> *)excludedTags;
+                               excludeTags:(NSArray<NSString *> *)excludedTags DEPRECATED_MSG_ATTRIBUTE("This method is deprecated because it can cause issues if you installed Cucumberish using Cocoapods. Instead use the method parserFeaturesInDirectory:fromBundle:includeTags:excludeTags:");
+
+
 
 /**
  Fire the execution of all the previously parsed features in an alphabetic ascending order.
@@ -120,7 +123,7 @@
  Conventient method that calls parserFeaturesInDirectory:includeTags:excludeTags: followed by an immediate call to beginExecution
  
  */
-+ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray<NSString *> *)tags excludeTags:(NSArray<NSString *> *)excludedTags;
++ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray<NSString *> *)tags excludeTags:(NSArray<NSString *> *)excludedTags DEPRECATED_MSG_ATTRIBUTE("This method is deprecated because it can cause issues if you installed Cucumberish using Cocoapods. Instead use the method executeFeaturesInDirectory:fromBundle:includeTags:(NSArray *)tags excludeTags:");
 
 /**
  Conventient method that calls parserFeaturesInDirectory:fromBundle:includeTags:excludeTags: followed by an immediate call to beginExecution
