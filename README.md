@@ -101,11 +101,12 @@ You can install Cucumberish with the following steps in no more than few minutes
         5. Open the target Build Settings and set the value of "Objective-C Bridging Header" to be ${SRCROOT}/${TARGET_NAME}/bridging-header.h
         6. In the bridge header file that Xcode created for you in the first step above, add the following import:
             ```Objective-C
+	    
             #import "Cucumberish.h"
             ```
 6. Only in case the name of folder that contains your test target files is different than the test target name, set the value of the Cucumberish property testTargetFolderName to the correct folder name.
 
-And that's! You are ready to get started!
+And that's it! You are ready to get started!
 
 # Getting started
 Now you have Cucumberish in place and you followed all the installation and post-installation instructions; it is time to write your first simple feature and scenario in just a few more steps!
@@ -171,7 +172,8 @@ Beside all the information you can find on the [wiki](https://github.com/Ahmed-A
 In the `CucumberishExample` project there are three targets:
 
 1. Example app target:
-    - It's a very small app with a few screens and an easy to understand flow and implementation. On the Storyboards most of the UI components have accessibility labels. You can view the accessibility labels inside the Storyboard directly or in the iOS Simulator using the Accessibility Inspector (click the Home button, open Settings and go to General > Accessibility).
+    - It's a very small app with a few screens and an easy to understand flow and implementation. It requires Xcode 8 to run. On the Storyboards most of the UI components have accessibility labels.
+    - In case the test target that uses KIF failes to find the UI elements, you need to open the accessibility inspector from Xcode menu > Developer Tools
     
 2. Unit test target:
     - This target uses [KIF](https://github.com/kif-framework/KIF) to interact with the UI in the steps implementation.
