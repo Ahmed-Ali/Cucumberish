@@ -1,5 +1,12 @@
 #Change Log
 
+### [v1.0.2](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.0.2)
+
+	- Many documentation updates to simplify the API
+	- Updated the example projects and the code snippets in the readme file to reflect the latest changes
+	- Validated the Cocoapods installation and its fixed some related issues.
+	- Merged PR #23 to fix an issue with Regular expression matching
+
 ### [v1.0.1](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.0.1)
 
    - Merged PR #22 to fix a bug with the afterAll block execution.
