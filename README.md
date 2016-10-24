@@ -121,13 +121,13 @@ end
                 [CucumberishInitializer CucumberishSwiftInit];
             }
             ```
-	  4. If you use Cocoapods installation with the use_frameworks! flag, then juse use the following in your Swift files. Otherwise, skip this step and apply the following steps.
+	  4. If you use Cocoapods installation with the use_frameworks! flag, then just use the following in your Swift files. Otherwise, skip this step and apply the following steps.
             
             ```Swift
 	    
 	    import Cucumberish
 	    ```
-	    *Creating the bridge header is only needed if don't use Cocoapods installation or used it without the use_frwameroks! flag*
+	    *The following steps to create the bridge header is only needed if don't use Cocoapods installation or you use it without the use_frwameroks! flag*
 	   5. Create a bridge file name it (just an example) bridging-header.h and save it in the folder of that test target.
 	   6. Open the target Build Settings and set the value of "Objective-C Bridging Header" to be
             
@@ -138,7 +138,7 @@ end
 	   
             ```Objective-C
 	   
-            #import "Cucumberish.h"
+            #import "Cucumberish.h" //or #import <Cucumberish/Cucumberish.h> if installed with Cocoapods
             ```
 	    
 4. Only in case the name of folder that contains your test target files is different than the test target name, set the value of the Cucumberish property testTargetFolderName to the correct folder name.
