@@ -59,6 +59,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 @property (nonatomic, assign) NSInteger scenariosRun;
 @property (nonatomic, assign) NSInteger scenarioCount;
 
+@property (nonatomic, strong) NSBundle * containerBundle;
 
 @end
 @implementation Cucumberish
@@ -87,10 +88,11 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 - (Cucumberish *)parserFeaturesInDirectory:(NSString *)directory fromBundle:(NSBundle *)bundle includeTags:(NSArray<NSString *> *)includeTags excludeTags:(NSArray<NSString *> *)excludeTags
 {
     NSArray * featureFiles = [bundle URLsForResourcesWithExtension:@".feature" subdirectory:directory];
-
-    [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles bundle:bundle withTags:includeTags execludeFeaturesWithTags:excludeTags];
+    self.containerBundle = bundle;
     self.tags = includeTags;
     self.excludedTags = excludeTags;
+    [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles bundle:bundle withTags:includeTags execludeFeaturesWithTags:excludeTags];
+ 
     return self;
 }
 
@@ -507,7 +509,7 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
 void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
 {
     
-    NSString * targetName = [[Cucumberish instance] testTargetFolderName] ? : [[NSBundle bundleForClass:[Cucumberish class]] infoDictionary][@"CFBundleName"];
+    NSString * targetName = [[Cucumberish instance] testTargetFolderName] ? : [[[Cucumberish instance] containerBundle] infoDictionary][@"CFBundleName"];
     NSString * srcRoot = SRC_ROOT;
     //Clean up unwanted /Pods path caused by cocoa pods
     if([srcRoot hasSuffix:@"/Pods"]){
