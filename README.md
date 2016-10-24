@@ -81,9 +81,11 @@ end
         
             ```Swift
             import Foundation
+	    import Cucumberish //Applicable only if you use Cocoapods installation with use_frameworks!
             class CucumberishInitializer: NSObject {
                 class func CucumberishSwiftInit()
                 {
+		    //Using XCUIApplication only works in XCUI test targets.
                     var application : XCUIApplication!
                     //A closure that will be executed just before executing any of your features
                     beforeStart { () -> Void in
@@ -119,14 +121,27 @@ end
                 [CucumberishInitializer CucumberishSwiftInit];
             }
             ```
-		4. Create a bridge file name it (just an example) bridging-header.h and save it in the folder of that test target.
-        5. Open the target Build Settings and set the value of "Objective-C Bridging Header" to be ${SRCROOT}/${TARGET_NAME}/bridging-header.h
-        6. In the bridge header file that Xcode created for you in the first step above, add the following import:
-            ```Objective-C
+	  4. If you use Cocoapods installation with the use_frameworks! flag, then juse use the following in your Swift files. Otherwise, skip this step and apply the following steps.
+            
+            ```Swift
 	    
+	    import Cucumberish
+	    ```
+	    *Creating the bridge header is only needed if don't use Cocoapods installation or used it without the use_frwameroks! flag*
+	   5. Create a bridge file name it (just an example) bridging-header.h and save it in the folder of that test target.
+	   6. Open the target Build Settings and set the value of "Objective-C Bridging Header" to be
+            
+            ```
+	   	${SRCROOT}/${TARGET_NAME}/bridging-header.h
+	    ```
+	    7. In the bridge header you just created, add the following import:
+	   
+            ```Objective-C
+	   
             #import "Cucumberish.h"
             ```
-6. Only in case the name of folder that contains your test target files is different than the test target name, set the value of the Cucumberish property testTargetFolderName to the correct folder name.
+	    
+4. Only in case the name of folder that contains your test target files is different than the test target name, set the value of the Cucumberish property testTargetFolderName to the correct folder name.
 
 And that's it! You are ready to get started!
 
