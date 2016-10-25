@@ -45,6 +45,7 @@ end
 
 
 # Post Installation Steps
+Take deep breath and follow the following steps exactly to save as much as possible of your own time. And pay a lot of attention to the comments in the code.
 
 1. Go to your test target folder and create a subfolder. Let's call it **Features**.
 2. Add this folder to your test target in Xcode as a Folder, **not** a group! This is a very important step.
@@ -68,8 +69,10 @@ end
                 });
                 //Optional step, see the comment on this property for more information
                 [Cucumberish instance].fixMissingLastScenario = YES;
-                //Tell Cucumberish the name of your features folder and let it execute them for you...
+                //Tell Cucumberish the name of your features folder, and which bundle contain this directory. And Cucumberish will handle the rest...
                 //The ClassThatLocatedInTheRootTestTargetFolder could be any class that exist side by side with your Features folder.
+                //So if ClassThatLocatedInTheRootTestTargetFolder exist in the directory YourProject/YourTestTarget
+                //Then in our example your .feature files are expected to be in the directory YourProject/YourTestTarget/Features
                 NSBundle * bundle = [NSBundle bundleForClass:[ClassThatLocatedInTheRootTestTargetFolder class]];
 		
                 [Cucumberish executeFeaturesInDirectory:@"Features" fromBundle:bundle includeTags:nil excludeTags:nil];
@@ -85,7 +88,7 @@ end
             class CucumberishInitializer: NSObject {
                 class func CucumberishSwiftInit()
                 {
-		    //Using XCUIApplication only works in XCUI test targets.
+                    //Using XCUIApplication only available in XCUI test targets not the normal Unit test targets.
                     var application : XCUIApplication!
                     //A closure that will be executed just before executing any of your features
                     beforeStart { () -> Void in
@@ -170,7 +173,7 @@ Scenario: First scenario
     Given I have a very cool app
     
     
-    # The grammar being used is completely defined by you and your QA team; it is up to you to find the best way to define your functionality.
+    # The grammar being used is completely defined by you and your team; it is up to you to find the best way to define your functionality.
     # Only keep in mind that every step must start with "Given", "When", "Then", "And", or "But".
     When I automate it with "Cucumberish"
     Then I will be more confident about the quality of the project and its releases
@@ -204,30 +207,32 @@ For more information about the steps, the blocks that are passed to it and the h
 # Examples
 Beside all the information you can find on the [wiki](https://github.com/Ahmed-Ali/Cucumberish/wiki) and specifically the [Steps Definition](https://github.com/Ahmed-Ali/Cucumberish/wiki/Step-Definitions) page, seeing examples in action is the best way to demonstrate something. You can clone this repository and open the file `CucumberishExample/CucumberishExample.xcworkspace`.
 
-*Note:* This workspace is the default workspace you get when you use CocoaPods.
 
-In the `CucumberishExample` project there are three targets:
+In the `CucumberishExample` project there are five targets:
 
-1. Example app target:
-    - It's a very small app with a few screens and an easy to understand flow and implementation. It requires Xcode 8 to run. On the Storyboards most of the UI components have accessibility labels.
+1. CucumberishExample target:
+    - Is a very small app with a few screens and an easy to understand flow and implementation. It requires Xcode 8 to run. On the Storyboards most of the UI components have accessibility labels.
     - In case the test target that uses KIF failes to find the UI elements, you need to open the accessibility inspector from Xcode menu > Developer Tools
     
-2. Unit test target:
+2. CucumberishExampleTests target:
     - This target uses [KIF](https://github.com/kif-framework/KIF) to interact with the UI in the steps implementation.
     - It's a very good idea to take a look at the file CucumberishExampleTests/Steps/CCIStepsUsingKIF.m for many examples of how to define your step implementations in many different ways. This target uses Objective-C.
     - While walking through the step imeplementations, see how this implementation is being used in the CucumberishExampleTests/ExampleFeatures .feature files.
+    - Most of the steps in this target uses bit complicated regular expressions strings, but you should not worry about that. As long as you know some of the basics of regular expressions, you should be fine. The [Steps Definition](https://github.com/Ahmed-Ali/Cucumberish/wiki/Step-Definitions) page can be of great help if you are not so familiar with regular expressions.
 
-3. UI Test Target:
+3. CucumberishExampleUITests Target:
     - While I was not too impressed by Apple's UI automation API and its many limitions, I've nonetheless added an example target to complete the chain. It has a smaller set of step implementation examples, and is written in Swift.
 Feel free to take these step implementations as a starting point and use them as much as you want; just remember to choose what fits best with your needs because you will build your own implementations in all cases.
-	- **Note:** When running this test target, make sure to disable the Simulator auto-correction feature; otherwise the XCUI tends to use the auto-correction which results in unintended values being written in the text fields.
+	
 
-3. CucumberishTest:
+4. CucumberishTest:
     - This target contains test cases for the behaviour of the Cucumberish framework itself. This is accomplished by comparing the order of feature, scenario and step execution and their associated classes and methods that are supposed to appear in the Xcode test navigator.
-    
+ 
+5. CucumberishFeatureDefinition
+    - More test for the framework it self in Unit Test style rather than behaviour testing. 
 
 # Unit Tests
-Cucumberish has behavioural test cases that can be executed through the CucumberishTest scheme. To execute these tests select the scheme and press ⌘+U.
+The example project containt two targets, CucumberishTest and CucumberishFeatureDefinition, which are used to test Cucumberish itself.
 
             
 # Troubleshooting
@@ -264,10 +269,6 @@ If you believe you've identified another type of failure, please report it as an
 
 A continuous integration (CI) process is highly recommended and is extremely useful in ensuring that your application stays functional. The easiest way to do this will be either using Bots, or Jenkins or another tool that uses xcodebuild. For tools using xcodebuild, review the manpage for instructions on using test destinations.
 
-# Acknowledgements
-- Cucumberish makes good use of [Gherkin4](https://github.com/cucumber/gherkin) in order to parse .feature files. Without its Objective-C implementation, I would have had to implement it from scratch. Gherkin4 saved me a lot of time!
-
-- One of our friends have created another cool project that provides a full stack BDD. You can find it on [XCFit](https://github.com/Shashikant86/XCFit) repository.
 
     
 # Contributing
