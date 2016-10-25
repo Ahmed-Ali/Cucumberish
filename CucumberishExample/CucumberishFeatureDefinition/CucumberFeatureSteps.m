@@ -17,6 +17,8 @@
 
 @property (nonatomic,strong) NSMutableDictionary* savedValues;
 @property (nonatomic,strong) NSMutableArray* savedAStepValues;
+@property (nonatomic,assign) BOOL exactMatchTriggered;
+@property (nonatomic,assign) BOOL inexactMatchTriggered;
 
 @end
 
@@ -110,7 +112,7 @@
         }
     });
     
-    Match(@[@"Given",@"And"],@"a step(?: has an optional match \"([a-z]+)\")?", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    Match(@[@"Given",@"And"],@"^a step(?: has an optional match \"([a-z]+)\")?$", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         if (args.count == 0) {
             [self.savedAStepValues addObject:[NSNull null]];
         } else {
@@ -128,7 +130,7 @@
         CCIAssert(found, @"Expected to find a NSNull, found @%",self.savedAStepValues);
     });
 
-    Match(@[@"Then",@"And"],@"the step \"a step\" had \"([a-z]+) matched for the optional parameter", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    Match(@[@"Then",@"And"],@"the step \"a step\" had \"([a-z]+)\" matched for the optional parameter", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         __block BOOL found = NO;
         for (id obj in self.savedAStepValues) {
             if ([obj isKindOfClass:[NSString class]] && [obj isEqualToString:args[0]]) {
@@ -137,6 +139,24 @@
         }
         CCIAssert(found, @"Expected to find a %@, found @%",args[0],self.savedAStepValues);
     });
+    
+    Given(@"^a step that matches beginning and end$", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+        self.exactMatchTriggered = YES;
+    });
+    
+    And(@"a step that just matches strings", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+        self.inexactMatchTriggered = YES;
+    });
+
+    
+    Then(@"the exact match passed", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+        CCIAssert(self.exactMatchTriggered, @"Expected the exact match to be triggered");
+    });
+
+    And(@"the inexact match passed", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+        CCIAssert(self.inexactMatchTriggered, @"Expected the inexact match to be triggered");
+    });
+
 
 }
 
