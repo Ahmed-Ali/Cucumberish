@@ -1740,9 +1740,9 @@
 			targets = (
 				60853A781C4ED7BD00806CD9 /* CucumberishExample */,
 				6075A52A1C4FB20900FE2B1B /* CucumberishExampleTests */,
+				60BACE771DBAA4280034450C /* CucumberishExampleUITests */,
 				603C5F541C656FAB0080F73D /* CucumberishTest */,
 				8DAD56C91D47AC140028FB76 /* CucumberishFeatureDefinition */,
-				60BACE771DBAA4280034450C /* CucumberishExampleUITests */,
 			);
 		};
 /* End PBXProject section */
