@@ -223,6 +223,8 @@
 
             return [[GHFeature alloc] initWithTags: tags location: [featureLine location] language: language keyword: [featureLine matchedKeyword] name: [featureLine matchedText] description: description children: children comments: comments];
         }
+        default:
+        break;
     }
 
     return theNode;

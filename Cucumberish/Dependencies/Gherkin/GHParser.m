@@ -31,7 +31,8 @@
 
 - (id)init
 {
-    return [self initWithAstBuilder: [[GHAstBuilder alloc] init]];
+    id<GHAstBuilderProtocol> builder = (id<GHAstBuilderProtocol>)[GHAstBuilder new];
+    return [self initWithAstBuilder: builder];
 }
 
 - (id)initWithAstBuilder:(id<GHAstBuilderProtocol>)theAstBuilder
