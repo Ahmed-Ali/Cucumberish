@@ -130,6 +130,7 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
         } else if (match != nil && match.numberOfRanges == 1) {
             //this case means there was a match of just the text. This can occur if the regex has the start and end characters ^foobar$
             retDefinition = [d copy];
+            break;
         }
     }
     
