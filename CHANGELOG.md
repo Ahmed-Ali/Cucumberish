@@ -1,5 +1,10 @@
 #Change Log
 
+### [v1.0.4](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.0.4)
+
+	- Merged PR #26 to fix an issue with regex matching
+	- Resolved all the warnings currently exist Cucumberish
+	
 ### [v1.0.3](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.0.3)
 
 	- Minor update to fix issue with Cocoapods installation that causes Cucumberish to be unable to report errors on .feature files
