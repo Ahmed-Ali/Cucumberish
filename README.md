@@ -69,7 +69,7 @@ Take deep breath and follow the following steps exactly to save as much as possi
                 });
                 //Optional step, see the comment on this property for more information
                 [Cucumberish instance].fixMissingLastScenario = YES;
-                //Tell Cucumberish the name of your features folder, and which bundle contain this directory. And Cucumberish will handle the rest...
+                //Tell Cucumberish the name of your features folder, and which bundle contains this directory. And Cucumberish will handle the rest...
                 //The ClassThatLocatedInTheRootTestTargetFolder could be any class that exist side by side with your Features folder.
                 //So if ClassThatLocatedInTheRootTestTargetFolder exist in the directory YourProject/YourTestTarget
                 //Then in our example your .feature files are expected to be in the directory YourProject/YourTestTarget/Features
