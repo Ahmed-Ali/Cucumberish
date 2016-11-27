@@ -81,6 +81,13 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     self.beforeHocks = [NSMutableArray array];
     self.afterHocks = [NSMutableArray array];
     self.aroundHocks = [NSMutableArray array];
+#ifdef SRC_ROOT
+    self.testTargetSrcRoot = SRC_ROOT;
+    //Clean up unwanted /Pods path caused by cocoa pods
+    if([self.testTargetSrcRoot hasSuffix:@"/Pods"]){
+        self.testTargetSrcRoot = [self.testTargetSrcRoot stringByReplacingCharactersInRange:NSMakeRange(self.testTargetSrcRoot.length - 5, 5) withString:@""];
+    }
+#endif
     return self;
 }
 
@@ -510,11 +517,6 @@ void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
 {
     
     NSString * targetName = [[Cucumberish instance] testTargetFolderName] ? : [[[Cucumberish instance] containerBundle] infoDictionary][@"CFBundleName"];
-    NSString * srcRoot = SRC_ROOT;
-    //Clean up unwanted /Pods path caused by cocoa pods
-    if([srcRoot hasSuffix:@"/Pods"]){
-        srcRoot = [srcRoot stringByReplacingCharactersInRange:NSMakeRange(srcRoot.length - 5, 5) withString:@""];
-    }
     
     for (CCIStep * step in steps) {
         
@@ -522,7 +524,7 @@ void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
             [[CCIStepsManager instance] executeStep:step inTestCase:testCase];
         }
         @catch (CCIExeption *exception) {
-            NSString * filePath = [NSString stringWithFormat:@"%@/%@%@", srcRoot, targetName, step.location.filePath];
+            NSString * filePath = [NSString stringWithFormat:@"%@/%@%@", [Cucumberish instance].testTargetSrcRoot, targetName, step.location.filePath];
             [testCase recordFailureWithDescription:exception.reason inFile:filePath atLine:step.location.line expected:YES];
             if([parentScenario isKindOfClass:[CCIScenarioDefinition class]]){
                 CCIScenarioDefinition * scenario = (CCIScenarioDefinition *)parentScenario;
