@@ -18,135 +18,28 @@ It is inspired by the amazing way of writing automated test cases introduced ori
 
 ![Cucumberish In Action](https://cloud.githubusercontent.com/assets/5157350/12704873/cf0a6dfe-c864-11e5-8a3b-8a3682d8e880.gif)
 
-# Installation (Manual)
-You can install Cucumberish with the following steps in no more than few minutes.
+# Install Manually
+- [Install manually for Objective-C](https://github.com/Ahmed-Ali/Cucumberish/wiki/Install-manually-for-Objective-C) test targets
+- [Install manually for Swift](https://github.com/Ahmed-Ali/Cucumberish/wiki/Install-manually-for-Swift) test targets
 
-1. Copy the contents of the Cucumberish folder into your test target folder and add it to your test target. When prompted check the "Copy items if needed" and chose "Create groups".
-2. This step is super important for proper reporting. Go to your test target build settings, and add the following preprocessor macro:
-
-    ```
-    SRC_ROOT=@\"$(SRCROOT)\"
-    ```
-    
-    
-# Installation (with CocoaPods)
-
-[CocoaPods](http://cocoapods.org) makes it super easy to install Cucumberish.
+# Install with CocoaPods
 
 Add the following to your Podfile
 
 ```Ruby
-
-
+use_frameworks!
 target 'YourAppTestTarget' do
   pod 'Cucumberish'
 end
 ```
+And follow the rest for the setup steps:
+- [Setup Cucumberish with Cocoapods (Objective C)
+](https://github.com/Ahmed-Ali/Cucumberish/wiki/Setup-Cucumberish-with-Cocoapods-(Objective-C))
+- [Setup Cucumberish with Cocoapods (Swift)](https://github.com/Ahmed-Ali/Cucumberish/wiki/Setup-Cucumberish-with-Cocoapods-(Swift))
 
-
-# Post Installation Steps
-Take deep breath and follow the following steps exactly to save as much as possible of your own time. And pay a lot of attention to the comments in the code.
-
-1. Go to your test target folder and create a subfolder. Let's call it **Features**.
-2. Add this folder to your test target in Xcode as a Folder, **not** a group! This is a very important step.
-![Features Folder as Folder not a Group](https://cloud.githubusercontent.com/assets/5157350/12533357/f7a94448-c22d-11e5-904a-1c353a76d604.png)
-3. Inside this folder, you will create the .feature files which will contain your test's features and scenarios.
-    - ##### For Objective-C test targets:
-        - When you create a test target, Xcode creates a test case file for you. Open this file and replace its content with the following:
-        
-            ```Objective-C
-            #import "Cucumberish.h"
-            //#import <Cucumberish/Cucumberish.h> if installed using cocoapods
-            __attribute__((constructor))
-            void CucumberishInit()
-            {
-                //Define your step implememntations (the example project contains set of basic implementations using KIF)
-                Given(@"it is home screen", ^void(NSArray *args, id userInfo) {
-                    //Step implementation code goes here
-                });
-                And(@"all data cleared", ^void(NSArray *args, id userInfo) {
-                    //Step implementation code goes here
-                });
-                //Optional step, see the comment on this property for more information
-                [Cucumberish instance].fixMissingLastScenario = YES;
-                //Tell Cucumberish the name of your features folder, and which bundle contains this directory. And Cucumberish will handle the rest...
-                //The ClassThatLocatedInTheRootTestTargetFolder could be any class that exist side by side with your Features folder.
-                //So if ClassThatLocatedInTheRootTestTargetFolder exist in the directory YourProject/YourTestTarget
-                //Then in our example your .feature files are expected to be in the directory YourProject/YourTestTarget/Features
-                NSBundle * bundle = [NSBundle bundleForClass:[ClassThatLocatedInTheRootTestTargetFolder class]];
-		
-                [Cucumberish executeFeaturesInDirectory:@"Features" fromBundle:bundle includeTags:nil excludeTags:nil];
-            }
-            ```
-        
-    - ##### For Swift test targets:
-        1. Replace the content of the default .swift test case file that was created for your test target with the following:
-        
-            ```Swift
-            import Foundation
-	    import Cucumberish //Applicable only if you use Cocoapods installation with use_frameworks!
-            class CucumberishInitializer: NSObject {
-                class func CucumberishSwiftInit()
-                {
-                    //Using XCUIApplication only available in XCUI test targets not the normal Unit test targets.
-                    var application : XCUIApplication!
-                    //A closure that will be executed just before executing any of your features
-                    beforeStart { () -> Void in
-                        application = XCUIApplication()
-                    }
-                    //A Given step definition
-                    Given("the app is running") { (args, userInfo) -> Void in
-                        application.launch()
-                    }
-                    //Another step definition
-                    And("all data cleared") { (args, userInfo) -> Void in
-                        //Assume you defined an "I tap on \"(.*)\" button" step previousely, you can call it from your code as well.
-                        let testCase = userInfo?[kXCTestCaseKey] as? XCTestCase
-                        SStep(testCase, "I tap the \"Clear All Data\" button")
-                    }
-                    //Tell Cucumberish the name of your features folder and let it execute them for you...
-                    let bundle = Bundle(for: CucumberishInitializer.self)
-                    Cucumberish.executeFeatures(inDirectory: "Features", from: bundle, includeTags: nil, excludeTags: nil)
-                }
-            }
-            ```
-        
-        2. Create a new Objective-C .m file
-        
-        3. Replace the contents of this file with the following:
-            
-            ```Objective-C
-            //Replace CucumberishExampleUITests with the name of your swift test target
-            #import "CucumberishExampleUITests-Swift.h"
-            __attribute__((constructor))
-            void CucumberishInit()
-            {
-                [CucumberishInitializer CucumberishSwiftInit];
-            }
-            ```
-	  4. If you use Cocoapods installation with the use_frameworks! flag, then just use the following in your Swift files. Otherwise, skip this step and apply the following steps.
-            
-            ```Swift
-	    
-	    import Cucumberish
-	    ```
-	    *The following steps to create the bridge header is only needed if don't use Cocoapods installation or you use it without the use_frwameroks! flag*
-	   5. Create a bridge file and name it (just an example) bridging-header.h and save it in the folder of that test target.
-	   6. Open the target Build Settings and set the value of "Objective-C Bridging Header" to be
-            
-            ```
-	   	${SRCROOT}/${TARGET_NAME}/bridging-header.h
-	    ```
-	    7. In the bridge header you just created, add the following import:
-	   
-            ```Objective-C
-	   
-            #import "Cucumberish.h" //or #import <Cucumberish/Cucumberish.h> if installed with Cocoapods
-            ```
-	    
-4. Only in case the name of folder that contains your test target files is different than the test target name, set the value of the Cucumberish property testTargetFolderName to the correct folder name.
-
-And that's it! You are ready to get started!
+# Install with Carthage
+- [Install with Carthage for Objective C](https://github.com/Ahmed-Ali/Cucumberish/wiki/Install-with-Carthage-for-Objective-C) test targets
+- [Install with Carthage for Swift](https://github.com/Ahmed-Ali/Cucumberish/wiki/Install-with-Carthage-for-Swift) test targets
 
 # Getting started
 Now you have Cucumberish in place and you followed all the installation and post-installation instructions; it is time to write your first simple feature and scenario in just a few more steps!
