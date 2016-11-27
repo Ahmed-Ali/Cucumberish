@@ -1,5 +1,10 @@
 #Change Log
 
+### [v1.0.5](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.0.5)
+
+   - Added support to Carthage.
+   - Moved the installation instructions to the repo's Wiki for the sake of simplicity.
+
 ### [v1.0.4](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.0.4)
 
 	- Merged PR #26 to fix an issue with regex matching
