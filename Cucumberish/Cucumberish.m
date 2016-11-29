@@ -137,6 +137,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
         //If it is created on XCTestCase level, it will not work properly.
         [Cucumberish swizzleDefaultSuiteImplementationForClass:featureClass];
         [Cucumberish swizzleFailureRecordingImplementationForClass:featureClass];
+        [Cucumberish swizzleTestCaseWithSelectorImplementationForClass:featureClass];
     }
 }
 
@@ -299,6 +300,13 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     [Cucumberish swizzleOrignalSelector:originalSelector swizzledSelector:swizzledSelector originalClass:class targetClass:[Cucumberish class] classMethod:YES];
 }
 
++ (void)swizzleTestCaseWithSelectorImplementationForClass:(Class)class
+{
+    //cucumberish_testCaseWithSelector
+    SEL originalSelector = @selector(testCaseWithSelector:);
+    SEL swizzledSelector = @selector(cucumberish_testCaseWithSelector:);
+    [Cucumberish swizzleOrignalSelector:originalSelector swizzledSelector:swizzledSelector originalClass:class targetClass:[Cucumberish class] classMethod:YES];
+}
 
 
 
@@ -393,6 +401,21 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 
 #pragma mark - Swizzled methods
++ (nullable instancetype)cucumberish_testCaseWithSelector:(SEL)selector
+{
+    CCIFeature * feature = [[CCIFeaturesManager instance] getFeatureForClass:[self class]];
+    XCTestCase * invocationTest;
+    for(CCIScenarioDefinition * s in feature.scenarioDefinitions){
+        if ([s.name isEqualToString:NSStringFromSelector(selector)]){
+            NSInvocation * inv = [Cucumberish invocationForScenario:s feature:feature class:[self class]];
+            invocationTest =  [[self alloc] initWithInvocation:inv];
+         }
+    }
+    [invocationTest runTest];
+    id retVal = [self cucumberish_testCaseWithSelector:selector];
+    return retVal;
+}
+
 /**
  Swizzled method, inside its implementation @b self does not refer to Cucumberish class.
  Records a failure in the execution of the test and is used by all test assertions.
