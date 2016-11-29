@@ -133,9 +133,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     for(CCIFeature * feature in [[CCIFeaturesManager instance] features]){
         Class featureClass = [Cucumberish featureTestCaseClass:feature];
         [[CCIFeaturesManager instance] setClass:featureClass forFeature:feature];
-        //This swizzling has to happen for each feature class...
-        //If it is created on XCTestCase level, it will not work properly.
-        [Cucumberish swizzleDefaultSuiteImplementationForClass:featureClass];
+        [Cucumberish swizzleTestInvocationsImplementationForClass:featureClass];
         [Cucumberish swizzleFailureRecordingImplementationForClass:featureClass];
         [Cucumberish swizzleTestCaseWithSelectorImplementationForClass:featureClass];
     }
@@ -293,13 +291,14 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     [Cucumberish swizzleOrignalSelector:originalSelector swizzledSelector:swizzledSelector originalClass:class targetClass:[Cucumberish class] classMethod:NO];
 }
 
-+ (void)swizzleDefaultSuiteImplementationForClass:(Class)class
+
+
++ (void)swizzleTestInvocationsImplementationForClass:(Class)class
 {
-    SEL originalSelector = @selector(defaultTestSuite);
-    SEL swizzledSelector = @selector(cucumberish_defaultTestSuite);
+    SEL originalSelector = @selector(testInvocations);
+    SEL swizzledSelector = @selector(cucumberish_testInvocations);
     [Cucumberish swizzleOrignalSelector:originalSelector swizzledSelector:swizzledSelector originalClass:class targetClass:[Cucumberish class] classMethod:YES];
 }
-
 + (void)swizzleTestCaseWithSelectorImplementationForClass:(Class)class
 {
     //cucumberish_testCaseWithSelector
@@ -308,10 +307,9 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     [Cucumberish swizzleOrignalSelector:originalSelector swizzledSelector:swizzledSelector originalClass:class targetClass:[Cucumberish class] classMethod:YES];
 }
 
-
-
-+ (void)createScenariosForScenarioOutline:(CCIScenarioDefinition *)outline feature:(CCIFeature *)feature class:(Class)klass suite:(XCTestSuite *)suite
++ (NSArray<NSInvocation *> *)invocationsForScenarioOutline:(CCIScenarioDefinition *)outline feature:(CCIFeature *)feature class:(Class)class
 {
+    NSMutableArray<NSInvocation *> * invocations = [NSMutableArray new];
     for(CCIExample * example in outline.examples){
         
         //Loop on the example bod(y|ies)
@@ -343,14 +341,12 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
                 }
             }
             
-            XCTestCase  * testCase = [[klass alloc] initWithInvocation:[Cucumberish invocationForScenario:scenario feature:feature class:klass]];
-            [suite addTest:testCase];
+            [invocations addObject:[Cucumberish invocationForScenario:scenario feature:feature class:class]];
             [Cucumberish instance].scenarioCount++;
         }
-        
-        
-        
     }
+    
+    return invocations;
 }
 
 + (Class)featureTestCaseClass:(CCIFeature *)feature
@@ -401,19 +397,22 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 
 #pragma mark - Swizzled methods
-+ (nullable instancetype)cucumberish_testCaseWithSelector:(SEL)selector
+
+
++ (nullable XCTestCase *)cucumberish_testCaseWithSelector:(SEL)selector
 {
     CCIFeature * feature = [[CCIFeaturesManager instance] getFeatureForClass:[self class]];
     XCTestCase * invocationTest;
+    
     for(CCIScenarioDefinition * s in feature.scenarioDefinitions){
+#warning needs implementation for scenario outline
         if ([s.name isEqualToString:NSStringFromSelector(selector)]){
             NSInvocation * inv = [Cucumberish invocationForScenario:s feature:feature class:[self class]];
             invocationTest =  [[self alloc] initWithInvocation:inv];
+            break;
          }
     }
-    [invocationTest runTest];
-    id retVal = [self cucumberish_testCaseWithSelector:selector];
-    return retVal;
+    return invocationTest;
 }
 
 /**
@@ -440,14 +439,10 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     
 }
 
-/**
- Swizzled method, inside its implementation @b self does not refer to Cucumberish class.
- @return a test suite containing test cases for all of the tests in the class.
- */
-
-+ (XCTestSuite *)cucumberish_defaultTestSuite
++ (NSArray <NSInvocation *> *)cucumberish_testInvocations
 {
-    XCTestSuite * suite = [self cucumberish_defaultTestSuite];
+    NSMutableArray<NSInvocation *> * invocations = [NSMutableArray new];
+    
     CCIFeature * feature = [[CCIFeaturesManager instance] getFeatureForClass:self];
     
     for (CCIScenarioDefinition * scenario in feature.scenarioDefinitions) {
@@ -455,30 +450,36 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
             continue;
         }
         if([scenario.keyword isEqualToString:@"Scenario Outline"]){
-            [Cucumberish createScenariosForScenarioOutline:scenario feature:feature class:self suite:suite];
+            
+            NSArray<NSInvocation *> * invs = [Cucumberish invocationsForScenarioOutline:scenario feature:feature class:self];
+            [invocations addObjectsFromArray:invs];
         }else{
             if([scenario.keyword isEqualToString:@"Background"]){
                 //Do not add a scenario for a background steps
                 feature.background = (CCIBackground *)scenario;
                 continue;
             }
-            XCTestCase  * testCase = [[self alloc] initWithInvocation:[Cucumberish invocationForScenario:scenario feature:feature class:self]];
-            [suite addTest:testCase];
+            [invocations addObject:[Cucumberish invocationForScenario:scenario feature:feature class:self]];
             [Cucumberish instance].scenarioCount++;
         }
         
     }
+    
     CCIFeature * lastFeature = [CCIFeaturesManager instance].features.lastObject;
     if([Cucumberish instance].fixMissingLastScenario && feature == lastFeature){
         CCIScenarioDefinition * cleanupScenario = [[CCIScenarioDefinition alloc] init];
         cleanupScenario.name = @"cucumberishCleanupScenario";
-        XCTestCase * finalCase = [[self alloc] initWithInvocation:[Cucumberish invocationForScenario:cleanupScenario feature:lastFeature class:self]];
-        [suite addTest:finalCase];
+        [invocations addObject:[Cucumberish invocationForScenario:cleanupScenario feature:lastFeature class:self]];
         [Cucumberish instance].scenarioCount++;
     }
     
-    return suite;
+    
+    return invocations;
 }
+
+
+
+
 
 - (BOOL)shouldIncludeScenario:(CCIScenarioDefinition *)scenario
 {
