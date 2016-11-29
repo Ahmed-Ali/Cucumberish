@@ -7,20 +7,20 @@
 
 ### [v1.0.4](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.0.4)
 
-	- Merged PR #26 to fix an issue with regex matching
-	- Resolved all the warnings currently exist Cucumberish
+   - Merged PR #26 to fix an issue with regex matching
+   - Resolved all the warnings currently exist Cucumberish
 	
 ### [v1.0.3](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.0.3)
 
-	- Minor update to fix issue with Cocoapods installation that causes Cucumberish to be unable to report errors on .feature files
-	- Updated the README.md for more clear instructions when use Cocoapods installation with use_frameworks! flag.
+   - Minor update to fix issue with Cocoapods installation that causes Cucumberish to be unable to report errors on .feature files
+   - Updated the README.md for more clear instructions when use Cocoapods installation with use_frameworks! flag.
 
 ### [v1.0.2](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.0.2)
 
-	- Many documentation updates to simplify the API
-	- Updated the example projects and the code snippets in the readme file to reflect the latest changes
-	- Validated the Cocoapods installation and its fixed some related issues.
-	- Merged PR #23 to fix an issue with Regular expression matching
+   - Many documentation updates to simplify the API
+   - Updated the example projects and the code snippets in the readme file to reflect the latest changes
+   - Validated the Cocoapods installation and its fixed some related issues.
+   - Merged PR #23 to fix an issue with Regular expression matching
 
 ### [v1.0.1](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.0.1)
 
