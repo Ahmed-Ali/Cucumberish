@@ -67,62 +67,93 @@
     for (NSURL * filePath in featureFiles) {
         
         id result = [featureParser parse:filePath.path];
-        
-        if(result){
-            NSMutableDictionary * featureData = [[result dictionary] mutableCopy];
-            
-            NSString * testBundlePath = [bundle bundlePath];
-            NSString * localPath = [[[filePath.absoluteString stringByRemovingPercentEncoding]
-                                     stringByReplacingOccurrencesOfString:testBundlePath withString:@""]
-                                    stringByReplacingOccurrencesOfString:@"file://" withString:@""];
-            
-            featureData[@"location"][@"filePath"] = localPath;
-            CCIFeature * feature = [[CCIFeature alloc] initWithDictionary:featureData];
-  
-            
-            if(tags.count == 0){
-                //If we don't have specific tags, make sure we are not in the execluded tags
-                if(execludedFeatures.count > 0 && feature.tags.count > 0){
-                    if(![self featureTags:feature.tags intersectWithTags:execludedFeatures]){
-                        [parsedFeatures addObject:feature];
-                    }
-                }else{
-                    [parsedFeatures addObject:feature];
-                }
-                
-            }else{
-                //If one of the feature tag is in the allowed tags
-                if([self featureTags:feature.tags intersectWithTags:tags]){
-                    if(execludedFeatures.count > 0){
-                        //Make sure that the feature doesn't contain execluded tags, and if so, execlude it...
-                        if(![self featureTags:feature.tags intersectWithTags:execludedFeatures]){
-                            [parsedFeatures addObject:feature];
-                        }
-                    }else{
-                        [parsedFeatures addObject:feature];
-                    }
-                    
-                }
-            }
-            
+        if(result == nil){
+            //Nothing to do here...
+            //Need to think about how to report this error in non-blocker way
+            continue;
         }
+        NSMutableDictionary * featureData = [[result dictionary] mutableCopy];
+        
+        NSString * testBundlePath = [bundle bundlePath];
+        NSString * localPath = [[[filePath.absoluteString stringByRemovingPercentEncoding]
+                                 stringByReplacingOccurrencesOfString:testBundlePath withString:@""]
+                                stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+        
+        featureData[@"location"][@"filePath"] = localPath;
+    
+        CCIFeature * feature = [[CCIFeature alloc] initWithDictionary:featureData];
+        feature = [self cleanedUpFeature:feature includeTags:tags excludeTags:execludedFeatures];
+        
+        if(feature != nil){
+            [parsedFeatures addObject:feature];
+        }
+        
     }
     
     _features = parsedFeatures;
 }
 
+- (NSArray * __nullable)cleanedUpScenarios:(NSArray *)scenarios includeTags:(NSArray<NSString *> *)includeTags excludeTags:(NSArray<NSString *> *)excludeTags
+{
+    NSMutableArray * cleanedUpScenarios = [NSMutableArray new];
+    if(excludeTags.count > 0){
+        for(CCIScenarioDefinition * s in scenarios){
+            if([self tags:s.tags doesNotIntersectWithTags:excludeTags]){
+                [cleanedUpScenarios addObject:s];
+            }
+        }
+    }else{
+        //If there is no excluding tags, nothing should be excluded
+        cleanedUpScenarios = [scenarios mutableCopy];
+    }
+    
+    //At this point, cleanedUpScenarios holds the scenarios that have not been excluded
+    //Now we need to include only the scenarios that should be included
+    if(includeTags.count > 0){
+        NSMutableArray * matchingScnarios = [cleanedUpScenarios mutableCopy];
+        for(CCIScenarioDefinition * s in cleanedUpScenarios){
+            if([self tags:s.tags intersectWithTags:includeTags]){
+                [matchingScnarios addObject:s];
+            }
+        }
+        cleanedUpScenarios = matchingScnarios;
+    }
+    
+    return cleanedUpScenarios;
+}
 
-- (BOOL)featureTags:(NSArray *)featureTags intersectWithTags:(NSArray *)tags
+- (CCIFeature * __nullable)cleanedUpFeature:(CCIFeature *)feature includeTags:(NSArray<NSString *> *)includeTags excludeTags:(NSArray<NSString *> *)excludeTags
+{
+    if(excludeTags.count > 0){
+        if([self tags:feature.tags intersectWithTags:excludeTags]){
+            //No need to check on the scenario level here, as the scenarios will inherit all the feature tags anyway.
+            feature = nil;
+        }
+    }
+    
+    feature.scenarioDefinitions = [self cleanedUpScenarios:feature.scenarioDefinitions includeTags:includeTags excludeTags:excludeTags];
+    if(feature.scenarioDefinitions.count == 0){
+        feature = nil;
+    }
+    return feature;
+}
+
+- (BOOL)tags:(NSArray *)tags intersectWithTags:(NSArray *)tagsToCheckAgainst
 {
     BOOL intersect = NO;
-    for(NSString * tag in featureTags){
-        if([tags containsObject:tag]){
+    for(NSString * t in tags){
+        if([tagsToCheckAgainst containsObject:t]){
             intersect = YES;
             break;
         }
     }
     
     return intersect;
+}
+
+- (BOOL)tags:(NSArray *)tags doesNotIntersectWithTags:(NSArray *)tagsToCheckAgainst
+{
+    return ![self tags:tags intersectWithTags:tagsToCheckAgainst];
 }
 
 
