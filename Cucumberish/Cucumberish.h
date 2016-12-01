@@ -78,17 +78,27 @@
 + (instancetype)instance;
 
 /**
- Parses any .feature file that is located inside the passed folder name and map it to a test case if the feature inside the file has one or more tags of the passed tags (if any) and it doesn't have a tag from the excluded tags parameter
+ Parses all the .feature files so they can be executed once you call beginExecution
  
- @param directory a path to your featuresDirectory relative to your test target main folder.
- @param bundle the bundle where the directory is located
- @param includeTags array of strings to filter which features that will be parsed to be executed, if nil then all feature files will be parsed.
- @param excludeTags array of string to filter which features should not be executed.
+ @note The features directory has to be a real physical folder. Also when adding this folder to your test target, and get the prompt on how you would like to add it from Xcode, choose "Create Folder Reference" @b Instead @b of "Create Groups".
+
+ @note When working with tags, the following should be considered:
+
+    - The tags passed to includeTags or excludeTags should not be prefixed with @@ symbole
  
- @note The feature directory has to be a real physical folder. Also when adding this folder to your test target, and get the prompt on how you would like to add it from Xcode, choose "Create Folder Reference" and @b NOT to Create Groups.
- @note tags should not be prefixed with @@ symbole
- @note tags in includeTags parameter should not exist in the excludedTags parameter as it doesn't make any sense.
- @note the tags will be also on the scenario level. That's it, if the feature passes the tag check, then we will check each of its scenarios against the tags as well. But if a feature is excluded (because it has a tag from the excludedTags array), none of its scenarios will be executed.
+    - If a the same tag exist in both includeTags and excludeTags, the excludeTags overrides the includeTags; so any feature with that tag will not be executed.
+ 
+    - When the includeTags has value (and not nil), Cucumberish will excute only the scenarios that has at least one of these tags and dosn't have any tags that that exist in the excludeTags parameter.
+ 
+    - Since scenarios inherit the tags from its feature, if a feature has a tag that exist in the excludeTags parameter, then this feature will be ignored completely.
+ 
+ 
+ @param directory the name of your features' folder that exists in your test target root folder.
+ @param bundle the main bundle of your test target
+ @param includeTags array of strings to filter which scenarios to be executed, if nil then all features will be considered to be executed if there they don't have any tag that exists in the array of the excludeTags.
+ @param excludeTags array of strings to filter which features/scenarios should not be executed. This parameter have precedence over the includeTags parameter
+ 
+ 
  
   @return the singleton instance of Cucumberish so you can call beginExecution immediately if you want.
  */
@@ -97,45 +107,37 @@
                       includeTags:(NSArray<NSString *> *)includeTags
                       excludeTags:(NSArray<NSString *> *)excludeTags;
 
-/**
- Parses any .feature file that is located inside the passed folder name and map it to a test case if the feature inside the file has one or more tags of the passed tags (if any) and it doesn't have a tag from the excluded tags parameter
- 
- @param directory a path to your featuresDirectory relative to your test target main folder.
- @param tags array of strings to filter which features that will be parsed to be executed, if nil then all feature files will be parsed.
- @param excludedTags array of string to filter which features should not be executed.
- 
- @note The feature directory has to be a real physical folder. Also when adding this folder to your test target, and get the prompt on how you would like to add it from Xcode, choose "Create Folder Reference" and @b NOT to Create Groups.
- @note If you followed the manual installation steps of Cucumberish, then make sure the features folder is the root folder of your project. Otherwise, it is better to use the parserFeaturesInDirectory:fromBundle:includeTags:excludeTags: method to specify the runtime bundle that will include the features folder.
 
- @note tags should not be prefixed with @@ symbole
- @note tags in includeTags parameter should not exist in the excludedTags parameter as it doesn't make any sense.
- @note the tags will be also on the scenario level. That's it, if the feature passes the tag check, then we will check each of its scenarios against the tags as well. But if a feature is excluded (because it has a tag from the excludedTags array), none of its scenarios will be executed.
- 
- @return the singleton instance of Cucumberish so you can call beginExecution immediately if you want.
- */
-
-- (Cucumberish *)parserFeaturesInDirectory:(NSString *)directory
-                               includeTags:(NSArray<NSString *> *)tags
-                               excludeTags:(NSArray<NSString *> *)excludedTags DEPRECATED_MSG_ATTRIBUTE("This method is deprecated because it can cause issues if you installed Cucumberish using Cocoapods. Instead use the method parserFeaturesInDirectory:fromBundle:includeTags:excludeTags:");
 
 
 
 /**
- Fire the execution of all the previously parsed features in an alphabetic ascending order.
+ Fires the execution of all the previously parsed features in an alphabetic ascending order.
  */
 - (void)beginExecution;
 
-/**
- Conventient method that calls parserFeaturesInDirectory:includeTags:excludeTags: followed by an immediate call to beginExecution
- 
- */
-+ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray<NSString *> *)tags excludeTags:(NSArray<NSString *> *)excludedTags DEPRECATED_MSG_ATTRIBUTE("This method is deprecated because it can cause issues if you installed Cucumberish using Cocoapods. Instead use the method executeFeaturesInDirectory:fromBundle:includeTags:(NSArray *)tags excludeTags:");
+
 
 /**
  Conventient method that calls parserFeaturesInDirectory:fromBundle:includeTags:excludeTags: followed by an immediate call to beginExecution
  
  */
 + (void)executeFeaturesInDirectory:(NSString *)featuresDirectory fromBundle:(NSBundle *)bundle includeTags:(NSArray *)tags excludeTags:(NSArray *)excludedTags;
+
+
+#pragma mark - deprecated methods
+/**
+ Conventient method that calls parserFeaturesInDirectory:includeTags:excludeTags: followed by an immediate call to beginExecution
+ 
+ */
++ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray<NSString *> *)tags excludeTags:(NSArray<NSString *> *)excludedTags DEPRECATED_MSG_ATTRIBUTE("This method is deprecated because it can cause issues if you installed Cucumberish using Cocoapods. Instead use the method executeFeaturesInDirectory:fromBundle:includeTags:(NSArray *)tags excludeTags:");
+
+
+
+
+- (Cucumberish *)parserFeaturesInDirectory:(NSString *)directory
+                               includeTags:(NSArray<NSString *> *)tags
+                               excludeTags:(NSArray<NSString *> *)excludedTags DEPRECATED_MSG_ATTRIBUTE("This method is deprecated because it can cause issues if you installed Cucumberish using Cocoapods. Instead use the method parserFeaturesInDirectory:fromBundle:includeTags:excludeTags:");
 
 @end
 
