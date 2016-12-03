@@ -110,7 +110,7 @@
     //At this point, cleanedUpScenarios holds the scenarios that have not been excluded
     //Now we need to include only the scenarios that should be included
     if(includeTags.count > 0){
-        NSMutableArray * matchingScnarios = [cleanedUpScenarios mutableCopy];
+        NSMutableArray * matchingScnarios = [NSMutableArray new];
         for(CCIScenarioDefinition * s in cleanedUpScenarios){
             if([self tags:s.tags intersectWithTags:includeTags]){
                 [matchingScnarios addObject:s];
