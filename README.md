@@ -162,7 +162,8 @@ If you believe you've identified another type of failure, please report it as an
 
 A continuous integration (CI) process is highly recommended and is extremely useful in ensuring that your application stays functional. The easiest way to do this will be either using Bots, or Jenkins or another tool that uses xcodebuild. For tools using xcodebuild, review the manpage for instructions on using test destinations.
 
-
+# Known Issues
+When executing individual scenario or feature from the test navigator, the rest of test cases will disappear. You will have to run all the tests by pressing CMD+U (or from the Tests button) in order for the test cases to appear again.
     
 # Contributing
 I am so glad that you are interested in contributing to Cucumberish.

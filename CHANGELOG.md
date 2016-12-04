@@ -1,5 +1,11 @@
 #Change Log
 
+### [v1.0.6](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.0.6)
+
+   - Added the ability to execute individual test cases from the test navigator.
+   - Improved the tags handling to work on the scenario level instead of the feature level only. See issue #31 
+
+
 ### [v1.0.5](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.0.5)
 
    - Added support to Carthage.
