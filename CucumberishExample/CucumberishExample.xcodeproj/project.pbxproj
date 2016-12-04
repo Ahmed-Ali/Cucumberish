@@ -178,8 +178,6 @@
 		60CB136D1CB6FB7E00896D56 /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB133B1CB6FB7E00896D56 /* NSString+Trim.m */; };
 		60CB136E1CB6FB7E00896D56 /* NSObject+Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB133E1CB6FB7E00896D56 /* NSObject+Dictionary.m */; };
 		60CB136F1CB6FB7E00896D56 /* NSString+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CB13401CB6FB7E00896D56 /* NSString+Formatter.m */; };
-		60E06AED1DEB3E4600E4DF01 /* Cucumberish.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60E06AE61DEB3E4600E4DF01 /* Cucumberish.framework */; };
-		60E06AEF1DEB3E4600E4DF01 /* Cucumberish.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 60E06AE61DEB3E4600E4DF01 /* Cucumberish.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		60E06BCF1DEB470E00E4DF01 /* CCIBlockDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 60E06B621DEB470E00E4DF01 /* CCIBlockDefinitions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		60E06BD01DEB470E00E4DF01 /* CCIFeaturesManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 60E06B641DEB470E00E4DF01 /* CCIFeaturesManager.h */; };
 		60E06BD11DEB470E00E4DF01 /* CCIFeaturesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E06B651DEB470E00E4DF01 /* CCIFeaturesManager.m */; };
@@ -368,20 +366,6 @@
 			remoteInfo = CucumberishExample;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		60E06AEE1DEB3E4600E4DF01 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				60E06AEF1DEB3E4600E4DF01 /* Cucumberish.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		60255DDE1DBAB8F60085B1B4 /* ExampleFeatures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ExampleFeatures; sourceTree = "<group>"; };
@@ -986,7 +970,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60E06AED1DEB3E4600E4DF01 /* Cucumberish.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2120,7 +2103,6 @@
 				60853A751C4ED7BD00806CD9 /* Sources */,
 				60853A761C4ED7BD00806CD9 /* Frameworks */,
 				60853A771C4ED7BD00806CD9 /* Resources */,
-				60E06AEE1DEB3E4600E4DF01 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
