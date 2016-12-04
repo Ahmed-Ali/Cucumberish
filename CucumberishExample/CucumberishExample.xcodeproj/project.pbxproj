@@ -360,13 +360,6 @@
 			remoteGlobalIDString = 60853A781C4ED7BD00806CD9;
 			remoteInfo = CucumberishExample;
 		};
-		60E06AEB1DEB3E4600E4DF01 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60853A711C4ED7BD00806CD9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 60E06AE51DEB3E4600E4DF01;
-			remoteInfo = CucumberishCarthage;
-		};
 		8DAD56CF1D47AC140028FB76 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 60853A711C4ED7BD00806CD9 /* Project object */;
@@ -2132,7 +2125,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				60E06AEC1DEB3E4600E4DF01 /* PBXTargetDependency */,
 			);
 			name = CucumberishExample;
 			productName = CucumberishExample;
@@ -2675,11 +2667,6 @@
 			isa = PBXTargetDependency;
 			target = 60853A781C4ED7BD00806CD9 /* CucumberishExample */;
 			targetProxy = 60BACE7D1DBAA4280034450C /* PBXContainerItemProxy */;
-		};
-		60E06AEC1DEB3E4600E4DF01 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 60E06AE51DEB3E4600E4DF01 /* Cucumberish */;
-			targetProxy = 60E06AEB1DEB3E4600E4DF01 /* PBXContainerItemProxy */;
 		};
 		8DAD56D01D47AC140028FB76 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
