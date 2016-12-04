@@ -69,6 +69,7 @@
     NSArray * features = [[CCIFeaturesManager instance] features];
     NSMutableArray * featureDictionaries = [NSMutableArray array];
     for(CCIFeature * feature in features){
+        
         [featureDictionaries addObject:[feature toDictionary]];
     }
     NSError * parsingError;
@@ -133,6 +134,6 @@ void CucumberishInit()
     [Cucumberish instance].fixMissingLastScenario = YES;
     //Tell Cucumberish the name of your features folder and let it execute them for you...
     NSBundle * bundle = [NSBundle bundleForClass:[Cucumberish class]];
-    [Cucumberish executeFeaturesInDirectory:@"Features" fromBundle:bundle includeTags:nil excludeTags:nil];
+    [Cucumberish executeFeaturesInDirectory:@"Features" fromBundle:bundle includeTags:@[@"run"] excludeTags:@[@"skip"]];
 }
 

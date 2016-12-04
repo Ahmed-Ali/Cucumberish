@@ -1,3 +1,4 @@
+@run
 Feature: History
 As a user I want to see record of history when a profile is created/updated and activity is added/deleted
 

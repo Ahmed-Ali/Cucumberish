@@ -1,3 +1,4 @@
+@run
 Feature: Activity
 As a user I should be able to add some activites, and delete them
 
