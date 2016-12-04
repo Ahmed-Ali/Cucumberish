@@ -27,6 +27,9 @@
 
 #import "CCIScenarioDefinition.h"
 
+const NSString * kScenarioOutlineKeyword = @"Scenario Outline";
+const NSString * kBackgroundKeyword = @"Background";
+
 @interface CCIScenarioDefinition ()
 @end
 @implementation CCIScenarioDefinition
