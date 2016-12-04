@@ -4,6 +4,7 @@
 
    - Added the ability to execute individual test cases from the test navigator.
    - Improved the tags handling to work on the scenario level instead of the feature level only. See issue #31 
+   - The CucumberishExample scheme was ignored by mistake, but has been re-added.
 
 
 ### [v1.0.5](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.0.5)
