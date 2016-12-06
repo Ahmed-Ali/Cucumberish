@@ -75,7 +75,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 {
     self = [super init];
     self.fixMissingLastScenario = NO;
-    
+    self.featureNamesPrefix = @"CCI";
     self.beforeHocks = [NSMutableArray array];
     self.afterHocks = [NSMutableArray array];
     self.aroundHocks = [NSMutableArray array];
@@ -364,9 +364,9 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 {
     //Prefix it with CCI to avoit any name collision
     //Prefix it with CCI to avoit any name collision
-    NSString * className = [@"CCI " stringByAppendingString:feature.name];
+    NSString * className = [[[Cucumberish instance] featureNamesPrefix] stringByAppendingString:feature.name];
     if(![[Cucumberish instance] prettyNamesAllowed] && ![[Cucumberish instance] prettyFeatureNamesAllowed]){
-        className = [@"CCI_" stringByAppendingString:[feature.name camleCaseStringWithFirstUppercaseCharacter:YES]];
+        className = [className camleCaseStringWithFirstUppercaseCharacter:YES];
     }
     Class featureClass = objc_allocateClassPair([XCTestCase class], [className UTF8String], 0);
     if(featureClass == nil){

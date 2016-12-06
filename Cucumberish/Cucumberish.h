@@ -71,6 +71,14 @@
 @property (nonatomic) BOOL prettyScenarioNamesAllowed;
 
 /**
+ You can set it to the value you want to have as a prefix for the auto-generated classes that represents your features in the test navigator.
+ Default value is "CCI".
+ 
+ @note The idea of having a prefix, is to avoid conflicts between the generated classes and existing classes (either classes you created or exist in any built-in/third-party framework. So if you decide you really don't want a prefix, easier use an empty space or an _ in case you are using tools that doesn't allow spaces in class names such as XCTool
+ */
+@property (nonatomic) NSString * featureNamesPrefix;
+
+/**
  If the name of folder that contains your test target files is different than the test target it self, then tell Cucumber the name of the folder through this property.
  This is important for proper error reporting.
  */
