@@ -59,6 +59,18 @@
 @property (nonatomic) BOOL prettyNamesAllowed;
 
 /**
+ If you change this property value to YES, feature names will appear in Xcode Test Navigator as is (allowing spaces and special characters).
+ However, allowing pretty names might cause some issues with some tools like XCTool
+ */
+@property (nonatomic) BOOL prettyFeatureNamesAllowed;
+
+/**
+ If you change this property value to YES, scenario names will appear in Xcode Test Navigator as is (allowing spaces and special characters).
+ However, allowing pretty names might cause some issues with some tools like XCTool
+ */
+@property (nonatomic) BOOL prettyScenarioNamesAllowed;
+
+/**
  If the name of folder that contains your test target files is different than the test target it self, then tell Cucumber the name of the folder through this property.
  This is important for proper error reporting.
  */

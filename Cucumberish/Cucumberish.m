@@ -365,7 +365,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     //Prefix it with CCI to avoit any name collision
     //Prefix it with CCI to avoit any name collision
     NSString * className = [@"CCI " stringByAppendingString:feature.name];
-    if(![[Cucumberish instance] prettyNamesAllowed]){
+    if(![[Cucumberish instance] prettyNamesAllowed] && ![[Cucumberish instance] prettyFeatureNamesAllowed]){
         className = [@"CCI_" stringByAppendingString:[feature.name camleCaseStringWithFirstUppercaseCharacter:YES]];
     }
     Class featureClass = objc_allocateClassPair([XCTestCase class], [className UTF8String], 0);
@@ -385,7 +385,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 {
     NSString * methodName = scenario.name;
     
-    if(![[Cucumberish instance] prettyNamesAllowed]){
+    if(![[Cucumberish instance] prettyNamesAllowed] && ![[Cucumberish instance] prettyScenarioNamesAllowed]){
         methodName = [methodName camleCaseStringWithFirstUppercaseCharacter:NO];
     }
     SEL sel = NSSelectorFromString(methodName);
