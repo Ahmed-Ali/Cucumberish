@@ -53,6 +53,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 @property (nonatomic, strong) NSMutableArray<CCIHock *> * afterHocks;
 @property (nonatomic, strong) NSMutableArray<CCIAroundHock *> * aroundHocks;
 
+@property (nonatomic, copy) NSString* beforeStartFailureReason;
 
 @property (nonatomic, assign) NSInteger scenariosRun;
 @property (nonatomic, assign) NSInteger scenarioCount;
@@ -508,8 +509,25 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
     NSString * targetName = [[Cucumberish instance] testTargetFolderName] ? : [[[Cucumberish instance] containerBundle] infoDictionary][@"CFBundleName"];
     NSString * filePathPrefix = [NSString stringWithFormat:@"%@/%@", [Cucumberish instance].testTargetSrcRoot, targetName];
 
-    if([Cucumberish instance].scenariosRun == 0 && [Cucumberish instance].beforeStartHock){
-        [Cucumberish instance].beforeStartHock();
+    @try {
+        if([Cucumberish instance].scenariosRun == 0 && [Cucumberish instance].beforeStartHock){
+            [Cucumberish instance].beforeStartHock();
+        }
+    }
+    @catch (CCIExeption *exception) {
+        // This catches assert failures in before start hook
+        [Cucumberish instance].beforeStartFailureReason = exception.reason;
+    }
+
+    if([Cucumberish instance].beforeStartFailureReason){
+        // If we failed our before start we should auto-fail all scenarios
+        NSString * reason = [Cucumberish instance].beforeStartFailureReason;
+        NSString * filePath = [NSString stringWithFormat:@"%@%@", filePathPrefix, scenario.location.filePath];
+        [self recordFailureWithDescription:reason inFile:filePath atLine:scenario.location.line expected:YES];
+        scenario.success = NO;
+        scenario.failureReason = reason;
+        [Cucumberish instance].scenariosRun++;
+        return;
     }
 
     @try {
