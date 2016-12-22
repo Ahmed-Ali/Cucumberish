@@ -42,7 +42,7 @@
 @implementation CCIExeption @end
 
 OBJC_EXTERN void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenario, CCIFeature * feature);
-OBJC_EXTERN void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario);
+OBJC_EXTERN void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario, NSString * filePathPrefix);
 OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 @interface Cucumberish()
@@ -504,16 +504,20 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
 {
     
     self.continueAfterFailure = YES;
+
+    NSString * targetName = [[Cucumberish instance] testTargetFolderName] ? : [[[Cucumberish instance] containerBundle] infoDictionary][@"CFBundleName"];
+    NSString * filePathPrefix = [NSString stringWithFormat:@"%@/%@", [Cucumberish instance].testTargetSrcRoot, targetName];
+
     if([Cucumberish instance].scenariosRun == 0 && [Cucumberish instance].beforeStartHock){
         [Cucumberish instance].beforeStartHock();
     }
     [[Cucumberish instance] executeBeforeHocksWithScenario:scenario];
     if(feature.background != nil && scenario.steps.count > 0){
-        executeSteps(self, feature.background.steps, feature.background);
+        executeSteps(self, feature.background.steps, feature.background, filePathPrefix);
     }
     
     [[Cucumberish instance] executeAroundHocksWithScenario:scenario executionBlock:^{
-       executeSteps(self, scenario.steps, scenario);
+       executeSteps(self, scenario.steps, scenario, filePathPrefix);
     }];
     [Cucumberish instance].scenariosRun++;
     [[Cucumberish instance] executeAfterHocksWithScenario:scenario];
@@ -523,10 +527,8 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
     }
 }
 
-void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
+void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario, NSString * filePathPrefix)
 {
-    
-    NSString * targetName = [[Cucumberish instance] testTargetFolderName] ? : [[[Cucumberish instance] containerBundle] infoDictionary][@"CFBundleName"];
     
     for (CCIStep * step in steps) {
         
@@ -534,7 +536,7 @@ void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
             [[CCIStepsManager instance] executeStep:step inTestCase:testCase];
         }
         @catch (CCIExeption *exception) {
-            NSString * filePath = [NSString stringWithFormat:@"%@/%@%@", [Cucumberish instance].testTargetSrcRoot, targetName, step.location.filePath];
+            NSString * filePath = [NSString stringWithFormat:@"%@%@", filePathPrefix, step.location.filePath];
             [testCase recordFailureWithDescription:exception.reason inFile:filePath atLine:step.location.line expected:YES];
             if([parentScenario isKindOfClass:[CCIScenarioDefinition class]]){
                 CCIScenarioDefinition * scenario = (CCIScenarioDefinition *)parentScenario;
