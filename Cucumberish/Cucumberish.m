@@ -511,17 +511,27 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
     if([Cucumberish instance].scenariosRun == 0 && [Cucumberish instance].beforeStartHock){
         [Cucumberish instance].beforeStartHock();
     }
-    [[Cucumberish instance] executeBeforeHocksWithScenario:scenario];
-    if(feature.background != nil && scenario.steps.count > 0){
-        executeSteps(self, feature.background.steps, feature.background, filePathPrefix);
+
+    @try {
+        [[Cucumberish instance] executeBeforeHocksWithScenario:scenario];
+        if(feature.background != nil && scenario.steps.count > 0){
+            executeSteps(self, feature.background.steps, feature.background, filePathPrefix);
+        }
+        
+        [[Cucumberish instance] executeAroundHocksWithScenario:scenario executionBlock:^{
+           executeSteps(self, scenario.steps, scenario, filePathPrefix);
+        }];
+        [Cucumberish instance].scenariosRun++;
+        [[Cucumberish instance] executeAfterHocksWithScenario:scenario];
     }
-    
-    [[Cucumberish instance] executeAroundHocksWithScenario:scenario executionBlock:^{
-       executeSteps(self, scenario.steps, scenario, filePathPrefix);
-    }];
-    [Cucumberish instance].scenariosRun++;
-    [[Cucumberish instance] executeAfterHocksWithScenario:scenario];
-    
+    @catch (CCIExeption *exception) {
+        // This catches assert failures in scenario before/around/after hooks
+        NSString * filePath = [NSString stringWithFormat:@"%@%@", filePathPrefix, scenario.location.filePath];
+        [self recordFailureWithDescription:exception.reason inFile:filePath atLine:scenario.location.line expected:YES];
+        scenario.success = NO;
+        scenario.failureReason = exception.reason;
+    }
+
     if([Cucumberish instance].scenariosRun == [Cucumberish instance].scenarioCount && [Cucumberish instance].afterFinishHock){
         [Cucumberish instance].afterFinishHock();
     }
