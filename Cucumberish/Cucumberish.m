@@ -521,7 +521,6 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
         [[Cucumberish instance] executeAroundHocksWithScenario:scenario executionBlock:^{
            executeSteps(self, scenario.steps, scenario, filePathPrefix);
         }];
-        [Cucumberish instance].scenariosRun++;
         [[Cucumberish instance] executeAfterHocksWithScenario:scenario];
     }
     @catch (CCIExeption *exception) {
@@ -531,6 +530,7 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
         scenario.success = NO;
         scenario.failureReason = exception.reason;
     }
+    [Cucumberish instance].scenariosRun++;
 
     if([Cucumberish instance].scenariosRun == [Cucumberish instance].scenarioCount && [Cucumberish instance].afterFinishHock){
         [Cucumberish instance].afterFinishHock();
