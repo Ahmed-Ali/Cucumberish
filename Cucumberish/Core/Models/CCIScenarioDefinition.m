@@ -31,6 +31,7 @@ const NSString * kScenarioOutlineKeyword = @"Scenario Outline";
 const NSString * kBackgroundKeyword = @"Background";
 
 @interface CCIScenarioDefinition ()
+@property (nonatomic, strong) NSArray<CCIScenarioDefinition*> * outlineChildScenarios;
 @end
 @implementation CCIScenarioDefinition
 
@@ -40,6 +41,15 @@ const NSString * kBackgroundKeyword = @"Background";
 /**
  * Instantiate the instance using the passed dictionary values to set the properties values
  */
+
+-(void)addOutlineChildScenario:(CCIScenarioDefinition*)scenario
+{
+    if (![self outlineChildScenarios])
+    {
+        [self setOutlineChildScenarios:[NSMutableArray array]];
+    }
+    [(NSMutableArray*)self.outlineChildScenarios addObject:scenario];
+}
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
@@ -84,6 +94,7 @@ const NSString * kBackgroundKeyword = @"Background";
         self.tags = dictionary[@"parsedTags"];
     }else if(dictionary[@"tags"] != nil && [dictionary[@"tags"] isKindOfClass:[NSArray class]]){
         NSArray * tagsDictionaries = dictionary[@"tags"];
+        self.rawTags = dictionary[@"tags"];
         NSMutableArray * tagsItems = [NSMutableArray array];
         for(NSDictionary * tagDictionary in tagsDictionaries){
             NSString * tagName = tagDictionary[@"name"];

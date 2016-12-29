@@ -42,6 +42,10 @@ extern const NSString * kBackgroundKeyword;
  */
 @property (nonatomic, strong) NSArray<CCIExample *> * examples;
 
+@property (nonatomic, strong, readonly) NSArray<CCIScenarioDefinition*> *outlineChildScenarios;//this is necessary to output each executed scenario from the scenario outline in the JSON. This keeps track of the individual tests cases generated from an outline to ensure proper JSON output
+
+-(void)addOutlineChildScenario:(CCIScenarioDefinition*)scenario;
+
 /**
  Keyword is usually Scenario or Scenario Outline
  */
@@ -66,6 +70,8 @@ extern const NSString * kBackgroundKeyword;
  Array of tags found on top of this scenario
  */
 @property (nonatomic, strong) NSArray <NSString *> * tags;
+
+@property (nonatomic, strong) NSArray<NSDictionary*>* rawTags;
 
 /**
  Can be Scenario or ScenarioOutline

@@ -36,6 +36,7 @@
 #import "CCIHock.h"
 #import "CCIAroundHock.h"
 
+#import "CCIJSONDumper.h"
 
 
 @interface CCIExeption : NSException @end
@@ -304,20 +305,30 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     [Cucumberish swizzleOrignalSelector:originalSelector swizzledSelector:swizzledSelector originalClass:class targetClass:[Cucumberish class] classMethod:YES];
 }
 
-+ (NSString *)exampleScenarioNameForScenarioName:(NSString *)scenarioName exampleAtIndex:(NSInteger)index
++ (NSString *)exampleScenarioNameForScenarioName:(NSString *)scenarioName exampleAtIndex:(NSInteger)index example:(CCIExample*)example
 {
-    return [scenarioName stringByAppendingFormat:@" Example %lu", (unsigned long)(index + 1)];
+	NSMutableArray * nameExpansion = [NSMutableArray array];
+	for(NSString * variable in example.exampleData.allKeys){
+		NSString * replacement = example.exampleData[variable][index];
+		[nameExpansion addObject:replacement];
+	}
+
+    return [scenarioName stringByAppendingFormat:@" %@ Example %lu", [nameExpansion componentsJoinedByString:@"-"], (unsigned long)(index + 1)];
 }
+
 + (NSInvocation *)invocationForScenarioOutline:(CCIScenarioDefinition *)outline exampleIndex:(NSInteger)index feature:(CCIFeature *)feature featureClass:(Class)featureClass
 {
     //Scenario for each body
     CCIScenarioDefinition * scenario = [outline copy];
-    scenario.name = [self exampleScenarioNameForScenarioName:scenario.name exampleAtIndex:index];
-    scenario.keyword = (NSString *)kScenarioOutlineKeyword;
+
+		scenario.keyword = (NSString *)kScenarioOutlineKeyword;
     scenario.examples = nil;
     CCIExample * example = outline.examples.firstObject;
+		scenario.name = [self exampleScenarioNameForScenarioName:scenario.name exampleAtIndex:index example:example];
+	
     for(NSString * variable in example.exampleData.allKeys){
         NSString * replacement = example.exampleData[variable][index];
+
         //now loop on each step in the scenario to replace the place holders with their values
         for(CCIStep * step in scenario.steps){
             NSString * placeHolder = [NSString stringWithFormat:@"<%@>", variable];
@@ -337,7 +348,9 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
             }
         }
     }
-    
+
+		[outline addOutlineChildScenario:scenario];
+	
     return [self invocationForScenario:scenario feature:feature featureClass:featureClass];
 }
 
@@ -421,9 +434,10 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
             NSInvocation * inv = [Cucumberish invocationForScenario:s feature:feature featureClass:[self class]];
             invocationTest =  [[self alloc] initWithInvocation:inv];
             break;
-        }else if([s.keyword isEqualToString:(NSString *)kScenarioOutlineKeyword]){\
-            NSInteger exampleIndex = [[scenarioName substringFromIndex:scenarioName.length - 2] integerValue] - 1;
-            NSString * scenarioOutlineName = [Cucumberish exampleScenarioNameForScenarioName:s.name exampleAtIndex:exampleIndex];
+        }else if([s.keyword isEqualToString:(NSString *)kScenarioOutlineKeyword]){
+					NSRange range = [scenarioName rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet] options:NSBackwardsSearch];
+            NSInteger exampleIndex = [[scenarioName substringWithRange:range] integerValue] - 1;
+            NSString * scenarioOutlineName = [Cucumberish exampleScenarioNameForScenarioName:s.name exampleAtIndex:exampleIndex example:s.examples.firstObject];
             if([scenarioName isEqualToString:scenarioOutlineName]){
                 NSInvocation * inv = [Cucumberish invocationForScenarioOutline:s exampleIndex:exampleIndex feature:feature featureClass:[self class]];
                 invocationTest =  [[self alloc] initWithInvocation:inv];
@@ -502,30 +516,36 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenario, CCIFeature * feature)
 {
-    
-    self.continueAfterFailure = YES;
-    if([Cucumberish instance].scenariosRun == 0 && [Cucumberish instance].beforeStartHock){
-        [Cucumberish instance].beforeStartHock();
-    }
-    [[Cucumberish instance] executeBeforeHocksWithScenario:scenario];
-    if(feature.background != nil && scenario.steps.count > 0){
-        executeSteps(self, feature.background.steps, feature.background);
-    }
-    
-    [[Cucumberish instance] executeAroundHocksWithScenario:scenario executionBlock:^{
-       executeSteps(self, scenario.steps, scenario);
-    }];
-    [Cucumberish instance].scenariosRun++;
-    [[Cucumberish instance] executeAfterHocksWithScenario:scenario];
-    
-    if([Cucumberish instance].scenariosRun == [Cucumberish instance].scenarioCount && [Cucumberish instance].afterFinishHock){
-        [Cucumberish instance].afterFinishHock();
-    }
+	
+	self.continueAfterFailure = YES;
+	if([Cucumberish instance].scenariosRun == 0 && [Cucumberish instance].beforeStartHock){
+		[Cucumberish instance].beforeStartHock();
+	}
+	[[Cucumberish instance] executeBeforeHocksWithScenario:scenario];
+	if(feature.background != nil && scenario.steps.count > 0){
+		executeSteps(self, feature.background.steps, feature.background);
+	}
+	
+	[[Cucumberish instance] executeAroundHocksWithScenario:scenario executionBlock:^{
+		executeSteps(self, scenario.steps, scenario);
+	}];
+	[Cucumberish instance].scenariosRun++;
+	[[Cucumberish instance] executeAfterHocksWithScenario:scenario];
+	
+	if([Cucumberish instance].scenariosRun == [Cucumberish instance].scenarioCount) {
+		NSString * targetName = [[Cucumberish instance] testTargetFolderName] ? : [[[Cucumberish instance] containerBundle] infoDictionary][@"CFBundleName"];
+		
+		[CCIJSONDumper writeJSONToFile:[NSString stringWithFormat:@"CucumberishTestResults-%@",targetName]
+											 forFeatures: [[CCIFeaturesManager instance] features]];
+		if([Cucumberish instance].afterFinishHock) {
+			[Cucumberish instance].afterFinishHock();
+		}
+	}
 }
 
 void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario)
 {
-    
+	
     NSString * targetName = [[Cucumberish instance] testTargetFolderName] ? : [[[Cucumberish instance] containerBundle] infoDictionary][@"CFBundleName"];
     
     for (CCIStep * step in steps) {
