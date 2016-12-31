@@ -119,7 +119,7 @@ Feel free to take these step implementations as a starting point and use them as
 	
 
 # Unit Tests
-The CucumberishLibrary project containt two targets, CucumberishTests and CucumberishFeatureDefinition, which are used to test Cucumberish itself.
+The CucumberishLibrary project, located in the CucumberLibraryTest folder, contains two targets, CucumberishTests and CucumberishFeatureDefinition, which are used to test Cucumberish itself.
 
             
 # Troubleshooting

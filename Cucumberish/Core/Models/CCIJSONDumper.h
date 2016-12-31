@@ -12,9 +12,9 @@
 
 /*!
  *   @author Erik Call Reynolds 
- *@date, 16-11-15 12:11:00
+ *   @date 16-11-15 12:11:00
  *
- *   @brief creates the Cucumber JSON Output String similar to
+ *   @brief creates the Cucumber JSON Output String similar to the ruby/cucumber JSON output option
  *
  *   @param features The array of features to output as JSON
  *

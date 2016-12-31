@@ -309,6 +309,7 @@
 				3E0B341E1DDB9C0F00E1A338 /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		3E0B341E1DDB9C0F00E1A338 /* Products */ = {
 			isa = PBXGroup;
