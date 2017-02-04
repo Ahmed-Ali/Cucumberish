@@ -94,7 +94,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 - (Cucumberish *)parserFeaturesInDirectory:(NSString *)directory fromBundle:(NSBundle *)bundle includeTags:(NSArray<NSString *> *)includeTags excludeTags:(NSArray<NSString *> *)excludeTags
 {
-    NSArray * featureFiles = [bundle URLsForResourcesWithExtension:@".feature" subdirectory:directory];
+    NSArray * featureFiles = [self recursivelyFindFeatureFilesInBundle:bundle subDirectory:directory];
     self.containerBundle = bundle;
 
     [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles bundle:bundle withTags:includeTags execludeFeaturesWithTags:excludeTags];
@@ -102,21 +102,35 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     return self;
 }
 
-- (Cucumberish *)parserFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray<NSString *> *)tags excludeTags:(NSArray<NSString *> *)excludedTags
+-(NSArray *)recursivelyFindFeatureFilesInBundle:(NSBundle *)bundle subDirectory:(NSString *)subdirectory
 {
-    [self parserFeaturesInDirectory:featuresDirectory
-                         fromBundle:[NSBundle bundleForClass:[Cucumberish class]]
-                        includeTags:tags
-                        excludeTags:excludedTags];
-    return self;
+    NSMutableArray *matches = [[NSMutableArray alloc]init];
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSString * basePath = [[bundle bundlePath] stringByAppendingPathComponent:subdirectory];
+    NSArray *contents = [manager contentsOfDirectoryAtPath: basePath error:nil];
+    for (NSString * item in contents)
+    {
+        NSString * fullPath = [basePath stringByAppendingPathComponent:item];
+        if ([[fullPath pathExtension] isEqualToString:@"feature"])
+        {
+            [matches addObject:[NSURL fileURLWithPath:fullPath]];
+        }else{
+            BOOL isDir = NO;
+            [manager fileExistsAtPath:fullPath isDirectory:&isDir];
+            if(isDir){
+                //Recursive...
+                NSArray * subFiles = [self recursivelyFindFeatureFilesInBundle:bundle subDirectory:[subdirectory stringByAppendingPathComponent:item]];
+                [matches addObjectsFromArray:subFiles];
+            }
+        }
+    }
+    
+    return matches;
 }
 
-+ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray *)tags excludeTags:(NSArray *)excludedTags
-{
-    [[[Cucumberish instance] parserFeaturesInDirectory:featuresDirectory
-                                          includeTags:tags
-                                          excludeTags:excludedTags] beginExecution];
-}
+
+
+
 
 + (void)executeFeaturesInDirectory:(NSString *)featuresDirectory fromBundle:(NSBundle *)bundle includeTags:(NSArray *)tags excludeTags:(NSArray *)excludedTags
 {
@@ -136,6 +150,23 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
         [Cucumberish swizzleFailureRecordingImplementationForClass:featureClass];
         [Cucumberish swizzleTestCaseWithSelectorImplementationForClass:featureClass];
     }
+}
+
+#pragma mark - Deprecated
+- (Cucumberish *)parserFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray<NSString *> *)tags excludeTags:(NSArray<NSString *> *)excludedTags
+{
+    [self parserFeaturesInDirectory:featuresDirectory
+                         fromBundle:[NSBundle bundleForClass:[Cucumberish class]]
+                        includeTags:tags
+                        excludeTags:excludedTags];
+    return self;
+}
+
++ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray *)tags excludeTags:(NSArray *)excludedTags
+{
+    [[[Cucumberish instance] parserFeaturesInDirectory:featuresDirectory
+                                           includeTags:tags
+                                           excludeTags:excludedTags] beginExecution];
 }
 
 #pragma mark - Manage hocks
