@@ -145,19 +145,6 @@
 + (void)executeFeaturesInDirectory:(NSString *)featuresDirectory fromBundle:(NSBundle *)bundle includeTags:(NSArray *)tags excludeTags:(NSArray *)excludedTags;
 
 
-#pragma mark - deprecated methods
-/**
- Conventient method that calls parserFeaturesInDirectory:includeTags:excludeTags: followed by an immediate call to beginExecution
- 
- */
-+ (void)executeFeaturesInDirectory:(NSString *)featuresDirectory includeTags:(NSArray<NSString *> *)tags excludeTags:(NSArray<NSString *> *)excludedTags DEPRECATED_MSG_ATTRIBUTE("This method is deprecated because it can cause issues if you installed Cucumberish using Cocoapods. Instead use the method executeFeaturesInDirectory:fromBundle:includeTags:(NSArray *)tags excludeTags:");
-
-
-
-
-- (Cucumberish *)parserFeaturesInDirectory:(NSString *)directory
-                               includeTags:(NSArray<NSString *> *)tags
-                               excludeTags:(NSArray<NSString *> *)excludedTags DEPRECATED_MSG_ATTRIBUTE("This method is deprecated because it can cause issues if you installed Cucumberish using Cocoapods. Instead use the method parserFeaturesInDirectory:fromBundle:includeTags:excludeTags:");
 
 @end
 
