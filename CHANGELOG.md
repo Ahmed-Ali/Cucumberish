@@ -1,5 +1,11 @@
 #Change Log
 
+### [v1.1.0](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.1.0)
+
+   - Added the ability report failures in BeforeStart hocks. See PR #38. Thanks to @brentleyjones
+   - Replaced the CucumberishExample project with the library project, which simplifies the demonstration of the framework. See PR #39 . Thanks to @sidekickr
+   - Cucumberish now can output the execution result formatted like the its Ruby version. See PR #39 . Thanks to @sidekickr.
+
 ### [v1.0.6](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.0.6)
 
    - Added the ability to execute individual test cases from the test navigator.
