@@ -98,24 +98,20 @@ And that's it! You have implemented your first feature scenario steps!
 For more information about the steps, the blocks that are passed to it and the hooks, check the [CCIBlockDefinitions.h](https://github.com/Ahmed-Ali/Cucumberish/blob/master/Cucumberish/Core/CCIBlockDefinitions.h) file and [Cucumberish Wiki](https://github.com/Ahmed-Ali/Cucumberish/wiki).
 
 # Examples
-Beside all the information you can find on the [wiki](https://github.com/Ahmed-Ali/Cucumberish/wiki) and specifically the [Steps Definition](https://github.com/Ahmed-Ali/Cucumberish/wiki/Step-Definitions) page, seeing examples in action is the best way to demonstrate something. You can clone this repository and open the file `CucumberishExample/CucumberishExample.xcworkspace`.
+Beside all the information you can find on the [wiki](https://github.com/Ahmed-Ali/Cucumberish/wiki) and specifically the [Steps Definition](https://github.com/Ahmed-Ali/Cucumberish/wiki/Step-Definitions) page, seeing examples in action is the best way to demonstrate something. You can clone this repository and open the file `CucumberishLibraryTest/CucumberishLibrary.xcodeproj`.
 
 
-In the `CucumberishExample` project there are five targets:
+In the `CucumberishLibrary` project there are five targets:
 
-1. CucumberishExample target:
-    - Is a very small app with a few screens and an easy to understand flow and implementation. It requires Xcode 8 to run. On the Storyboards most of the UI components have accessibility labels.
-    - In case the test target that uses KIF failes to find the UI elements, you need to open the accessibility inspector from Xcode menu > Developer Tools
+1. CucumberishLibrary target:
+    - This is the main target that includes the Cucumberish library, we use it as our testable target to test it in the test targets.
     
-2. CucumberishExampleTests target:
-    - This target uses [KIF](https://github.com/kif-framework/KIF) to interact with the UI in the steps implementation.
-    - It's a very good idea to take a look at the file CucumberishExampleTests/Steps/CCIStepsUsingKIF.m for many examples of how to define your step implementations in many different ways. This target uses Objective-C.
-    - While walking through the step imeplementations, see how this implementation is being used in the CucumberishExampleTests/ExampleFeatures .feature files.
+2. CucumberishFeatureDefinition target:
+    - This target is mainly a demonstration of different ways to define a step implemnetation and to get you familiar with most of Cucumberish APIs.
     - Most of the steps in this target uses bit complicated regular expressions strings, but you should not worry about that. As long as you know some of the basics of regular expressions, you should be fine. The [Steps Definition](https://github.com/Ahmed-Ali/Cucumberish/wiki/Step-Definitions) page can be of great help if you are not so familiar with regular expressions.
 
-3. CucumberishExampleUITests Target:
-    - While I was not too impressed by Apple's UI automation API and its many limitions, I've nonetheless added an example target to complete the chain. It has a smaller set of step implementation examples, and is written in Swift.
-Feel free to take these step implementations as a starting point and use them as much as you want; just remember to choose what fits best with your needs because you will build your own implementations in all cases.
+3. CucumberishTests Target:
+    - In this target we use the Cucumberish library to test its own behaviour.
 	
 
 # Unit Tests
