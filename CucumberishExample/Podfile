@@ -1,3 +1,0 @@
-target 'CucumberishExampleTests' do
-    pod 'KIF', '~> 3.0'
-end
