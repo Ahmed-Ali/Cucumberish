@@ -41,8 +41,10 @@
 @property (nonatomic, strong) CCIBackground * background;
 @property (nonatomic, strong) CCILocation * location;
 @property (nonatomic, copy) NSString * name;
+@property (nonatomic, copy) NSString * docDescription;//this property saves the description of the feature from the parsed feature to save it for JSON output
 @property (nonatomic, strong) NSArray<CCIScenarioDefinition *> * scenarioDefinitions;
 @property (nonatomic, strong) NSArray <NSString *> * tags;
+@property (nonatomic, strong, readonly) NSArray <NSDictionary *> * rawTags;//the tags property loses information needed for the JSON output. This preserves the raw tag formatting
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 -(NSDictionary *)toDictionary;

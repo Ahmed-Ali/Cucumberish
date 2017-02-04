@@ -28,6 +28,7 @@
 #import "CCIFeature.h"
 
 @interface CCIFeature ()
+@property (nonatomic, strong) NSArray<NSDictionary *>* rawTags;
 @end
 @implementation CCIFeature
 
@@ -40,21 +41,24 @@
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
-	self = [super init];
-	
-
-	if(dictionary[@"location"] != nil && ![dictionary[@"location"] isKindOfClass:[NSNull class]]){
-		self.location = [[CCILocation alloc] initWithDictionary:dictionary[@"location"]];
-	}
-
-	if(dictionary[@"name"] != nil && ![dictionary[@"name"] isKindOfClass:[NSNull class]]){
-		self.name = dictionary[@"name"];
-	}
-
+    self = [super init];
+    
+    
+    if(dictionary[@"location"] != nil && ![dictionary[@"location"] isKindOfClass:[NSNull class]]){
+        self.location = [[CCILocation alloc] initWithDictionary:dictionary[@"location"]];
+    }
+    
+    if(dictionary[@"name"] != nil && ![dictionary[@"name"] isKindOfClass:[NSNull class]]){
+        self.name = dictionary[@"name"];
+    }
+    if(dictionary[@"description"] != nil && ![dictionary[@"description"] isKindOfClass:[NSNull class]]){
+        self.docDescription = dictionary[@"description"];
+    }
     if(dictionary[@"parsedTags"] != nil){
         self.tags = dictionary[@"parsedTags"];
     }else if(dictionary[@"tags"] != nil && [dictionary[@"tags"] isKindOfClass:[NSArray class]]){
         NSArray * tagsDictionaries = dictionary[@"tags"];
+        [self setRawTags:dictionary[@"tags"]];
         NSMutableArray * tagsItems = [NSMutableArray array];
         for(NSDictionary * tagDictionary in tagsDictionaries){
             NSString * tagName = tagDictionary[@"name"];
@@ -122,10 +126,14 @@
     if(self.tags.count > 0){
         dictionary[@"parsedTags"] = self.tags;
     }
-	
-	
-	return dictionary;
-
+    if (self.docDescription != nil)
+    {
+        dictionary[@"description"]= self.docDescription;
+    }
+    
+    
+    return dictionary;
+    
 }
 
 /**

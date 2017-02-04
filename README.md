@@ -118,14 +118,8 @@ In the `CucumberishExample` project there are five targets:
 Feel free to take these step implementations as a starting point and use them as much as you want; just remember to choose what fits best with your needs because you will build your own implementations in all cases.
 	
 
-4. CucumberishTest:
-    - This target contains test cases for the behaviour of the Cucumberish framework itself. This is accomplished by comparing the order of feature, scenario and step execution and their associated classes and methods that are supposed to appear in the Xcode test navigator.
- 
-5. CucumberishFeatureDefinition
-    - More test for the framework it self in Unit Test style rather than behaviour testing. 
-
 # Unit Tests
-The example project containt two targets, CucumberishTest and CucumberishFeatureDefinition, which are used to test Cucumberish itself.
+The CucumberishLibrary project, located in the CucumberLibraryTest folder, contains two targets, CucumberishTests and CucumberishFeatureDefinition, which are used to test Cucumberish itself.
 
             
 # Troubleshooting
