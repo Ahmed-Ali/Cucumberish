@@ -15,7 +15,7 @@
 __attribute__((constructor))
 void CucumberishInit()
 {
-		[[Cucumberish instance] setPrettyNamesAllowed:YES];
+    [[Cucumberish instance] setPrettyNamesAllowed:YES];
     [CucumberFeatureSteps new];
     //Optional step, see the comment on this property for more information
     [Cucumberish instance].fixMissingLastScenario = NO;
