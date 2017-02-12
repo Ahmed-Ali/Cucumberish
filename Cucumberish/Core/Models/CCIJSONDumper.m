@@ -8,7 +8,7 @@
 
 #import "CCIJSONDumper.h"
 #import "CCIFeature.h"
-#import <UIKit/UIKit.h>
+//#import <UIKit/UIKit.h>
 @import Darwin;
 @implementation CCIJSONDumper
 + (instancetype)instance {
@@ -396,7 +396,7 @@
     
     [retVal addEntriesFromDictionary:@{@"type": [scenario.keyword.lowercaseString stringByReplacingOccurrencesOfString:@" " withString:@"_"]}];
     [retVal addEntriesFromDictionary:[self convertTagsToOutputDictionaryFromScenario:scenario]];
-    [retVal addEntriesFromDictionary:@{@"test_env":[[UIDevice currentDevice] systemVersion]}];
+//    [retVal addEntriesFromDictionary:@{@"test_env":[[UIDevice currentDevice] systemVersion]}];
     
     
     [retVal addEntriesFromDictionary:[self convertStepsToOutputDictionary:scenario]];

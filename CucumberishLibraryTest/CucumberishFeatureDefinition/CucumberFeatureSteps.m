@@ -149,7 +149,7 @@
                                                       @"id" : @"json-output",
                                                       @"elements" : @[
                                                               @{
-                                                                  @"test_env" : [[UIDevice currentDevice] systemVersion],
+                                                                  
                                                                   @"id" : @"json-output;json-output",
                                                                   @"steps" : @[
                                                                           @{
