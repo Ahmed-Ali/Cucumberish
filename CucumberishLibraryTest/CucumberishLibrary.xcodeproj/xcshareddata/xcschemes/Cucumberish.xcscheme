@@ -28,36 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3E38B0E91DDDE0A400C1CF5A"
-               BuildableName = "CucumberishFeatureDefinition.xctest"
-               BlueprintName = "CucumberishFeatureDefinition"
-               ReferencedContainer = "container:CucumberishLibrary.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C57B79D71E15847C001B758D"
-               BuildableName = "CucumberishTests.xctest"
-               BlueprintName = "CucumberishTests"
-               ReferencedContainer = "container:CucumberishLibrary.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3E0B341C1DDB9C0F00E1A338"
-            BuildableName = "libCucumberishLibrary.a"
-            BlueprintName = "CucumberishLibrary"
-            ReferencedContainer = "container:CucumberishLibrary.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
