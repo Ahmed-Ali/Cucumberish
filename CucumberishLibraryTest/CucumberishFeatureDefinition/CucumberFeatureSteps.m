@@ -235,6 +235,7 @@
         for (NSDictionary *dict in hashes) {
             self.savedValues[@"option1"] = dict[@"option1"];
             self.savedValues[@"option2"] = dict[@"option2"];
+            self.savedValues[@"option3"] = dict[@"option3"];
         }
     });
     
@@ -245,7 +246,7 @@
         }
     });
     
-    And(@"([A-Za-z0-9]+) value ([A-Za-z0-9]+) has been passed through", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    And(@"([A-Za-z0-9]+) value (.*) has been passed through", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         CCIAssert(self.savedValues[args[0]] != nil, @"Expected to have a saved key of @",args[0]);
         if (self.savedValues[args[0]]) {
             CCIAssert([self.savedValues[args[0]] isEqualToString:args[1]] != NO, @"Expected %@ to equal %@, got %@",args[0],args[1],self.savedValues[args[0]]);

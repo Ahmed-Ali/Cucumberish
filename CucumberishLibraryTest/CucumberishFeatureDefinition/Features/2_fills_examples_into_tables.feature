@@ -3,11 +3,12 @@ Cucumberish shall support filling examples into tables
 
 Scenario Outline: Tables with Examples
 Given a table with examples
-|option1|option2|
-|<example1>|<example2>|
+|option1|option2|option3|
+|<example1>|<example2>|<example👍🏽>|
 When cucumber is executed
 Then option1 value <example1> has been passed through
 And option2 value <example2> has been passed through
+And option3 value <example👍🏽> has been passed through
 
 Examples:
 |example1|example2|
