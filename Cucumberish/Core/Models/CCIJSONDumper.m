@@ -37,11 +37,22 @@
 +(NSString*)writeJSONToFile:(NSString*)filename
                 forFeatures:(NSArray<CCIFeature*>*)features
 {
-    NSData *data = [self buildJSONOutputData:features];
-    NSString* fileName = [NSString stringWithFormat:@"%@.json", filename];
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:fileName];
+
+    return [self writeJSONToFile:filename inDirectory:documentsDirectory forFeatures:features];
+    
+}
+
++(NSString*)writeJSONToFile:(NSString*)filename
+                inDirectory:(NSString *)directory
+                forFeatures:(NSArray<CCIFeature*>*)features
+{
+    
+    NSData *data = [self buildJSONOutputData:features];
+    NSString* fileName = [NSString stringWithFormat:@"%@.json", filename];
+    NSString *dataPath = [directory stringByAppendingPathComponent:fileName];
     
     [data writeToFile:dataPath atomically:YES];
     return dataPath;
