@@ -81,6 +81,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     self.beforeHocks = [NSMutableArray array];
     self.afterHocks = [NSMutableArray array];
     self.aroundHocks = [NSMutableArray array];
+    
 #ifdef SRC_ROOT
     self.testTargetSrcRoot = SRC_ROOT;
     //Clean up unwanted /Pods path caused by cocoa pods
@@ -127,6 +128,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     
     return matches;
 }
+
 
 
 
@@ -394,7 +396,6 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
         //Loop on the example bod(y|ies)
         NSUInteger numberOfIndexes = [(NSArray *)example.exampleData[example.exampleData.allKeys.firstObject] count];
         for(int index = 0; index < numberOfIndexes; index++){
-            
             NSInvocation * inv = [self invocationForScenarioOutline:outline exampleIndex:index  feature:feature featureClass:featureClass];
             
             [invocations addObject:inv];
@@ -463,6 +464,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     for(CCIScenarioDefinition * s in feature.scenarioDefinitions){
         NSString * scenarioName = NSStringFromSelector(selector);
         if ([s.name isEqualToString:scenarioName]){
+            [Cucumberish instance].scenarioCount++;
             NSInvocation * inv = [Cucumberish invocationForScenario:s feature:feature featureClass:[self class]];
             invocationTest =  [[self alloc] initWithInvocation:inv];
             break;
@@ -534,6 +536,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
         cleanupScenario.name = @"cucumberishCleanupScenario";
         [invocations addObject:[Cucumberish invocationForScenario:cleanupScenario feature:lastFeature featureClass:self]];
         [Cucumberish instance].scenarioCount++;
+
     }
     
     
@@ -548,13 +551,26 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenario, CCIFeature * feature)
 {
-    
     self.continueAfterFailure = YES;
 
     NSString * targetName = [[Cucumberish instance] testTargetFolderName] ? : [[[Cucumberish instance] containerBundle] infoDictionary][@"CFBundleName"];
     NSString * filePathPrefix = [NSString stringWithFormat:@"%@/%@", [Cucumberish instance].testTargetSrcRoot, targetName];
 
     @try {
+        
+        if ([Cucumberish instance].scenariosRun == 0) {
+            
+            NSString * resultsDirectory = [Cucumberish instance].resultsDirectory;
+            NSFileManager *fileManager= [NSFileManager defaultManager];
+            NSError *error = nil;
+            
+            if([resultsDirectory length] > 0 && ![fileManager createDirectoryAtPath:resultsDirectory withIntermediateDirectories:YES attributes:nil error:&error]) {
+                // An error has occurred, do something to handle it
+                NSString * errorMsg = [NSString stringWithFormat:@"Failed to create directory \"%@\". Error: %@", resultsDirectory, error];
+                [Cucumberish instance].beforeStartFailureReason = errorMsg;
+            }
+            
+        }
         if([Cucumberish instance].scenariosRun == 0 && [Cucumberish instance].beforeStartHock){
             [Cucumberish instance].beforeStartHock();
         }
@@ -596,8 +612,20 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
     [Cucumberish instance].scenariosRun++;
 
     if([Cucumberish instance].scenariosRun == [Cucumberish instance].scenarioCount){
-		[CCIJSONDumper writeJSONToFile:[NSString stringWithFormat:@"CucumberishTestResults-%@",targetName]
+        
+        NSString * resultsDir = [Cucumberish instance].resultsDirectory;
+        NSString * fileName = [NSString stringWithFormat:@"CucumberishTestResults-%@",targetName];
+        
+        if ([resultsDir length] == 0) {
+            [CCIJSONDumper writeJSONToFile: fileName
                        forFeatures: [[CCIFeaturesManager instance] features]];
+        }
+        else {
+            [CCIJSONDumper writeJSONToFile:fileName
+                        inDirectory:resultsDir
+                        forFeatures: [[CCIFeaturesManager instance] features]];
+
+        }
  		if([Cucumberish instance].afterFinishHock){
         	[Cucumberish instance].afterFinishHock();
     	}
