@@ -131,17 +131,34 @@
                        forFeatures: [[CCIFeaturesManager instance] features]];
     
     NSAssert( [jsonFile containsString:@"/Documents"], @"Default data directory not set correctly");
+    
+    NSError * error;
+    
+    [[NSFileManager defaultManager] removeItemAtPath:jsonFile
+                                               error:&error];
+    
+    NSAssert(error == nil, @"%@%@", @"Could not delete file: ", error.description);
+
 }
 
 - (void)validateJsonOutputCustomDirectory
 {
+    NSFileManager * fileManager = [NSFileManager defaultManager];
     NSString * fileName = @"CucumberishResults-testOutput";
-    NSString * customDirectory = @"./testData";
+    
+    NSBundle * bundle = [NSBundle bundleForClass:[CucumberishTester class]];
+    NSString * customDirectory =  [[bundle bundlePath] stringByAppendingPathComponent: @"/testData"];
     NSString * jsonFile = [CCIJSONDumper writeJSONToFile:fileName
                                              inDirectory: customDirectory
                                              forFeatures: [[CCIFeaturesManager instance] features]];
     
     NSAssert( [jsonFile containsString:customDirectory], @"Custom directory not set correctly");
+    
+    NSError * error;
+    
+    [fileManager removeItemAtPath:jsonFile
+                    error:&error];
+    NSAssert(error == nil, @"%@%@", @"Could not delete file: ", error.description);
 }
 
 
