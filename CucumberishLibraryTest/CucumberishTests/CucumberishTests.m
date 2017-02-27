@@ -13,6 +13,8 @@
 #import "CCIScenarioDefinition.h"
 #import "CCIFeaturesManager.h"
 #import "CCIFeature.h"
+#import "CCIJSONDumper.h"
+
 
 @interface CucumberishTester : NSObject
 @property NSMutableString * output;
@@ -35,6 +37,9 @@
 		[self validateParsedContent];
 		[self validateExecutionOutput];
 		[self validateRegisteredClassesAndMethods];
+        
+        [self validateJsonOutputDefaultDirectory];
+        [self validateJsonOutputCustomDirectory];
 	});
 	
 	
@@ -117,6 +122,26 @@
 			NSAssert(methodExist, @"Could not find scenario method: %@ in feature class: %@", scenarioMethodName, featureClassName);
 		}
 	}
+}
+
+- (void)validateJsonOutputDefaultDirectory
+{
+    NSString * fileName = @"CucumberishResults-testOutput";
+    NSString * jsonFile = [CCIJSONDumper writeJSONToFile:fileName
+                       forFeatures: [[CCIFeaturesManager instance] features]];
+    
+    NSAssert( [jsonFile containsString:@"/Documents"], @"Default data directory not set correctly");
+}
+
+- (void)validateJsonOutputCustomDirectory
+{
+    NSString * fileName = @"CucumberishResults-testOutput";
+    NSString * customDirectory = @"./testData";
+    NSString * jsonFile = [CCIJSONDumper writeJSONToFile:fileName
+                                             inDirectory: customDirectory
+                                             forFeatures: [[CCIFeaturesManager instance] features]];
+    
+    NSAssert( [jsonFile containsString:customDirectory], @"Custom directory not set correctly");
 }
 
 
