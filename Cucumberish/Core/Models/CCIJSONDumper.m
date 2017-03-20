@@ -8,9 +8,8 @@
 
 #import "CCIJSONDumper.h"
 #import "CCIFeature.h"
-#if TARGET_OS_OSX
 
-#elif TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
 #import <UIKit/UIKit.h>
 #endif
 
