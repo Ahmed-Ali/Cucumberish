@@ -41,7 +41,7 @@
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [super init];
-    
+
     if(dictionary[@"location"] != nil && ![dictionary[@"location"] isKindOfClass:[NSNull class]]){
         self.location = [[CCILocation alloc] initWithDictionary:dictionary[@"location"]];
     }
@@ -57,11 +57,11 @@
                 [headers addObject:cellValue];
                 exampleData[cellValue] = [NSMutableArray array];
             }
-            
+
         }
         if(dictionary[@"tableBody"] != nil && [dictionary[@"tableBody"] isKindOfClass:[NSArray class]]){
             NSArray * rows = dictionary[@"tableBody"];
-            
+
             for(NSDictionary * row in rows){
                 NSArray * columns = row[@"cells"];
                 for(int i = 0; i < columns.count; i++){
@@ -71,12 +71,28 @@
                     [tableColumn addObject:column[@"value"]];
                 }
             }
-            
+
         }
-        
+
+        if(dictionary[@"parsedTags"] != nil){
+            self.tags = dictionary[@"parsedTags"];
+        }else if(dictionary[@"tags"] != nil && [dictionary[@"tags"] isKindOfClass:[NSArray class]]){
+            NSArray * tagsDictionaries = dictionary[@"tags"];
+            self.rawTags = dictionary[@"tags"];
+            NSMutableArray * tagsItems = [NSMutableArray array];
+            for(NSDictionary * tagDictionary in tagsDictionaries){
+                NSString * tagName = tagDictionary[@"name"];
+                if([tagName hasPrefix:@"@"]){
+                    tagName = [tagName stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@""];
+                }
+                [tagsItems addObject:tagName];
+            }
+            self.tags = tagsItems;
+        }
+
         self.exampleData = exampleData;
     }
-    
+
     return self;
 }
 
@@ -87,15 +103,15 @@
 -(NSDictionary *)toDictionary
 {
     NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
-   
+
     if(self.location != nil){
         dictionary[@"location"] = [self.location toDictionary];
     }
-    
+
     dictionary[@"exampleData"] = self.exampleData;
-   
+
     return dictionary;
-    
+
 }
 
 /**
@@ -110,8 +126,8 @@
         [aCoder encodeObject:self.location forKey:@"location"];
     }
     [aCoder encodeObject:self.exampleData forKey:@"exampleData"];
-  
-    
+
+
 }
 
 /**
@@ -123,6 +139,6 @@
     self.location = [aDecoder decodeObjectForKey:@"location"];
     self.exampleData = [aDecoder decodeObjectForKey:@"exampleData"];
     return self;
-    
+
 }
 @end
