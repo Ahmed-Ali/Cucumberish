@@ -88,7 +88,7 @@ In the body of the CucumberishInit C function and before calling the `-[Cucumber
         NSLog(@"I am gonna automate my test cases with \"%@\"", args[0]);
     });
     
-    Then(@"Then I will be more confident about the quality of the project and its releases", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    Then(@"I will be more confident about the quality of the project and its releases", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         NSLog(@"Implemented step for the sake of the example");
     });
 
