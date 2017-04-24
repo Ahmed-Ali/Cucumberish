@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27916DF01E57B36500966044 /* NSString+Length.h in Headers */ = {isa = PBXBuildFile; fileRef = 27916DEE1E57B36500966044 /* NSString+Length.h */; };
+		27916DF11E57B36500966044 /* NSString+Length.m in Sources */ = {isa = PBXBuildFile; fileRef = 27916DEF1E57B36500966044 /* NSString+Length.m */; };
+		27916DF21E57B46B00966044 /* NSString+Length.m in Sources */ = {isa = PBXBuildFile; fileRef = 27916DEF1E57B36500966044 /* NSString+Length.m */; };
+		27916DF31E57B46C00966044 /* NSString+Length.m in Sources */ = {isa = PBXBuildFile; fileRef = 27916DEF1E57B36500966044 /* NSString+Length.m */; };
 		3E38B0ED1DDDE0A400C1CF5A /* CucumberishFeatureDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E38B0EC1DDDE0A400C1CF5A /* CucumberishFeatureDefinition.m */; };
 		3E38B0EF1DDDE0A400C1CF5A /* libCucumberishLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E0B341D1DDB9C0F00E1A338 /* libCucumberishLibrary.a */; };
 		3E38B0FD1DDDE0D600C1CF5A /* CucumberFeatureSteps.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E38B0F61DDDE0D600C1CF5A /* CucumberFeatureSteps.m */; };
@@ -254,6 +258,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		27916DEE1E57B36500966044 /* NSString+Length.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Length.h"; sourceTree = "<group>"; };
+		27916DEF1E57B36500966044 /* NSString+Length.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Length.m"; sourceTree = "<group>"; };
 		3E0B341D1DDB9C0F00E1A338 /* libCucumberishLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCucumberishLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E38B0EA1DDDE0A400C1CF5A /* CucumberishFeatureDefinition.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CucumberishFeatureDefinition.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E38B0EC1DDDE0A400C1CF5A /* CucumberishFeatureDefinition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CucumberishFeatureDefinition.m; sourceTree = "<group>"; };
@@ -639,6 +645,8 @@
 				C5E80F731E16BA290042D98D /* NSObject+Dictionary.m */,
 				C5E80F741E16BA290042D98D /* NSString+Formatter.h */,
 				C5E80F751E16BA290042D98D /* NSString+Formatter.m */,
+				27916DEE1E57B36500966044 /* NSString+Length.h */,
+				27916DEF1E57B36500966044 /* NSString+Length.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -686,6 +694,7 @@
 				607EEA431E50EE1000F2E8B6 /* GHHasRowsProtocol.h in Headers */,
 				607EEA441E50EE1000F2E8B6 /* GHHasStepsProtocol.h in Headers */,
 				607EEA451E50EE1000F2E8B6 /* GHHasTagsProtocol.h in Headers */,
+				27916DF01E57B36500966044 /* NSString+Length.h in Headers */,
 				607EEA461E50EE1000F2E8B6 /* GHLocation.h in Headers */,
 				607EEA471E50EE1000F2E8B6 /* GHNode.h in Headers */,
 				607EEA481E50EE1000F2E8B6 /* GHParser+Extensions.h in Headers */,
@@ -894,6 +903,7 @@
 				C5E80F9C1E16BA290042D98D /* GHDocString.m in Sources */,
 				C5E80F921E16BA290042D98D /* GHAstBuilder.m in Sources */,
 				C5E80FC41E16BA290042D98D /* GHTableCell.m in Sources */,
+				27916DF31E57B46C00966044 /* NSString+Length.m in Sources */,
 				C5E80FBC1E16BA290042D98D /* GHScenarioDefinition.m in Sources */,
 				C5E80F801E16BA290042D98D /* CCIExample.m in Sources */,
 				C5E80FA21E16BA290042D98D /* GHFeature.m in Sources */,
@@ -933,6 +943,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27916DF11E57B36500966044 /* NSString+Length.m in Sources */,
 				607EE9F21E50EDDD00F2E8B6 /* CCIFeaturesManager.m in Sources */,
 				607EE9F31E50EDDD00F2E8B6 /* CCIStepsManager.m in Sources */,
 				607EE9F41E50EDDD00F2E8B6 /* CCIArgument.m in Sources */,
@@ -1009,6 +1020,7 @@
 				C5E80FCF1E16BA290042D98D /* GHTokenScanner.m in Sources */,
 				C5E80FA91E16BA290042D98D /* GHGherkinLanguageConstants.m in Sources */,
 				C5E80F9B1E16BA290042D98D /* GHDataTable.m in Sources */,
+				27916DF21E57B46B00966044 /* NSString+Length.m in Sources */,
 				C5E80F7F1E16BA290042D98D /* CCIBackground.m in Sources */,
 				C5E80F8F1E16BA290042D98D /* CCIStepDefinition.m in Sources */,
 				C5E80F831E16BA290042D98D /* CCIFeature.m in Sources */,
