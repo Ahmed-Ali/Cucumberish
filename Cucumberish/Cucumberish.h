@@ -43,7 +43,7 @@
  If this causes an issue for your test report, change the value of this property to YES before calling beginExecution.
  
  @Note
- Thoguh the default value of this property is NO, it is highly recommended to set the value of this proeprty to YES.
+ Though the default value of this property is NO, it is highly recommended to set the value of this property to YES.
  
  @Note
  This will cause Cucumberish to execute an additional scenario called cucumberishCleanupScenario which will immediately disappear instead of your real last scenario.
