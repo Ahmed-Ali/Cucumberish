@@ -109,7 +109,7 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
             //Only return nil if we reached the last definition without finding a match
             break;
         }
-        NSRange searchRange = NSMakeRange(0, [step.text lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
+        NSRange searchRange = NSMakeRange(0, [step.text length]);
         NSTextCheckingResult * match = [[regex matchesInString:step.text options:NSMatchingReportCompletion range:searchRange] firstObject];
         
         if (match.numberOfRanges > 1) {
