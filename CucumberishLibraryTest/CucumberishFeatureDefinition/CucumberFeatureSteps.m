@@ -13,7 +13,9 @@
 #import "CCIFeature.h"
 #import "NSArray+Hashes.h"
 #import "CCIJSONDumper.h"
-
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
+#import <UIKit/UIKit.h>
+#endif
 @interface CucumberFeatureSteps()
 
 @property (nonatomic,strong) NSMutableDictionary* savedValues;
@@ -38,6 +40,16 @@
     return self;
 }
 
++(NSString*)testEnv
+{
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
+    return [[UIDevice currentDevice] systemVersion];
+#elif TARGET_OS_OSX
+    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+    return ([NSString stringWithFormat:@"%ld.%ld.%ld", version.majorVersion, version.minorVersion, version.patchVersion]);
+#endif
+    
+}
 -(void)setup
 {
     Given(@"a (.*) statement", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
@@ -213,7 +225,8 @@
                                                                   @"type" : @"scenario",
                                                                   @"line" : @12,
                                                                   @"name" : @"Json Output",
-                                                                  @"description" : @""
+                                                                  @"description" : @"",
+                                                                  @"test_env":[[self class] testEnv]
                                                                   }
                                                               ],
                                                       @"name" : @"JSON Output",

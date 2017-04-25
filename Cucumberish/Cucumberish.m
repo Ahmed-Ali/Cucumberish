@@ -393,11 +393,10 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
         //Loop on the example bod(y|ies)
         NSUInteger numberOfIndexes = [(NSArray *)example.exampleData[example.exampleData.allKeys.firstObject] count];
         for(int index = 0; index < numberOfIndexes; index++){
-
-            NSInvocation * inv = [self invocationForScenarioOutline:outline example:example exampleIndex:index  feature:feature featureClass:featureClass];
-
-            [invocations addObject:inv];
             [Cucumberish instance].scenarioCount++;
+            NSInvocation * inv = [self invocationForScenarioOutline:outline example:example exampleIndex:index  feature:feature featureClass:featureClass];
+            
+            [invocations addObject:inv];
         }
     }
 
@@ -462,6 +461,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     for(CCIScenarioDefinition * s in feature.scenarioDefinitions){
         NSString * scenarioName = NSStringFromSelector(selector);
         if ([s.name isEqualToString:scenarioName]){
+            [Cucumberish instance].scenarioCount++;
             NSInvocation * inv = [Cucumberish invocationForScenario:s feature:feature featureClass:[self class]];
             invocationTest =  [[self alloc] initWithInvocation:inv];
             break;
@@ -522,8 +522,8 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
                 feature.background = (CCIBackground *)scenario;
                 continue;
             }
-            [invocations addObject:[Cucumberish invocationForScenario:scenario feature:feature featureClass:self]];
             [Cucumberish instance].scenarioCount++;
+            [invocations addObject:[Cucumberish invocationForScenario:scenario feature:feature featureClass:self]];
         }
 
     }
@@ -532,8 +532,8 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     if([Cucumberish instance].fixMissingLastScenario && feature == lastFeature){
         CCIScenarioDefinition * cleanupScenario = [[CCIScenarioDefinition alloc] init];
         cleanupScenario.name = @"cucumberishCleanupScenario";
-        [invocations addObject:[Cucumberish invocationForScenario:cleanupScenario feature:lastFeature featureClass:self]];
         [Cucumberish instance].scenarioCount++;
+        [invocations addObject:[Cucumberish invocationForScenario:cleanupScenario feature:lastFeature featureClass:self]];
     }
 
 
