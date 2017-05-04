@@ -98,7 +98,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     self.containerBundle = bundle;
 
     [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles bundle:bundle withTags:includeTags execludeFeaturesWithTags:excludeTags];
- 
+
     return self;
 }
 
@@ -124,7 +124,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
             }
         }
     }
-    
+
     return matches;
 }
 
@@ -142,7 +142,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 - (void)beginExecution
 {
-    
+
     for(CCIFeature * feature in [[CCIFeaturesManager instance] features]){
         Class featureClass = [Cucumberish featureTestCaseClass:feature];
         [[CCIFeaturesManager instance] setClass:featureClass forFeature:feature];
@@ -199,11 +199,11 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 /**
  Executes all the hocks that matches tags with the passed scenario.
  Hocks may optionally be tagged, if an hock is tagged, then it will only be executed if the scenario has a matching tag.
- 
+
  @param hocks array of CCIHock to be executed
  @param scenario the scenario that will be passed to each matching hocks.
  */
- 
+
 - (void)executeMatchingHocksInHocks:(NSArray<CCIHock *> *)hocks forScenario:(CCIScenarioDefinition *)scenario
 {
     for(CCIHock * hock in hocks){
@@ -226,7 +226,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 /**
  Executes all the before hocks that matches tags with the passed scenario.
  Hocks may optionally be tagged, if an hock is tagged, then it will only be executed if the scenario has a matching tag.
- 
+
  @param scenario the scenario that will be passed to each matching hocks.
  */
 - (void)executeBeforeHocksWithScenario:(CCIScenarioDefinition *)scenario
@@ -237,7 +237,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 /**
  Executes all the after hocks that matches tags with the passed scenario.
  Hocks may optionally be tagged, if an hock is tagged, then it will only be executed if the scenario has a matching tag.
- 
+
  @param scenario the scenario that will be passed to each matching hocks.
  */
 - (void)executeAfterHocksWithScenario:(CCIScenarioDefinition *)scenario
@@ -248,13 +248,13 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 /**
  Executes all the around hocks that matches tags with the passed scenario.
  Hocks may optionally be tagged, if an hock is tagged, then it will only be executed if the scenario has a matching tag.
- 
+
  @param scenario the scenario that will be passed to each matching hocks.
  @param executionBlock a block that when called, will execute the scenario. Around hocks are supposed to determine when this block will be executed.
  */
 - (void)executeAroundHocksWithScenario:(CCIScenarioDefinition *)scenario executionBlock:(void(^)(void))executionBlock
 {
-    
+
     void(^executionChain)(void) = NULL;
     if(scenario.tags.count > 0){
         for(CCIAroundHock * around in self.aroundHocks){
@@ -269,18 +269,18 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
                             around.block(scenario, executionChain);
                         };
                     }
-                    
+
                 }
             }
         }
     }
-    
-    
+
+
     if(executionChain != NULL){
         executionChain();
     }else{
         executionBlock();
-        
+
     }
 }
 
@@ -302,7 +302,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
                     originalSelector,
                     method_getImplementation(swizzledMethod),
                     method_getTypeEncoding(swizzledMethod));
-    
+
     if (didAddMethod) {
         class_replaceMethod(class,
                             swizzledSelector,
@@ -348,16 +348,15 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     return [scenarioName stringByAppendingFormat:@" %@ Example %lu", [nameExpansion componentsJoinedByString:@"-"], (unsigned long)(index + 1)];
 }
 
-+ (NSInvocation *)invocationForScenarioOutline:(CCIScenarioDefinition *)outline exampleIndex:(NSInteger)index feature:(CCIFeature *)feature featureClass:(Class)featureClass
++ (NSInvocation *)invocationForScenarioOutline:(CCIScenarioDefinition *)outline example:(CCIExample*)example exampleIndex:(NSInteger)index feature:(CCIFeature *)feature featureClass:(Class)featureClass
 {
     //Scenario for each body
     CCIScenarioDefinition * scenario = [outline copy];
 
     scenario.keyword = (NSString *)kScenarioOutlineKeyword;
     scenario.examples = nil;
-    CCIExample * example = outline.examples.firstObject;
     scenario.name = [self exampleScenarioNameForScenarioName:scenario.name exampleAtIndex:index example:example];
-  
+
     for(NSString * variable in example.exampleData.allKeys){
         NSString * replacement = example.exampleData[variable][index];
 
@@ -382,7 +381,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     }
 
     [outline addOutlineChildScenario:scenario];
-  
+
     return [self invocationForScenario:scenario feature:feature featureClass:featureClass];
 }
 
@@ -390,17 +389,17 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 {
     NSMutableArray<NSInvocation *> * invocations = [NSMutableArray new];
     for(CCIExample * example in outline.examples){
-        
+
         //Loop on the example bod(y|ies)
         NSUInteger numberOfIndexes = [(NSArray *)example.exampleData[example.exampleData.allKeys.firstObject] count];
         for(int index = 0; index < numberOfIndexes; index++){
             [Cucumberish instance].scenarioCount++;
-            NSInvocation * inv = [self invocationForScenarioOutline:outline exampleIndex:index  feature:feature featureClass:featureClass];
+            NSInvocation * inv = [self invocationForScenarioOutline:outline example:example exampleIndex:index  feature:feature featureClass:featureClass];
             
             [invocations addObject:inv];
         }
     }
-    
+
     return invocations;
 }
 
@@ -428,22 +427,22 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 + (NSInvocation *)invocationForScenario:(CCIScenarioDefinition *)scenario feature:(CCIFeature *)feature featureClass:(Class)klass
 {
     NSString * methodName = scenario.name;
-    
+
     if(![[Cucumberish instance] prettyNamesAllowed] && ![[Cucumberish instance] prettyScenarioNamesAllowed]){
         methodName = [methodName camleCaseStringWithFirstUppercaseCharacter:NO];
     }
     SEL sel = NSSelectorFromString(methodName);
-    
+
     //Prefered to forward the implementation to a C function instead of Objective-C method, to avoid confusion with the type of "self" object that is being to the implementation
     class_addMethod(klass, sel, (IMP)executeScenario, [@"v@:@:@" UTF8String]);
-    
+
     NSMethodSignature *signature = [klass instanceMethodSignatureForSelector:sel];
-    
+
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-    
+
     [invocation setSelector:sel];
-    
-    
+
+
     [invocation setArgument:&scenario atIndex:2];
     [invocation setArgument:&feature atIndex:3];
     [invocation retainArguments];
@@ -458,7 +457,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 {
     CCIFeature * feature = [[CCIFeaturesManager instance] getFeatureForClass:[self class]];
     XCTestCase * invocationTest;
-    
+
     for(CCIScenarioDefinition * s in feature.scenarioDefinitions){
         NSString * scenarioName = NSStringFromSelector(selector);
         if ([s.name isEqualToString:scenarioName]){
@@ -471,7 +470,8 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
             NSInteger exampleIndex = [[scenarioName substringWithRange:range] integerValue] - 1;
             NSString * scenarioOutlineName = [Cucumberish exampleScenarioNameForScenarioName:s.name exampleAtIndex:exampleIndex example:s.examples.firstObject];
             if([scenarioName isEqualToString:scenarioOutlineName]){
-                NSInvocation * inv = [Cucumberish invocationForScenarioOutline:s exampleIndex:exampleIndex feature:feature featureClass:[self class]];
+                CCIExample * example = s.examples.firstObject;
+                NSInvocation * inv = [Cucumberish invocationForScenarioOutline:s example:example exampleIndex:exampleIndex feature:feature featureClass:[self class]];
                 invocationTest =  [[self alloc] initWithInvocation:inv];
                 break;
             }
@@ -483,12 +483,12 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 /**
  Swizzled method, inside its implementation @b self does not refer to Cucumberish class.
  Records a failure in the execution of the test and is used by all test assertions.
- 
+
  @param description The description of the failure being reported.
- 
+
  @param filePath The file path to the source file where the failure being reported was encountered.
  @param lineNumber The line number in the source file at filePath where the failure being reported was encountered.
- 
+
  @param expected YES if the failure being reported was the result of a failed assertion, NO if it was the result of an uncaught exception.
  */
 
@@ -501,19 +501,19 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
         //Throw the exception so proper error report takes place.
         throwCucumberishException(description);
     }
-    
+
 }
 
 + (NSArray <NSInvocation *> *)cucumberish_testInvocations
 {
     NSMutableArray<NSInvocation *> * invocations = [NSMutableArray new];
-    
+
     CCIFeature * feature = [[CCIFeaturesManager instance] getFeatureForClass:self];
-    
+
     for (CCIScenarioDefinition * scenario in feature.scenarioDefinitions) {
-        
+
         if([scenario.keyword isEqualToString:(NSString *)kScenarioOutlineKeyword]){
-            
+
             NSArray<NSInvocation *> * invs = [Cucumberish invocationsForScenarioOutline:scenario feature:feature featureClass:self];
             [invocations addObjectsFromArray:invs];
         }else{
@@ -525,9 +525,9 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
             [Cucumberish instance].scenarioCount++;
             [invocations addObject:[Cucumberish invocationForScenario:scenario feature:feature featureClass:self]];
         }
-        
+
     }
-    
+
     CCIFeature * lastFeature = [CCIFeaturesManager instance].features.lastObject;
     if([Cucumberish instance].fixMissingLastScenario && feature == lastFeature){
         CCIScenarioDefinition * cleanupScenario = [[CCIScenarioDefinition alloc] init];
@@ -535,8 +535,8 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
         [Cucumberish instance].scenarioCount++;
         [invocations addObject:[Cucumberish invocationForScenario:cleanupScenario feature:lastFeature featureClass:self]];
     }
-    
-    
+
+
     return invocations;
 }
 
@@ -548,7 +548,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenario, CCIFeature * feature)
 {
-    
+
     self.continueAfterFailure = YES;
 
     NSString * targetName = [[Cucumberish instance] testTargetFolderName] ? : [[[Cucumberish instance] containerBundle] infoDictionary][@"CFBundleName"];
@@ -580,7 +580,7 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
         if(feature.background != nil && scenario.steps.count > 0){
             executeSteps(self, feature.background.steps, feature.background, filePathPrefix);
         }
-        
+
         [[Cucumberish instance] executeAroundHocksWithScenario:scenario executionBlock:^{
            executeSteps(self, scenario.steps, scenario, filePathPrefix);
         }];
@@ -606,9 +606,9 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
 
 void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario, NSString * filePathPrefix)
 {
-    
+
     for (CCIStep * step in steps) {
-        
+
         @try {
             [[CCIStepsManager instance] executeStep:step inTestCase:testCase];
         }
