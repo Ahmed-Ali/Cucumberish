@@ -38,6 +38,7 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
 
 @interface CCIStepsManager()
 @property NSMutableDictionary * definitions;
+@property (copy) NSString *currentContextKeyword;
 @end
 
 @implementation CCIStepsManager
@@ -86,7 +87,13 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
         }
         return [self findDefinitionForStep:step amongDefinitions:allDefinitions inTestCase:testCase];
     }
-    NSArray * definitionGroup = self.definitions[step.keyword];
+
+    NSArray *definitionGroup = self.definitions[step.keyword] ?: @[];
+    if ([step.keyword isEqualToString:@"And"]) {
+        NSArray *contextDefinitionGroup = self.definitions[self.currentContextKeyword];
+        definitionGroup = [definitionGroup arrayByAddingObjectsFromArray:contextDefinitionGroup];
+    }
+
     return [self findDefinitionForStep:step amongDefinitions:definitionGroup inTestCase:testCase];
 
 }
@@ -153,6 +160,10 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
 
 - (void)executeStep:(CCIStep *)step inTestCase:(id)testCase
 {
+    if (![step.keyword isEqualToString:@"And"]) {
+        self.currentContextKeyword = step.keyword;
+    }
+
     CCIStepDefinition * implementation = [self findMatchDefinitionForStep:step inTestCase:testCase];
     NSString * errorMessage = nil;
     if(step.keyword.length > 0){
@@ -165,7 +176,11 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
     if(step.keyword.length > 0){
         NSLog(@"Currently executing: \"%@ %@\"", step.keyword, step.text);
     }
-    
+
+    if ([step.keyword isEqualToString:@"And"]) {
+        implementation.type = @"And";
+    }
+
     implementation.body(implementation.matchedValues, implementation.additionalContent);
     //Clean up the step additional content to avoid keeping unwanted objects in memory
     implementation.additionalContent = nil;
