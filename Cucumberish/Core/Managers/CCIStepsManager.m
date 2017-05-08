@@ -224,7 +224,6 @@ void MatchAll(NSString * definitionString, CCIStepBody body)
 {
     When(definitionString, body);
     Then(definitionString, body);
-    And(definitionString, body);
     But(definitionString, body);
 }
 
