@@ -28,4 +28,10 @@
 
 +(NSString*)writeJSONToFile:(NSString*)filename
            forFeatures:(NSArray<CCIFeature*>*)features;
+
++(NSString*)writeJSONToFile:(NSString*)filename
+                inDirectory:(NSString*) directory
+                forFeatures:(NSArray<CCIFeature*>*)features;
+
+
 @end

@@ -13,6 +13,8 @@
 #import "CCIScenarioDefinition.h"
 #import "CCIFeaturesManager.h"
 #import "CCIFeature.h"
+#import "CCIJSONDumper.h"
+
 
 @interface CucumberishTester : NSObject
 @property NSMutableString * output;
@@ -35,6 +37,9 @@
 		[self validateParsedContent];
 		[self validateExecutionOutput];
 		[self validateRegisteredClassesAndMethods];
+        
+        [self validateJsonOutputDefaultDirectory];
+        [self validateJsonOutputCustomDirectory];
 	});
 	
 	
@@ -117,6 +122,43 @@
 			NSAssert(methodExist, @"Could not find scenario method: %@ in feature class: %@", scenarioMethodName, featureClassName);
 		}
 	}
+}
+
+- (void)validateJsonOutputDefaultDirectory
+{
+    NSString * fileName = @"CucumberishResults-testOutput";
+    NSString * jsonFile = [CCIJSONDumper writeJSONToFile:fileName
+                       forFeatures: [[CCIFeaturesManager instance] features]];
+    
+    NSAssert( [jsonFile containsString:@"/Documents"], @"Default data directory not set correctly");
+    
+    NSError * error;
+    
+    [[NSFileManager defaultManager] removeItemAtPath:jsonFile
+                                               error:&error];
+    
+    NSAssert(error == nil, @"%@%@", @"Could not delete file: ", error.description);
+
+}
+
+- (void)validateJsonOutputCustomDirectory
+{
+    NSFileManager * fileManager = [NSFileManager defaultManager];
+    NSString * fileName = @"CucumberishResults-testOutput";
+    
+    NSBundle * bundle = [NSBundle bundleForClass:[CucumberishTester class]];
+    NSString * customDirectory =  [[bundle bundlePath] stringByAppendingPathComponent: @"/testData"];
+    NSString * jsonFile = [CCIJSONDumper writeJSONToFile:fileName
+                                             inDirectory: customDirectory
+                                             forFeatures: [[CCIFeaturesManager instance] features]];
+    
+    NSAssert( [jsonFile containsString:customDirectory], @"Custom directory not set correctly");
+    
+    NSError * error;
+    
+    [fileManager removeItemAtPath:jsonFile
+                    error:&error];
+    NSAssert(error == nil, @"%@%@", @"Could not delete file: ", error.description);
 }
 
 

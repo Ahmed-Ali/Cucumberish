@@ -51,11 +51,26 @@
 +(NSString*)writeJSONToFile:(NSString*)filename
                 forFeatures:(NSArray<CCIFeature*>*)features
 {
-    NSData *data = [self buildJSONOutputData:features];
-    NSString* fileName = [NSString stringWithFormat:@"%@.json", filename];
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:fileName];
+
+    return [self writeJSONToFile:filename inDirectory:documentsDirectory forFeatures:features];
+    
+}
+
++(NSString*)writeJSONToFile:(NSString*)filename
+                inDirectory:(NSString *)directory
+                forFeatures:(NSArray<CCIFeature*>*)features
+{
+    
+    NSData *data = [self buildJSONOutputData:features];
+    NSString* fileName = [NSString stringWithFormat:@"%@.json", filename];
+    NSString *dataPath = [directory stringByAppendingPathComponent:fileName];
+    
+    if (![self directoryExists:directory]) {
+        [self createDirectory:directory];
+    }
     
     [data writeToFile:dataPath atomically:YES];
     return dataPath;
@@ -92,8 +107,19 @@
     
 }
 
+#pragma mark - private functions
++(BOOL)directoryExists:(NSString *)path {
+    bool isDir;
+    return ([[NSFileManager defaultManager]
+             fileExistsAtPath:path isDirectory:&isDir] && isDir) ;
+}
 
-
++(void)createDirectory:(NSString *)path {
+    [[NSFileManager defaultManager] createDirectoryAtPath: path
+                              withIntermediateDirectories:YES
+                                               attributes:nil
+                                                    error:NULL];
+}
 
 #pragma mark - ID Formatting
 +(NSDictionary*)addIdToDictionary:(NSDictionary*)currentDictionary forFeature:(CCIFeature*)feature

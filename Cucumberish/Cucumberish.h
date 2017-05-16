@@ -86,6 +86,13 @@
 
 
 /**
+ Choose path of directory where cucumber JSON results file will be written to.
+ Default path is NSDocumentDirectory
+ **/
+@property (nonatomic) NSString * resultsDirectory;
+
+
+/**
  If Cucumberish is installed with Carthage, set the value of this property to be SRC_ROOT which is the preprocessor macro you defined in your build settings
  */
 @property (nonatomic, strong) NSString * testTargetSrcRoot;
