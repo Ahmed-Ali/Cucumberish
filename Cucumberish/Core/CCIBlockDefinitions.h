@@ -123,10 +123,11 @@ OBJC_EXTERN void Then(NSString * definitionString, CCIStepBody body);
  
  @Note
  Step definitions are checked in a "Last In First Out" order. If it happens that there are more than one definition matches a step, the last registered definition will be used.
- 
+
  @param definitionString the regular expression that will checked against each Given step line.
  @param body the code block that will be executed if match is occured.
  */
+__attribute__((deprecated("And is deprecated. Implement Given, When, Then or But instead")))
 OBJC_EXTERN void And(NSString * definitionString, CCIStepBody body);
 
 /**

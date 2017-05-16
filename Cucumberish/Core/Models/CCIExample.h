@@ -45,9 +45,9 @@
  |  C1Ro1  |  C2Ro1  |  C3Ro1  |
  |  C1Ro2  |  C2Ro2  |  C3Ro2  |
  |  C1Ro3  |  C2Ro3  |  C3Ro3  |
- 
+
  @endcode
- 
+
  This will end up with the example data with the following structure
  @code
  {
@@ -71,18 +71,27 @@
  */
 @property (nonatomic, strong) NSDictionary * exampleData;
 
+
+/**
+ Array of tags found on top of this example table
+ */
+@property (nonatomic, strong) NSArray <NSString *> * tags;
+
+@property (nonatomic, strong) NSArray<NSDictionary*>* rawTags;
+
+
 /**
  Creates an instance with properties filled from the passed dictionary
- 
+
  @param dictionary the dictionary that contains all the example data
- 
+
  @return example instance
  */
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 /**
  Creates a dictionary from the class properties
- 
+
  @return the created dictionary
  */
 -(NSDictionary *)toDictionary;

@@ -11,6 +11,7 @@ Pod::Spec.new do |s|
   s.author             = { "Ahmed Ali" => "eng.ahmed.ali.awad@gmail.com" }
   s.social_media_url   = "https://www.linkedin.com/in/engahmedali"
   s.ios.deployment_target = "7.0"
+  s.tvos.deployment_target = "9.0"
   s.osx.deployment_target = "10.9"
   s.source       = { :git => "https://github.com/Ahmed-Ali/Cucumberish.git", :tag => "v#{s.version}"}
 
