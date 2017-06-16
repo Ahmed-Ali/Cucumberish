@@ -8,7 +8,11 @@
 
 #import "CCIJSONDumper.h"
 #import "CCIFeature.h"
-//#import <UIKit/UIKit.h>
+
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
+#import <UIKit/UIKit.h>
+#endif
+
 @import Darwin;
 @implementation CCIJSONDumper
 + (instancetype)instance {
@@ -21,6 +25,16 @@
     return instance;
 }
 
++(NSString*)testEnv
+{
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
+    return [[UIDevice currentDevice] systemVersion];
+#elif TARGET_OS_OSX
+    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+    return ([NSString stringWithFormat:@"%ld.%ld.%ld", version.majorVersion, version.minorVersion, version.patchVersion]);
+#endif
+    
+}
 +(NSData*)buildJSONOutputData:(NSArray<CCIFeature *> *)features
 {
     NSArray*rawOutput = [self convertMultipleFeaturesToJSONDictionary:features];
@@ -37,11 +51,26 @@
 +(NSString*)writeJSONToFile:(NSString*)filename
                 forFeatures:(NSArray<CCIFeature*>*)features
 {
-    NSData *data = [self buildJSONOutputData:features];
-    NSString* fileName = [NSString stringWithFormat:@"%@.json", filename];
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:fileName];
+
+    return [self writeJSONToFile:filename inDirectory:documentsDirectory forFeatures:features];
+    
+}
+
++(NSString*)writeJSONToFile:(NSString*)filename
+                inDirectory:(NSString *)directory
+                forFeatures:(NSArray<CCIFeature*>*)features
+{
+    
+    NSData *data = [self buildJSONOutputData:features];
+    NSString* fileName = [NSString stringWithFormat:@"%@.json", filename];
+    NSString *dataPath = [directory stringByAppendingPathComponent:fileName];
+    
+    if (![self directoryExists:directory]) {
+        [self createDirectory:directory];
+    }
     
     [data writeToFile:dataPath atomically:YES];
     return dataPath;
@@ -78,8 +107,19 @@
     
 }
 
+#pragma mark - private functions
++(BOOL)directoryExists:(NSString *)path {
+    bool isDir;
+    return ([[NSFileManager defaultManager]
+             fileExistsAtPath:path isDirectory:&isDir] && isDir) ;
+}
 
-
++(void)createDirectory:(NSString *)path {
+    [[NSFileManager defaultManager] createDirectoryAtPath: path
+                              withIntermediateDirectories:YES
+                                               attributes:nil
+                                                    error:NULL];
+}
 
 #pragma mark - ID Formatting
 +(NSDictionary*)addIdToDictionary:(NSDictionary*)currentDictionary forFeature:(CCIFeature*)feature
@@ -393,10 +433,11 @@
                                               stringByAppendingString:[NSString stringWithFormat:@";%@",[scenario.name.lowercaseString
                                                                                                          stringByReplacingOccurrencesOfString:@" "
                                                                                                          withString:@"-"]]]}];
-    
+
     [retVal addEntriesFromDictionary:@{@"type": [scenario.keyword.lowercaseString stringByReplacingOccurrencesOfString:@" " withString:@"_"]}];
+    
     [retVal addEntriesFromDictionary:[self convertTagsToOutputDictionaryFromScenario:scenario]];
-//    [retVal addEntriesFromDictionary:@{@"test_env":[[UIDevice currentDevice] systemVersion]}];
+    [retVal addEntriesFromDictionary:@{@"test_env":[self testEnv]}];
     
     
     [retVal addEntriesFromDictionary:[self convertStepsToOutputDictionary:scenario]];
@@ -464,7 +505,9 @@
     NSMutableArray* retVal = [NSMutableArray array];
     for (CCIScenarioDefinition* scenario in scenarios)
     {
-        [retVal addObject:[self convertScenarioToJSONDictionary:scenario inFeature: (CCIFeature*)feature]];
+        NSMutableDictionary * jsonDict =[[self convertScenarioToJSONDictionary:scenario inFeature: (CCIFeature*)feature] mutableCopy];
+        jsonDict[@"type"] = @"scenario";
+        [retVal addObject:jsonDict];
     }
     
     return retVal;
