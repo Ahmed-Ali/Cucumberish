@@ -165,8 +165,30 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
     if(step.keyword.length > 0){
         NSLog(@"Currently executing: \"%@ %@\"", step.keyword, step.text);
     }
-    
-    implementation.body(implementation.matchedValues, implementation.additionalContent);
+
+    id xctContextClass = NSClassFromString(@"XCTContext");
+    if (xctContextClass) {
+        SEL aSelector = NSSelectorFromString(@"runActivityNamed:block:");
+
+        id block = ^(id activity) {
+            implementation.body(implementation.matchedValues, implementation.additionalContent);
+        };
+
+        if ([xctContextClass respondsToSelector:aSelector]) {
+            NSInvocation *inv = [NSInvocation invocationWithMethodSignature:[xctContextClass methodSignatureForSelector:aSelector]];
+            [inv setSelector:aSelector];
+            [inv setTarget:xctContextClass];
+
+            NSString *name = step.text;
+            [inv setArgument:&(name) atIndex:2];
+            [inv setArgument:&(block) atIndex:3];
+
+            [inv invoke];
+        }
+    } else {
+        implementation.body(implementation.matchedValues, implementation.additionalContent);
+    }
+
     //Clean up the step additional content to avoid keeping unwanted objects in memory
     implementation.additionalContent = nil;
     if(step.keyword.length > 0){
@@ -242,10 +264,4 @@ void SStep(id testCase, NSString * stepLine)
 {
     step(testCase, stepLine);
 }
-
-
-
-
-
-
 
