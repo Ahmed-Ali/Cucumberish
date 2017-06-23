@@ -42,8 +42,6 @@
 @interface CCIExeption : NSException @end
 @implementation CCIExeption @end
 
-NSString * const CCICurrentXCTestCase = @"CCICurrentXCTestCase";
-
 OBJC_EXTERN void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenario, CCIFeature * feature);
 OBJC_EXTERN void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario, NSString * filePathPrefix);
 OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
@@ -595,7 +593,6 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
     @try {
         [[Cucumberish instance] executeBeforeHocksWithScenario:scenario];
         if(feature.background != nil && scenario.steps.count > 0){
-            [[NSThread currentThread] threadDictionary][CCICurrentXCTestCase] = self;
             executeSteps(self, feature.background.steps, feature.background, filePathPrefix);
         }
 
@@ -603,9 +600,6 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
            executeSteps(self, scenario.steps, scenario, filePathPrefix);
         }];
         [[Cucumberish instance] executeAfterHocksWithScenario:scenario];
-
-        [[[NSThread currentThread] threadDictionary] removeObjectForKey:CCICurrentXCTestCase];
-
     }
     @catch (CCIExeption *exception) {
         // This catches assert failures in scenario before/around/after hooks

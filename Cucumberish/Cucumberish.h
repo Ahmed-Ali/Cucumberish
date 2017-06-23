@@ -29,10 +29,6 @@
 #import "CCIStepsManager.h"
 #import "CCIBlockDefinitions.h"
 
-extern NSString * const CCICurrentXCTestCase;
-
-#define CCICurrentSpec  [[NSThread mainThread] threadDictionary][CCICurrentXCTestCase]
-
 /**
  Cucumberish is the main class you will need to parse your feature files and execute them.
  You should not create instances of this class directly, instead you need to use the instance method.
