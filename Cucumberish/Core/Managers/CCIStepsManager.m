@@ -38,6 +38,7 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
 
 @interface CCIStepsManager()
 @property NSMutableDictionary * definitions;
+@property (copy) NSString *currentContextKeyword;
 @end
 
 @implementation CCIStepsManager
@@ -86,7 +87,13 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
         }
         return [self findDefinitionForStep:step amongDefinitions:allDefinitions inTestCase:testCase];
     }
-    NSArray * definitionGroup = self.definitions[step.keyword];
+
+    NSArray *definitionGroup = self.definitions[step.keyword] ?: @[];
+    if ([step.keyword isEqualToString:@"And"]) {
+        NSArray *contextDefinitionGroup = self.definitions[self.currentContextKeyword];
+        definitionGroup = [definitionGroup arrayByAddingObjectsFromArray:contextDefinitionGroup];
+    }
+
     return [self findDefinitionForStep:step amongDefinitions:definitionGroup inTestCase:testCase];
 
 }
@@ -109,7 +116,7 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
             //Only return nil if we reached the last definition without finding a match
             break;
         }
-        NSRange searchRange = NSMakeRange(0, [step.text lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
+        NSRange searchRange = NSMakeRange(0, [step.text length]);
         NSTextCheckingResult * match = [[regex matchesInString:step.text options:NSMatchingReportCompletion range:searchRange] firstObject];
         
         if (match.numberOfRanges > 1) {
@@ -153,6 +160,10 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
 
 - (void)executeStep:(CCIStep *)step inTestCase:(id)testCase
 {
+    if (![step.keyword isEqualToString:@"And"]) {
+        self.currentContextKeyword = step.keyword;
+    }
+
     CCIStepDefinition * implementation = [self findMatchDefinitionForStep:step inTestCase:testCase];
     NSString * errorMessage = nil;
     if(step.keyword.length > 0){
@@ -164,6 +175,10 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
     CCIAssert(implementation != nil, errorMessage);
     if(step.keyword.length > 0){
         NSLog(@"Currently executing: \"%@ %@\"", step.keyword, step.text);
+    }
+
+    if ([step.keyword isEqualToString:@"And"]) {
+        implementation.type = @"And";
     }
 
     id xctContextClass = NSClassFromString(@"XCTContext");
@@ -231,7 +246,6 @@ void MatchAll(NSString * definitionString, CCIStepBody body)
 {
     When(definitionString, body);
     Then(definitionString, body);
-    And(definitionString, body);
     But(definitionString, body);
 }
 

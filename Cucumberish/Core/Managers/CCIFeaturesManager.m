@@ -62,10 +62,10 @@
 - (void)parseFeatureFiles:(NSArray *)featureFiles bundle:(NSBundle *)bundle withTags:(NSArray *)tags execludeFeaturesWithTags:(NSArray *)execludedFeatures
 {
     NSMutableArray * parsedFeatures = [NSMutableArray array];
-    
+
     GHParser * featureParser = [[GHParser alloc] init];
     for (NSURL * filePath in featureFiles) {
-        
+
         id result = [featureParser parse:filePath.path];
         if(result == nil){
             //Nothing to do here...
@@ -73,40 +73,75 @@
             continue;
         }
         NSMutableDictionary * featureData = [[result dictionary] mutableCopy];
-        
+
         NSString * testBundlePath = [bundle bundlePath];
         NSString * localPath = [[[filePath.absoluteString stringByRemovingPercentEncoding]
                                  stringByReplacingOccurrencesOfString:testBundlePath withString:@""]
                                 stringByReplacingOccurrencesOfString:@"file://" withString:@""];
-        
+
         featureData[@"location"][@"filePath"] = localPath;
-    
+
         CCIFeature * feature = [[CCIFeature alloc] initWithDictionary:featureData];
         feature = [self cleanedUpFeature:feature includeTags:tags excludeTags:execludedFeatures];
-        
+
         if(feature != nil){
             [parsedFeatures addObject:feature];
         }
-        
+
     }
-    
+
     _features = parsedFeatures;
+}
+
+- (NSArray * __nullable)cleanedUpExcludedExamples:(NSArray *)examples excludeTags:(NSArray<NSString *> *)excludeTags
+{
+    NSMutableArray * cleanedUpExamples = [NSMutableArray new];
+
+    // Won't be called unless there are excludeTags
+    for(CCIExample * example in examples) {
+        if([self tags:example.tags doesNotIntersectWithTags:excludeTags]){
+            [cleanedUpExamples addObject:example];
+        }
+    }
+    return cleanedUpExamples;
+}
+
+- (NSArray * __nullable)cleanedUpIncludedExamples:(NSArray *)examples includeTags:(NSArray<NSString *> *)includeTags
+{
+    NSMutableArray * cleanedUpExamples = [NSMutableArray new];
+
+    // Will only be called if there are includeTags
+    for(CCIExample * example in examples) {
+        if([self tags:example.tags intersectWithTags:includeTags]) {
+            [cleanedUpExamples addObject:example];
+        }
+    }
+    return cleanedUpExamples;
 }
 
 - (NSArray * __nullable)cleanedUpScenarios:(NSArray *)scenarios includeTags:(NSArray<NSString *> *)includeTags excludeTags:(NSArray<NSString *> *)excludeTags
 {
     NSMutableArray * cleanedUpScenarios = [NSMutableArray new];
+
     if(excludeTags.count > 0){
         for(CCIScenarioDefinition * s in scenarios){
             if([self tags:s.tags doesNotIntersectWithTags:excludeTags]){
-                [cleanedUpScenarios addObject:s];
+                // The scenario has not been excluded, but perhaps some (or all) of the examples have
+                if([s.keyword isEqualToString:(NSString *)kScenarioOutlineKeyword]) {
+                    s.examples = [self cleanedUpExcludedExamples:s.examples excludeTags:excludeTags];
+                    if(s.examples.count > 0) {
+                        [cleanedUpScenarios addObject:s];
+                    }
+                }else{
+                    [cleanedUpScenarios addObject:s];
+                }
             }
         }
     }else{
         //If there is no excluding tags, nothing should be excluded
         cleanedUpScenarios = [scenarios mutableCopy];
     }
-    
+
     //At this point, cleanedUpScenarios holds the scenarios that have not been excluded
     //Now we need to include only the scenarios that should be included
     if(includeTags.count > 0){
@@ -114,11 +149,19 @@
         for(CCIScenarioDefinition * s in cleanedUpScenarios){
             if([self tags:s.tags intersectWithTags:includeTags]){
                 [matchingScnarios addObject:s];
+            }else{
+                // The scenario has not been included, but perhaps some (or all) of the examples have
+                if([s.keyword isEqualToString:(NSString *)kScenarioOutlineKeyword]) {
+                    s.examples = [self cleanedUpIncludedExamples:s.examples includeTags:includeTags];
+                    if (s.examples.count > 0) {
+                        [matchingScnarios addObject:s];
+                    }
+                }
             }
         }
         cleanedUpScenarios = matchingScnarios;
     }
-    
+
     return cleanedUpScenarios;
 }
 
@@ -130,7 +173,7 @@
             feature = nil;
         }
     }
-    
+
     feature.scenarioDefinitions = [self cleanedUpScenarios:feature.scenarioDefinitions includeTags:includeTags excludeTags:excludeTags];
     if(feature.scenarioDefinitions.count == 0){
         feature = nil;
@@ -147,7 +190,7 @@
             break;
         }
     }
-    
+
     return intersect;
 }
 

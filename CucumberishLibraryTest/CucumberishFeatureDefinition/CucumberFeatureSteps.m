@@ -13,7 +13,9 @@
 #import "CCIFeature.h"
 #import "NSArray+Hashes.h"
 #import "CCIJSONDumper.h"
-
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
+#import <UIKit/UIKit.h>
+#endif
 @interface CucumberFeatureSteps()
 
 @property (nonatomic,strong) NSMutableDictionary* savedValues;
@@ -38,25 +40,31 @@
     return self;
 }
 
++(NSString*)testEnv
+{
+#if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
+    return [[UIDevice currentDevice] systemVersion];
+#elif TARGET_OS_OSX
+    NSOperatingSystemVersion version = [[NSProcessInfo processInfo] operatingSystemVersion];
+    return ([NSString stringWithFormat:@"%ld.%ld.%ld", version.majorVersion, version.minorVersion, version.patchVersion]);
+#endif
+    
+}
 -(void)setup
 {
-    Given(@"a (.*) statement", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    Given(@"a(n)? (.*) statement", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         
     });
     
-    And(@"an (.*) statement", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    When(@"a(n)? (.*) statement", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         
     });
     
-    When(@"a (.*) statement", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    But(@"a(n)? (.*) statement", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         
     });
     
-    But(@"a (.*) statement", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
-        
-    });
-    
-    Then(@"a (.*) statement", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    Then(@"a(n)? (.*) statement", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         
     });
     
@@ -213,7 +221,8 @@
                                                                   @"type" : @"scenario",
                                                                   @"line" : @12,
                                                                   @"name" : @"Json Output",
-                                                                  @"description" : @""
+                                                                  @"description" : @"",
+                                                                  @"test_env":[[self class] testEnv]
                                                                   }
                                                               ],
                                                       @"name" : @"JSON Output",
@@ -245,14 +254,14 @@
         }
     });
     
-    And(@"([A-Za-z0-9]+) value ([A-Za-z0-9]+) has been passed through", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    Then(@"([A-Za-z0-9]+) value ([A-Za-z0-9]+) has been passed through", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         CCIAssert(self.savedValues[args[0]] != nil, @"Expected to have a saved key of @",args[0]);
         if (self.savedValues[args[0]]) {
             CCIAssert([self.savedValues[args[0]] isEqualToString:args[1]] != NO, @"Expected %@ to equal %@, got %@",args[0],args[1],self.savedValues[args[0]]);
         }
     });
     
-    Match(@[@"Given",@"And"],@"^a step(?: has an optional match \"([a-z]+)\")?$", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    Given(@"^a step(?: has an optional match \"([a-z]+)\")?$", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         if (args.count == 0) {
             [self.savedAStepValues addObject:[NSNull null]];
         } else {
@@ -260,7 +269,7 @@
         }
     });
     
-    Match(@[@"Then",@"And"],@"the step \"a step\" had no match for the optional parameter", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    Then(@"the step \"a step\" had no match for the optional parameter", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         __block BOOL found = NO;
         for (id obj in self.savedAStepValues) {
             if ([obj isKindOfClass:[NSNull class]]) {
@@ -270,7 +279,7 @@
         CCIAssert(found, @"Expected to find a NSNull, found @%",self.savedAStepValues);
     });
     
-    Match(@[@"Then",@"And"],@"the step \"a step\" had \"([a-z]+)\" matched for the optional parameter", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    Then(@"the step \"a step\" had \"([a-z]+)\" matched for the optional parameter", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         __block BOOL found = NO;
         for (id obj in self.savedAStepValues) {
             if ([obj isKindOfClass:[NSString class]] && [obj isEqualToString:args[0]]) {
@@ -284,7 +293,7 @@
         self.exactMatchTriggered = YES;
     });
     
-    And(@"a step that just matches strings", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    Given(@"a step that just matches strings", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         self.inexactMatchTriggered = YES;
     });
     
@@ -293,7 +302,7 @@
         CCIAssert(self.exactMatchTriggered, @"Expected the exact match to be triggered");
     });
     
-    And(@"the inexact match passed", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    Then(@"the inexact match passed", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         CCIAssert(self.inexactMatchTriggered, @"Expected the inexact match to be triggered");
     });
     
