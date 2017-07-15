@@ -112,7 +112,7 @@
         }
     });
 
-    Then(@"the And statement be defined", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    Then(@"the And statement should be defined", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         CCIFeature *feature = [CCIFeaturesManager instance].features.firstObject;
         CCIScenarioDefinition *mainScenario = feature.scenarioDefinitions.firstObject;
 
