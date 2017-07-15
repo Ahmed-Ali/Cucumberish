@@ -55,6 +55,18 @@
     Given(@"a(n)? (.*) statement", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         
     });
+
+    Given(@"an And statement defined with the keyword Given", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+
+    });
+
+    Given(@"a Given statement using the step method in its implementation", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+        step(nil, @"An empty step");
+    });
+
+    Given(@"An empty step", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+
+    });
     
     When(@"a(n)? (.*) statement", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         
@@ -98,6 +110,17 @@
             }
             
         }
+    });
+
+    Then(@"the And statement be defined", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+        CCIFeature *feature = [CCIFeaturesManager instance].features.firstObject;
+        CCIScenarioDefinition *mainScenario = feature.scenarioDefinitions.firstObject;
+
+        [mainScenario.steps enumerateObjectsUsingBlock:^(CCIStep * _Nonnull step, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([step.keyword isEqualToString:@"And"] && step.status != CCIStepStatusPassed) {
+                *stop = YES;
+            }
+        }];
     });
     
     
