@@ -258,31 +258,40 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 {
 
     void(^executionChain)(void) = NULL;
-    if(scenario.tags.count > 0){
-        for(CCIAroundHock * around in self.aroundHocks){
-            for (NSString * tag in scenario.tags) {
-                if([around.tags containsObject:tag]){
-                    if(executionChain == NULL){
+
+    for (CCIAroundHock *around in self.aroundHocks) {
+        if (!around.tags) {
+            if (executionChain == NULL) {
+                executionChain = ^{
+                    around.block(scenario, executionBlock);
+                };
+            } else {
+                executionChain = ^{
+                    around.block(scenario, executionChain);
+                };
+            }
+        } else {
+            for (NSString *tag in scenario.tags) {
+                if ([around.tags containsObject:tag]) {
+                    if (executionChain == NULL) {
                         executionChain = ^{
                             around.block(scenario, executionBlock);
                         };
-                    }else{
+                    } else {
                         executionChain = ^{
                             around.block(scenario, executionChain);
                         };
                     }
-
                 }
             }
         }
     }
 
 
-    if(executionChain != NULL){
+    if (executionChain != NULL) {
         executionChain();
-    }else{
+    } else {
         executionBlock();
-
     }
 }
 
@@ -717,7 +726,12 @@ void afterTagged(NSArray * tags, CCIScenarioHockBlock afterTaggedBlock)
     [[Cucumberish instance] addAfterHock:[CCIHock hockWithTags:tags block:afterTaggedBlock]];
 }
 
-void around(NSArray * tags, CCIScenarioExecutionHockBlock aroundScenarioBlock)
+void around(CCIScenarioExecutionHockBlock aroundScenarioBlock)
+{
+    [[Cucumberish instance] addAroundHock:[CCIAroundHock hockWithTags:nil block:aroundScenarioBlock]];
+}
+
+void aroundTagged(NSArray * tags, CCIScenarioExecutionHockBlock aroundScenarioBlock)
 {
     [[Cucumberish instance] addAroundHock:[CCIAroundHock hockWithTags:tags block:aroundScenarioBlock]];
 }
