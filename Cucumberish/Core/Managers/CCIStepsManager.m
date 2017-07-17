@@ -160,7 +160,7 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
 
 - (void)executeStep:(CCIStep *)step inTestCase:(id)testCase
 {
-    if (![step.keyword isEqualToString:@"And"]) {
+    if (step.keyword && ![step.keyword isEqualToString:@"And"]) {
         self.currentContextKeyword = step.keyword;
     }
 
