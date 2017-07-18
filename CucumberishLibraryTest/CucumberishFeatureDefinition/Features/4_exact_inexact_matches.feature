@@ -1,4 +1,4 @@
-Feature: Handle Exact Matches
+Feature: 4 Handle Exact Matches
 Cucumberish shall support matching exact strings, beginning and end
 
 Scenario: Exact and Inexact Matches
