@@ -29,6 +29,8 @@
 #import "CCIStep.h"
 #import "CCIStepDefinition.h"
 
+typedef void (^XCTContextActivityBlock)(id _Nullable activity);
+
 static CCIStepsManager * instance = nil;
 
 
@@ -181,13 +183,13 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
         implementation.type = @"And";
     }
 
+    XCTContextActivityBlock activityBlock = ^(id activity) {
+        implementation.body(implementation.matchedValues, implementation.additionalContent);
+    };
+
     id xctContextClass = NSClassFromString(@"XCTContext");
     if (xctContextClass) {
         SEL aSelector = NSSelectorFromString(@"runActivityNamed:block:");
-
-        id block = ^(id activity) {
-            implementation.body(implementation.matchedValues, implementation.additionalContent);
-        };
 
         if ([xctContextClass respondsToSelector:aSelector]) {
             NSInvocation *inv = [NSInvocation invocationWithMethodSignature:[xctContextClass methodSignatureForSelector:aSelector]];
@@ -196,12 +198,12 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
 
             NSString *name = [NSString stringWithFormat:@"%@ %@", step.keyword, step.text];
             [inv setArgument:&(name) atIndex:2];
-            [inv setArgument:&(block) atIndex:3];
+            [inv setArgument:&(activityBlock) atIndex:3];
 
             [inv invoke];
         }
     } else {
-        implementation.body(implementation.matchedValues, implementation.additionalContent);
+        activityBlock(nil);
     }
 
     //Clean up the step additional content to avoid keeping unwanted objects in memory
