@@ -10,6 +10,8 @@
 #import "Cucumberish.h"
 #import "CCIFeaturesManager.h"
 #import "CCIStepsManager.h"
+#import "CCILoggingManager.h"
+#import "CCIDryRunLogger.h"
 #import "CCIFeature.h"
 #import "NSArray+Hashes.h"
 #import "CCIJSONDumper.h"
@@ -27,7 +29,6 @@
 @end
 
 @implementation CucumberFeatureSteps
-
 
 -(instancetype)init
 {
@@ -52,35 +53,55 @@
 }
 -(void)setup
 {
-    Given(@"a(n)? (.*) statement", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
-        
+    beforeTagged(@[@"dry-run"], ^(CCIScenarioDefinition *scenario) {
+        [Cucumberish instance].dryRun = YES;
+        id<CCILogger> dryRunLogger = [CCIDryRunLogger sharedInstance];
+        [[CCILoggingManager sharedInstance] addLogger:dryRunLogger];
     });
 
-    Given(@"an And statement defined with the keyword Given", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    afterTagged(@[@"dry-run"], ^(CCIScenarioDefinition *scenario) {
+        [Cucumberish instance].dryRun = NO;
+    });
+
+    afterFinish(^{
+        NSBundle *bundle = [NSBundle bundleForClass:[CucumberFeatureSteps class]];
+        NSString *expectedOutputFile = [bundle pathForResource:@"dry-run" ofType:@"output"];
+        NSError *error;
+        NSString *expectedOutput = [[NSString stringWithContentsOfFile:expectedOutputFile encoding:NSUTF8StringEncoding error:&error] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString *actualOutput = [[CCIDryRunLogger sharedInstance].logs stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+        CCIAssert([actualOutput isEqualToString:expectedOutput], @"Expected the undefined steps to be printed in the console");
+    });
+
+    Given(@"^a(n)? (.*) statement$", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
 
     });
 
-    Given(@"a Given statement using the step method in its implementation", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    Given(@"^an And statement defined with the keyword Given$", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+
+    });
+
+    Given(@"^a Given statement using the step method in its implementation$", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         step(nil, @"An empty step");
     });
 
-    Given(@"An empty step", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    Given(@"^An empty step$", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
 
     });
     
-    When(@"a(n)? (.*) statement", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    When(@"^a(n)? (.*) statement$", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         
     });
     
-    But(@"a(n)? (.*) statement", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    But(@"^a(n)? (.*) statement$", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         
     });
     
-    Then(@"a(n)? (.*) statement", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    Then(@"^a(n)? (.*) statement$", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         
     });
     
-    When(@"cucumber is executed", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+    When(@"^cucumber is executed$", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         //a do nothing step
     });
     
@@ -127,7 +148,7 @@
     When(@"cucumber outputs the details of \"JSON Output\" to a JSON to a file", ^(NSArray<NSString *> *args, NSDictionary *userInfo){
         CCIAssert([CCIFeaturesManager instance].features.count > 0, @"Expected at least one feature file");
         NSUInteger index = [[[CCIFeaturesManager instance] features] indexOfObjectPassingTest:^BOOL(CCIFeature * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            return [[obj name] isEqualToString:@"JSON Output"];
+            return [[obj name] isEqualToString:@"5 JSON Output"];
         }];
         CCIAssert(index != NSNotFound, @"could not find the name %@", @"JSON Output");
         CCIFeature *feature = [[[CCIFeaturesManager instance] features] objectAtIndex:index];
@@ -162,7 +183,7 @@
         //grab the feature we are verifying the JSON against
         CCIAssert([CCIFeaturesManager instance].features.count > 0, @"Expected at least one feature file");
         NSUInteger index = [[[CCIFeaturesManager instance] features] indexOfObjectPassingTest:^BOOL(CCIFeature * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            return [[obj name] isEqualToString:@"JSON Output"];
+            return [[obj name] isEqualToString:@"5 JSON Output"];
         }];
         CCIAssert(index != NSNotFound, @"could not find the name %@", @"JSON Output");
         CCIFeature *feature = [[[CCIFeaturesManager instance] features] objectAtIndex:index];
@@ -177,11 +198,11 @@
         NSArray<NSDictionary*> * knownFeature=  @[
                                                   @{
                                                       @"uri" : @"/Features/5_json_output.feature",
-                                                      @"id" : @"json-output",
+                                                      @"id" : @"5-json-output",
                                                       @"elements" : @[
                                                               @{
                                                                   
-                                                                  @"id" : @"json-output;json-output",
+                                                                  @"id" : @"5-json-output;json-output",
                                                                   @"steps" : @[
                                                                           @{
                                                                               @"result" : @{
@@ -248,7 +269,7 @@
                                                                   @"test_env":[[self class] testEnv]
                                                                   }
                                                               ],
-                                                      @"name" : @"JSON Output",
+                                                      @"name" : @"5 JSON Output",
                                                       @"description" : @"Cucumberish shall output JSON containing details of each feature file.\n\n* Given\n* When\n* Then\n* And\n* But\n* Background",
                                                       @"keyword" : @"Feature"
                                                       }
@@ -327,6 +348,10 @@
     
     Then(@"the inexact match passed", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
         CCIAssert(self.inexactMatchTriggered, @"Expected the inexact match to be triggered");
+    });
+
+    Then(@"Cucumberish should print code snippets for these undefined steps in the console", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
+        // This assertion needs to be done in the afterTagged block since no steps are executed whne dryRun is enabled
     });
     
     

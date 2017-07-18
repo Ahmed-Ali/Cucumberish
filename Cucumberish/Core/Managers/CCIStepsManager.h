@@ -36,6 +36,11 @@
 @interface CCIStepsManager : NSObject
 
 /**
+ A set containing all the steps that are not defined when dry run is enabled
+ */
+@property (nonatomic, strong) NSMutableSet<CCIStep *> *undefinedSteps;
+
+/**
  Returns the singleton class of CCIStepsManager
  */
 + (instancetype)instance;
@@ -47,5 +52,7 @@
  @param testCase the test case that is being executed when this step implementation is being called
  */
 - (void)executeStep:(CCIStep *)step inTestCase:(id)testCase;
+
+- (BOOL)executeStepInDryRun:(CCIStep *)step inTestCase:(id)testCase;
 
 @end

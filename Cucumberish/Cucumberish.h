@@ -29,6 +29,10 @@
 #import "CCIStepsManager.h"
 #import "CCIBlockDefinitions.h"
 
+typedef NS_ENUM(NSInteger, CCILanguage) {
+    CCILanguageSwift = 0,
+    CCILanguageObjectiveC = 1
+};
 
 /**
  Cucumberish is the main class you will need to parse your feature files and execute them.
@@ -96,6 +100,17 @@
  If Cucumberish is installed with Carthage, set the value of this property to be SRC_ROOT which is the preprocessor macro you defined in your build settings
  */
 @property (nonatomic, strong) NSString * testTargetSrcRoot;
+
+/**
+ If set to true, Cucumberish will scan all your feature files without actually running them and detect steps that are not yet defined. Before, after and around blocks are not
+ executed when using this feature. Default is false.
+ */
+@property (nonatomic, assign) BOOL dryRun;
+
+/**
+ The language used to write the step definition when using the dryRun feature. Default is set to CCILanguageSwift
+ */
+@property (nonatomic, assign) CCILanguage dryRunLanguage;
 
 /**
  Retuans a singleton instance of Cucumberish

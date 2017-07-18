@@ -20,6 +20,7 @@ Pod::Spec.new do |s|
     'Cucumberish/Cucumberish.h',
     'Cucumberish/Core/Managers/CCIStepsManager.h',
     'Cucumberish/Core/CCIBlockDefinitions.h',
+    'Cucumberish/Core/CCILogManager.h',
     'Cucumberish/Core/Models/CCIScenarioDefinition.h',
     'Cucumberish/Core/Models/CCIExample.h',
     'Cucumberish/Core/Models/CCIStep.h',

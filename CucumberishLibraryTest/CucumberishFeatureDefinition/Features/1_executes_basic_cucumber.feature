@@ -1,4 +1,4 @@
-Feature: Basic Cucumber
+Feature: 1 Basic Cucumber
 Cucumberish shall execute the basic cucumber steps.
 
 * Given
