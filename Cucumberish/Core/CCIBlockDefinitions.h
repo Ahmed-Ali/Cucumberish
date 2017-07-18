@@ -335,7 +335,7 @@ OBJC_EXTERN void afterTagged(NSArray * tags, CCIScenarioHockBlock afterTaggedBlo
  @Note
  This function should not be called after calling @a beginExecution. 
  
- @param aroundScenarioBlock code block that will be executed for each scneario, this block receives an instance of the scenario and the scenario execution block.
+ @param aroundScenarioBlock code block that will be executed for each scenario, this block receives an instance of the scenario and the scenario execution block.
  */
 OBJC_EXTERN void around(CCIScenarioExecutionHockBlock aroundScenarioBlock);
 
@@ -371,7 +371,7 @@ OBJC_EXTERN void around(CCIScenarioExecutionHockBlock aroundScenarioBlock);
 
 
  @param tags array of strings that will be used to match specific scenarios
- @param aroundScenarioBlock code block that will be executed for each scneario, this block receives an instance of the scenario and the scenario execution block.
+ @param aroundScenarioBlock code block that will be executed for each scenario, this block receives an instance of the scenario and the scenario execution block.
  */
 OBJC_EXTERN void aroundTagged(NSArray * tags, CCIScenarioExecutionHockBlock aroundScenarioBlock);
 
