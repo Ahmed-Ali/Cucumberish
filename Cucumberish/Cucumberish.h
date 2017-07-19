@@ -28,6 +28,7 @@
 #import <XCTest/XCTest.h>
 #import "CCIStepsManager.h"
 #import "CCIBlockDefinitions.h"
+#import "CCIFeature.h"
 
 typedef NS_ENUM(NSInteger, CCILanguage) {
     CCILanguageSwift = 0,
@@ -111,6 +112,11 @@ typedef NS_ENUM(NSInteger, CCILanguage) {
  The language used to write the step definition when using the dryRun feature. Default is set to CCILanguageSwift
  */
 @property (nonatomic, assign) CCILanguage dryRunLanguage;
+
+/**
+ After executing parserFeaturesInDirectory:fromBundle:includeTags:excludeTags: this array will contain all the parsed features.
+ */
+@property (nonatomic, readonly) NSArray<CCIFeature *> * features;
 
 /**
  Retuans a singleton instance of Cucumberish

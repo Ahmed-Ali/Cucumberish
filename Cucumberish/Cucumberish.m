@@ -96,6 +96,11 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 }
 
 
+- (NSArray<CCIFeature *> *)features
+{
+    return [[CCIFeaturesManager instance] features];
+}
+
 - (Cucumberish *)parserFeaturesInDirectory:(NSString *)directory fromBundle:(NSBundle *)bundle includeTags:(NSArray<NSString *> *)includeTags excludeTags:(NSArray<NSString *> *)excludeTags
 {
     NSArray * featureFiles = [self recursivelyFindFeatureFilesInBundle:bundle subDirectory:directory];

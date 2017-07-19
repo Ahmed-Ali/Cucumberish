@@ -65,9 +65,9 @@
 		607EEA241E50EE1000F2E8B6 /* CCIStepsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F0B1E16BA280042D98D /* CCIStepsManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		607EEA251E50EE1000F2E8B6 /* CCIArgument.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F0E1E16BA280042D98D /* CCIArgument.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		607EEA261E50EE1000F2E8B6 /* CCIAroundHock.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F101E16BA280042D98D /* CCIAroundHock.h */; };
-		607EEA271E50EE1000F2E8B6 /* CCIBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F121E16BA280042D98D /* CCIBackground.h */; };
+		607EEA271E50EE1000F2E8B6 /* CCIBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F121E16BA280042D98D /* CCIBackground.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		607EEA281E50EE1000F2E8B6 /* CCIExample.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F141E16BA280042D98D /* CCIExample.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		607EEA291E50EE1000F2E8B6 /* CCIFeature.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F161E16BA280042D98D /* CCIFeature.h */; };
+		607EEA291E50EE1000F2E8B6 /* CCIFeature.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F161E16BA280042D98D /* CCIFeature.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		607EEA2A1E50EE1000F2E8B6 /* CCIHock.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F181E16BA280042D98D /* CCIHock.h */; };
 		607EEA2B1E50EE1000F2E8B6 /* CCIJSONDumper.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F1A1E16BA280042D98D /* CCIJSONDumper.h */; };
 		607EEA2C1E50EE1000F2E8B6 /* CCILocation.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F1C1E16BA280042D98D /* CCILocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
