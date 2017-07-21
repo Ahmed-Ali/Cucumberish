@@ -551,9 +551,9 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 #pragma mark - C Functions
 
-void executeDryRun(XCTestCase * self, CCIScenarioDefinition * scenario)
+void executeDryRun(XCTestCase * self, NSArray <CCIStep *> * steps)
 {
-    for (CCIStep *step in scenario.steps) {
+    for (CCIStep *step in steps) {
         if (![[CCIStepsManager instance] executeStepInDryRun:step inTestCase:self]) {
             NSSet *objects = [[CCIStepsManager instance].undefinedSteps objectsPassingTest:^BOOL(CCIStep * _Nonnull obj, BOOL * _Nonnull stop) {
                 return [step.text isEqualToString:obj.text];
@@ -609,13 +609,18 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
 
     @try {
         [[Cucumberish instance] executeBeforeHocksWithScenario:scenario];
-        if(feature.background != nil && scenario.steps.count > 0){
-            executeSteps(self, feature.background.steps, feature.background, filePathPrefix);
+        if (feature.background != nil && scenario.steps.count > 0) {
+            if ([Cucumberish instance].dryRun) {
+                executeDryRun(self, feature.background.steps);
+            } else {
+                executeSteps(self, feature.background.steps, feature.background, filePathPrefix);
+            }
+
         }
 
         [[Cucumberish instance] executeAroundHocksWithScenario:scenario executionBlock:^{
             if ([Cucumberish instance].dryRun) {
-                executeDryRun(self, scenario);
+                executeDryRun(self, scenario.steps);
             } else {
                 executeSteps(self, scenario.steps, scenario, filePathPrefix);
             }
