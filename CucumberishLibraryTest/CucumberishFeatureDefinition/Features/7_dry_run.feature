@@ -1,7 +1,10 @@
+@dry-run
 Feature: 7 Dry Run
 Cucumberish prints in the console the undefined steps
 
-@dry-run
+Background: Background Support
+Given a Background Given statement which is undefined
+
 Scenario: Dry Run - Given
 Given a Given statement which is undefined
 And an And statement which is undefined
