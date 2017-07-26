@@ -7,6 +7,10 @@ But("^a But statement which is undefined$") { (args, userInfo) in
 
 }
 
+Given("^a Background Given statement which is undefined$") { (args, userInfo) in
+
+}
+
 Given("^a Given statement which is undefined$") { (args, userInfo) in
 
 }
