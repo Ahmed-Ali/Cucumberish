@@ -29,6 +29,8 @@
 #import "CCIStep.h"
 #import "CCIStepDefinition.h"
 
+typedef void (^XCTContextActivityBlock)(id _Nullable activity);
+
 static CCIStepsManager * instance = nil;
 
 
@@ -37,13 +39,13 @@ const NSString * kDocStringKey = @"DocString";
 const NSString * kXCTestCaseKey = @"XCTestCase";
 
 @interface CCIStepsManager()
+
 @property NSMutableDictionary * definitions;
 @property (copy) NSString *currentContextKeyword;
+
 @end
 
 @implementation CCIStepsManager
-
-
 
 + (instancetype)instance {
     
@@ -60,6 +62,7 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
     self = [super init];
    
     self.definitions = [NSMutableDictionary dictionary];
+    self.undefinedSteps = [NSMutableSet new];
     
     return self;
 }
@@ -76,7 +79,6 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
     return cluster;
 }
 
-
 - (CCIStepDefinition *)findMatchDefinitionForStep:(CCIStep *)step inTestCase:(id)testCase
 {
     if(step.keyword == nil){
@@ -88,14 +90,19 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
         return [self findDefinitionForStep:step amongDefinitions:allDefinitions inTestCase:testCase];
     }
 
+    return [self findDefinitionForStep:step amongDefinitions:[self definitionGroupForStep:step] inTestCase:testCase];
+}
+
+- (NSArray *)definitionGroupForStep:(CCIStep *)step
+{
     NSArray *definitionGroup = self.definitions[step.keyword] ?: @[];
     if ([step.keyword isEqualToString:@"And"]) {
+        step.contextualKeyword = self.currentContextKeyword;
         NSArray *contextDefinitionGroup = self.definitions[self.currentContextKeyword];
         definitionGroup = [definitionGroup arrayByAddingObjectsFromArray:contextDefinitionGroup];
     }
 
-    return [self findDefinitionForStep:step amongDefinitions:definitionGroup inTestCase:testCase];
-
+    return definitionGroup;
 }
 
 - (CCIStepDefinition *)findDefinitionForStep:(CCIStep *)step amongDefinitions:(NSArray *)definitions inTestCase:(id)testCase
@@ -158,9 +165,19 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
     return retDefinition;
 }
 
-- (void)executeStep:(CCIStep *)step inTestCase:(id)testCase
+- (BOOL)executeStepInDryRun:(CCIStep *)step inTestCase:(id)testCase
 {
     if (![step.keyword isEqualToString:@"And"]) {
+        self.currentContextKeyword = step.keyword;
+    }
+
+    return [self findMatchDefinitionForStep:step inTestCase:testCase] != nil;
+}
+
+
+- (void)executeStep:(CCIStep *)step inTestCase:(id)testCase
+{
+    if (step.keyword && ![step.keyword isEqualToString:@"And"]) {
         self.currentContextKeyword = step.keyword;
     }
 
@@ -173,6 +190,7 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
         errorMessage = [NSString stringWithFormat:@"The implementation of this step, calls another step that is not implemented: %@", [step.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     }
     CCIAssert(implementation != nil, errorMessage);
+
     if(step.keyword.length > 0){
         NSLog(@"Currently executing: \"%@ %@\"", step.keyword, step.text);
     }
@@ -181,7 +199,29 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
         implementation.type = @"And";
     }
 
-    implementation.body(implementation.matchedValues, implementation.additionalContent);
+    XCTContextActivityBlock activityBlock = ^(id activity) {
+        implementation.body(implementation.matchedValues, implementation.additionalContent);
+    };
+
+    id xctContextClass = NSClassFromString(@"XCTContext");
+    if (xctContextClass) {
+        SEL aSelector = NSSelectorFromString(@"runActivityNamed:block:");
+
+        if ([xctContextClass respondsToSelector:aSelector]) {
+            NSInvocation *inv = [NSInvocation invocationWithMethodSignature:[xctContextClass methodSignatureForSelector:aSelector]];
+            [inv setSelector:aSelector];
+            [inv setTarget:xctContextClass];
+
+            NSString *name = [NSString stringWithFormat:@"%@ %@", step.keyword, step.text];
+            [inv setArgument:&(name) atIndex:2];
+            [inv setArgument:&(activityBlock) atIndex:3];
+
+            [inv invoke];
+        }
+    } else {
+        activityBlock(nil);
+    }
+
     //Clean up the step additional content to avoid keeping unwanted objects in memory
     implementation.additionalContent = nil;
     if(step.keyword.length > 0){
@@ -256,10 +296,4 @@ void SStep(id testCase, NSString * stepLine)
 {
     step(testCase, stepLine);
 }
-
-
-
-
-
-
 

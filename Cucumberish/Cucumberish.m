@@ -33,6 +33,7 @@
 #import "NSString+Formatter.h"
 #import "CCIStepDefinition.h"
 #import "CCIScenarioDefinition.h"
+#import "CCILoggingManager.h"
 #import "CCIHock.h"
 #import "CCIAroundHock.h"
 
@@ -81,6 +82,8 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     self.beforeHocks = [NSMutableArray array];
     self.afterHocks = [NSMutableArray array];
     self.aroundHocks = [NSMutableArray array];
+    self.dryRun = NO;
+    self.dryRunLanguage = CCILanguageSwift;
     
 #ifdef SRC_ROOT
     self.testTargetSrcRoot = SRC_ROOT;
@@ -92,6 +95,11 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     return self;
 }
 
+
+- (NSArray<CCIFeature *> *)features
+{
+    return [[CCIFeaturesManager instance] features];
+}
 
 - (Cucumberish *)parserFeaturesInDirectory:(NSString *)directory fromBundle:(NSBundle *)bundle includeTags:(NSArray<NSString *> *)includeTags excludeTags:(NSArray<NSString *> *)excludeTags
 {
@@ -128,11 +136,6 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
     return matches;
 }
-
-
-
-
-
 
 + (void)executeFeaturesInDirectory:(NSString *)featuresDirectory fromBundle:(NSBundle *)bundle includeTags:(NSArray *)tags excludeTags:(NSArray *)excludedTags
 {
@@ -557,6 +560,20 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 #pragma mark - C Functions
 
+void executeDryRun(XCTestCase * self, CCIScenarioDefinition * scenario)
+{
+    for (CCIStep *step in scenario.steps) {
+        if (![[CCIStepsManager instance] executeStepInDryRun:step inTestCase:self]) {
+            NSSet *objects = [[CCIStepsManager instance].undefinedSteps objectsPassingTest:^BOOL(CCIStep * _Nonnull obj, BOOL * _Nonnull stop) {
+                return [step.text isEqualToString:obj.text];
+            }];
+            if (objects.count == 0) {
+                [[CCIStepsManager instance].undefinedSteps addObject:step];
+            }
+        }
+    }
+}
+
 void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenario, CCIFeature * feature)
 {
     self.continueAfterFailure = YES;
@@ -606,7 +623,11 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
         }
 
         [[Cucumberish instance] executeAroundHocksWithScenario:scenario executionBlock:^{
-           executeSteps(self, scenario.steps, scenario, filePathPrefix);
+            if ([Cucumberish instance].dryRun) {
+                executeDryRun(self, scenario);
+            } else {
+                executeSteps(self, scenario.steps, scenario, filePathPrefix);
+            }
         }];
         [[Cucumberish instance] executeAfterHocksWithScenario:scenario];
     }
@@ -617,10 +638,37 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
         scenario.success = NO;
         scenario.failureReason = exception.reason;
     }
+
     [Cucumberish instance].scenariosRun++;
 
-    if([Cucumberish instance].scenariosRun == [Cucumberish instance].scenarioCount){
-        
+    if ([Cucumberish instance].scenariosRun == [Cucumberish instance].scenarioCount) {
+
+        // Print dry run result
+        if ([CCIStepsManager instance].undefinedSteps.count > 0) {
+            NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"fullName" ascending:YES];
+            NSArray *sortedUndefinedSteps = [[CCIStepsManager instance].undefinedSteps sortedArrayUsingDescriptors:@[sort]];
+
+            NSMutableString *dryRunResult = [@"\n\nDry Run Results" mutableCopy];
+            [dryRunResult appendFormat:@"\n====================================================="];
+
+            [dryRunResult appendFormat:@"\nFound the following undefined steps:\n\n"];
+            for (CCIStep *step in sortedUndefinedSteps) {
+                if ([Cucumberish instance].dryRunLanguage == CCILanguageSwift) {
+                    NSString *keyword = step.keyword;
+                    if ([keyword isEqualToString:@"And"]) {
+                        keyword = step.contextualKeyword;
+                    }
+                    [dryRunResult appendFormat:@"%@(\"^%@$\") { (args, userInfo) in\n\n}\n\n", keyword, step.text];
+                } else if ([Cucumberish instance].dryRunLanguage == CCILanguageObjectiveC) {
+                    [dryRunResult appendFormat:@"%@(@\"^%@$\", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {\n\n});\n\n", step.keyword, step.text];
+                }
+            }
+
+            [dryRunResult appendFormat:@"=====================================================\n\n"];
+
+            CCILog(@"%@", dryRunResult);
+        }
+
         NSString * resultsDir = [Cucumberish instance].resultsDirectory;
         NSString * fileName = [NSString stringWithFormat:@"CucumberishTestResults-%@",targetName];
         
@@ -634,6 +682,7 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
                         forFeatures: [[CCIFeaturesManager instance] features]];
 
         }
+
  		if([Cucumberish instance].afterFinishHock){
         	[Cucumberish instance].afterFinishHock();
     	}
@@ -642,7 +691,6 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
 
 void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario, NSString * filePathPrefix)
 {
-
     for (CCIStep * step in steps) {
 
         @try {
