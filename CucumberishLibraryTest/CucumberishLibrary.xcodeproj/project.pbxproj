@@ -226,6 +226,7 @@
 		F307B4731F19F90C00800005 /* CCILoggingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CBE1AA1F19C59700D34E16 /* CCILoggingManager.m */; };
 		F307B4741F19F90C00800005 /* CCILoggingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CBE1AA1F19C59700D34E16 /* CCILoggingManager.m */; };
 		F307B4751F19F90D00800005 /* CCILoggingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CBE1AA1F19C59700D34E16 /* CCILoggingManager.m */; };
+		F3AE1BF41F2DC4B40044D544 /* expected_hooks.output in Resources */ = {isa = PBXBuildFile; fileRef = F3AE1BF31F2DC4AC0044D544 /* expected_hooks.output */; };
 		F3CBE1AE1F19C9E700D34E16 /* CCIDryRunLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CBE1AD1F19C9E700D34E16 /* CCIDryRunLogger.m */; };
 		F3CBE1B01F19D7D500D34E16 /* dry-run.output in Resources */ = {isa = PBXBuildFile; fileRef = F3CBE1AF1F19D7D500D34E16 /* dry-run.output */; };
 /* End PBXBuildFile section */
@@ -384,6 +385,7 @@
 		C5E80F731E16BA290042D98D /* NSObject+Dictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Dictionary.m"; sourceTree = "<group>"; };
 		C5E80F741E16BA290042D98D /* NSString+Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Formatter.h"; sourceTree = "<group>"; };
 		C5E80F751E16BA290042D98D /* NSString+Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Formatter.m"; sourceTree = "<group>"; };
+		F3AE1BF31F2DC4AC0044D544 /* expected_hooks.output */ = {isa = PBXFileReference; lastKnownFileType = text; path = expected_hooks.output; sourceTree = "<group>"; };
 		F3CBE1A91F19C59700D34E16 /* CCILoggingManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCILoggingManager.h; sourceTree = "<group>"; };
 		F3CBE1AA1F19C59700D34E16 /* CCILoggingManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CCILoggingManager.m; sourceTree = "<group>"; };
 		F3CBE1AC1F19C9E700D34E16 /* CCIDryRunLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCIDryRunLogger.h; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 			isa = PBXGroup;
 			children = (
 				C57B79E31E15922A001B758D /* expected_classes_and_methods.json */,
+				F3AE1BF31F2DC4AC0044D544 /* expected_hooks.output */,
 				C57B79E41E15922A001B758D /* expected_execution.output */,
 				C57B79E51E15922A001B758D /* expected_json_output.json */,
 				C57B79E61E15922A001B758D /* Features */,
@@ -872,6 +875,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C57B79E91E15922A001B758D /* expected_json_output.json in Resources */,
+				F3AE1BF41F2DC4B40044D544 /* expected_hooks.output in Resources */,
 				C57B79E71E15922A001B758D /* expected_classes_and_methods.json in Resources */,
 				C57B79E81E15922A001B758D /* expected_execution.output in Resources */,
 				C57B79EA1E15922A001B758D /* Features in Resources */,

@@ -17,18 +17,37 @@
 
 
 @interface CucumberishTester : NSObject
-@property NSMutableString * output;
+
+@property NSMutableString *output;
+@property NSMutableString *hooksOutput;
+
 @end
 
 @implementation CucumberishTester
+
 @synthesize output = output;
+@synthesize hooksOutput = hooksOutput;
 
 + (void)prepare
 {
 	[[Cucumberish instance] setPrettyNamesAllowed:YES];
 	CucumberishTester * tester = [self new];
 	tester.output = [NSMutableString string];
+    tester.hooksOutput = [NSMutableString string];
 	[tester defineStepsAndHocks];
+}
+
++ (void)assertOutput:(NSString *)output isEqualToExpectedOutputInFile:(NSString *)expectedOutputFilename
+{
+    //Compare the whole output and see if it is as expected
+    NSBundle * bundle = [NSBundle bundleForClass:[CucumberishTester class]];
+    NSString * expectedOutputFile = [bundle pathForResource:expectedOutputFilename ofType:@"output"];
+    NSError * error;
+    NSString * expectedOutput = [[NSString stringWithContentsOfFile:expectedOutputFile encoding:NSUTF8StringEncoding error:&error] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString * finalOutput = [output stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSAssert(error == nil, @"Could not load the expected output file");
+
+    NSAssert([finalOutput isEqualToString:expectedOutput], @"Acutal execution is different than expected exection:\nActual:\n%@\n=======\nExpected:\n%@", finalOutput, expectedOutput);
 }
 
 - (void)defineStepsAndHocks
@@ -36,13 +55,37 @@
 	afterFinish(^{
 		[self validateParsedContent];
 		[self validateExecutionOutput];
+        [self validateHooksOutput];
 		[self validateRegisteredClassesAndMethods];
         
         [self validateJsonOutputDefaultDirectory];
         [self validateJsonOutputCustomDirectory];
 	});
-	
-	
+
+    around(^(CCIScenarioDefinition *scenario, void (^scenarioExectionBlock)(void)) {
+        [hooksOutput appendFormat:@"Around all scenarios: Start\n"];
+        scenarioExectionBlock();
+        [hooksOutput appendFormat:@"Around all scenarios: End\n"];
+    });
+
+    aroundTagged(@[@"activity"], ^(CCIScenarioDefinition *scenario, void (^scenarioExectionBlock)(void)) {
+        [hooksOutput appendFormat:@"Around @activity scenario: Start\n"];
+        scenarioExectionBlock();
+        [hooksOutput appendFormat:@"Around @activity scenarios: End\n"];
+    });
+
+    aroundTagged(@[@"history"], ^(CCIScenarioDefinition *scenario, void (^scenarioExectionBlock)(void)) {
+        [hooksOutput appendFormat:@"Around @history scenario: Start\n"];
+        scenarioExectionBlock();
+        [hooksOutput appendFormat:@"Around @history scenarios: End\n"];
+    });
+
+    aroundTagged(@[@"profile"], ^(CCIScenarioDefinition *scenario, void (^scenarioExectionBlock)(void)) {
+        [hooksOutput appendFormat:@"Around @profile scenario: Start\n"];
+        scenarioExectionBlock();
+        [hooksOutput appendFormat:@"Around @profile scenarios: End\n"];
+    });
+
 	before(^(CCIScenarioDefinition *scenario) {
 		[output appendFormat:@"Scenario : %@\n", scenario.name];
 	});
@@ -92,14 +135,12 @@
 
 - (void)validateExecutionOutput
 {
-	//Compare the whole output and see if it is as expected
-	NSBundle * bundle = [NSBundle bundleForClass:[CucumberishTester class]];
-	NSString * expectedOutputFile = [bundle pathForResource:@"expected_execution" ofType:@"output"];
-	NSError * error;
-	NSString * expectedOutput = [[NSString stringWithContentsOfFile:expectedOutputFile encoding:NSUTF8StringEncoding error:&error] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	NSString * finalOutput = [output stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	NSAssert(error == nil, @"Could not load the expected output file");
-	NSAssert([expectedOutput isEqualToString:finalOutput], @"Acutal execution is different than expected exection:\nActual:\n%@\n=======\nExpected:\n%@", finalOutput, expectedOutput);
+    [CucumberishTester assertOutput:output isEqualToExpectedOutputInFile:@"expected_execution"];
+}
+
+- (void)validateHooksOutput
+{
+    [CucumberishTester assertOutput:hooksOutput isEqualToExpectedOutputInFile:@"expected_hooks"];
 }
 
 - (void)validateRegisteredClassesAndMethods
@@ -160,8 +201,6 @@
                     error:&error];
     NSAssert(error == nil, @"%@%@", @"Could not delete file: ", error.description);
 }
-
-
 
 @end
 
