@@ -1,4 +1,4 @@
-@run
+@run @profile
 Feature: Profile
 As a user I should be able to create profile and update my details
 
@@ -32,5 +32,6 @@ Scenario: Update profile
     And I tap "Profile" button
     Then I should see "Ahmed Ali" in the "Name" field
     And I should see "eng.ahmed.ali.awad@gmail.com" in the "Email" field
+
 
 
