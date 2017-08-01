@@ -212,7 +212,7 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
             [inv setSelector:aSelector];
             [inv setTarget:xctContextClass];
 
-            NSString *name = [NSString stringWithFormat:@"%@ %@", step.keyword, step.text];
+            NSString *name = [NSString stringWithFormat:@"%@ %@", implementation.type, step.text];
             [inv setArgument:&(name) atIndex:2];
             [inv setArgument:&(activityBlock) atIndex:3];
 
