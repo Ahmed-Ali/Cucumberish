@@ -84,7 +84,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     self.aroundHocks = [NSMutableArray array];
     self.dryRun = NO;
     self.dryRunLanguage = CCILanguageSwift;
-    
+
 #ifdef SRC_ROOT
     self.testTargetSrcRoot = SRC_ROOT;
     //Clean up unwanted /Pods path caused by cocoa pods
@@ -291,7 +291,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     }
 
 
-    if (executionChain != NULL) {
+    if (![Cucumberish instance].dryRun && executionChain != NULL) {
         executionChain();
     } else {
         executionBlock();
@@ -409,7 +409,7 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
         for(int index = 0; index < numberOfIndexes; index++){
             [Cucumberish instance].scenarioCount++;
             NSInvocation * inv = [self invocationForScenarioOutline:outline example:example exampleIndex:index  feature:feature featureClass:featureClass];
-            
+
             [invocations addObject:inv];
         }
     }
@@ -582,21 +582,21 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
     NSString * filePathPrefix = [NSString stringWithFormat:@"%@/%@", [Cucumberish instance].testTargetSrcRoot, targetName];
 
     @try {
-        
+
         if ([Cucumberish instance].scenariosRun == 0) {
-            
+
             NSString * resultsDirectory = [Cucumberish instance].resultsDirectory;
             NSFileManager *fileManager= [NSFileManager defaultManager];
             NSError *error = nil;
-            
+
             if([resultsDirectory length] > 0 && ![fileManager createDirectoryAtPath:resultsDirectory withIntermediateDirectories:YES attributes:nil error:&error]) {
                 // An error has occurred, do something to handle it
                 NSString * errorMsg = [NSString stringWithFormat:@"Failed to create directory \"%@\". Error: %@", resultsDirectory, error];
                 [Cucumberish instance].beforeStartFailureReason = errorMsg;
             }
-            
+
         }
-        if([Cucumberish instance].scenariosRun == 0 && [Cucumberish instance].beforeStartHock){
+        if(![Cucumberish instance].dryRun && [Cucumberish instance].scenariosRun == 0 && [Cucumberish instance].beforeStartHock){
             [Cucumberish instance].beforeStartHock();
         }
     }
@@ -617,7 +617,9 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
     }
 
     @try {
-        [[Cucumberish instance] executeBeforeHocksWithScenario:scenario];
+        if (![Cucumberish instance].dryRun) {
+            [[Cucumberish instance] executeBeforeHocksWithScenario:scenario];
+        }
         if (feature.background != nil && scenario.steps.count > 0) {
             if ([Cucumberish instance].dryRun) {
                 executeDryRun(self, feature.background.steps);
@@ -634,7 +636,9 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
                 executeSteps(self, scenario.steps, scenario, filePathPrefix);
             }
         }];
-        [[Cucumberish instance] executeAfterHocksWithScenario:scenario];
+        if (![Cucumberish instance].dryRun) {
+            [[Cucumberish instance] executeAfterHocksWithScenario:scenario];
+        }
     }
     @catch (CCIExeption *exception) {
         // This catches assert failures in scenario before/around/after hooks
@@ -676,7 +680,7 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
 
         NSString * resultsDir = [Cucumberish instance].resultsDirectory;
         NSString * fileName = [NSString stringWithFormat:@"CucumberishTestResults-%@",targetName];
-        
+
         if ([resultsDir length] == 0) {
             [CCIJSONDumper writeJSONToFile: fileName
                        forFeatures: [[CCIFeaturesManager instance] features]];
@@ -688,7 +692,7 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
 
         }
 
- 		if([Cucumberish instance].afterFinishHock){
+ 		if(![Cucumberish instance].dryRun && [Cucumberish instance].afterFinishHock){
         	[Cucumberish instance].afterFinishHock();
     	}
 	}
@@ -788,7 +792,3 @@ void aroundTagged(NSArray * tags, CCIScenarioExecutionHockBlock aroundScenarioBl
 {
     [[Cucumberish instance] addAroundHock:[CCIAroundHock hockWithTags:tags block:aroundScenarioBlock]];
 }
-
-
-
-
