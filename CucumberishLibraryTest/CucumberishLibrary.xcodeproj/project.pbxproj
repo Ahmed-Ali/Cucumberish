@@ -65,9 +65,9 @@
 		607EEA241E50EE1000F2E8B6 /* CCIStepsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F0B1E16BA280042D98D /* CCIStepsManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		607EEA251E50EE1000F2E8B6 /* CCIArgument.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F0E1E16BA280042D98D /* CCIArgument.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		607EEA261E50EE1000F2E8B6 /* CCIAroundHock.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F101E16BA280042D98D /* CCIAroundHock.h */; };
-		607EEA271E50EE1000F2E8B6 /* CCIBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F121E16BA280042D98D /* CCIBackground.h */; };
+		607EEA271E50EE1000F2E8B6 /* CCIBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F121E16BA280042D98D /* CCIBackground.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		607EEA281E50EE1000F2E8B6 /* CCIExample.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F141E16BA280042D98D /* CCIExample.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		607EEA291E50EE1000F2E8B6 /* CCIFeature.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F161E16BA280042D98D /* CCIFeature.h */; };
+		607EEA291E50EE1000F2E8B6 /* CCIFeature.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F161E16BA280042D98D /* CCIFeature.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		607EEA2A1E50EE1000F2E8B6 /* CCIHock.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F181E16BA280042D98D /* CCIHock.h */; };
 		607EEA2B1E50EE1000F2E8B6 /* CCIJSONDumper.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F1A1E16BA280042D98D /* CCIJSONDumper.h */; };
 		607EEA2C1E50EE1000F2E8B6 /* CCILocation.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F1C1E16BA280042D98D /* CCILocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -222,6 +222,13 @@
 		C5E80FD51E16BA290042D98D /* NSObject+Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E80F731E16BA290042D98D /* NSObject+Dictionary.m */; };
 		C5E80FD61E16BA290042D98D /* NSString+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E80F751E16BA290042D98D /* NSString+Formatter.m */; };
 		C5E80FD71E16BA290042D98D /* NSString+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E80F751E16BA290042D98D /* NSString+Formatter.m */; };
+		F307B4721F19F90500800005 /* CCILoggingManager.h in Headers */ = {isa = PBXBuildFile; fileRef = F3CBE1A91F19C59700D34E16 /* CCILoggingManager.h */; };
+		F307B4731F19F90C00800005 /* CCILoggingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CBE1AA1F19C59700D34E16 /* CCILoggingManager.m */; };
+		F307B4741F19F90C00800005 /* CCILoggingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CBE1AA1F19C59700D34E16 /* CCILoggingManager.m */; };
+		F307B4751F19F90D00800005 /* CCILoggingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CBE1AA1F19C59700D34E16 /* CCILoggingManager.m */; };
+		F3AE1BF41F2DC4B40044D544 /* expected_hooks.output in Resources */ = {isa = PBXBuildFile; fileRef = F3AE1BF31F2DC4AC0044D544 /* expected_hooks.output */; };
+		F3CBE1AE1F19C9E700D34E16 /* CCIDryRunLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CBE1AD1F19C9E700D34E16 /* CCIDryRunLogger.m */; };
+		F3CBE1B01F19D7D500D34E16 /* dry-run.output in Resources */ = {isa = PBXBuildFile; fileRef = F3CBE1AF1F19D7D500D34E16 /* dry-run.output */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -378,6 +385,12 @@
 		C5E80F731E16BA290042D98D /* NSObject+Dictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Dictionary.m"; sourceTree = "<group>"; };
 		C5E80F741E16BA290042D98D /* NSString+Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Formatter.h"; sourceTree = "<group>"; };
 		C5E80F751E16BA290042D98D /* NSString+Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Formatter.m"; sourceTree = "<group>"; };
+		F3AE1BF31F2DC4AC0044D544 /* expected_hooks.output */ = {isa = PBXFileReference; lastKnownFileType = text; path = expected_hooks.output; sourceTree = "<group>"; };
+		F3CBE1A91F19C59700D34E16 /* CCILoggingManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCILoggingManager.h; sourceTree = "<group>"; };
+		F3CBE1AA1F19C59700D34E16 /* CCILoggingManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CCILoggingManager.m; sourceTree = "<group>"; };
+		F3CBE1AC1F19C9E700D34E16 /* CCIDryRunLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCIDryRunLogger.h; sourceTree = "<group>"; };
+		F3CBE1AD1F19C9E700D34E16 /* CCIDryRunLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CCIDryRunLogger.m; sourceTree = "<group>"; };
+		F3CBE1AF1F19D7D500D34E16 /* dry-run.output */ = {isa = PBXFileReference; lastKnownFileType = text; path = "dry-run.output"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -446,6 +459,9 @@
 				3E38B0F61DDDE0D600C1CF5A /* CucumberFeatureSteps.m */,
 				3E38B0EC1DDDE0A400C1CF5A /* CucumberishFeatureDefinition.m */,
 				3E38B0EE1DDDE0A400C1CF5A /* Info.plist */,
+				F3CBE1AC1F19C9E700D34E16 /* CCIDryRunLogger.h */,
+				F3CBE1AD1F19C9E700D34E16 /* CCIDryRunLogger.m */,
+				F3CBE1AF1F19D7D500D34E16 /* dry-run.output */,
 			);
 			path = CucumberishFeatureDefinition;
 			sourceTree = "<group>";
@@ -472,6 +488,7 @@
 			isa = PBXGroup;
 			children = (
 				C57B79E31E15922A001B758D /* expected_classes_and_methods.json */,
+				F3AE1BF31F2DC4AC0044D544 /* expected_hooks.output */,
 				C57B79E41E15922A001B758D /* expected_execution.output */,
 				C57B79E51E15922A001B758D /* expected_json_output.json */,
 				C57B79E61E15922A001B758D /* Features */,
@@ -511,6 +528,8 @@
 				C5E80F0A1E16BA280042D98D /* CCIFeaturesManager.m */,
 				C5E80F0B1E16BA280042D98D /* CCIStepsManager.h */,
 				C5E80F0C1E16BA280042D98D /* CCIStepsManager.m */,
+				F3CBE1A91F19C59700D34E16 /* CCILoggingManager.h */,
+				F3CBE1AA1F19C59700D34E16 /* CCILoggingManager.m */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -664,6 +683,7 @@
 				607EEA291E50EE1000F2E8B6 /* CCIFeature.h in Headers */,
 				607EEA2A1E50EE1000F2E8B6 /* CCIHock.h in Headers */,
 				607EEA2B1E50EE1000F2E8B6 /* CCIJSONDumper.h in Headers */,
+				F307B4721F19F90500800005 /* CCILoggingManager.h in Headers */,
 				607EEA2F1E50EE1000F2E8B6 /* CCIStepDefinition.h in Headers */,
 				607EEA311E50EE1000F2E8B6 /* GHAstBuilder.h in Headers */,
 				607EEA321E50EE1000F2E8B6 /* GHAstNode.h in Headers */,
@@ -836,6 +856,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3CBE1B01F19D7D500D34E16 /* dry-run.output in Resources */,
 				C5E80F9E1E16BA290042D98D /* gherkin-languages.json in Resources */,
 				3E38B10F1DDDE15100C1CF5A /* Features in Resources */,
 			);
@@ -854,6 +875,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C57B79E91E15922A001B758D /* expected_json_output.json in Resources */,
+				F3AE1BF41F2DC4B40044D544 /* expected_hooks.output in Resources */,
 				C57B79E71E15922A001B758D /* expected_classes_and_methods.json in Resources */,
 				C57B79E81E15922A001B758D /* expected_execution.output in Resources */,
 				C57B79EA1E15922A001B758D /* Features in Resources */,
@@ -883,6 +905,7 @@
 				C5E80F9A1E16BA290042D98D /* GHDataTable.m in Sources */,
 				C5E80FA41E16BA290042D98D /* GHGherkinDialect.m in Sources */,
 				3E38B0FD1DDDE0D600C1CF5A /* CucumberFeatureSteps.m in Sources */,
+				F307B4731F19F90C00800005 /* CCILoggingManager.m in Sources */,
 				C5E80FC01E16BA290042D98D /* GHStep.m in Sources */,
 				C5E80FBA1E16BA290042D98D /* GHScenario.m in Sources */,
 				C5E80FD01E16BA290042D98D /* NSString+Trim.m in Sources */,
@@ -924,6 +947,7 @@
 				C5E80F961E16BA290042D98D /* GHBackground.m in Sources */,
 				3E38B0ED1DDDE0A400C1CF5A /* CucumberishFeatureDefinition.m in Sources */,
 				C5E80FD41E16BA290042D98D /* NSObject+Dictionary.m in Sources */,
+				F3CBE1AE1F19C9E700D34E16 /* CCIDryRunLogger.m in Sources */,
 				C5E80FA01E16BA290042D98D /* GHExamples.m in Sources */,
 				C5E80F941E16BA290042D98D /* GHAstNode.m in Sources */,
 			);
@@ -965,6 +989,7 @@
 				607EEA0F1E50EDDD00F2E8B6 /* GHNode.m in Sources */,
 				607EEA101E50EDDD00F2E8B6 /* GHParser+Extensions.m in Sources */,
 				607EEA111E50EDDD00F2E8B6 /* GHParser.m in Sources */,
+				F307B4751F19F90D00800005 /* CCILoggingManager.m in Sources */,
 				607EEA121E50EDDD00F2E8B6 /* GHParserException.m in Sources */,
 				607EEA131E50EDDD00F2E8B6 /* GHScenario.m in Sources */,
 				607EEA141E50EDDD00F2E8B6 /* GHScenarioDefinition.m in Sources */,
@@ -1023,6 +1048,7 @@
 				C5E80F951E16BA290042D98D /* GHAstNode.m in Sources */,
 				C5E80FD71E16BA290042D98D /* NSString+Formatter.m in Sources */,
 				C5E80FD31E16BA290042D98D /* NSArray+Hashes.m in Sources */,
+				F307B4741F19F90C00800005 /* CCILoggingManager.m in Sources */,
 				C5E80F811E16BA290042D98D /* CCIExample.m in Sources */,
 				C5E80FA11E16BA290042D98D /* GHExamples.m in Sources */,
 				C5E80FC71E16BA290042D98D /* GHTableRow.m in Sources */,

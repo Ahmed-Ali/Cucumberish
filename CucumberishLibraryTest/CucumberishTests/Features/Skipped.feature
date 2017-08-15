@@ -3,7 +3,7 @@ Feature: Skipped
 As a user I expect this feature and all of its to be totally ignored
 
 @run
-Scenario: A dummy scneario to be skipped
+Scenario: A dummy scenario to be skipped
 Given it is home screen
 And all data cleared
 When I tap the "Profile" button

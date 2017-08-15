@@ -1,4 +1,4 @@
-Feature: Fills Examples into Tables
+Feature: 2 Fills Examples into Tables
 Cucumberish shall support filling examples into tables
 
 Scenario Outline: Tables with Examples

@@ -85,6 +85,11 @@
 
 }
 
+- (NSString *)fullName
+{
+    return [NSString stringWithFormat:@"%@ %@", self.contextualKeyword ?: self.keyword, self.text];
+}
+
 
 - (NSString *)description
 {

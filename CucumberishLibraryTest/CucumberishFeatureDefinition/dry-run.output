@@ -1,0 +1,30 @@
+
+Dry Run Results
+=====================================================
+Found the following undefined steps:
+
+But("^a But statement which is undefined$") { (args, userInfo) in
+
+}
+
+Given("^a Background Given statement which is undefined$") { (args, userInfo) in
+
+}
+
+Given("^a Given statement which is undefined$") { (args, userInfo) in
+
+}
+
+Given("^an And statement which is undefined$") { (args, userInfo) in
+
+}
+
+Then("^a Then statement which is undefined$") { (args, userInfo) in
+
+}
+
+When("^a When statement which is undefined$") { (args, userInfo) in
+
+}
+
+=====================================================

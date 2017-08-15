@@ -47,6 +47,11 @@ typedef NS_ENUM(NSInteger,CCIStepStatus) {
 @property (nonatomic, strong) CCIArgument * argument;
 
 /**
+ Set to the keyword of the previous step when the keyword for this step is And
+ */
+@property (nonatomic, copy) NSString * contextualKeyword;
+
+/**
  Can be  When, Then, Given, etc...
  */
 @property (nonatomic, copy) NSString * keyword;
@@ -82,4 +87,9 @@ typedef NS_ENUM(NSInteger,CCIStepStatus) {
  @return the created dictionary
  */
 -(NSDictionary *)toDictionary;
+
+/**
+ @return a string composed of the keyword and the text of the step
+ */
+- (NSString *)fullName;
 @end

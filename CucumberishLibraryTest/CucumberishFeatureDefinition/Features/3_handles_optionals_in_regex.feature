@@ -1,4 +1,4 @@
-Feature: Optionals In Regex
+Feature: 3 Optionals In Regex
 Cucumberish shall allow optionals in a regex
 
 Scenario: Optionals

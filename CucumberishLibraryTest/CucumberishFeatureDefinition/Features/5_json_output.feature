@@ -1,4 +1,4 @@
-Feature: JSON Output
+Feature: 5 JSON Output
 Cucumberish shall output JSON containing details of each feature file.
 
 * Given

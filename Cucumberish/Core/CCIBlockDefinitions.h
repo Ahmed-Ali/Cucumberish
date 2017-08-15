@@ -332,17 +332,28 @@ OBJC_EXTERN void afterTagged(NSArray * tags, CCIScenarioHockBlock afterTaggedBlo
  C function that registers a code block to be used to call the scenario execution block.
  Code blocks registerd with this function will receive two parameters: scenario instance and scenario execution block as a parameter.
  
+ @Note
+ This function should not be called after calling @a beginExecution. 
+ 
+ @param aroundScenarioBlock code block that will be executed for each scenario, this block receives an instance of the scenario and the scenario execution block.
+ */
+OBJC_EXTERN void around(CCIScenarioExecutionHockBlock aroundScenarioBlock);
+
+/**
+ C function that registers a code block to be used to call the scenario execution block.
+ Code blocks registerd with this function will receive two parameters: scenario instance and scenario execution block as a parameter.
+
  If more than one code block matches the scenario, you are still required to call the scenario execution from each registered code block. However, your scenario will be executed once as it is supposed to be.
- 
+
  Matching against around blocks happens in FIFO (First In First Out) order; in case more than one block has matched the same scenario, then they are nested.
- 
+
  @Note
  Failing to call the scenario execution block, will prevent the scenario from being executed.
- 
+
  @b Example of more than one match
- 
+
  There are three registerd blocks with tags that matches the same scenario, the followin nesting calls will happen:
- 
+
  @code
  Third Around Match
  Block = contains code block that executes the Second Around Match
@@ -350,19 +361,19 @@ OBJC_EXTERN void afterTagged(NSArray * tags, CCIScenarioHockBlock afterTaggedBlo
  Block = contains code block that executes the First Around Match
  First Around Match
  Block = A call Scenario Exection Block@endcode
- 
- 
+
+
  @Note
  Do not prefix any tag you pass with @@ symbol
- 
+
  @Note
  This function should not be called after calling @a beginExecution.
- 
- 
+
+
  @param tags array of strings that will be used to match specific scenarios
- @param aroundScenarioBlock code block that will be executed for each scneario, this block receives an instance of the scenario and the scenario execution block.
+ @param aroundScenarioBlock code block that will be executed for each scenario, this block receives an instance of the scenario and the scenario execution block.
  */
-OBJC_EXTERN void around(NSArray * tags, CCIScenarioExecutionHockBlock aroundScenarioBlock);
+OBJC_EXTERN void aroundTagged(NSArray * tags, CCIScenarioExecutionHockBlock aroundScenarioBlock);
 
 #pragma mark - Assertion and Errors
 /**

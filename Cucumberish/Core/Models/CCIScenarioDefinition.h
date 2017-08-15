@@ -78,7 +78,6 @@ extern const NSString * kBackgroundKeyword;
  */
 @property (nonatomic, copy) NSString * type;
 
-
 /**
  In case the execution of this scenario is failed, this property will have the failure message
  */
