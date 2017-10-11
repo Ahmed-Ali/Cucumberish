@@ -64,8 +64,11 @@
     NSMutableArray * parsedFeatures = [NSMutableArray array];
 
     GHParser * featureParser = [[GHParser alloc] init];
-    for (NSURL * filePath in featureFiles) {
-
+    
+    NSSortDescriptor * urlSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"absoluteString" ascending:YES];
+    NSArray * sortedFeatureFiles = [featureFiles sortedArrayUsingDescriptors:@[urlSortDescriptor]];
+    
+    for (NSURL * filePath in sortedFeatureFiles) {
         id result = [featureParser parse:filePath.path];
         if(result == nil){
             //Nothing to do here...
