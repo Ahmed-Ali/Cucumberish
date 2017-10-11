@@ -429,10 +429,10 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     if(featureClass == nil){
         featureClass = NSClassFromString(className);
         NSUInteger availableClassesWithTheSameName = 1;
-        while (featureClass == nil) {
+        do {
             className = [className stringByAppendingFormat:@"%lu", (long unsigned)availableClassesWithTheSameName];
             featureClass = objc_allocateClassPair([XCTestCase class], [className UTF8String], 0);
-        }
+        } while (featureClass == nil);
     }
     objc_registerClassPair(featureClass);
     return featureClass;
