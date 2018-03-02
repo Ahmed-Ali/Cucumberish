@@ -6,10 +6,8 @@
 //  Copyright © 2016 Ahmed Ali. All rights reserved.
 //
 
-#import "Cucumberish.h"
-#import "CCIFeaturesManager.h"
-#import "CCIFeature.h"
 #import "CucumberFeatureSteps.h"
+#import <Cucumberish/Cucumberish.h>
 
 //#import <Cucumberish/Cucumberish.h> if installed using cocoapods
 __attribute__((constructor))

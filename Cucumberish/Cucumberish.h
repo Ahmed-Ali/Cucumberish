@@ -26,9 +26,19 @@
 
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
+
+#import "CCIExample.h"
 #import "CCIStepsManager.h"
+#import "CCIArgument.h"
 #import "CCIBlockDefinitions.h"
+#import "CCIStep.h"
+#import "CCIScenarioDefinition.h"
+#import "CCILocation.h"
+#import "CCIBackground.h"
 #import "CCIFeature.h"
+#import "CCIJSONDumper.h"
+#import "CCILoggingManager.h"
+
 
 typedef NS_ENUM(NSInteger, CCILanguage) {
     CCILanguageSwift = 0,

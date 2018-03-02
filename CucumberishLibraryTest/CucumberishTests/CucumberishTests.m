@@ -8,13 +8,8 @@
 
 #import <XCTest/XCTest.h>
 
-
 #import "Cucumberish.h"
-#import "CCIScenarioDefinition.h"
 #import "CCIFeaturesManager.h"
-#import "CCIFeature.h"
-#import "CCIJSONDumper.h"
-
 
 @interface CucumberishTester : NSObject
 
