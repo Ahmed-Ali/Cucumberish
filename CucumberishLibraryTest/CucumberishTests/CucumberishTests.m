@@ -101,10 +101,13 @@
 	Then(@"(.*)", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
 		[output appendFormat:@"Then %@\n", args[0]];
 	});
-	
+
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 	And(@"(.*)", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
 		[output appendFormat:@"And %@\n", args[0]];
 	});
+  #pragma clang diagnostic pop
 	
 	But(@"(.*)", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
 		[output appendFormat:@"But %@\n", args[0]];
