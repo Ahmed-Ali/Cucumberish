@@ -118,6 +118,8 @@
 		607EEA5B1E50EF4F00F2E8B6 /* gherkin-languages.json in Resources */ = {isa = PBXBuildFile; fileRef = C5E80F341E16BA280042D98D /* gherkin-languages.json */; };
 		B3D80A9020497AA800ACAE33 /* Cucumberish.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607EE9EA1E50ED5800F2E8B6 /* Cucumberish.framework */; };
 		B3D80A9120497AAC00ACAE33 /* Cucumberish.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607EE9EA1E50ED5800F2E8B6 /* Cucumberish.framework */; };
+		B3D80AF52049AC2A00ACAE33 /* XCTestCase+RecordFailure.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D80AF32049AC2A00ACAE33 /* XCTestCase+RecordFailure.h */; };
+		B3D80AF62049AC2A00ACAE33 /* XCTestCase+RecordFailure.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D80AF42049AC2A00ACAE33 /* XCTestCase+RecordFailure.m */; };
 		C57B79DB1E15847C001B758D /* CucumberishTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C57B79DA1E15847C001B758D /* CucumberishTests.m */; };
 		C57B79E71E15922A001B758D /* expected_classes_and_methods.json in Resources */ = {isa = PBXBuildFile; fileRef = C57B79E31E15922A001B758D /* expected_classes_and_methods.json */; };
 		C57B79E81E15922A001B758D /* expected_execution.output in Resources */ = {isa = PBXBuildFile; fileRef = C57B79E41E15922A001B758D /* expected_execution.output */; };
@@ -140,6 +142,8 @@
 		3E38B0F61DDDE0D600C1CF5A /* CucumberFeatureSteps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CucumberFeatureSteps.m; sourceTree = "<group>"; };
 		3E38B10E1DDDE15100C1CF5A /* Features */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Features; sourceTree = "<group>"; };
 		607EE9EA1E50ED5800F2E8B6 /* Cucumberish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Cucumberish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3D80AF32049AC2A00ACAE33 /* XCTestCase+RecordFailure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+RecordFailure.h"; sourceTree = "<group>"; };
+		B3D80AF42049AC2A00ACAE33 /* XCTestCase+RecordFailure.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+RecordFailure.m"; sourceTree = "<group>"; };
 		C57B79D81E15847C001B758D /* CucumberishTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CucumberishTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C57B79DA1E15847C001B758D /* CucumberishTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CucumberishTests.m; sourceTree = "<group>"; };
 		C57B79DC1E15847C001B758D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -506,6 +510,8 @@
 				C5E80F731E16BA290042D98D /* NSObject+Dictionary.m */,
 				C5E80F741E16BA290042D98D /* NSString+Formatter.h */,
 				C5E80F751E16BA290042D98D /* NSString+Formatter.m */,
+				B3D80AF32049AC2A00ACAE33 /* XCTestCase+RecordFailure.h */,
+				B3D80AF42049AC2A00ACAE33 /* XCTestCase+RecordFailure.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -539,6 +545,7 @@
 				607EEA341E50EE1000F2E8B6 /* GHComment.h in Headers */,
 				607EEA351E50EE1000F2E8B6 /* GHDataTable.h in Headers */,
 				607EEA361E50EE1000F2E8B6 /* GHDocString.h in Headers */,
+				B3D80AF52049AC2A00ACAE33 /* XCTestCase+RecordFailure.h in Headers */,
 				607EEA371E50EE1000F2E8B6 /* GHExamples.h in Headers */,
 				607EEA381E50EE1000F2E8B6 /* GHFeature.h in Headers */,
 				607EEA391E50EE1000F2E8B6 /* GHGherkinDialect.h in Headers */,
@@ -758,6 +765,7 @@
 				607EEA111E50EDDD00F2E8B6 /* GHParser.m in Sources */,
 				F307B4751F19F90D00800005 /* CCILoggingManager.m in Sources */,
 				607EEA121E50EDDD00F2E8B6 /* GHParserException.m in Sources */,
+				B3D80AF62049AC2A00ACAE33 /* XCTestCase+RecordFailure.m in Sources */,
 				607EEA131E50EDDD00F2E8B6 /* GHScenario.m in Sources */,
 				607EEA141E50EDDD00F2E8B6 /* GHScenarioDefinition.m in Sources */,
 				607EEA151E50EDDD00F2E8B6 /* GHScenarioOutline.m in Sources */,
@@ -936,6 +944,11 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"SRC_ROOT=@\\\"$(SRCROOT)\\\"",
+				);
 				INFOPLIST_FILE = Cucumberish/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -959,6 +972,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
+				GCC_PREPROCESSOR_DEFINITIONS = "SRC_ROOT=@\\\"$(SRCROOT)\\\"";
 				INFOPLIST_FILE = Cucumberish/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

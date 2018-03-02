@@ -127,6 +127,11 @@ typedef NS_ENUM(NSInteger, CCILanguage) {
 @property (nonatomic, readonly) NSArray<CCIFeature *> * features;
 
 /**
+ Current bundle containing the feature files.
+ */
+@property (nonatomic, strong, readonly) NSBundle * containerBundle;
+
+/**
  Retuans a singleton instance of Cucumberish
  
  @return singleton instance of Cucumberish
@@ -179,7 +184,6 @@ typedef NS_ENUM(NSInteger, CCILanguage) {
  
  */
 + (void)executeFeaturesInDirectory:(NSString *)featuresDirectory fromBundle:(NSBundle *)bundle includeTags:(NSArray *)tags excludeTags:(NSArray *)excludedTags;
-
 
 
 @end

@@ -42,11 +42,11 @@
 {
 	self = [super init];
 	if(dictionary[@"filePath"] != nil && ![dictionary[@"filePath"] isKindOfClass:[NSNull class]]){
-        self.filePath = dictionary[@"filePath"];
+    _filePath = dictionary[@"filePath"];
 	}
 
 	if(dictionary[@"line"] != nil && ![dictionary[@"line"] isKindOfClass:[NSNull class]]){
-		self.line = [dictionary[@"line"] integerValue];
+		_line = [dictionary[@"line"] integerValue];
 	}
 
 	return self;
@@ -62,7 +62,6 @@
 	dictionary[@"filePath"] = self.filePath;
 	dictionary[@"line"] = @(self.line);
 	return dictionary;
-
 }
 
 /**
@@ -73,8 +72,8 @@
  */
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-	[aCoder encodeObject:self.filePath forKey:@"filePath"];
-    [aCoder encodeObject:@(self.line) forKey:@"line"];
+	[aCoder encodeObject:_filePath forKey:@"filePath"];
+    [aCoder encodeObject:@(_line) forKey:@"line"];
 }
 
 /**
@@ -83,9 +82,30 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
 	self = [super init];
-    self.filePath = [aDecoder decodeObjectForKey:@"filePath"];
-	self.line = [[aDecoder decodeObjectForKey:@"line"] integerValue];
+  _filePath = [aDecoder decodeObjectForKey:@"filePath"];
+  _line = [[aDecoder decodeObjectForKey:@"line"] integerValue];
 	return self;
-
 }
+
+/**
+ * Source file path for error reporting
+ */
+- (NSString *)filePath
+{
+    return [self strippedMacBundlePathPrefix:_filePath];
+}
+
+/**
+ * Strip the /Contents/Resources/ path for Mac bundles
+ */
+- (NSString *)strippedMacBundlePathPrefix:(NSString *)path
+{
+    NSString *const macBundleContentsPrefix = @"/Contents/Resources";
+    if ([path hasPrefix:macBundleContentsPrefix]) {
+        return [path substringFromIndex:[macBundleContentsPrefix length]];
+    } else {
+        return path;
+    }
+}
+
 @end
