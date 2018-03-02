@@ -10,6 +10,7 @@
 #import "Cucumberish.h"
 #import "CCIFeaturesManager.h"
 #import "CCIDryRunLogger.h"
+#import "CCIJSONDumper.h"
 
 #import "NSArray+Hashes.h"
 #if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR

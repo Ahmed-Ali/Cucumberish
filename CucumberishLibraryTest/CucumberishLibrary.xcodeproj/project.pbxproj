@@ -67,7 +67,7 @@
 		607EEA281E50EE1000F2E8B6 /* CCIExample.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F141E16BA280042D98D /* CCIExample.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		607EEA291E50EE1000F2E8B6 /* CCIFeature.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F161E16BA280042D98D /* CCIFeature.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		607EEA2A1E50EE1000F2E8B6 /* CCIHock.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F181E16BA280042D98D /* CCIHock.h */; };
-		607EEA2B1E50EE1000F2E8B6 /* CCIJSONDumper.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F1A1E16BA280042D98D /* CCIJSONDumper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		607EEA2B1E50EE1000F2E8B6 /* CCIJSONDumper.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F1A1E16BA280042D98D /* CCIJSONDumper.h */; };
 		607EEA2C1E50EE1000F2E8B6 /* CCILocation.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F1C1E16BA280042D98D /* CCILocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		607EEA2D1E50EE1000F2E8B6 /* CCIScenarioDefinition.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F1E1E16BA280042D98D /* CCIScenarioDefinition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		607EEA2E1E50EE1000F2E8B6 /* CCIStep.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E80F201E16BA280042D98D /* CCIStep.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -125,7 +125,7 @@
 		C57B79EA1E15922A001B758D /* Features in Resources */ = {isa = PBXBuildFile; fileRef = C57B79E61E15922A001B758D /* Features */; };
 		C5E80F9E1E16BA290042D98D /* gherkin-languages.json in Resources */ = {isa = PBXBuildFile; fileRef = C5E80F341E16BA280042D98D /* gherkin-languages.json */; };
 		C5E80F9F1E16BA290042D98D /* gherkin-languages.json in Resources */ = {isa = PBXBuildFile; fileRef = C5E80F341E16BA280042D98D /* gherkin-languages.json */; };
-		F307B4721F19F90500800005 /* CCILoggingManager.h in Headers */ = {isa = PBXBuildFile; fileRef = F3CBE1A91F19C59700D34E16 /* CCILoggingManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F307B4721F19F90500800005 /* CCILoggingManager.h in Headers */ = {isa = PBXBuildFile; fileRef = F3CBE1A91F19C59700D34E16 /* CCILoggingManager.h */; };
 		F307B4751F19F90D00800005 /* CCILoggingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CBE1AA1F19C59700D34E16 /* CCILoggingManager.m */; };
 		F3AE1BF41F2DC4B40044D544 /* expected_hooks.output in Resources */ = {isa = PBXBuildFile; fileRef = F3AE1BF31F2DC4AC0044D544 /* expected_hooks.output */; };
 		F3CBE1AE1F19C9E700D34E16 /* CCIDryRunLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CBE1AD1F19C9E700D34E16 /* CCIDryRunLogger.m */; };

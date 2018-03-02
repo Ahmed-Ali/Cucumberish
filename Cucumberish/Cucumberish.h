@@ -36,8 +36,6 @@
 #import "CCILocation.h"
 #import "CCIBackground.h"
 #import "CCIFeature.h"
-#import "CCIJSONDumper.h"
-#import "CCILoggingManager.h"
 
 
 typedef NS_ENUM(NSInteger, CCILanguage) {

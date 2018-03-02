@@ -10,6 +10,7 @@
 
 #import "Cucumberish.h"
 #import "CCIFeaturesManager.h"
+#import "CCIJSONDumper.h"
 
 @interface CucumberishTester : NSObject
 
