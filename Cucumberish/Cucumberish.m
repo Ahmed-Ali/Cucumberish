@@ -103,12 +103,21 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 - (Cucumberish *)parserFeaturesInDirectory:(NSString *)directory fromBundle:(NSBundle *)bundle includeTags:(NSArray<NSString *> *)includeTags excludeTags:(NSArray<NSString *> *)excludeTags
 {
-    NSArray * featureFiles = [self recursivelyFindFeatureFilesInBundle:bundle subDirectory:directory];
+    NSString * subDirectory = [self pathForBundleContents:bundle directory:directory];
+    NSArray * featureFiles = [self recursivelyFindFeatureFilesInBundle:bundle subDirectory:subDirectory];
     self.containerBundle = bundle;
 
     [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles bundle:bundle withTags:includeTags execludeFeaturesWithTags:excludeTags];
 
     return self;
+}
+
+-(NSString *)pathForBundleContents:(NSBundle *)bundle directory:(NSString *)directory {
+  #if !TARGET_OS_IPHONE
+    return [@"Contents/Resources" stringByAppendingPathComponent:directory];
+  #else
+    return directory;
+  #endif
 }
 
 -(NSArray *)recursivelyFindFeatureFilesInBundle:(NSBundle *)bundle subDirectory:(NSString *)subdirectory
