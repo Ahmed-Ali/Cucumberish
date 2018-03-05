@@ -87,12 +87,12 @@
         @throw [[GHCompositeParserException alloc] initWithErrors: [theContext errors]];
 }
 
-- (void)handleAstErrorWithContext:(GHParserContext *)theContext actionBlock:(void (^)())theActionBlock
+- (void)handleAstErrorWithContext:(GHParserContext *)theContext actionBlock:(void (^)(void))theActionBlock
 {
     [self handleExternalErrorWithContext: theContext actionBlock: ^() { theActionBlock(); return YES; } defaultValue: NO];
 }
 
-- (BOOL)handleExternalErrorWithContext:(GHParserContext *)theContext actionBlock:(BOOL (^)())theActionBlock defaultValue:(BOOL)theDefaultValue
+- (BOOL)handleExternalErrorWithContext:(GHParserContext *)theContext actionBlock:(BOOL (^)(void))theActionBlock defaultValue:(BOOL)theDefaultValue
 {
     if (stopAtFirstError)
     {

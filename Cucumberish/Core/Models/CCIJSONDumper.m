@@ -109,7 +109,7 @@
 
 #pragma mark - private functions
 +(BOOL)directoryExists:(NSString *)path {
-    bool isDir;
+    BOOL isDir;
     return ([[NSFileManager defaultManager]
              fileExistsAtPath:path isDirectory:&isDir] && isDir) ;
 }

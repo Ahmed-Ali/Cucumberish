@@ -36,6 +36,7 @@
 #import "CCILoggingManager.h"
 #import "CCIHock.h"
 #import "CCIAroundHock.h"
+#import "XCTestCase+RecordFailure.h"
 
 #import "CCIJSONDumper.h"
 
@@ -103,12 +104,21 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
 - (Cucumberish *)parserFeaturesInDirectory:(NSString *)directory fromBundle:(NSBundle *)bundle includeTags:(NSArray<NSString *> *)includeTags excludeTags:(NSArray<NSString *> *)excludeTags
 {
-    NSArray * featureFiles = [self recursivelyFindFeatureFilesInBundle:bundle subDirectory:directory];
+    NSString * subDirectory = [self pathForBundleContents:bundle directory:directory];
+    NSArray * featureFiles = [self recursivelyFindFeatureFilesInBundle:bundle subDirectory:subDirectory];
     self.containerBundle = bundle;
 
     [[CCIFeaturesManager instance] parseFeatureFiles:featureFiles bundle:bundle withTags:includeTags execludeFeaturesWithTags:excludeTags];
 
     return self;
+}
+
+-(NSString *)pathForBundleContents:(NSBundle *)bundle directory:(NSString *)directory {
+  #if !TARGET_OS_IPHONE
+    return [@"Contents/Resources" stringByAppendingPathComponent:directory];
+  #else
+    return directory;
+  #endif
 }
 
 -(NSArray *)recursivelyFindFeatureFilesInBundle:(NSBundle *)bundle subDirectory:(NSString *)subdirectory
@@ -515,7 +525,6 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
         //Throw the exception so proper error report takes place.
         throwCucumberishException(description);
     }
-
 }
 
 + (NSArray <NSInvocation *> *)cucumberish_testInvocations
@@ -608,8 +617,7 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
     if([Cucumberish instance].beforeStartFailureReason){
         // If we failed our before start we should auto-fail all scenarios
         NSString * reason = [Cucumberish instance].beforeStartFailureReason;
-        NSString * filePath = [NSString stringWithFormat:@"%@%@", filePathPrefix, scenario.location.filePath];
-        [self recordFailureWithDescription:reason inFile:filePath atLine:scenario.location.line expected:YES];
+        [self recordFailureWithDescription:reason atLocation:scenario.location expected:YES];
         scenario.success = NO;
         scenario.failureReason = reason;
         [Cucumberish instance].scenariosRun++;
@@ -642,8 +650,7 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
     }
     @catch (CCIExeption *exception) {
         // This catches assert failures in scenario before/around/after hooks
-        NSString * filePath = [NSString stringWithFormat:@"%@%@", filePathPrefix, scenario.location.filePath];
-        [self recordFailureWithDescription:exception.reason inFile:filePath atLine:scenario.location.line expected:YES];
+        [self recordFailureWithDescription:exception.reason atLocation:scenario.location expected:YES];
         scenario.success = NO;
         scenario.failureReason = exception.reason;
     }
@@ -706,8 +713,8 @@ void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario, NSS
             [[CCIStepsManager instance] executeStep:step inTestCase:testCase];
         }
         @catch (CCIExeption *exception) {
-            NSString * filePath = [NSString stringWithFormat:@"%@%@", filePathPrefix, step.location.filePath];
-            [testCase recordFailureWithDescription:exception.reason inFile:filePath atLine:step.location.line expected:YES];
+
+            [testCase recordFailureWithDescription:exception.reason atLocation:step.location expected:YES];
             if([parentScenario isKindOfClass:[CCIScenarioDefinition class]]){
                 CCIScenarioDefinition * scenario = (CCIScenarioDefinition *)parentScenario;
                 if(step.keyword.length > 0){

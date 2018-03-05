@@ -8,13 +8,9 @@
 
 #import <XCTest/XCTest.h>
 
-
 #import "Cucumberish.h"
-#import "CCIScenarioDefinition.h"
 #import "CCIFeaturesManager.h"
-#import "CCIFeature.h"
 #import "CCIJSONDumper.h"
-
 
 @interface CucumberishTester : NSObject
 
@@ -101,10 +97,13 @@
 	Then(@"(.*)", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
 		[output appendFormat:@"Then %@\n", args[0]];
 	});
-	
+
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 	And(@"(.*)", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
 		[output appendFormat:@"And %@\n", args[0]];
 	});
+  #pragma clang diagnostic pop
 	
 	But(@"(.*)", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
 		[output appendFormat:@"But %@\n", args[0]];
@@ -214,7 +213,7 @@ void CucumberishInit()
 	//Optional step, see the comment on this property for more information
 	[Cucumberish instance].fixMissingLastScenario = YES;
 	//Tell Cucumberish the name of your features folder and let it execute them for you...
-	NSBundle * bundle = [NSBundle bundleForClass:[Cucumberish class]];
+	NSBundle * bundle = [NSBundle bundleForClass:[CucumberishTester class]];
 	[Cucumberish executeFeaturesInDirectory:@"Features" fromBundle:bundle includeTags:@[@"run"] excludeTags:@[@"skip"]];
 }
 

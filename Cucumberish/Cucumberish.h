@@ -26,9 +26,17 @@
 
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
+
+#import "CCIExample.h"
 #import "CCIStepsManager.h"
+#import "CCIArgument.h"
 #import "CCIBlockDefinitions.h"
+#import "CCIStep.h"
+#import "CCIScenarioDefinition.h"
+#import "CCILocation.h"
+#import "CCIBackground.h"
 #import "CCIFeature.h"
+
 
 typedef NS_ENUM(NSInteger, CCILanguage) {
     CCILanguageSwift = 0,
@@ -119,6 +127,11 @@ typedef NS_ENUM(NSInteger, CCILanguage) {
 @property (nonatomic, readonly) NSArray<CCIFeature *> * features;
 
 /**
+ Current bundle containing the feature files.
+ */
+@property (nonatomic, strong, readonly) NSBundle * containerBundle;
+
+/**
  Retuans a singleton instance of Cucumberish
  
  @return singleton instance of Cucumberish
@@ -171,7 +184,6 @@ typedef NS_ENUM(NSInteger, CCILanguage) {
  
  */
 + (void)executeFeaturesInDirectory:(NSString *)featuresDirectory fromBundle:(NSBundle *)bundle includeTags:(NSArray *)tags excludeTags:(NSArray *)excludedTags;
-
 
 
 @end

@@ -9,12 +9,10 @@
 #import "CucumberFeatureSteps.h"
 #import "Cucumberish.h"
 #import "CCIFeaturesManager.h"
-#import "CCIStepsManager.h"
-#import "CCILoggingManager.h"
 #import "CCIDryRunLogger.h"
-#import "CCIFeature.h"
-#import "NSArray+Hashes.h"
 #import "CCIJSONDumper.h"
+
+#import "NSArray+Hashes.h"
 #if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
 #import <UIKit/UIKit.h>
 #endif
