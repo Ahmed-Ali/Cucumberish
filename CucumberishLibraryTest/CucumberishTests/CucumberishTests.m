@@ -114,22 +114,20 @@
 - (void)validateParsedContent
 {
 	NSArray * features = [[CCIFeaturesManager instance] features];
-	NSMutableArray * featureDictionaries = [NSMutableArray array];
+	NSMutableArray * actualOutput = [NSMutableArray array];
 	for(CCIFeature * feature in features){
-		
-		[featureDictionaries addObject:[feature toDictionary]];
+		[actualOutput addObject:[feature toDictionary]];
 	}
-	NSError * parsingError;
-	NSData * data = [NSJSONSerialization dataWithJSONObject:featureDictionaries options:0 error:&parsingError];
-	
-	NSString * actualJsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-	NSAssert(actualJsonString.length > 0, @"Could not convert parsed features into JSON string");
+    
 	NSBundle * bundle = [NSBundle bundleForClass:[CucumberishTester class]];
 	NSString * expectedOutputFile = [bundle pathForResource:@"expected_json_output" ofType:@"json"];
 	NSError * error;
-	NSString * expectedOutput = [[NSString stringWithContentsOfFile:expectedOutputFile encoding:NSUTF8StringEncoding error:&error] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	NSString * expectedOutputString = [NSString stringWithContentsOfFile:expectedOutputFile encoding:NSUTF8StringEncoding error:&error];
+    NSData * expectedOutputData = [expectedOutputString dataUsingEncoding:NSUTF8StringEncoding];
+    NSArray * expectedOutput = [NSJSONSerialization JSONObjectWithData:expectedOutputData options:kNilOptions error:&error];
 	NSAssert(error == nil, @"Could not load the expected output file");
-	NSAssert([expectedOutput isEqualToString:actualJsonString], @"Acutal parsed JSON is different than expected JSON:\nActual:\n%@\n=======\nExpected:\n%@", actualJsonString, expectedOutput);
+    
+    NSAssert([actualOutput isEqualToArray:expectedOutput], @"Actual parsed JSON is different than expected JSON:\nActual:\n%@\n=======\nExpected:\n%@", actualOutput, expectedOutput);
 }
 
 - (void)validateExecutionOutput

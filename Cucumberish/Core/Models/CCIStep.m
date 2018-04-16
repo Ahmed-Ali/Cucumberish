@@ -45,18 +45,17 @@
 	if(dictionary[@"keyword"] != nil && ![dictionary[@"keyword"] isKindOfClass:[NSNull class]]){
         self.keyword = [dictionary[@"keyword"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 	}
-
 	if(dictionary[@"location"] != nil && ![dictionary[@"location"] isKindOfClass:[NSNull class]]){
 		self.location = [[CCILocation alloc] initWithDictionary:dictionary[@"location"]];
-	}
-
+    }
 	if(dictionary[@"text"] != nil && ![dictionary[@"text"] isKindOfClass:[NSNull class]]){
 		self.text = dictionary[@"text"];
 	}
-
-    
     if(dictionary[@"argument"] != nil && ![dictionary[@"argument"] isKindOfClass:[NSNull class]]){
         self.argument = [[CCIArgument alloc] initWithDictionary:dictionary[@"argument"]];
+    }
+    if(dictionary[@"duration"] != nil && ![dictionary[@"duration"] isKindOfClass:[NSNull class]]){
+        self.duration = [dictionary[@"duration"] integerValue];
     }
 	return self;
 }
@@ -74,13 +73,13 @@
 	if(self.location != nil){
 		dictionary[@"location"] = [self.location toDictionary];
 	}
-	if(self.text != nil){
-		dictionary[@"text"] = self.text;
-	}
-    
+    if(self.text != nil){
+        dictionary[@"text"] = self.text;
+    }
     if(self.argument != nil){
         dictionary[@"argument"] = [self.argument toDictionary];
     }
+    dictionary[@"duration"] = @(self.duration);
 	return dictionary;
 
 }

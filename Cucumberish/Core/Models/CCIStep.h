@@ -69,7 +69,12 @@ typedef NS_ENUM(NSInteger,CCIStepStatus) {
 /**
  The step status
  */
-@property (nonatomic,assign) CCIStepStatus status;
+@property (nonatomic, assign) CCIStepStatus status;
+
+/**
+ The time it took to run the step
+ */
+@property (nonatomic, assign) NSTimeInterval duration;
 
 
 /**

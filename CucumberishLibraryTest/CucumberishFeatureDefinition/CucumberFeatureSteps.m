@@ -204,7 +204,8 @@
                                                                   @"steps" : @[
                                                                           @{
                                                                               @"result" : @{
-                                                                                      @"status" : @"passed"
+                                                                                      @"status" : @"passed",
+                                                                                      @"duration" : @0
                                                                                       },
                                                                               @"line" : @13,
                                                                               @"name" : @"a Given statement",
@@ -212,7 +213,8 @@
                                                                               },
                                                                           @{
                                                                               @"result" : @{
-                                                                                      @"status" : @"passed"
+                                                                                      @"status" : @"passed",
+                                                                                      @"duration" : @0
                                                                                       },
                                                                               @"line" : @14,
                                                                               @"name" : @"an And statement",
@@ -220,7 +222,8 @@
                                                                               },
                                                                           @{
                                                                               @"result" : @{
-                                                                                      @"status" : @"passed"
+                                                                                      @"status" : @"passed",
+                                                                                      @"duration" : @0
                                                                                       },
                                                                               @"line" : @15,
                                                                               @"name" : @"a When statement",
@@ -228,7 +231,8 @@
                                                                               },
                                                                           @{
                                                                               @"result" : @{
-                                                                                      @"status" : @"passed"
+                                                                                      @"status" : @"passed",
+                                                                                      @"duration" : @0
                                                                                       },
                                                                               @"line" : @16,
                                                                               @"name" : @"a But statement",
@@ -236,7 +240,8 @@
                                                                               },
                                                                           @{
                                                                               @"result" : @{
-                                                                                      @"status" : @"passed"
+                                                                                      @"status" : @"passed",
+                                                                                      @"duration" : @0
                                                                                       },
                                                                               @"line" : @17,
                                                                               @"name" : @"a Then statement",
@@ -244,7 +249,8 @@
                                                                               },
                                                                           @{
                                                                               @"result" : @{
-                                                                                      @"status" : @"skipped"
+                                                                                      @"status" : @"skipped",
+                                                                                      @"duration" : @0
                                                                                       },
                                                                               @"line" : @18,
                                                                               @"name" : @"cucumber outputs the details of \"JSON Output\" to a JSON to a file",
@@ -252,7 +258,8 @@
                                                                               },
                                                                           @{
                                                                               @"result" : @{
-                                                                                      @"status" : @"skipped"
+                                                                                      @"status" : @"skipped",
+                                                                                      @"duration" : @0
                                                                                       },
                                                                               @"line" : @19,
                                                                               @"name" : @"I see the JSON contains the details of the \"JSON Output\" feature",

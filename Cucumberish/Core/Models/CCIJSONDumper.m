@@ -475,27 +475,29 @@
 +(NSDictionary*)convertStepToOutputDictionary:(CCIStep*)step fromScenario:(CCIScenarioDefinition*)scenario
 {
     NSMutableDictionary *retVal= [NSMutableDictionary dictionary];
-    
     [retVal addEntriesFromDictionary:@{@"keyword": step.keyword}];
     [retVal addEntriesFromDictionary:@{@"name": step.text}];
     [retVal addEntriesFromDictionary:@{@"line": @(step.location.line)}];
-    NSString* resultStatus = @"";
+    
+    NSMutableDictionary* result = [NSMutableDictionary dictionary];
     switch ([step status])
     {
         case CCIStepStatusNotExecuted:
-            resultStatus = @"skipped";
+            result[@"status"] = @"skipped";
             break;
             
         case CCIStepStatusPassed:
-            resultStatus = @"passed";
+            result[@"status"] = @"passed";
             break;
             
         case CCIStepStatusFailed:
-            resultStatus = @"failed";
+            result[@"status"] = @"failed";
+            result[@"error_message"] = scenario.failureReason;
             break;
     }
+    result[@"duration"] = @(step.duration);
     
-    [retVal addEntriesFromDictionary:@{@"result":@{@"status": resultStatus}}];
+    [retVal addEntriesFromDictionary:@{@"result":result}];
     
     return retVal;
 }
