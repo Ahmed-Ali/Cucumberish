@@ -307,7 +307,7 @@ void step(id testCase, NSString * stepLine, ...)
     
     NSDate *startDate = [NSDate date];
     [[CCIStepsManager instance] executeStep:step inTestCase:testCase];
-    step.duration = [[NSDate date] timeIntervalSinceDate:startDate];
+    step.duration = [[NSDate date] timeIntervalSinceDate:startDate] * 1000;
 }
 
 void SStep(id testCase, NSString * stepLine)
