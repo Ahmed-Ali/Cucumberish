@@ -205,7 +205,7 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
     XCTContextActivityBlock activityBlock = ^(id activity) {
         NSDate *startDate = [NSDate date];
         implementation.body(implementation.matchedValues, implementation.additionalContent);
-        step.duration = [[NSDate date] timeIntervalSinceDate:startDate] * 1000;
+        step.duration = [[NSDate date] timeIntervalSinceDate:startDate] * 1000000000;
     };
 
     id xctContextClass = NSClassFromString(@"XCTContext");
@@ -307,7 +307,7 @@ void step(id testCase, NSString * stepLine, ...)
     
     NSDate *startDate = [NSDate date];
     [[CCIStepsManager instance] executeStep:step inTestCase:testCase];
-    step.duration = [[NSDate date] timeIntervalSinceDate:startDate] * 1000;
+    step.duration = [[NSDate date] timeIntervalSinceDate:startDate] * 1000000000;
 }
 
 void SStep(id testCase, NSString * stepLine)
