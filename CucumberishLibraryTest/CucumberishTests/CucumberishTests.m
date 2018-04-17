@@ -127,6 +127,14 @@
     NSArray * expectedOutput = [NSJSONSerialization JSONObjectWithData:expectedOutputData options:kNilOptions error:&error];
 	NSAssert(error == nil, @"Could not load the expected output file");
     
+    for (NSMutableDictionary *feature in actualOutput) {
+        for (NSMutableDictionary *scenario in feature[@"scenarioDefinitions"]) {
+            for (NSMutableDictionary *step in scenario[@"steps"]) {
+                [step setObject:@0 forKey:@"duration"];
+            }
+        }
+    }
+    
     NSAssert([actualOutput isEqualToArray:expectedOutput], @"Actual parsed JSON is different than expected JSON:\nActual:\n%@\n=======\nExpected:\n%@", actualOutput, expectedOutput);
 }
 

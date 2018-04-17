@@ -170,7 +170,7 @@
         
         //parse the json into an array of dictionaries
         NSError * error= nil;
-        NSArray<NSDictionary*> *parsedJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+        NSArray<NSMutableDictionary*> *parsedJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         CCIAssert(error == nil, @"There was a parse error %@", error.localizedDescription);
         CCIAssert(parsedJSON != nil, @"The JSON Object is nil");
         CCIAssert([parsedJSON count] == 1, @"There are more than just the one feature in this JSON file in fact there are %d", [parsedJSON count]);
@@ -279,12 +279,22 @@
                                                       @"keyword" : @"Feature"
                                                       }
                                                   ];
+        
+        for (NSMutableDictionary *element in parsedJSON.firstObject[@"elements"]) {
+            for (NSMutableDictionary *step in element[@"steps"]) {
+                
+                if (![step[@"result"][@"status"] isEqual: @"skipped"]) {
+                    CCIAssert([step[@"result"][@"duration"] isGreaterThan:@0], @"The duration wasn't set to the result of the step");
+                } else {
+                    CCIAssert([step[@"result"][@"duration"] isEqual:@0], @"The duration of the skipped step wasn't set to zero");
+                }
+                
+                [step[@"result"] setObject:@0 forKey:@"duration"];
+            }
+        }
+        
         //do the validation
         CCIAssert([knownFeature isEqualToArray:parsedJSON], @"The json is not equal to the known feature");
-        
-        
-        
-        
     });
     
     

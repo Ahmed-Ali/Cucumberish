@@ -198,9 +198,11 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
     if ([step.keyword isEqualToString:@"And"]) {
         implementation.type = @"And";
     }
-
+    
     XCTContextActivityBlock activityBlock = ^(id activity) {
+        NSDate *startDate = [NSDate date];
         implementation.body(implementation.matchedValues, implementation.additionalContent);
+        step.duration = [[NSDate date] timeIntervalSinceDate:startDate];
     };
 
     id xctContextClass = NSClassFromString(@"XCTContext");
