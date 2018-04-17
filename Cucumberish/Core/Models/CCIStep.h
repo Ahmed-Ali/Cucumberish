@@ -84,7 +84,7 @@ typedef NS_ENUM(NSInteger,CCIStepStatus) {
 /**
  The match where this step was called from
  */
-@property (nonatomic, strong) NSString * match;
+@property (nonatomic, strong) NSDictionary * match;
 
 /**
  Creates an instance with properties filled from the passed dictionary

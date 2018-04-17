@@ -184,7 +184,7 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
     }
 
     CCIStepDefinition * implementation = [self findMatchDefinitionForStep:step inTestCase:testCase];
-    step.match = implementation.location;
+    step.match = @{@"location": implementation.location};
     NSString * errorMessage = nil;
     if(step.keyword.length > 0){
         errorMessage = [NSString stringWithFormat:@"The step \"%@ %@\" is not implemented", step.keyword, [step.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
