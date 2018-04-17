@@ -495,6 +495,14 @@
             result[@"error_message"] = scenario.failureReason;
             break;
     }
+    
+    if (step.embeddings.count > 0) {
+        [retVal addEntriesFromDictionary:@{@"embeddings":step.embeddings}];
+    }
+    
+    if (step.match != nil) {
+        [retVal addEntriesFromDictionary:@{@"match":step.match}];
+    }
     result[@"duration"] = @(step.duration);
     
     [retVal addEntriesFromDictionary:@{@"result":result}];

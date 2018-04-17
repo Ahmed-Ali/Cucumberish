@@ -141,7 +141,10 @@
             }
         }];
     });
-    
+
+    When(@"I embed a screenshot.png", ^(NSArray<NSString *> *args, NSDictionary *userInfo){
+        CCIEmbed(@"image/png", @"screenshot.png");
+    });
     
     When(@"cucumber outputs the details of \"JSON Output\" to a JSON to a file", ^(NSArray<NSString *> *args, NSDictionary *userInfo){
         CCIAssert([CCIFeaturesManager instance].features.count > 0, @"Expected at least one feature file");
@@ -209,7 +212,8 @@
                                                                                       },
                                                                               @"line" : @13,
                                                                               @"name" : @"a Given statement",
-                                                                              @"keyword" : @"Given"
+                                                                              @"keyword" : @"Given",
+                                                                              @"match" : @"-[CucumberFeatureSteps setup]"
                                                                               },
                                                                           @{
                                                                               @"result" : @{
@@ -218,7 +222,8 @@
                                                                                       },
                                                                               @"line" : @14,
                                                                               @"name" : @"an And statement",
-                                                                              @"keyword" : @"And"
+                                                                              @"keyword" : @"And",
+                                                                              @"match" : @"-[CucumberFeatureSteps setup]"
                                                                               },
                                                                           @{
                                                                               @"result" : @{
@@ -227,7 +232,8 @@
                                                                                       },
                                                                               @"line" : @15,
                                                                               @"name" : @"a When statement",
-                                                                              @"keyword" : @"When"
+                                                                              @"keyword" : @"When",
+                                                                              @"match" : @"-[CucumberFeatureSteps setup]"
                                                                               },
                                                                           @{
                                                                               @"result" : @{
@@ -236,7 +242,8 @@
                                                                                       },
                                                                               @"line" : @16,
                                                                               @"name" : @"a But statement",
-                                                                              @"keyword" : @"But"
+                                                                              @"keyword" : @"But",
+                                                                              @"match" : @"-[CucumberFeatureSteps setup]"
                                                                               },
                                                                           @{
                                                                               @"result" : @{
@@ -245,23 +252,41 @@
                                                                                       },
                                                                               @"line" : @17,
                                                                               @"name" : @"a Then statement",
-                                                                              @"keyword" : @"Then"
+                                                                              @"keyword" : @"Then",
+                                                                              @"match" : @"-[CucumberFeatureSteps setup]"
                                                                               },
                                                                           @{
                                                                               @"result" : @{
-                                                                                      @"status" : @"skipped",
+                                                                                      @"status" : @"passed",
                                                                                       @"duration" : @0
                                                                                       },
                                                                               @"line" : @18,
-                                                                              @"name" : @"cucumber outputs the details of \"JSON Output\" to a JSON to a file",
-                                                                              @"keyword" : @"When"
-                                                                              },
+                                                                              @"name" : @"I embed a screenshot.png",
+                                                                              @"keyword" : @"When",
+                                                                              @"embeddings" : @[
+                                                                                  @{
+                                                                                      @"mime_type" : @"image/png",
+                                                                                      @"data" : @"screenshot.png"
+                                                                                  }
+                                                                              ],
+                                                                              @"match" : @"-[CucumberFeatureSteps setup]"
+                                                                          },
                                                                           @{
                                                                               @"result" : @{
                                                                                       @"status" : @"skipped",
                                                                                       @"duration" : @0
                                                                                       },
                                                                               @"line" : @19,
+                                                                              @"name" : @"cucumber outputs the details of \"JSON Output\" to a JSON to a file",
+                                                                              @"keyword" : @"And",
+                                                                              @"match" : @"-[CucumberFeatureSteps setup]"
+                                                                              },
+                                                                          @{
+                                                                              @"result" : @{
+                                                                                      @"status" : @"skipped",
+                                                                                      @"duration" : @0
+                                                                                      },
+                                                                              @"line" : @20,
                                                                               @"name" : @"I see the JSON contains the details of the \"JSON Output\" feature",
                                                                               @"keyword" : @"Then"
                                                                               }

@@ -177,11 +177,14 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
 
 - (void)executeStep:(CCIStep *)step inTestCase:(id)testCase
 {
+    self.currentStep = step;
+
     if (step.keyword && ![step.keyword isEqualToString:@"And"]) {
         self.currentContextKeyword = step.keyword;
     }
 
     CCIStepDefinition * implementation = [self findMatchDefinitionForStep:step inTestCase:testCase];
+    step.match = implementation.location;
     NSString * errorMessage = nil;
     if(step.keyword.length > 0){
         errorMessage = [NSString stringWithFormat:@"The step \"%@ %@\" is not implemented", step.keyword, [step.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
@@ -277,7 +280,17 @@ void Match(NSArray *types, NSString * definitionString, CCIStepBody body)
 }
 void addDefinition(NSString * definitionString, CCIStepBody body, NSString * type)
 {
-    CCIStepDefinition * definition = [CCIStepDefinition definitionWithType:type regexString:definitionString implementationBody:body];
+    NSError *error = nil;
+    NSString *method = @"";
+    NSString *stepDefinitionLocation =  [NSThread callStackSymbols][2];
+    NSRegularExpression * regex = [NSRegularExpression regularExpressionWithPattern:@"(-\\[.*\\])" options:NSRegularExpressionAnchorsMatchLines error:&error];
+    if(error == nil) {
+        NSRange searchRange = NSMakeRange(0, [stepDefinitionLocation length]);
+        NSTextCheckingResult * match = [[regex matchesInString:stepDefinitionLocation options:NSMatchingReportCompletion range:searchRange] firstObject];
+        method = [stepDefinitionLocation substringWithRange:match.range];
+    }
+    
+    CCIStepDefinition * definition = [CCIStepDefinition definitionWithType:type regexString:definitionString location:method implementationBody:body];
     NSMutableArray * cluster = [[CCIStepsManager instance] definitionsCluster:type];
     [cluster insertObject:definition atIndex:0];
 }

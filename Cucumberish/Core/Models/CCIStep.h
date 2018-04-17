@@ -76,6 +76,15 @@ typedef NS_ENUM(NSInteger,CCIStepStatus) {
  */
 @property (nonatomic, assign) NSTimeInterval duration;
 
+/**
+ All embedded objects added to this step in runtime
+ */
+@property (nonatomic, strong) NSMutableArray * embeddings;
+
+/**
+ The match where this step was called from
+ */
+@property (nonatomic, strong) NSString * match;
 
 /**
  Creates an instance with properties filled from the passed dictionary

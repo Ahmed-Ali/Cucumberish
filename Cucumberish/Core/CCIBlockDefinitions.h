@@ -375,6 +375,14 @@ OBJC_EXTERN void around(CCIScenarioExecutionHockBlock aroundScenarioBlock);
  */
 OBJC_EXTERN void aroundTagged(NSArray * tags, CCIScenarioExecutionHockBlock aroundScenarioBlock);
 
+/**
+ Embed function, to embed data to your step that can be readen in a reporter.
+ 
+ @param mimeType the mimeType used for your data encoding "image/png"
+ @param dataString a image, json or other data object written to a String variable
+ */
+OBJC_EXTERN void CCIEmbed(NSString * mimeType, NSString * dataString);
+
 #pragma mark - Assertion and Errors
 /**
  Boolean assertion function. Use it where you usually use NSAssert or assert.
