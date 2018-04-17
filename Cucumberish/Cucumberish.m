@@ -762,6 +762,9 @@ void SThrowCucumberishException(NSString * reason)
 void CCIEmbed(NSString * mimeType, NSString * dataString)
 {
     if ([CCIStepsManager instance].currentStep != nil) {
+        if ([CCIStepsManager instance].currentStep.embeddings == nil) {
+            [CCIStepsManager instance].currentStep.embeddings = [[NSMutableArray alloc] init];
+        }
         [[CCIStepsManager instance].currentStep.embeddings addObject:@{@"mime_type":mimeType, @"data":dataString}];
     }
 }
