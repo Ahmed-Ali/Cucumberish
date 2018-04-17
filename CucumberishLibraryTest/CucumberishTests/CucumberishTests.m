@@ -131,6 +131,7 @@
         for (NSMutableDictionary *scenario in feature[@"scenarioDefinitions"]) {
             for (NSMutableDictionary *step in scenario[@"steps"]) {
                 [step setObject:@0 forKey:@"duration"];
+                [step removeObjectForKey:@"match"];
             }
         }
     }

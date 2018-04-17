@@ -280,17 +280,8 @@ void Match(NSArray *types, NSString * definitionString, CCIStepBody body)
 }
 void addDefinition(NSString * definitionString, CCIStepBody body, NSString * type)
 {
-    NSError *error = nil;
-    NSString *method = @"";
-    NSString *stepDefinitionLocation =  [NSThread callStackSymbols][2];
-    NSRegularExpression * regex = [NSRegularExpression regularExpressionWithPattern:@"(-\\[.*\\])" options:NSRegularExpressionAnchorsMatchLines error:&error];
-    if(error == nil) {
-        NSRange searchRange = NSMakeRange(0, [stepDefinitionLocation length]);
-        NSTextCheckingResult * match = [[regex matchesInString:stepDefinitionLocation options:NSMatchingReportCompletion range:searchRange] firstObject];
-        method = [stepDefinitionLocation substringWithRange:match.range];
-    }
-    
-    CCIStepDefinition * definition = [CCIStepDefinition definitionWithType:type regexString:definitionString location:method implementationBody:body];
+    NSString *stepDefinitionLocation = [[NSThread callStackSymbols] description];
+    CCIStepDefinition * definition = [CCIStepDefinition definitionWithType:type regexString:definitionString location:stepDefinitionLocation implementationBody:body];
     NSMutableArray * cluster = [[CCIStepsManager instance] definitionsCluster:type];
     [cluster insertObject:definition atIndex:0];
 }

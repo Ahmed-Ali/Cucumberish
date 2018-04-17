@@ -212,8 +212,7 @@
                                                                                       },
                                                                               @"line" : @13,
                                                                               @"name" : @"a Given statement",
-                                                                              @"keyword" : @"Given",
-                                                                              @"match" : @"-[CucumberFeatureSteps setup]"
+                                                                              @"keyword" : @"Given"
                                                                               },
                                                                           @{
                                                                               @"result" : @{
@@ -222,8 +221,7 @@
                                                                                       },
                                                                               @"line" : @14,
                                                                               @"name" : @"an And statement",
-                                                                              @"keyword" : @"And",
-                                                                              @"match" : @"-[CucumberFeatureSteps setup]"
+                                                                              @"keyword" : @"And"
                                                                               },
                                                                           @{
                                                                               @"result" : @{
@@ -232,8 +230,7 @@
                                                                                       },
                                                                               @"line" : @15,
                                                                               @"name" : @"a When statement",
-                                                                              @"keyword" : @"When",
-                                                                              @"match" : @"-[CucumberFeatureSteps setup]"
+                                                                              @"keyword" : @"When"
                                                                               },
                                                                           @{
                                                                               @"result" : @{
@@ -242,8 +239,7 @@
                                                                                       },
                                                                               @"line" : @16,
                                                                               @"name" : @"a But statement",
-                                                                              @"keyword" : @"But",
-                                                                              @"match" : @"-[CucumberFeatureSteps setup]"
+                                                                              @"keyword" : @"But"
                                                                               },
                                                                           @{
                                                                               @"result" : @{
@@ -252,8 +248,7 @@
                                                                                       },
                                                                               @"line" : @17,
                                                                               @"name" : @"a Then statement",
-                                                                              @"keyword" : @"Then",
-                                                                              @"match" : @"-[CucumberFeatureSteps setup]"
+                                                                              @"keyword" : @"Then"
                                                                               },
                                                                           @{
                                                                               @"result" : @{
@@ -268,8 +263,7 @@
                                                                                       @"mime_type" : @"image/png",
                                                                                       @"data" : @"screenshot.png"
                                                                                   }
-                                                                              ],
-                                                                              @"match" : @"-[CucumberFeatureSteps setup]"
+                                                                              ]
                                                                           },
                                                                           @{
                                                                               @"result" : @{
@@ -278,8 +272,7 @@
                                                                                       },
                                                                               @"line" : @19,
                                                                               @"name" : @"cucumber outputs the details of \"JSON Output\" to a JSON to a file",
-                                                                              @"keyword" : @"And",
-                                                                              @"match" : @"-[CucumberFeatureSteps setup]"
+                                                                              @"keyword" : @"And"
                                                                               },
                                                                           @{
                                                                               @"result" : @{
@@ -315,6 +308,7 @@
                 }
                 
                 [step[@"result"] setObject:@0 forKey:@"duration"];
+                [step removeObjectForKey:@"match"];
             }
         }
         
