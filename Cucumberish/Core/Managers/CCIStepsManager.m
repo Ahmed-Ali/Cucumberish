@@ -205,7 +205,7 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
     XCTContextActivityBlock activityBlock = ^(id activity) {
         NSDate *startDate = [NSDate date];
         implementation.body(implementation.matchedValues, implementation.additionalContent);
-        step.duration = [[NSDate date] timeIntervalSinceDate:startDate];
+        step.duration = [[NSDate date] timeIntervalSinceDate:startDate] * 1000;
     };
 
     id xctContextClass = NSClassFromString(@"XCTContext");
