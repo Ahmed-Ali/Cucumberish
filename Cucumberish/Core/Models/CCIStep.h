@@ -87,6 +87,11 @@ typedef NS_ENUM(NSInteger,CCIStepStatus) {
 @property (nonatomic, strong) NSDictionary * match;
 
 /**
+ If this step is a substep
+ */
+@property (nonatomic, assign) BOOL isSubstep;
+
+/**
  Creates an instance with properties filled from the passed dictionary
  
  @param dictionary the dictionary that contains all the step data

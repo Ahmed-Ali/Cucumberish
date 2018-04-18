@@ -177,7 +177,9 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
 
 - (void)executeStep:(CCIStep *)step inTestCase:(id)testCase
 {
-    self.currentStep = step;
+    if (!step.isSubstep) {
+        self.currentStep = step;
+    }
 
     if (step.keyword && ![step.keyword isEqualToString:@"And"]) {
         self.currentContextKeyword = step.keyword;
@@ -295,6 +297,7 @@ void step(id testCase, NSString * stepLine, ...)
     
     CCIStep * step = [CCIStep new];
     step.text = line;
+    step.isSubstep = YES;
     
     NSDate *startDate = [NSDate date];
     [[CCIStepsManager instance] executeStep:step inTestCase:testCase];

@@ -709,6 +709,7 @@ void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario, NSS
 {
     for (CCIStep * step in steps) {
         @try {
+            step.isSubstep = NO;
             [[CCIStepsManager instance] executeStep:step inTestCase:testCase];
         }
         @catch (CCIExeption *exception) {
