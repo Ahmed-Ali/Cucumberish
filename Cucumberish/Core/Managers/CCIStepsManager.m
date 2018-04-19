@@ -186,7 +186,6 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
     }
 
     CCIStepDefinition * implementation = [self findMatchDefinitionForStep:step inTestCase:testCase];
-    step.match = @{@"location": implementation.location};
     NSString * errorMessage = nil;
     if(step.keyword.length > 0){
         errorMessage = [NSString stringWithFormat:@"The step \"%@ %@\" is not implemented", step.keyword, [step.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
@@ -195,6 +194,7 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
         errorMessage = [NSString stringWithFormat:@"The implementation of this step, calls another step that is not implemented: %@", [step.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     }
     CCIAssert(implementation != nil, errorMessage);
+    step.match = @{@"location": implementation.location};
 
     if(step.keyword.length > 0){
         NSLog(@"Currently executing: \"%@ %@\"", step.keyword, step.text);
