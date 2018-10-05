@@ -345,7 +345,7 @@
     }
     else if ([scenario.tags count] > 0)
     {
-        for(NSString*strTag in scenario.rawTags)
+        for(NSString*strTag in scenario.tags)
         {
             [retVal addObject:[self convertTagToOutputDictionary:strTag]];
         }
