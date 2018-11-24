@@ -1,10 +1,11 @@
 #Change Log
 
-### [v1.1.0](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.1.0)
+### [v1.1.1](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.1.1)
 
-   - Added the ability report failures in BeforeStart hocks. See PR #38. Thanks to @brentleyjones
-   - Replaced the CucumberishExample project with the library project, which simplifies the demonstration of the framework. See PR #39 . Thanks to @sidekickr
-   - Cucumberish now can output the execution result formatted like the its Ruby version. See PR #39 . Thanks to @sidekickr.
+   - Added the missing values to the JSON outputter. See PR #102 . Thanks @RtgrV
+   - Docs: add detailed install instructions for a swift project. See PR #106 . Thanks @idelfonsog2
+   - JSON report: Adding tags to Scenario Outlines. See PR #110 . Thanks @RockLobster
+
 
 ### [v1.0.6](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.0.6)
 
