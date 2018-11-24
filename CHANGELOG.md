@@ -1,6 +1,6 @@
 #Change Log
 
-### [v1.1.1](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.1.1)
+### [v1.4.0](https://github.com/Ahmed-Ali/Cucumberish/releases/tag/v1.4.0)
 
    - Added the missing values to the JSON outputter. See PR #102 . Thanks @RtgrV
    - Docs: add detailed install instructions for a swift project. See PR #106 . Thanks @idelfonsog2
