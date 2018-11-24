@@ -45,18 +45,25 @@
 	if(dictionary[@"keyword"] != nil && ![dictionary[@"keyword"] isKindOfClass:[NSNull class]]){
         self.keyword = [dictionary[@"keyword"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 	}
-
-	if(dictionary[@"location"] != nil && ![dictionary[@"location"] isKindOfClass:[NSNull class]]){
-		self.location = [[CCILocation alloc] initWithDictionary:dictionary[@"location"]];
-	}
-
+    if(dictionary[@"location"] != nil && ![dictionary[@"location"] isKindOfClass:[NSNull class]]){
+        self.location = [[CCILocation alloc] initWithDictionary:dictionary[@"location"]];
+    }
+    if(dictionary[@"match"] != nil && ![dictionary[@"match"] isKindOfClass:[NSNull class]]){
+        self.match = dictionary[@"match"];
+    }
 	if(dictionary[@"text"] != nil && ![dictionary[@"text"] isKindOfClass:[NSNull class]]){
 		self.text = dictionary[@"text"];
 	}
-
-    
     if(dictionary[@"argument"] != nil && ![dictionary[@"argument"] isKindOfClass:[NSNull class]]){
         self.argument = [[CCIArgument alloc] initWithDictionary:dictionary[@"argument"]];
+    }
+    if(dictionary[@"embeddings"] != nil && ![dictionary[@"embeddings"] isKindOfClass:[NSNull class]]){
+        self.embeddings = [[NSMutableArray alloc] initWithArray:dictionary[@"embeddings"]];
+    } else {
+        self.embeddings = [[NSMutableArray alloc] init];
+    }
+    if(dictionary[@"duration"] != nil && ![dictionary[@"duration"] isKindOfClass:[NSNull class]]){
+        self.duration = [dictionary[@"duration"] integerValue];
     }
 	return self;
 }
@@ -71,16 +78,22 @@
 	if(self.keyword != nil){
 		dictionary[@"keyword"] = self.keyword;
 	}
-	if(self.location != nil){
-		dictionary[@"location"] = [self.location toDictionary];
-	}
-	if(self.text != nil){
-		dictionary[@"text"] = self.text;
-	}
-    
+    if(self.location != nil){
+        dictionary[@"location"] = [self.location toDictionary];
+    }
+    if(self.match != nil){
+        dictionary[@"match"] = self.match;
+    }
+    if(self.text != nil){
+        dictionary[@"text"] = self.text;
+    }
     if(self.argument != nil){
         dictionary[@"argument"] = [self.argument toDictionary];
     }
+    if(self.embeddings != nil && self.embeddings.count > 0){
+        dictionary[@"embeddings"] = self.embeddings;
+    }
+    dictionary[@"duration"] = @(self.duration);
 	return dictionary;
 
 }

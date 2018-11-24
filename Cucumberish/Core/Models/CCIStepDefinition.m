@@ -35,11 +35,12 @@
 @implementation CCIStepDefinition
 
 
-+ (instancetype)definitionWithType:(NSString *)type regexString:(NSString *)regex implementationBody:(CCIStepBody)body
++ (instancetype)definitionWithType:(NSString *)type regexString:(NSString *)regex location:(NSString *)location implementationBody:(CCIStepBody)body
 {
     CCIStepDefinition * definition = [CCIStepDefinition new];
     definition.type = type;
     definition.regexString = regex;
+    definition.location = location;
     definition.body = body;
     return definition;
 }
@@ -56,7 +57,7 @@
 #pragma mark - NSCopying
 - (id)copyWithZone:(nullable NSZone *)zone
 {
-    CCIStepDefinition * stepDefinition = [CCIStepDefinition definitionWithType:self.type regexString:self.regexString implementationBody:self.body];
+    CCIStepDefinition * stepDefinition = [CCIStepDefinition definitionWithType:self.type regexString:self.regexString location:self.location implementationBody:self.body];
     stepDefinition.matchedValues = self.matchedValues;
 
     return stepDefinition;

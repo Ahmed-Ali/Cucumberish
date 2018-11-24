@@ -35,9 +35,10 @@
 
 @property NSString * regexString;
 @property NSString * type;
+@property NSString * location;
 @property NSArray * matchedValues;
 @property NSDictionary * additionalContent;
 @property (nonatomic, copy) CCIStepBody body;
 
-+ (instancetype)definitionWithType:(NSString *)type regexString:(NSString *)regexString implementationBody:(CCIStepBody)body;
++ (instancetype)definitionWithType:(NSString *)type regexString:(NSString *)regex location:(NSString *)location implementationBody:(CCIStepBody)body;
 @end

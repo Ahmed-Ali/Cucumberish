@@ -177,6 +177,10 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
 
 - (void)executeStep:(CCIStep *)step inTestCase:(id)testCase
 {
+    if (!step.isSubstep) {
+        self.currentStep = step;
+    }
+
     if (step.keyword && ![step.keyword isEqualToString:@"And"]) {
         self.currentContextKeyword = step.keyword;
     }
@@ -190,6 +194,7 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
         errorMessage = [NSString stringWithFormat:@"The implementation of this step, calls another step that is not implemented: %@", [step.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     }
     CCIAssert(implementation != nil, errorMessage);
+    step.match = @{@"location": implementation.location};
 
     if(step.keyword.length > 0){
         NSLog(@"Currently executing: \"%@ %@\"", step.keyword, step.text);
@@ -198,9 +203,11 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
     if ([step.keyword isEqualToString:@"And"]) {
         implementation.type = @"And";
     }
-
+    
     XCTContextActivityBlock activityBlock = ^(id activity) {
+        NSDate *startDate = [NSDate date];
         implementation.body(implementation.matchedValues, implementation.additionalContent);
+        step.duration = [[NSDate date] timeIntervalSinceDate:startDate] * 1000000000;
     };
 
     id xctContextClass = NSClassFromString(@"XCTContext");
@@ -275,7 +282,8 @@ void Match(NSArray *types, NSString * definitionString, CCIStepBody body)
 }
 void addDefinition(NSString * definitionString, CCIStepBody body, NSString * type)
 {
-    CCIStepDefinition * definition = [CCIStepDefinition definitionWithType:type regexString:definitionString implementationBody:body];
+    NSString *stepDefinitionLocation = [[NSThread callStackSymbols] description];
+    CCIStepDefinition * definition = [CCIStepDefinition definitionWithType:type regexString:definitionString location:stepDefinitionLocation implementationBody:body];
     NSMutableArray * cluster = [[CCIStepsManager instance] definitionsCluster:type];
     [cluster insertObject:definition atIndex:0];
 }
@@ -289,7 +297,11 @@ void step(id testCase, NSString * stepLine, ...)
     
     CCIStep * step = [CCIStep new];
     step.text = line;
+    step.isSubstep = YES;
+    
+    NSDate *startDate = [NSDate date];
     [[CCIStepsManager instance] executeStep:step inTestCase:testCase];
+    step.duration = [[NSDate date] timeIntervalSinceDate:startDate] * 1000000000;
 }
 
 void SStep(id testCase, NSString * stepLine)

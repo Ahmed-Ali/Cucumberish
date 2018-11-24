@@ -69,8 +69,27 @@ typedef NS_ENUM(NSInteger,CCIStepStatus) {
 /**
  The step status
  */
-@property (nonatomic,assign) CCIStepStatus status;
+@property (nonatomic, assign) CCIStepStatus status;
 
+/**
+ The time it took to run the step
+ */
+@property (nonatomic, assign) NSTimeInterval duration;
+
+/**
+ All embedded objects added to this step in runtime
+ */
+@property (nonatomic, strong) NSMutableArray * embeddings;
+
+/**
+ The match where this step was called from
+ */
+@property (nonatomic, strong) NSDictionary * match;
+
+/**
+ If this step is a substep
+ */
+@property (nonatomic, assign) BOOL isSubstep;
 
 /**
  Creates an instance with properties filled from the passed dictionary

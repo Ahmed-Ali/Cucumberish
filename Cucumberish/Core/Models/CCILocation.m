@@ -42,7 +42,7 @@
 {
 	self = [super init];
 	if(dictionary[@"filePath"] != nil && ![dictionary[@"filePath"] isKindOfClass:[NSNull class]]){
-    _filePath = dictionary[@"filePath"];
+        _filePath = dictionary[@"filePath"];
 	}
 
 	if(dictionary[@"line"] != nil && ![dictionary[@"line"] isKindOfClass:[NSNull class]]){
@@ -82,8 +82,8 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
 	self = [super init];
-  _filePath = [aDecoder decodeObjectForKey:@"filePath"];
-  _line = [[aDecoder decodeObjectForKey:@"line"] integerValue];
+    _filePath = [aDecoder decodeObjectForKey:@"filePath"];
+    _line = [[aDecoder decodeObjectForKey:@"line"] integerValue];
 	return self;
 }
 

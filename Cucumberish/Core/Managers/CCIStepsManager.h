@@ -41,6 +41,11 @@
 @property (nonatomic, strong) NSMutableSet<CCIStep *> *undefinedSteps;
 
 /**
+ The step that is being executed
+ */
+@property (nonatomic, strong) CCIStep * currentStep;
+
+/**
  Returns the singleton class of CCIStepsManager
  */
 + (instancetype)instance;

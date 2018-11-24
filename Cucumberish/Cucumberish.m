@@ -708,8 +708,8 @@ void executeScenario(XCTestCase * self, SEL _cmd, CCIScenarioDefinition * scenar
 void executeSteps(XCTestCase * testCase, NSArray * steps, id parentScenario, NSString * filePathPrefix)
 {
     for (CCIStep * step in steps) {
-
         @try {
+            step.isSubstep = NO;
             [[CCIStepsManager instance] executeStep:step inTestCase:testCase];
         }
         @catch (CCIExeption *exception) {
@@ -759,6 +759,17 @@ void SThrowCucumberishException(NSString * reason)
 {
     throwCucumberishException(reason);
 }
+
+void CCIEmbed(NSString * mimeType, NSString * dataString)
+{
+    if ([CCIStepsManager instance].currentStep != nil) {
+        if ([CCIStepsManager instance].currentStep.embeddings == nil) {
+            [CCIStepsManager instance].currentStep.embeddings = [[NSMutableArray alloc] init];
+        }
+        [[CCIStepsManager instance].currentStep.embeddings addObject:@{@"mime_type":mimeType, @"data":dataString}];
+    }
+}
+
 #pragma mark - Hooks
 void beforeStart(void(^beforeStartBlock)(void))
 {

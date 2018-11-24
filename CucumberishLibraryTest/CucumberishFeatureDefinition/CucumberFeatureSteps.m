@@ -141,7 +141,10 @@
             }
         }];
     });
-    
+
+    When(@"I embed a screenshot.png", ^(NSArray<NSString *> *args, NSDictionary *userInfo){
+        CCIEmbed(@"image/png", @"screenshot.png");
+    });
     
     When(@"cucumber outputs the details of \"JSON Output\" to a JSON to a file", ^(NSArray<NSString *> *args, NSDictionary *userInfo){
         CCIAssert([CCIFeaturesManager instance].features.count > 0, @"Expected at least one feature file");
@@ -170,7 +173,7 @@
         
         //parse the json into an array of dictionaries
         NSError * error= nil;
-        NSArray<NSDictionary*> *parsedJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+        NSArray<NSMutableDictionary*> *parsedJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         CCIAssert(error == nil, @"There was a parse error %@", error.localizedDescription);
         CCIAssert(parsedJSON != nil, @"The JSON Object is nil");
         CCIAssert([parsedJSON count] == 1, @"There are more than just the one feature in this JSON file in fact there are %d", [parsedJSON count]);
@@ -204,7 +207,8 @@
                                                                   @"steps" : @[
                                                                           @{
                                                                               @"result" : @{
-                                                                                      @"status" : @"passed"
+                                                                                      @"status" : @"passed",
+                                                                                      @"duration" : @0
                                                                                       },
                                                                               @"line" : @13,
                                                                               @"name" : @"a Given statement",
@@ -212,7 +216,8 @@
                                                                               },
                                                                           @{
                                                                               @"result" : @{
-                                                                                      @"status" : @"passed"
+                                                                                      @"status" : @"passed",
+                                                                                      @"duration" : @0
                                                                                       },
                                                                               @"line" : @14,
                                                                               @"name" : @"an And statement",
@@ -220,7 +225,8 @@
                                                                               },
                                                                           @{
                                                                               @"result" : @{
-                                                                                      @"status" : @"passed"
+                                                                                      @"status" : @"passed",
+                                                                                      @"duration" : @0
                                                                                       },
                                                                               @"line" : @15,
                                                                               @"name" : @"a When statement",
@@ -228,7 +234,8 @@
                                                                               },
                                                                           @{
                                                                               @"result" : @{
-                                                                                      @"status" : @"passed"
+                                                                                      @"status" : @"passed",
+                                                                                      @"duration" : @0
                                                                                       },
                                                                               @"line" : @16,
                                                                               @"name" : @"a But statement",
@@ -236,7 +243,8 @@
                                                                               },
                                                                           @{
                                                                               @"result" : @{
-                                                                                      @"status" : @"passed"
+                                                                                      @"status" : @"passed",
+                                                                                      @"duration" : @0
                                                                                       },
                                                                               @"line" : @17,
                                                                               @"name" : @"a Then statement",
@@ -244,17 +252,34 @@
                                                                               },
                                                                           @{
                                                                               @"result" : @{
-                                                                                      @"status" : @"skipped"
+                                                                                      @"status" : @"passed",
+                                                                                      @"duration" : @0
                                                                                       },
                                                                               @"line" : @18,
+                                                                              @"name" : @"I embed a screenshot.png",
+                                                                              @"keyword" : @"When",
+                                                                              @"embeddings" : @[
+                                                                                  @{
+                                                                                      @"mime_type" : @"image/png",
+                                                                                      @"data" : @"screenshot.png"
+                                                                                  }
+                                                                              ]
+                                                                          },
+                                                                          @{
+                                                                              @"result" : @{
+                                                                                      @"status" : @"skipped",
+                                                                                      @"duration" : @0
+                                                                                      },
+                                                                              @"line" : @19,
                                                                               @"name" : @"cucumber outputs the details of \"JSON Output\" to a JSON to a file",
-                                                                              @"keyword" : @"When"
+                                                                              @"keyword" : @"And"
                                                                               },
                                                                           @{
                                                                               @"result" : @{
-                                                                                      @"status" : @"skipped"
+                                                                                      @"status" : @"skipped",
+                                                                                      @"duration" : @0
                                                                                       },
-                                                                              @"line" : @19,
+                                                                              @"line" : @20,
                                                                               @"name" : @"I see the JSON contains the details of the \"JSON Output\" feature",
                                                                               @"keyword" : @"Then"
                                                                               }
@@ -272,12 +297,23 @@
                                                       @"keyword" : @"Feature"
                                                       }
                                                   ];
+        
+        for (NSMutableDictionary *element in parsedJSON.firstObject[@"elements"]) {
+            for (NSMutableDictionary *step in element[@"steps"]) {
+                
+                if (![step[@"result"][@"status"] isEqual: @"skipped"]) {
+                    CCIAssert([step[@"result"][@"duration"] isGreaterThan:@0], @"The duration wasn't set to the result of the step");
+                } else {
+                    CCIAssert([step[@"result"][@"duration"] isEqual:@0], @"The duration of the skipped step wasn't set to zero");
+                }
+                
+                [step[@"result"] setObject:@0 forKey:@"duration"];
+                [step removeObjectForKey:@"match"];
+            }
+        }
+        
         //do the validation
         CCIAssert([knownFeature isEqualToArray:parsedJSON], @"The json is not equal to the known feature");
-        
-        
-        
-        
     });
     
     
