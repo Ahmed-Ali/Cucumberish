@@ -484,7 +484,11 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
 
     for(CCIScenarioDefinition * s in feature.scenarioDefinitions){
         NSString * scenarioName = NSStringFromSelector(selector);
-        if ([s.name isEqualToString:scenarioName]){
+        NSString * comparedName = s.name;
+        if(![[Cucumberish instance] prettyNamesAllowed] && ![[Cucumberish instance] prettyScenarioNamesAllowed]){
+            comparedName = [comparedName camleCaseStringWithFirstUppercaseCharacter:NO];
+        }
+        if ([comparedName isEqualToString:scenarioName]){
             [Cucumberish instance].scenarioCount++;
             NSInvocation * inv = [Cucumberish invocationForScenario:s feature:feature featureClass:[self class]];
             invocationTest =  [[self alloc] initWithInvocation:inv];
@@ -493,6 +497,9 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
           NSRange range = [scenarioName rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet] options:NSBackwardsSearch];
             NSInteger exampleIndex = [[scenarioName substringWithRange:range] integerValue] - 1;
             NSString * scenarioOutlineName = [Cucumberish exampleScenarioNameForScenarioName:s.name exampleAtIndex:exampleIndex example:s.examples.firstObject];
+            if(![[Cucumberish instance] prettyNamesAllowed] && ![[Cucumberish instance] prettyScenarioNamesAllowed]){
+                scenarioOutlineName = [scenarioOutlineName camleCaseStringWithFirstUppercaseCharacter:NO];
+            }
             if([scenarioName isEqualToString:scenarioOutlineName]){
                 CCIExample * example = s.examples.firstObject;
                 NSInvocation * inv = [Cucumberish invocationForScenarioOutline:s example:example exampleIndex:exampleIndex feature:feature featureClass:[self class]];
