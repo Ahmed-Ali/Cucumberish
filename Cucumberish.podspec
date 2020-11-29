@@ -15,21 +15,21 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = "10.9"
   s.source       = { :git => "https://github.com/Ahmed-Ali/Cucumberish.git", :tag => "v#{s.version}"}
 
-  s.source_files  = 'Cucumberish/*.{h,m}', 'Cucumberish/Core/Managers/*.{h,m}', 'Cucumberish/Core/Models/*.{h,m}', 'Cucumberish/Utils/*.{h,m}', 'Cucumberish/Dependencies/Gherkin', 'Cucumberish/Core/CCIBlockDefinitions.h'
+  s.source_files  = 'Cucumberish/*.{h,m}', 'Cucumberish/Core/Managers/*.{h,m}', 'Cucumberish/Core/Models/*.{h,m}', 'Cucumberish/Utils/*.{h,m}', 'Cucumberish/Dependencies/Gherkin', 'Cucumberish/PublicHeader/*.{h,m}'
   s.public_header_files =
-    'Cucumberish/Cucumberish.h',
-    'Cucumberish/Core/CCIBlockDefinitions.h',
-    'Cucumberish/Core/CCILogManager.h',
-    'Cucumberish/Core/Managers/CCIStepsManager.h',
-    'Cucumberish/Core/Models/CCIArgument.h',
-    'Cucumberish/Core/Models/CCIBackground.h',
-    'Cucumberish/Core/Models/CCIExample.h',
-    'Cucumberish/Core/Models/CCIFeature.h',
-    'Cucumberish/Core/Models/CCILocation.h',
-    'Cucumberish/Core/Models/CCIScenarioDefinition.h',
-    'Cucumberish/Core/Models/CCIStep.h'
+    'Cucumberish/PublicHeader/Cucumberish.h',
+    'Cucumberish/PublicHeader/CCIBlockDefinitions.h',
+    'Cucumberish/PublicHeader/CCILogManager.h',
+    'Cucumberish/PublicHeader/Managers/CCIStepsManager.h',
+    'Cucumberish/PublicHeader/Models/CCIArgument.h',
+    'Cucumberish/PublicHeader/Models/CCIBackground.h',
+    'Cucumberish/PublicHeader/Models/CCIExample.h',
+    'Cucumberish/PublicHeader/Models/CCIFeature.h',
+    'Cucumberish/PublicHeader/Models/CCILocation.h',
+    'Cucumberish/PublicHeader/Models/CCIScenarioDefinition.h',
+    'Cucumberish/PublicHeader/Models/CCIStep.h'
   s.resource_bundles = {
-    'GherkinLanguages' => ['Cucumberish/Dependencies/Gherkin/gherkin-languages.json'],
+    'GherkinLanguages' => ['Cucumberish/Resources/gherkin-languages.json'],
   }
 
   s.framework  = "XCTest"
