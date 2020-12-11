@@ -41,6 +41,13 @@ And follow the rest for the setup steps:
 - [Install with Carthage for Objective C](https://github.com/Ahmed-Ali/Cucumberish/wiki/Install-with-Carthage-for-Objective-C) test targets
 - [Install with Carthage for Swift](https://github.com/Ahmed-Ali/Cucumberish/wiki/Install-with-Carthage-for-Swift) test targets
 
+# Install with Swift Package Manager
+
+* Cucumberish is now available through Swift Package Manager
+* Select `File > Swift Packages > Add Package Dependency` 
+* Search for [https://github.com/Ahmed-Ali/Cucumberish.git](https://github.com/Ahmed-Ali/Cucumberish.git)
+
+
 # Getting started
 Now you have Cucumberish in place and you followed all the installation and post-installation instructions; it is time to write your first simple feature and scenario in just a few more steps!
 Since the exact step implementations will differ between one project and another, we will not dig to deeply into it; we will just outline the general approach on how to get there. I will assume your test target is an Objective-C one for the sake of demonstration; but the same principles can be applied on Swift targets.
