@@ -207,7 +207,14 @@ const NSString * kXCTestCaseKey = @"XCTestCase";
     XCTContextActivityBlock activityBlock = ^(id activity) {
         NSDate *startDate = [NSDate date];
         implementation.body(implementation.matchedValues, implementation.additionalContent);
-        step.duration = [[NSDate date] timeIntervalSinceDate:startDate] * 1000000000;
+        NSDate *endDate = [NSDate date];
+        step.duration = [endDate timeIntervalSinceDate:startDate] * 1e9;
+        // NSDate has a valid resolution up to micro seconds, so empty implementations can yield wrong results here
+        // and then we limit by 1e-9
+        if (step.duration < 1e-9) {
+            step.duration = 1e-9;
+        }
+        CCIAssert(step.duration > 0, @"Invalid duration");
     };
 
     id xctContextClass = NSClassFromString(@"XCTContext");
@@ -301,7 +308,14 @@ void step(id testCase, NSString * stepLine, ...)
     
     NSDate *startDate = [NSDate date];
     [[CCIStepsManager instance] executeStep:step inTestCase:testCase];
-    step.duration = [[NSDate date] timeIntervalSinceDate:startDate] * 1000000000;
+    NSDate *endDate = [NSDate date];
+    step.duration = [endDate timeIntervalSinceDate:startDate] * 1e9;
+    // NSDate has a valid resolution up to micro seconds, so empty implementations can yield wrong results here
+    // and then we limit by 1e-9
+    if (step.duration < 1e-9) {
+        step.duration = 1e-9;
+    }
+    CCIAssert(step.duration > 0, @"Invalid duration");
 }
 
 void SStep(id testCase, NSString * stepLine)
