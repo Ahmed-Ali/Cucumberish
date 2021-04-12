@@ -360,7 +360,7 @@
 				C5E80F6F1E16BA290042D98D /* Utils */,
 			);
 			name = Cucumberish;
-			path = ../Cucumberish;
+			path = ../Sources;
 			sourceTree = "<group>";
 		};
 		C5E80F061E16BA280042D98D /* Core */ = {
@@ -668,6 +668,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 3E0B34141DDB9C0E00E1A338;

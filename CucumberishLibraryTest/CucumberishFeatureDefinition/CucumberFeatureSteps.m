@@ -300,7 +300,6 @@
         
         for (NSMutableDictionary *element in parsedJSON.firstObject[@"elements"]) {
             for (NSMutableDictionary *step in element[@"steps"]) {
-                
                 if (![step[@"result"][@"status"] isEqual: @"skipped"]) {
                     CCIAssert([step[@"result"][@"duration"] isGreaterThan:@0], @"The duration wasn't set to the result of the step");
                 } else {
