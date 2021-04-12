@@ -20,7 +20,18 @@
                            targetName,
                            location.filePath];
 
-    [self recordFailureWithDescription:description inFile:filePath atLine:location.line expected:expected];
+    XCTSourceCodeLocation *codeLocation = [[XCTSourceCodeLocation alloc]
+                                           initWithFilePath:filePath
+                                           lineNumber:[location line]];
+    XCTSourceCodeContext *context = [[XCTSourceCodeContext alloc] initWithLocation:codeLocation];
+    XCTIssue *issue = [[XCTIssue alloc]
+                       initWithType:XCTIssueTypeAssertionFailure
+                       compactDescription:description
+                       detailedDescription:nil
+                       sourceCodeContext:context
+                       associatedError:nil
+                       attachments:[NSArray array]];
+    [self recordIssue:issue];
 }
 
 @end
