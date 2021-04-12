@@ -26,9 +26,9 @@
 //	Model file Generated using JSONExport: https://github.com/Ahmed-Ali/JSONExport
 
 #import <Foundation/Foundation.h>
-#import "CCIBackground.h"
-#import "CCILocation.h"
-#import "CCIScenarioDefinition.h"
+#import <Cucumberish/CCIBackground.h>
+#import <Cucumberish/CCILocation.h>
+#import <Cucumberish/CCIScenarioDefinition.h>
 
 /**
  Reperesents a feautre information

@@ -194,7 +194,7 @@
         NSDictionary * featureDictionary= [parsedJSON firstObject];
         CCIAssert(featureDictionary != nil, @"The first JSON dictionary is nil");
         
-        
+
         
         NSArray<NSDictionary*> * knownFeature=  @[
                                                   @{
@@ -300,10 +300,11 @@
         
         for (NSMutableDictionary *element in parsedJSON.firstObject[@"elements"]) {
             for (NSMutableDictionary *step in element[@"steps"]) {
+                NSNumber *resultDuration = step[@"result"][@"duration"];
                 if (![step[@"result"][@"status"] isEqual: @"skipped"]) {
-                    CCIAssert([step[@"result"][@"duration"] isGreaterThan:@0], @"The duration wasn't set to the result of the step");
+                    CCIAssert([resultDuration doubleValue] > [@0 doubleValue], @"The duration wasn't set to the result of the step");
                 } else {
-                    CCIAssert([step[@"result"][@"duration"] isEqual:@0], @"The duration of the skipped step wasn't set to zero");
+                    CCIAssert([resultDuration isEqual:@0], @"The duration of the skipped step wasn't set to zero");
                 }
                 
                 [step[@"result"] setObject:@0 forKey:@"duration"];

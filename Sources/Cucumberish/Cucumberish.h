@@ -27,15 +27,15 @@
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
 
-#import "CCIExample.h"
-#import "CCIStepsManager.h"
-#import "CCIArgument.h"
-#import "CCIBlockDefinitions.h"
-#import "CCIStep.h"
-#import "CCIScenarioDefinition.h"
-#import "CCILocation.h"
-#import "CCIBackground.h"
-#import "CCIFeature.h"
+#import <Cucumberish/CCIExample.h>
+#import <Cucumberish/CCIStepsManager.h>
+#import <Cucumberish/CCIArgument.h>
+#import <Cucumberish/CCIBlockDefinitions.h>
+#import <Cucumberish/CCIStep.h>
+#import <Cucumberish/CCIScenarioDefinition.h>
+#import <Cucumberish/CCILocation.h>
+#import <Cucumberish/CCIBackground.h>
+#import <Cucumberish/CCIFeature.h>
 
 
 typedef NS_ENUM(NSInteger, CCILanguage) {

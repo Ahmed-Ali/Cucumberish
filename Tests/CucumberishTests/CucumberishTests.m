@@ -59,54 +59,54 @@
 	});
 
     around(^(CCIScenarioDefinition *scenario, void (^scenarioExectionBlock)(void)) {
-        [hooksOutput appendFormat:@"Around all scenarios: Start\n"];
+        [self->hooksOutput appendFormat:@"Around all scenarios: Start\n"];
         scenarioExectionBlock();
-        [hooksOutput appendFormat:@"Around all scenarios: End\n"];
+        [self->hooksOutput appendFormat:@"Around all scenarios: End\n"];
     });
 
     aroundTagged(@[@"activity"], ^(CCIScenarioDefinition *scenario, void (^scenarioExectionBlock)(void)) {
-        [hooksOutput appendFormat:@"Around @activity scenario: Start\n"];
+        [self->hooksOutput appendFormat:@"Around @activity scenario: Start\n"];
         scenarioExectionBlock();
-        [hooksOutput appendFormat:@"Around @activity scenarios: End\n"];
+        [self->hooksOutput appendFormat:@"Around @activity scenarios: End\n"];
     });
 
     aroundTagged(@[@"history"], ^(CCIScenarioDefinition *scenario, void (^scenarioExectionBlock)(void)) {
-        [hooksOutput appendFormat:@"Around @history scenario: Start\n"];
+        [self->hooksOutput appendFormat:@"Around @history scenario: Start\n"];
         scenarioExectionBlock();
-        [hooksOutput appendFormat:@"Around @history scenarios: End\n"];
+        [self->hooksOutput appendFormat:@"Around @history scenarios: End\n"];
     });
 
     aroundTagged(@[@"profile"], ^(CCIScenarioDefinition *scenario, void (^scenarioExectionBlock)(void)) {
-        [hooksOutput appendFormat:@"Around @profile scenario: Start\n"];
+        [self->hooksOutput appendFormat:@"Around @profile scenario: Start\n"];
         scenarioExectionBlock();
-        [hooksOutput appendFormat:@"Around @profile scenarios: End\n"];
+        [self->hooksOutput appendFormat:@"Around @profile scenarios: End\n"];
     });
 
 	before(^(CCIScenarioDefinition *scenario) {
-		[output appendFormat:@"Scenario : %@\n", scenario.name];
+		[self->output appendFormat:@"Scenario : %@\n", scenario.name];
 	});
 	
 	Given(@"(.*)", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
-		[output appendFormat:@"Given %@\n", args[0]];
+		[self->output appendFormat:@"Given %@\n", args[0]];
 	});
 	
 	When(@"(.*)", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
-		[output appendFormat:@"When %@\n", args[0]];
+		[self->output appendFormat:@"When %@\n", args[0]];
 	});
 	
 	Then(@"(.*)", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
-		[output appendFormat:@"Then %@\n", args[0]];
+		[self->output appendFormat:@"Then %@\n", args[0]];
 	});
 
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 	And(@"(.*)", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
-		[output appendFormat:@"And %@\n", args[0]];
+		[self->output appendFormat:@"And %@\n", args[0]];
 	});
   #pragma clang diagnostic pop
 	
 	But(@"(.*)", ^(NSArray<NSString *> *args, NSDictionary *userInfo) {
-		[output appendFormat:@"But %@\n", args[0]];
+		[self->output appendFormat:@"But %@\n", args[0]];
 	});
 	
 }

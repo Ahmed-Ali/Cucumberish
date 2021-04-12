@@ -26,8 +26,8 @@
 //	Model file Generated using JSONExport: https://github.com/Ahmed-Ali/JSONExport
 
 #import <Foundation/Foundation.h>
-#import "CCILocation.h"
-#import "CCIStep.h"
+#import <Cucumberish/CCILocation.h>
+#import <Cucumberish/CCIStep.h>
 
 /**
  Represents a feature background
