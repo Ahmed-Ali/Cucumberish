@@ -25,12 +25,12 @@
 // THE SOFTWARE.
 
 #import "CCIFeaturesManager.h"
-#import "GHParser+Extensions.h"
-#import "NSObject+Dictionary.h"
-#import "CCIFeature.h"
+#import "../../../Dependencies/Gherkin/GHParser+Extensions.h"
+#import "../../Utils/NSObject+Dictionary.h"
+#import "../Models/CCIFeature.h"
 #import "CCIStepsManager.h"
-#import "Cucumberish.h"
-#import "CCIStepDefinition.h"
+#import "../../Cucumberish.h"
+#import "../Models/CCIStepDefinition.h"
 
 
 

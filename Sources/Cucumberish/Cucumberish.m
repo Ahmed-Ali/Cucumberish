@@ -29,18 +29,18 @@
 #import <objc/runtime.h>
 
 #import "Cucumberish.h"
-#import "CCIFeature.h"
-#import "CCIFeaturesManager.h"
-#import "CCIStepsManager.h"
-#import "NSString+Formatter.h"
-#import "CCIStepDefinition.h"
-#import "CCIScenarioDefinition.h"
-#import "CCILoggingManager.h"
-#import "CCIHock.h"
-#import "CCIAroundHock.h"
-#import "XCTestCase+RecordFailure.h"
+#import "Core/Models/CCIFeature.h"
+#import "Core/Managers/CCIFeaturesManager.h"
+#import "Core/Managers/CCIStepsManager.h"
+#import "Utils/NSString+Formatter.h"
+#import "Core/Models/CCIStepDefinition.h"
+#import "Core/Models/CCIScenarioDefinition.h"
+#import "Core/Managers/CCILoggingManager.h"
+#import "Core/Models/CCIHock.h"
+#import "Core/Models/CCIAroundHock.h"
+#import "Utils/XCTestCase+RecordFailure.h"
 
-#import "CCIJSONDumper.h"
+#import "Core/Models/CCIJSONDumper.h"
 
 
 @interface CCIExeption : NSException @end

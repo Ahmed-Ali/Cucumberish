@@ -25,9 +25,9 @@
 // THE SOFTWARE.
 
 #import "CCIStepsManager.h"
-#import "Cucumberish.h"
-#import "CCIStep.h"
-#import "CCIStepDefinition.h"
+#import "../../Cucumberish.h"
+#import "../Models/CCIStep.h"
+#import "../Models/CCIStepDefinition.h"
 
 typedef void (^XCTContextActivityBlock)(id _Nullable activity);
 

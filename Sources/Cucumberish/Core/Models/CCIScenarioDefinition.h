@@ -26,8 +26,9 @@
 //	Model file Generated using JSONExport: https://github.com/Ahmed-Ali/JSONExport
 
 #import <Foundation/Foundation.h>
-#import <Cucumberish/CCIExample.h>
-#import <Cucumberish/CCIStep.h>
+
+#import "CCIExample.h"
+#import "CCIStep.h"
 
 extern const NSString * kScenarioOutlineKeyword;
 extern const NSString * kBackgroundKeyword;

@@ -7,7 +7,7 @@
 //
 
 #import "XCTestCase+RecordFailure.h"
-#import "Cucumberish.h"
+#import "../Cucumberish.h"
 
 @implementation XCTestCase (RecordFailure)
 

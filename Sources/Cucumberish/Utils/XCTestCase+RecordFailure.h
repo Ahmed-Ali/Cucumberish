@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "CCILocation.h"
+#import "../Core/Models/CCILocation.h"
 
 @interface XCTestCase (RecordFailure)
 

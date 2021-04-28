@@ -9,6 +9,9 @@
 #import <XCTest/XCTest.h>
 
 #import "Cucumberish.h"
+#import "CCIBlockDefinitions.h"
+#import "CCIFeature.h"
+#import "CCIScenarioDefinition.h"
 #import "CCIFeaturesManager.h"
 #import "CCIJSONDumper.h"
 

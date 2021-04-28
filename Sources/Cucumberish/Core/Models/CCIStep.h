@@ -26,8 +26,8 @@
 //	Model file Generated using JSONExport: https://github.com/Ahmed-Ali/JSONExport
 
 #import <Foundation/Foundation.h>
-#import <Cucumberish/CCILocation.h>
-#import <Cucumberish/CCIArgument.h>
+#import "CCILocation.h"
+#import "CCIArgument.h"
 
 typedef NS_ENUM(NSInteger,CCIStepStatus) {
     CCIStepStatusNotExecuted = 0,

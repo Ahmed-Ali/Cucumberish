@@ -7,10 +7,14 @@
 //
 
 #import "CucumberFeatureSteps.h"
-#import "Cucumberish.h"
+#import <Cucumberish/Cucumberish.h>
+#import "CCIBlockDefinitions.h"
+#import "CCIScenarioDefinition.h"
+#import "CCIFeature.h"
 #import "CCIFeaturesManager.h"
 #import "CCIDryRunLogger.h"
 #import "CCIJSONDumper.h"
+#import "CCIStep.h"
 
 #import "NSArray+Hashes.h"
 #if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
