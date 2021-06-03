@@ -302,7 +302,7 @@
             for (NSMutableDictionary *step in element[@"steps"]) {
                 
                 if (![step[@"result"][@"status"] isEqual: @"skipped"]) {
-                    CCIAssert([step[@"result"][@"duration"] isGreaterThan:@0], @"The duration wasn't set to the result of the step");
+                    CCIAssert([step[@"result"][@"duration"] doubleValue] > 0, @"The duration wasn't set to the result of the step");
                 } else {
                     CCIAssert([step[@"result"][@"duration"] isEqual:@0], @"The duration of the skipped step wasn't set to zero");
                 }
