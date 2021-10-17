@@ -455,6 +455,8 @@ OBJC_EXTERN NSString * stepDefinitionLineForStep(CCIStep * step);
     if(![[Cucumberish instance] prettyNamesAllowed] && ![[Cucumberish instance] prettyScenarioNamesAllowed]){
         methodName = [methodName camleCaseStringWithFirstUppercaseCharacter:NO];
     }
+    
+    methodName = [methodName stringByReplacingOccurrencesOfString:@" " withString:@"_"];
     SEL sel = NSSelectorFromString(methodName);
 
     //Prefered to forward the implementation to a C function instead of Objective-C method, to avoid confusion with the type of "self" object that is being to the implementation
