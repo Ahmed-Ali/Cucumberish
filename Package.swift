@@ -26,6 +26,9 @@ let package = Package(
         .target(
             name: "Cucumberish",
             dependencies: [],
+            resources: [
+              .copy("Dependencies/Gherkin/gherkin-languages.json")
+            ],
             publicHeadersPath: "include"
         ),
         .testTarget(
