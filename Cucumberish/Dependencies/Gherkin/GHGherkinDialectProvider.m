@@ -54,6 +54,10 @@
 {
     NSBundle * gherkinLanguagesBundle = [NSBundle bundleWithPath: [[NSBundle bundleForClass:[self class]] pathForResource: @"GherkinLanguages" ofType: @"bundle"]];
     if(gherkinLanguagesBundle == nil){
+        // Look for a Cucumberish Swift Package resource bundle
+        gherkinLanguagesBundle = [NSBundle bundleForClass:[self class]] pathForResource: @"Cucumberish_Cucumberish" ofType: @"bundle"]];
+    }
+    if(gherkinLanguagesBundle == nil){
         gherkinLanguagesBundle = [NSBundle bundleForClass:[self class]];
     }
     NSData * languagesFileContent = [NSData dataWithContentsOfFile: [gherkinLanguagesBundle pathForResource: @"gherkin-languages" ofType: @"json"]];
