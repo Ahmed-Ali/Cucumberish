@@ -1,0 +1,1 @@
+../Dependencies/Gherkin/GHHasLocationProtocol.h

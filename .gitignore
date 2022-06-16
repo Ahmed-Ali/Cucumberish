@@ -6,3 +6,4 @@ CucumberishLibraryTest/CucumberishLibrary.xcodeproj/project.xcworkspace/xcuserda
 
 CucumberishExample/DerivedData
 CucumberishExample/Build
+.build

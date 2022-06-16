@@ -1,0 +1,1 @@
+../Dependencies/Gherkin/NSString+Trim.h
