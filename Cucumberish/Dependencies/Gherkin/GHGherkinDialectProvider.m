@@ -1,4 +1,4 @@
-﻿#import "GHGherkinDialectProvider.h"
+#import "GHGherkinDialectProvider.h"
 
 #import "GHGherkinDialect.h"
 #import "GHGherkinLanguageSetting.h"
@@ -55,7 +55,7 @@
     NSBundle * gherkinLanguagesBundle = [NSBundle bundleWithPath: [[NSBundle bundleForClass:[self class]] pathForResource: @"GherkinLanguages" ofType: @"bundle"]];
     if(gherkinLanguagesBundle == nil){
         // Look for a Cucumberish Swift Package resource bundle
-        gherkinLanguagesBundle = [NSBundle bundleForClass:[self class]] pathForResource: @"Cucumberish_Cucumberish" ofType: @"bundle"]];
+        gherkinLanguagesBundle = [[NSBundle bundleForClass:[self class]] pathForResource: @"Cucumberish_Cucumberish" ofType: @"bundle"]];
     }
     if(gherkinLanguagesBundle == nil){
         gherkinLanguagesBundle = [NSBundle bundleForClass:[self class]];
