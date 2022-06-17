@@ -1,1 +1,0 @@
-../Dependencies/Gherkin/GHStep.h

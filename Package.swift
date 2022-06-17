@@ -29,7 +29,13 @@ let package = Package(
             resources: [
               .copy("Dependencies/Gherkin/gherkin-languages.json")
             ],
-            publicHeadersPath: "include"
+            publicHeadersPath: "include",
+            cSettings: [
+                .headerSearchPath("Core/Managers"),
+                .headerSearchPath("Core/Models"),
+                .headerSearchPath("Dependencies/Gherkin"),
+                .headerSearchPath("Utils")
+            ]
         ),
         .testTarget(
             name: "CucumberishTests",

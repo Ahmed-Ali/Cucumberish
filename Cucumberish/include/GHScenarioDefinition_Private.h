@@ -1,1 +1,0 @@
-../Dependencies/Gherkin/GHScenarioDefinition_Private.h
