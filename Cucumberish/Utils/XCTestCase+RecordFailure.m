@@ -20,9 +20,6 @@
                            targetName,
                            location.filePath];
 
-//    [self recordFailureWithDescription:description inFile:filePath atLine:location.line expected:expected];
-
-    // ELU: Use recordIssue instead of deprecated API
     XCTSourceCodeLocation *sourceLocation = [[XCTSourceCodeLocation alloc] initWithFilePath:filePath lineNumber:location.line];
     XCTSourceCodeContext *context = [[XCTSourceCodeContext alloc] initWithLocation:sourceLocation];
     XCTIssue *issue = [[XCTIssue alloc] initWithType:XCTIssueTypeAssertionFailure compactDescription:description detailedDescription:description sourceCodeContext:context associatedError:nil attachments:@[] ];
